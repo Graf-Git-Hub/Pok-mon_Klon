@@ -5,11 +5,11 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId 'de.echochroniken.game.balance'
+        applicationId 'de.echochroniken.game.fluesterpfad'
         minSdk 24
         targetSdk 35
-        versionCode 12
-        versionName '0.12.0-balance'
+        versionCode 13
+        versionName '0.13.0-fluesterpfad'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
