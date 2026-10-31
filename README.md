@@ -1,15 +1,19 @@
 # Echo-Chroniken 🎮👻
 
-GBA-inspiriertes Fantasy-RPG mit 150 Geisterwesen, klassischem Kampfsystem und Touch-/Gamepad-Steuerung.
+GBA-inspiriertes Fantasy-RPG mit 150 Geisterwesen, klassischen Kämpfen, Touchsteuerung und Gamepad-Eingabe.
 
 ## V0.6: Wurzelheim & Attackenbuch
 
-- Neu gezeichnetes Startdorf mit Schindeldach, Gartenwegen und Blumendekoration.
-- Wilde Anfangsgegner nur Level 2 bis 4 (erste Entwicklungsstufe).
-- Überarbeitetes Schadensmodell, Schonfrist nach Begegnungen.
-- Levelabhängige Attacken, ohne Vergessen; neue oben, frei umsortierbar und dauerhaft gespeichert.
-- Handy: virtuelle Steuerung; TV: Gamepad-API (Switch-Controller-Test am echten TV ausstehend).
+- Neues Pixel-Dorf mit Dachziegeln, Gartendekoration, Pflasterweg und Laternen.
+- Wilde Wesen im Startgebiet: nur erste Entwicklungsstufe, Level 2–4.
+- Neu ausbalancierter Kampfschaden und Schonfrist nach Begegnungen.
+- Attacken mit Level lernen, niemals vergessen, sortierbar per L/R, auf Touch per Pfeilen; neue Attacken zuerst.
+- Spielbare Handyversion mit virtueller Steuerung und Kampf-Testfeld.
 
-**Direkt spielbar:** [Echo-Chroniken V0.6](echo-chroniken/index.html) herunterladen und im Browser öffnen. Die HTML-Datei enthält alle 150 Vorderansichten und 8 testweise Rückansichten.
+### Downloads / Projekt
 
-Die saubere, mehrteilige Quellversion einschließlich Tests und Assets wird im nächsten Schritt ergänzt. Eine fertige TV-APK liegt noch nicht vor.
+- **[Direkt spielbare Offline-HTML](echo-chroniken/index.html)**: Datei herunterladen und auf dem Handy im Browser öffnen.
+- **[Modulares Spielprojekt](echo-chroniken/project/)**: `index.html`, Spiellogik, 150 Arten, Monsteratlas, 8 Rückansichten und CSS.
+- **[Tests](echo-chroniken/project/tests/smoke.cjs)**: `node tests/smoke.cjs` im Projektordner; GitHub Actions prüft bei Änderungen.
+
+Der Android-TV-APK-Build und ein Test mit einem realen Switch-Controller stehen noch aus. Für die übrigen 142 Monster fehlen richtige Rückenansichten.
