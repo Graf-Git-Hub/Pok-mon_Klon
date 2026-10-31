@@ -14,7 +14,7 @@ permissions:
 
 concurrency:
   group: echo-chroniken-android-apk
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -36,7 +36,9 @@ jobs:
           gradle-version: '8.11.1'
       - name: Check shared battle engine
         working-directory: echo-chroniken/project
-        run: node tests/smoke.cjs
+        run: |
+          node tests/smoke.cjs
+          node tests/house.cjs
       - name: Check app controls and assets
         working-directory: echo-chroniken/android
         run: |
