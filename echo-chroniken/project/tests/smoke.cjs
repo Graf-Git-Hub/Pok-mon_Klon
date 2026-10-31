@@ -7,6 +7,7 @@ const map={},document={documentElement:{classList:{add(){}}},getElementById(n){r
 const storage={},window={document,addEventListener(){},location:{search:''}};
 const env={window,document,location:window.location,URLSearchParams,navigator:{getGamepads(){return []}},Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(k){return storage[k]},setItem(k,v){storage[k]=v}},Math,console,Uint8ClampedArray,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){}};
 vm.runInNewContext(species,env);
+vm.runInNewContext(fs.readFileSync('assets/backs.js','utf8'),env);
 const insertion='window.qa={state:gameState,startWildBattle,createMonsterInstance,learnedFor,ensureMonsterMoves,attackReorder,ATTACKS,skillDamage,saveGame};\n';
 vm.runInNewContext(body.replace('  // --- HAUPTSCHLEIFE (GAME LOOP) ---',insertion+'  // --- HAUPTSCHLEIFE (GAME LOOP) ---'),env);
 const q=window.qa;assert(q);
