@@ -216,6 +216,7 @@
   worldMap[13][16] = 6; // Kreuzungs-Heilstein
   worldMap[21][30] = 6; // Heiligtum-Altar
   if(window.EchoVillage){window.EchoVillage.map=worldMap;window.EchoVillage.build(worldMap);}
+  if(window.EchoRoute)window.EchoRoute.build(worldMap);
 
   // --- NPCS, ARENALEITER, TAGEBUCHSEITEN & NEBENAUFGABEN ---
   const npcs = [
@@ -348,6 +349,25 @@
 
   // Village characters use the original dialogue and movement system.
   if(window.EchoVillage)npcs.push(...window.EchoVillage.getNpcList());
+  // Two real characters on the new woodland path. Accessible via A on touch and gamepad.
+  if(window.EchoRoute){
+    const route=window.EchoRoute;
+    npcs.push({...route.GUIDE,talk:()=>{
+      const lines=route.guideTalk(gameState,sfx);
+      saveGame(true);
+      return lines;
+    }});
+    npcs.push({...route.KEEPER,talk:()=>{
+      const lines=route.keeperTalk(gameState);
+      if(lines)return lines;
+      startTrainerBattle(null,'Waldhüter Piko',[{id:11,lv:4}]);
+      gameState.battle.routeGuardian=true;
+      const enemy=gameState.battle.enemy;
+      enemy.maxHp=Math.max(12,Math.round(enemy.maxHp*.78));enemy.hp=enemy.maxHp;
+      enemy.encounterScale=.68;
+      return null;
+    }});
+  }
 
   // --- SPIELZUSTAND (GAME STATE) ---
 
@@ -447,6 +467,7 @@
     orbs: 12,
     encounterGrace: 0,
     battleWins: 0,
+    routeQuest: {accepted:false,lights:[],rewarded:false,guardianWon:false},
     attackOrigin: null,
     dialogQueue: [],
     dialogCallback: null,
@@ -456,7 +477,7 @@
   };
 
   // --- SPEICHERN & LADEN (LOCAL STORAGE) ---
-  function saveGame() {
+  function saveGame(silent=false) {
     if (typeof savedBeforeLab !== "undefined" && savedBeforeLab) return;
     try {
       const saveObj = {
@@ -476,13 +497,13 @@
         orbs: gameState.orbs,
         encounterGrace: gameState.encounterGrace,
         battleWins: gameState.battleWins,
+        routeQuest: gameState.routeQuest,
         balanceVersion: 6
       };
       localStorage.setItem('echo_chroniken_tv_save', JSON.stringify(saveObj));
-      sfx.heal();
-      showDialog(['💾 Spielstand erfolgreich gespeichert!']);
+      if(!silent){sfx.heal();showDialog(['💾 Spielstand erfolgreich gespeichert!']);}
     } catch (e) {
-      showDialog(['Speichern fehlgeschlagen.']);
+      if(!silent)showDialog(['Speichern fehlgeschlagen.']);
     }
   }
 
@@ -499,6 +520,7 @@
         if(!gameState.hasStarter)gameState.player={x:7,y:7,dir:'down',stepPhase:0};
       }
       gameState.introStage=Math.max(0,Math.min(4,Number(gameState.introStage)||0));
+      if(window.EchoRoute)window.EchoRoute.quest(gameState); // Keep old saves compatible.
       // Migrate old saved positions that now lie inside one of the new buildings.
       if(gameState.scene==='OVERWORLD'&&window.EchoVillage&&gameState.player){
         const p=gameState.player;
@@ -759,6 +781,10 @@ function executeBattleAction(choice){
       b.busy = false;
     } else {
       gameState.mode = 'OVERWORLD';
+      if(b.routeGuardian && window.EchoRoute){
+        msgs.push(...window.EchoRoute.keeperWin(gameState,sfx));
+        saveGame(true);
+      }
       if (b.isTrainer && b.gymIndex !== null) {
         gameState.gymDefeated[b.gymIndex] = true;
         gameState.badges = gameState.gymDefeated.filter(Boolean).length;
@@ -835,6 +861,11 @@ function executeBattleAction(choice){
     const [ox, oy] = dirOffsets[gameState.player.dir];
     const tx = gameState.player.x + ox;
     const ty = gameState.player.y + oy;
+
+    if(window.EchoRoute){
+      const found=window.EchoRoute.collectNear(gameState,sfx);
+      if(found){saveGame(true);showDialog(found);return;}
+    }
 
     // NPC oder Tagebuchseite vor dem Spieler?
     const door=window.EchoVillage?.doorAt(tx,ty);
@@ -1685,6 +1716,7 @@ function executeBattleAction(choice){
     const homeX=3*16-camX,homeY=2*16-camY;
     drawCottage(homeX,homeY,tick);
     if(window.EchoVillage)window.EchoVillage.draw(ctx,camX,camY,tick,pix);
+    if(window.EchoRoute)window.EchoRoute.draw(ctx,tick,gameState,camX,camY,pix);
     
       // Berry bushes around yard, placed at stable coordinate hashes
     for(let x=1;x<11;x++)for(let y=5;y<11;y++){
@@ -1722,6 +1754,14 @@ function executeBattleAction(choice){
     pix(234,5,80,18,'#25484ddc');pix(236,7,76,14,'#f0dca8');
     fText(`${gameState.badges}/3  ✧${Object.keys(gameState.caughtIds).length}/150`,242,18,9,'#355f56');
     if(!gameState.hasStarter){pix(72,157,176,18,'#244d4acc');fText('✦ Geh zu Oma ins Haus',79,170,10,'#fff0c6');}
+    if(window.EchoRoute && gameState.hasStarter){
+      const route=window.EchoRoute.quest(gameState);
+      if(route.accepted){
+        pix(132,5,99,18,'#25484ddc');pix(134,7,95,14,'#e7d7ae');
+        const routeLabel=route.guardianWon?'PFAD: GESCHAFFT':route.rewarded?'WALDHÜTER: PIKO':'SEELENLICHT '+route.lights.length+'/3';
+        fText(routeLabel,139,18,8,'#355c56');
+      }
+    }
   }
   
     function hpbar(x,y,w,v,color='#70ad69'){
@@ -2024,7 +2064,7 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,routeQuest:gameState.routeQuest,introStage:gameState.introStage,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
