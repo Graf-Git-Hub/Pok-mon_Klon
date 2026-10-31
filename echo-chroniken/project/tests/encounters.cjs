@@ -38,7 +38,7 @@ for(const badges of [0,1,2,3]){
   for(const level of [5,7,12,18]){
     q.state.team=[q.createMonsterInstance(1,level)];
     const limits=q.wildEncounterLimits();
-    assert(limits.cap<=level+1,'wild level higher than player's team');
+    assert(limits.cap<=level+1,'wild level higher than starter team');
     assert(limits.low<=limits.cap);
     if(badges===0)assert(limits.cap<=5);
     for(let i=0;i<40;i++){
