@@ -14,6 +14,17 @@
 
 GBA-inspiriertes Fantasy-RPG mit 150 Geisterwesen, klassischen Kämpfen, Touchsteuerung und Gamepad-Eingabe.
 
+## 👵 Neu in V0.8: Spielbeginn bei Oma
+
+- **Neue Spielstände starten in Omas begehbarem Haus**, nicht mehr auf der Wiese.
+- Oma spricht mit dir über das Paket. Auf dem Tisch steht ein goldverschnürter Karton mit Glanzmarkierung.
+- Erst Oma ansprechen, dann Paket öffnen: **Miora schließt sich deinem Team an**.
+- Danach wieder mit Oma reden und das Haus verlassen; vor dem Paketfund hält Oma dich freundlich auf.
+- Rückkehr ins Haus jederzeit möglich; Oma kann deine Monster heilen.
+- **Alte Spielstände bleiben erhalten** und überspringen das Intro, falls Miora schon im Team ist.
+- Für den gesamten Einstieg gibt es den automatischen Test `echo-chroniken/project/tests/house.cjs`.
+- Derselbe Spielcode läuft auf Handy und Android-TV. APK wird bei jedem erfolgreichen Android-Build über den [direkten APK-Link](https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk) bereitgestellt.
+
 ## V0.6: Wurzelheim & Attackenbuch
 
 - Neues Pixel-Dorf mit Dachziegeln, Gartendekoration, Pflasterweg und Laternen.
