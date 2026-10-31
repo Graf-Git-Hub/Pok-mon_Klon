@@ -1,0 +1,235 @@
+
+  * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+  html, body {
+    width: 100vw; height: 100vh;
+    background: #06070b;
+    color: #f0f4f8;
+    font-family: 'Courier New', Courier, monospace;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #tv-frame {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #141829 0%, #05060a 100%);
+  }
+  canvas {
+    width: min(100vw, calc(100vh * (16 / 9)));
+    height: min(100vh, calc(100vw * (9 / 16)));
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+    background: #0c101c;
+  }
+  #hud-bar {
+    position: fixed;
+    top: 10px;
+    right: 14px;
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+    opacity: 0.22;
+    transition: opacity 0.25s ease;
+  }
+  #hud-bar:hover, #hud-bar.active { opacity: 1; }
+  .hud-btn {
+    background: rgba(18, 24, 42, 0.9);
+    color: #c9e4ff;
+    border: 1px solid #4d6fa5;
+    padding: 6px 11px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .hud-btn:hover { background: #29406b; color: #fff; }
+  #pad-toast {
+    position: fixed;
+    top: 12px;
+    left: 14px;
+    background: rgba(15, 38, 28, 0.92);
+    border: 1px solid #38d399;
+    color: #98ffcf;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+  #pad-toast.show { opacity: 1; }
+
+  /* Touch-Steuerung V0.3: TV und Desktop bleiben ohne Overlay. */
+  html, body { overscroll-behavior: none; }
+  #touch-controls {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    pointer-events: none;
+    font-family: system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: none;
+  }
+  #touch-controls button { 
+    font: inherit;
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    cursor: pointer;
+  }
+  #touch-toolbar {
+    position: absolute;
+    top: calc(8px + env(safe-area-inset-top, 0px));
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    width: max-content;
+    max-width: 98%;
+    align-items: center;
+    justify-content: center;
+  }
+  .touch-tool {
+    min-height: 39px;
+    padding: 0 11px;
+    border: 2px solid #5e8f82;
+    background: #244941;
+    color: #fff3c9;
+    border-radius: 9px;
+    font-weight: 800 !important;
+    font-size: 12px !important;
+    box-shadow: 0 4px 0 #122a2d, inset 0 1px #83ac91;
+  }
+  .touch-tool:active, .touch-tool.is-pressed { transform: translateY(3px); box-shadow: 0 1px 0 #122a2d; }
+  #touch-dpad {
+    position: absolute;
+    left: max(12px, env(safe-area-inset-left, 0px));
+    bottom: max(60px, calc(35px + env(safe-area-inset-bottom, 0px)));
+    --dpad-size: clamp(46px, 13.5vw, 58px);
+    display: grid;
+    grid-template-columns: repeat(3, var(--dpad-size));
+    grid-template-rows: repeat(3, var(--dpad-size));
+    gap: 3px;
+    pointer-events: none;
+    filter: drop-shadow(0 5px 0 #0d2427);
+  }
+  #touch-dpad:before {
+    content: '';
+    position: absolute;
+    width: var(--dpad-size);
+    height: var(--dpad-size);
+    top: calc(var(--dpad-size) + 3px);
+    left: calc(var(--dpad-size) + 3px);
+    background: #345b53;
+    border: 1px solid #73998b;
+  }
+  .touch-direction {
+    border: 2px solid #719b87;
+    background: linear-gradient(#426d61,#244c47);
+    color: #f2e3b4;
+    font-size: clamp(22px, 7vw, 32px) !important;
+    font-weight: 900 !important;
+    text-shadow: 0 2px #17322f;
+    box-shadow: inset 0 2px #7db29b;
+    border-radius: 9px;
+    position: relative;
+    z-index: 1;
+  }
+  .touch-direction.is-pressed { background: #c5a76c; color: #243c38; transform: scale(.94); }
+  .dir-up { grid-area: 1 / 2; }
+  .dir-left { grid-area: 2 / 1; }
+  .dir-right { grid-area: 2 / 3; }
+  .dir-down { grid-area: 3 / 2; }
+  #touch-actions {
+    position: absolute;
+    bottom: max(70px, calc(45px + env(safe-area-inset-bottom, 0px)));
+    right: max(12px, env(safe-area-inset-right, 0px));
+    width: clamp(143px, 37vw, 172px);
+    height: clamp(132px, 35vw, 160px);
+  }
+  .touch-action {
+    position: absolute;
+    width: clamp(63px, 17vw, 79px);
+    height: clamp(63px, 17vw, 79px);
+    border-radius: 50%;
+    border: 3px solid #f7e6b7;
+    color: #fff6db;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 0 #182b34, inset 0 3px #ffffff55;
+  }
+  .touch-action strong {font-size: 24px; line-height: 1.05;}
+  .touch-action span {font-size: 10px; font-weight: 700;}
+  .touch-a { right: 0; top: 2px; background: linear-gradient(#64a48c,#286d5e); }
+  .touch-b { left: 0; bottom: 0; background: linear-gradient(#aa796e,#774c53); }
+  .touch-action.is-pressed { transform: scale(.94) translateY(3px); box-shadow: 0 1px 0 #182b34; }
+  #touch-hint { display: none; }
+  @media (pointer: coarse) and (max-width: 1100px) {
+    #touch-controls { display: block; }
+    #hud-bar { display: none; }
+    #tv-frame { touch-action: none; }
+  }
+  /* Optional ?touch=1 erlaubt das Testen auch im Desktop-Browser. */
+  html.force-touch #touch-controls { display: block; }
+  html.force-touch #hud-bar { display: none; }
+  html.tv-app #touch-controls { display: none !important; }
+  @media (orientation: portrait) and (pointer: coarse) and (max-width: 1100px) {
+    html:not(.no-touch-layout) #tv-frame { align-items: flex-start; padding-top: clamp(68px, 11dvh, 115px); }
+    html:not(.no-touch-layout) canvas {
+      width: 100vw;
+      height: auto;
+      max-height: calc(100dvh - 345px);
+      object-fit: contain;
+      box-shadow: 0 4px 0 #2e554d, 0 10px 35px #0009;
+    }
+    #touch-hint {
+      display: block;
+      position: absolute;
+      top: calc(clamp(68px, 11dvh, 115px) + min(56.25vw, 100dvh - 345px) + 15px);
+      left: 5%;
+      width: 90%;
+      text-align: center;
+      font-size: 12px;
+      color: #c5d4be;
+      letter-spacing: .2px;
+    }
+  }
+  @media (orientation: landscape) and (pointer: coarse) and (max-width: 1100px) {
+    canvas { width: min(calc(100vw - 270px), calc((100dvh - 8px) * 16 / 9)); height: auto; max-height: calc(100dvh - 8px); }
+    #touch-toolbar { top: max(6px, env(safe-area-inset-top, 0px)); left: max(7px, env(safe-area-inset-left, 0px)); transform: none; flex-direction: column; align-items: stretch; gap: 4px; width: 98px; }
+    .touch-tool { min-height: 28px; padding: 0 6px; font-size: 10px !important; }
+    #touch-dpad { --dpad-size: clamp(40px, 11dvh, 54px); bottom: max(8px, env(safe-area-inset-bottom, 0px)); left: max(7px, env(safe-area-inset-left, 0px)); }
+    #touch-actions { bottom: max(8px, env(safe-area-inset-bottom, 0px)); right: max(8px, env(safe-area-inset-right, 0px)); width: 142px; height: 130px; }
+    .touch-action { width: 67px; height: 67px; }
+    #touch-hint { display: none; }
+  }
+
+
+  /* ECHO V0.5 battle demo: touch and TV-friendly, no extra files needed. */
+  #battle-lab-panel { position:fixed;z-index:55;left:50%;top:50%;transform:translate(-50%,-50%);width:min(94vw,440px);background:#f4eacb;color:#253f41;border:4px solid #254849;box-shadow:0 0 0 4px #b58c5b,0 18px 60px #000d;border-radius:10px;padding:18px;display:none;font-family:system-ui,sans-serif;max-height:90dvh;overflow:auto; }
+  #battle-lab-panel.show {display:block}
+  #battle-lab-panel h2{font-size:20px;line-height:1.2;margin:0 0 9px;font-weight:900}
+  #battle-lab-panel p{font-size:13px;line-height:1.4;margin:0 0 15px}
+  #battle-lab-panel label{display:block;font-size:12px;margin:10px 0 3px;font-weight:bold}
+  #battle-lab-panel select{display:block;width:100%;font-size:15px;padding:9px;border-radius:8px;border:2px solid #789b8b;background:white;color:#233e40;}
+  #battle-lab-panel .choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+  #battle-lab-panel button{padding:10px;border-radius:8px;border:2px solid #4b6d63;background:#356959;color:#fffce8;font-weight:800;cursor:pointer;min-height:46px}
+  #battle-lab-panel #lab-cancel{background:#694e4c}
+  #battle-demo-btn {position:fixed;left:12px;top:12px;z-index:22}
+  @media(pointer:coarse) and (max-width:1100px){#battle-demo-btn{display:none}}
+
