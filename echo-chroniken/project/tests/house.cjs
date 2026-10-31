@@ -7,6 +7,7 @@ const store={},win={document:doc,addEventListener(){},location:{search:''},ECHO_
 const env={document:doc,window:win,navigator:{getGamepads(){return []}},localStorage:{getItem:k=>store[k],setItem:(k,v)=>store[k]=v},location:win.location,URLSearchParams,Math,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
 vm.runInNewContext(read('data/species.js'),env);
 vm.runInNewContext(read('src/village.js'),env);
+vm.runInNewContext(read('src/first-route.js'),env);
 vm.runInNewContext(read('src/house.js'),env);
 vm.runInNewContext(read('src/game.js'),env);
 const input=win.tvControllerInput,snap=win.echoQASnapshot;
