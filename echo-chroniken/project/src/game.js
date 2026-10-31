@@ -211,7 +211,7 @@
     worldMap.push(row);
   }
   // Spezielle Punkte freiräumen & platzieren
-  worldMap[4][8] = 7;  // Vaters alter Tisch mit Relikt-Kapsel
+  worldMap[4][8] = 0;  // Vaters Kapsel liegt jetzt in Omas Haus
   worldMap[6][4] = 6;  // Omas Heil-Brunnen
   worldMap[13][16] = 6; // Kreuzungs-Heilstein
   worldMap[21][30] = 6; // Heiligtum-Altar
@@ -427,7 +427,9 @@
 
     const gameState = {
     mode: 'OVERWORLD', // OVERWORLD, DIALOG, BATTLE, LEXICON, MENU
-    player: { x: 5, y: 5, dir: 'down', stepPhase: 0 },
+    player: { x: 7, y: 7, dir: 'down', stepPhase: 0 },
+    scene: 'HOUSE',
+    introStage: 0, // 0: Oma; 1: Paket; 2: Oma; 3: Ausgang; 4: Wurzelheim
     hasStarter: false,
     team: [],
     caughtIds: {},
@@ -455,6 +457,8 @@
     try {
       const saveObj = {
         player: gameState.player,
+        scene: gameState.scene,
+        introStage: gameState.introStage,
         hasStarter: gameState.hasStarter,
         team: gameState.team,
         caughtIds: gameState.caughtIds,
@@ -484,6 +488,13 @@
       if (!raw) return false;
       const d = JSON.parse(raw);
       Object.assign(gameState, d);
+      // Migration: bereits begonnene Spielstände behalten ihr Team und ihren Fortschritt.
+      if(!d.scene){
+        gameState.scene=gameState.hasStarter?'OVERWORLD':'HOUSE';
+        gameState.introStage=gameState.hasStarter?4:0;
+        if(!gameState.hasStarter)gameState.player={x:7,y:7,dir:'down',stepPhase:0};
+      }
+      gameState.introStage=Math.max(0,Math.min(4,Number(gameState.introStage)||0));
       gameState.team.forEach(m=>{ensureMonsterMoves(m);if(!m.nextXp)m.nextXp=m.lv*18;});
       if((d.balanceVersion||0)<6){
         // Einmalige Wiedergutmachung für überharte frühe Kämpfe.
@@ -497,14 +508,8 @@
     }
   }
 
-  if (!loadGame()) {
-    showDialog([
-      'Willkommen in WURZELHEIM.',
-      'Seit dem Tod deines Vaters lebst du hier bei deiner Oma Martha.',
-      'Auf Vaters altem Tisch rechts neben dem Haus blinkt eine geheimnisvolle Relikt-Kapsel...',
-      '(Steuerung: Switch-Controller, Pfeiltasten/WASD + Enter/Leertaste)'
-    ]);
-  }
+  // Kein langer Startdialog: sofort bewegen und Oma selbst ansprechen.
+  loadGame();
 
   function showDialog(lines, onDone = null) {
     gameState.mode = 'DIALOG';
@@ -734,17 +739,23 @@ function executeBattleAction(choice){
   function movePlayer(dx, dy, dirName) {
     if (gameState.mode !== 'OVERWORLD') return;
     gameState.player.dir = dirName;
+    if(gameState.scene==='HOUSE'){
+      window.EchoHouse.walk(gameState,dx,dy,dirName,showDialog,sfx.step);return;
+    }
+    if(gameState.player.x===5 && gameState.player.y===5 && dx===0 && dy===-1){
+      enterGrandmaHouse();return;
+    }
     const nx = gameState.player.x + dx;
     const ny = gameState.player.y + dy;
     if (nx < 0 || ny < 0 || nx >= MAP_W || ny >= MAP_H) return;
 
     const tile = worldMap[ny][nx];
     if (tile === 1 || tile === 4 || tile === 5 || tile === 7) return; // Solide Objekte inkl. Relikt-Tisch
-    if (npcs.some(n => n.x === nx && n.y === ny)) return;
+    if (npcs.some(n => n.id!=='oma' && n.x === nx && n.y === ny)) return;
 
     // Nicht ins hohe Gras ohne Starter-Wesen
     if (tile === 2 && !gameState.hasStarter) {
-      showDialog(['Oma Martha ruft: „Nicht ohne Schutz ins hohe Gras! Hol dir erst Vaters Kapsel rechts neben unserem Haus!“']);
+      showDialog(['Du solltest zuerst das Paket in Omas Haus öffnen, bevor du ins hohe Gras gehst.']);
       return;
     }
 
@@ -758,14 +769,25 @@ function executeBattleAction(choice){
     else if(tile===2&&gameState.hasStarter&&Math.random()<0.12)startWildBattle();
   }
 
+  function enterGrandmaHouse(){
+    gameState.scene='HOUSE';
+    gameState.player={x:7,y:9,dir:'up',stepPhase:0};
+    sfx.confirm();
+  }
   function interactFront() {
+    if(gameState.scene==='HOUSE'){
+      window.EchoHouse.talk(gameState,showDialog,createMonsterInstance,sfx);return;
+    }
+    if(gameState.player.x===5&&gameState.player.y===5&&gameState.player.dir==='up'){
+      enterGrandmaHouse();return;
+    }
     const dirOffsets = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
     const [ox, oy] = dirOffsets[gameState.player.dir];
     const tx = gameState.player.x + ox;
     const ty = gameState.player.y + oy;
 
     // NPC oder Tagebuchseite vor dem Spieler?
-    const npc = npcs.find(n => n.x === tx && n.y === ty);
+    const npc = npcs.find(n => n.id!=='oma' && n.x === tx && n.y === ty);
     if (npc) {
       const lines = npc.talk();
       if (lines) showDialog(lines);
@@ -1611,6 +1633,7 @@ function executeBattleAction(choice){
       pix(u+6,v+10,2,2,'#de7770');pix(u+11,v+8,2,2,'#df7f7c');
     }
     npcs.forEach(n=>{
+      if(n.id==='oma')return; // Oma wartet im Haus.
       let sx=n.x*16-camX,sy=n.y*16-camY;
       if(sx<-16||sy<-20||sx>PW||sy>PH)return;
       if(n.isObject)drawObject(n,sx,sy,tick);
@@ -1636,7 +1659,7 @@ function executeBattleAction(choice){
     fText('✦ ECHO-CHRONIKEN',11,18,10,'#2a5253');
     pix(234,5,80,18,'#25484ddc');pix(236,7,76,14,'#f0dca8');
     fText(`${gameState.badges}/3  ✧${Object.keys(gameState.caughtIds).length}/150`,242,18,9,'#355f56');
-    if(!gameState.hasStarter){pix(72,157,176,18,'#244d4acc');fText('✦ Hol dir Vaters Kapsel',79,170,10,'#fff0c6');}
+    if(!gameState.hasStarter){pix(72,157,176,18,'#244d4acc');fText('✦ Geh zu Oma ins Haus',79,170,10,'#fff0c6');}
   }
   
     function hpbar(x,y,w,v,color='#70ad69'){
@@ -1939,10 +1962,15 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
+  }
+
+  function renderScene(tick){
+    if(gameState.scene==='HOUSE')window.EchoHouse.render(ctx,tick,gameState,drawChar16);
+    else renderOverworld(tick);
   }
 
   // --- HAUPTSCHLEIFE (GAME LOOP) ---
@@ -1953,18 +1981,18 @@ function executeBattleAction(choice){
     if (gameState.mode === 'TITLE') {
       renderTitle(tick);
     } else if (gameState.mode === 'OVERWORLD') {
-      renderOverworld(tick);
+      renderScene(tick);
     } else if (gameState.mode === 'DIALOG') {
-      renderOverworld(tick);
+      renderScene(tick);
       renderDialog();
     } else if (gameState.mode === 'BATTLE'||gameState.mode==='ATTACKS') {
-      if(gameState.mode==='ATTACKS'&&['OVERWORLD','MENU'].includes(gameState.attackOrigin))renderOverworld(tick);
+      if(gameState.mode==='ATTACKS'&&['OVERWORLD','MENU'].includes(gameState.attackOrigin))renderScene(tick);
       else renderBattle(tick);
       if(gameState.mode==='ATTACKS')renderAttackBook(tick);
     } else if (gameState.mode === 'LEXICON') {
       renderLexicon();
     } else if (gameState.mode === 'MENU') {
-      renderOverworld(tick);
+      renderScene(tick);
       renderMenu();
     }
 
