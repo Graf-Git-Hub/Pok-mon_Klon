@@ -1,5 +1,22 @@
 # Echo-Chroniken 🎮👻
 
+## 🌲 V0.13: Der Flüsterpfad
+
+Eine neue spielbare frühe Nebenquest, ohne die bisherigen drei Arenen oder Omas Story zu verändern.
+
+- Nach Verlassen von Omas Haus: **Liora am südlichen Waldpfad** ansprechen (Kartenfeld 17,18).
+- Die drei gut sichtbaren Seelenlichter entlang des Waldwegs einsammeln: westlich (14,20), mittig (21,22), östlich (27,24). Mit **A**, auch wenn du direkt auf dem Licht stehst.
+- Bei Liora abgeben: **2 Seelen-Tränke + 5 Seelen-Sphären**.
+- Optionaler Prüfkampf bei **Waldhüter Piko** am Wegende (30,23): Ein Grundwesen auf **Level 4**, absichtlich leicht für Einsteiger. Sieg: **1 Trank + 3 Sphären**.
+- Neuer gewundener Waldpfad mit Blumen, Hinweisschild, pulsierenden Lichtern und Quest-Fortschritt in der Spielansicht.
+- Fortschritt wird bei Sammeln, Abgabe und gewonnenem Prüfkampf automatisch gespeichert; Belohnungen gibt es nur einmal.
+- Alle bisherigen Wege, Tagebuchseiten und Arenen bleiben erreichbar; bestehende Speicherstände erhalten ihre anderen Fortschritte.
+- Test: `echo-chroniken/project/tests/first-route.cjs` überprüft Pfade, Fundorte, Quest, Speicherstand und einmalige Belohnung.
+
+**APK:** [Direkte installierbare APK, ohne ZIP](https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk). Wegen der noch nicht dauerhaft verwalteten Android-Debug-Signatur ist v0.13 eine **separate Test-App** namens „Echo-Chroniken Pfad“. Alte Apps und Speicherstände werden nicht gelöscht, aber auch nicht automatisch übertragen.
+
+
+
 ## ⚔️ V0.12: Faire wilde Begegnungen
 
 - **Fehler behoben:** Früher wechselte das Gebiet abrupt bei X=13/Y=16 zu Gegnerlevel 13–14. Das Startgebiet ist jetzt auch über diese Grenze hinaus geschützt.
