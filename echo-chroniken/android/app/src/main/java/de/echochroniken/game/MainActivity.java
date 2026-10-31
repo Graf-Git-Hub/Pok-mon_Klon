@@ -90,7 +90,7 @@ public class MainActivity extends Activity {
 
     private final class DeviceBridge {
         @JavascriptInterface public String getDeviceType() { return television ? "tv" : "phone"; }
-        @JavascriptInterface public String getAppVersion() { return "0.13.0-fluesterpfad"; }
+        @JavascriptInterface public String getAppVersion() { return "0.14.0"; }
         @JavascriptInterface public void log(String message) { Log.i(TAG, message); }
     }
 
