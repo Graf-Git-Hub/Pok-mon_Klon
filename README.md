@@ -1,5 +1,14 @@
 # Echo-Chroniken 🎮👻
 
+## 📦 V0.11: Paket auf Omas Tisch lässt sich zuverlässig öffnen
+
+- Paket kann von vorne und den Seiten mit **A** geöffnet werden, **unabhängig von der Blickrichtung**.
+- Neue klare Einblendung „A: PAKET ÖFFNEN“, wenn man nah genug steht.
+- Auf dem Handy: Paket auf dem Tisch auch direkt antippbar, sobald man daneben steht.
+- Automatischer Regressionstest: `echo-chroniken/project/tests/package.cjs` prüft sechs Positionen einschließlich der gemeldeten Screenshot-Position.
+- **App-Name: Echo-Chroniken Paket**, App-ID `de.echochroniken.game.paket`. Installiert sich als eigener Test neben „Echo-Chroniken Dorf“, um die bisher noch wechselnden Debug-Signaturen nicht mit bestehenden Installationen kollidieren zu lassen.
+- Die beiden Test-Apps teilen ihre Speicherstände **nicht**. Die alte App bitte nicht löschen, wenn deren Spielstand wichtig ist.
+
 ## 📲 APK direkt herunterladen (Handy + Android-TV)
 
 **[⬇️ Aktuelle Echo-Chroniken APK herunterladen](https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk)**
