@@ -1,11 +1,21 @@
-name: Echo-Chroniken Android (Handy + TV)
+name: Echo-Chroniken Android APK (Handy + TV)
+
 on:
   push:
+    branches: [main]
     paths:
       - 'echo-chroniken/project/**'
       - 'echo-chroniken/android/**'
       - '.github/workflows/echo-android-universal.yml'
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: echo-chroniken-android-apk
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,14 +44,34 @@ jobs:
           python3 build_assets.py
           node --check app/src/main/assets/src/game.js
           node --check app/src/main/assets/platform.js
-      - name: Build actual APK
+      - name: Build installable Android APK
         working-directory: echo-chroniken/android
         run: gradle :app:assembleDebug --no-daemon --stacktrace
-      - name: Rename APK
-        run: cp echo-chroniken/android/app/build/outputs/apk/debug/app-debug.apk Echo-Chroniken-Universal-v0.7-debug.apk
-      - name: Publish installable APK
-        uses: actions/upload-artifact@v4
+      - name: Prepare direct APK download (no ZIP)
+        run: |
+          cp echo-chroniken/android/app/build/outputs/apk/debug/app-debug.apk Echo-Chroniken-Universal.apk
+          test -s Echo-Chroniken-Universal.apk
+          unzip -t Echo-Chroniken-Universal.apk | tail -n 1
+          sha256sum Echo-Chroniken-Universal.apk
+      - name: Publish APK directly to GitHub Releases
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v3
         with:
-          name: Echo-Chroniken-Universal-APK
-          path: Echo-Chroniken-Universal-v0.7-debug.apk
-          retention-days: 30
+          tag_name: android-latest
+          name: Echo-Chroniken - aktuelle Android-APK
+          body: |
+            **Direkt installierbare APK für Android-Handy und Android-TV.**
+            
+            Lade unten `Echo-Chroniken-Universal.apk` herunter.
+            **Kein ZIP und kein Entpacken nötig.**
+            
+            Dies ist eine Testversion. Die Switch-Controller-Bedienung muss auf dem echten TV geprüft werden.
+            Bei einer neuen Testversion kann wegen der bisher nicht dauerhaft verwalteten Debug-Signatur eine Neuinstallation nötig sein.
+            
+            Build aus Commit: ${{ github.sha }}
+          files: Echo-Chroniken-Universal.apk
+          fail_on_unmatched_files: true
+          overwrite_files: true
+          draft: false
+          prerelease: false
+          make_latest: true
