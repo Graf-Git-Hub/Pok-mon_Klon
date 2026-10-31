@@ -1,0 +1,11 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const src=fs.readFileSync('platform.js','utf8');new vm.Script(src,{filename:'platform.js'});
+const java=fs.readFileSync('app/src/main/java/de/echochroniken/game/MainActivity.java','utf8');
+assert(java.includes('getCurrentModeType()')&&java.includes('leanback'));
+assert(java.includes('WebViewAssetLoader')&&java.includes('onGenericMotionEvent'));
+assert(src.includes("if (cmd === 'START') {open();return;}"));
+assert(src.includes('window.echoAndroidInput')&&src.includes('localStorage.setItem'));
+assert(src.includes('A_FACE')&&src.includes('B_FACE'));
+const manifest=fs.readFileSync('app/src/main/AndroidManifest.xml','utf8');
+assert(manifest.includes('android.hardware.touchscreen')&&manifest.includes('LEANBACK_LAUNCHER'));
+console.log('PASS: native TV detection, controller-only menu, A/B swap, Android manifest');
