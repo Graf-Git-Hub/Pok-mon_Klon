@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>ECHO CHRONIKEN V0.6 | Wurzelheim & Attackenbuch</title>
+<link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+
+<div id="tv-frame">
+  <div id="pad-toast">🎮 Nintendo Switch Controller aktiv!</div>
+  <div id="hud-bar">
+    <button class="hud-btn" id="moves-desktop">⚡ Attacken</button>
+    <button class="hud-btn" id="btn-palette" title="Farb-Stil wechseln (Minus-Taste)">🎨 GBA-Stil</button>
+    <button class="hud-btn" id="btn-sound" title="Ton an/aus">🔊 8-Bit Ton</button>
+    <button class="hud-btn" id="demo-desktop" title="Kampf direkt ausprobieren">⚔ Kampf-Test</button>
+    <button class="hud-btn" id="btn-fs" title="Vollbild (ZR-Trigger)">📺 Vollbild</button>
+  </div>
+  <canvas id="screen" width="320" height="180"></canvas>
+  <!-- Virtuelles Gamepad: aktiv auf Touch-Handys, nicht auf Android-TV. -->
+  <nav id="touch-controls" aria-label="Handy-Spielsteuerung">
+    <div id="touch-toolbar">
+      <button class="touch-tool" data-cmd="START" aria-label="Spielmenü öffnen">☰ Menü</button>
+      <button class="touch-tool" data-cmd="R" aria-label="Seelen-Lexikon öffnen">✦ Seelen</button>
+      <button class="touch-tool" data-cmd="L" aria-label="Nächstes Teammitglied">↻ Team</button>
+      <button class="touch-tool" id="demo-mobile">⚔ Kampf</button>
+      <button class="touch-tool" data-cmd="MOVES">⚡ Attacken</button>
+    <button class="touch-tool" id="touch-sound" aria-label="Ton an oder aus">🔊 Ton</button>
+    </div>
+    <div id="touch-dpad" aria-label="Steuerkreuz, Richtung gedrückt halten zum Laufen">
+      <button class="touch-direction dir-up" data-cmd="UP" aria-label="Nach oben">▲</button>
+      <button class="touch-direction dir-left" data-cmd="LEFT" aria-label="Nach links">◀</button>
+      <button class="touch-direction dir-right" data-cmd="RIGHT" aria-label="Nach rechts">▶</button>
+      <button class="touch-direction dir-down" data-cmd="DOWN" aria-label="Nach unten">▼</button>
+    </div>
+    <div id="touch-actions">
+      <button class="touch-action touch-b" data-cmd="B" aria-label="B Zurück"><strong>B</strong><span>Zurück</span></button>
+      <button class="touch-action touch-a" data-cmd="A" aria-label="A Bestätigen"><strong>A</strong><span id="touch-a-label">Starten</span></button>
+    </div>
+    <div id="touch-hint">🎮 Steuerkreuz gedrückt halten, A zum Bestätigen</div>
+  </nav>
+  <section id="battle-lab-panel" role="dialog" aria-label="Kampf-Test wählen">
+    <h2>⚔ KAMPF-TEST</h2>
+    <p>Wie früher auf dem Game Boy: Dein Geist von hinten, der Gegner von vorne. Wähle beide Wesen aus. Dein Spielstand bleibt unverändert.</p>
+    <label for="lab-ally">Dein Geistermonster</label>
+    <select id="lab-ally"></select>
+    <label for="lab-enemy">Gegner</label>
+    <select id="lab-enemy"></select>
+    <div class="choices"><button id="lab-start">▶ Kampf starten</button><button id="lab-cancel">Abbrechen</button></div>
+  </section>
+
+</div>
+
+<script src="data/species.js"></script>
+<script src="assets/atlas.js"></script>
+<script src="assets/backs.js"></script>
+<script src="src/game.js"></script>
+</body>
+</html>
