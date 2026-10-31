@@ -11,19 +11,57 @@
 - Das ursprüngliche Spielmenü ist ebenfalls aus dem Einstellungsmenü erreichbar.
 - Smartphone: zusätzliche Touch-Schaltfläche `⚙ Modus` und ein kleiner Ansichtsbutton.
 
-## Build lokal
+## Einzige App und dauerhafte Updates (ab v0.14)
 
-JDK 17, Android SDK 35, Gradle 8.11.1. Im Ordner `echo-chroniken/android`:
+**Unveränderliche App-ID:** `de.echochroniken.game.stable`.
+**Name auf Handy und TV:** `Echo-Chroniken`.
+**APK-Datei:** `Echo-Chroniken-Universal.apk` ohne ZIP.
 
-```sh
-python3 build_assets.py
-# Danach Gradle 8.11.1 ausführen:
-gradle :app:assembleDebug
+Bisher entstanden ungewollt viele Icons, weil App-ID und Android-Debugsignatur bei neuen
+Builds wechselten. Ab v0.14 wird ein **einziger privater Signierschlüssel** für alle Releases
+verwendet. Die CI-Pipeline verweigert einen neuen Release, wenn der Signierschlüssel
+nicht sicher als GitHub Actions Secret hinterlegt ist. Niemals in den öffentlichen
+GitHub-Quellcode hochladen.
+
+### Einmalige Einrichtung des Signierschlüssels
+
+Auf einem eigenen autorisierten Windows-PC mit Java JDK und authentifiziertem
+GitHub CLI (`gh auth login`) die Datei
+`tools/setup-permanent-signing.ps1` ausführen:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\setup-permanent-signing.ps1
 ```
 
-GitHub Actions führt diesen Build bei jedem Commit automatisch aus und lädt eine `Echo-Chroniken-Universal-debug.apk` hoch.
+Das Skript legt den privaten Schlüssel im eigenen Benutzerprofil unter
+`%APPDATA%\EchoChroniken\Signing` ab. Das Passwort ist lokal per Windows DPAPI
+geschützt. Die drei benötigten Werte werden in GitHub als verschlüsselte
+Actions Secrets gespeichert: `ECHO_KEYSTORE_B64`,
+`ECHO_SIGNING_PASSWORD`, `ECHO_SIGNING_ALIAS`.
+**Den privaten Schlüssel separat sicher sichern.** Wird er verloren, können
+neue Versionen nicht mehr über die installierte App aktualisiert werden.
 
-**Wichtig:** GitHub-Actions-Debug-APKs werden ohne dauerhaft eingerichteten Signaturschlüssel pro Runner anders signiert. Ein Update über eine bereits installierte Version funktioniert dann *nicht* sicher. Für dauerhafte Updates muss eine feste private Test-/Release-Signatur sicher hinterlegt werden. Nie einen produktiven Signaturschlüssel öffentlich ins Repository committen. Für die ersten Tests kann die App nach Datensicherung neu installiert werden.
+Erst danach den vorbereiteten Branch `fix/one-stable-android-app` nach
+`main` übernehmen. Jede neue `versionCode`-Version kann dann die **gleiche
+App** aktualisieren. Den `applicationId` und den Signierschlüssel niemals
+für normale Versionen ändern.
+
+### Alte Test-Apps
+
+Frühere Testnamen wie Dorf, Fair, Neu, Paket, Pfad sind technisch **andere
+Apps** mit getrennten privaten Spielständen. Android kann sie nicht allein
+durch die neue App-ID zusammenführen. **Vor einer Deinstallation Daten
+sichern**, falls darin Fortschritt liegt. Erst wenn Echo-Chroniken mit
+dem festen Release-Schlüssel installiert und getestet ist, die nicht mehr
+benötigten Test-Apps einzeln in Android-Einstellungen > Apps entfernen.
+
+### Build lokal
+
+JDK 17, Android SDK 35 und Gradle 8.11.1. Für einen unsignierten
+Entwicklungstest kann `gradle :app:assembleDebug` verwendet werden.
+**Nur** `assembleRelease` mit dem festen Schlüssel darf über GitHub
+als normale APK veröffentlicht werden; diese Tests sind nicht updatekompatibel
+mit den alten Debug-Installationen.
 
 ## Weitere Hinweise
 
