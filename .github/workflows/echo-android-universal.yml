@@ -39,6 +39,7 @@ jobs:
         run: |
           node tests/smoke.cjs
           node tests/house.cjs
+          node tests/village.cjs
       - name: Check app controls and assets
         working-directory: echo-chroniken/android
         run: |
