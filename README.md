@@ -1,5 +1,15 @@
 # Echo-Chroniken 🎮👻
 
+## ⚔️ V0.12: Faire wilde Begegnungen
+
+- **Fehler behoben:** Früher wechselte das Gebiet abrupt bei X=13/Y=16 zu Gegnerlevel 13–14. Das Startgebiet ist jetzt auch über diese Grenze hinaus geschützt.
+- **Ohne Orden:** wilde Gegner Level **2–4** in der ersten Route, höchstens Level **5** in der entfernten Wildnis, ausschließlich Grundformen.
+- **Mit Orden:** der Gegner wird nie mehr als ein Level über dem stärksten Teammitglied angesetzt; spätere Gebiete steigen nur kontrolliert an.
+- Die ersten **drei gewonnenen Kämpfe** sind zusätzlich erleichtert, damit der Einstieg gelingt.
+- **Regressionstest:** `echo-chroniken/project/tests/encounters.cjs` prüft 1.840 Begegnungen an zehn Positionen und mit unterschiedlichen Leveln/Orden.
+- **Android-Test-App-ID:** `de.echochroniken.game.balance`, Anzeigename **„Echo-Chroniken Fair“**. Wegen der noch wechselnden Debug-Signatur separat installierbar. Spielstände bestehender Test-Apps werden nicht automatisch übertragen.
+
+
 ## 📦 V0.11: Paket auf Omas Tisch lässt sich zuverlässig öffnen
 
 - Paket kann von vorne und den Seiten mit **A** geöffnet werden, **unabhängig von der Blickrichtung**.
