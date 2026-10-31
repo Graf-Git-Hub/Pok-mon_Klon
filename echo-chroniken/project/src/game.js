@@ -525,6 +525,7 @@ function startWildBattle(){
     const wildId=choices[Math.floor(Math.random()*choices.length)].id;
     gameState.seenIds[wildId]=true;
     const enemy=createMonsterInstance(wildId,wildLv);
+    if(inStart){enemy.maxHp=Math.max(12,Math.round(enemy.maxHp*.82));enemy.hp=enemy.maxHp;enemy.encounterScale=.78;}
     gameState.attackOrigin=null;gameState.mode='BATTLE';gameState.battle={isTrainer:false,trainerName:null,gymIndex:null,
       enemyQueue:[enemy],enemy,cursor:0,attackCursor:0,attackTop:0,
       log:`Ein wildes ${SPECIES[wildId-1].name} (Lv.${wildLv}) erscheint!`,animTimer:0,busy:false};
@@ -636,7 +637,7 @@ function executeBattleAction(choice){
 
     ensureMonsterMoves(enemy);
     const move=ATTACKS[enemy.moves[Math.floor(Math.random()*Math.min(2,enemy.moves.length))]]||ATTACKS.seelenstups;
-    const dmg=skillDamage(enemy,ally,move);
+    const dmg=Math.max(2,Math.round(skillDamage(enemy,ally,move)*(enemy.encounterScale||1)));
     b.lastAttackColor=move.fx||'#afbcce';
     ally.hp = Math.max(0, ally.hp - dmg);
     sfx.hit();
