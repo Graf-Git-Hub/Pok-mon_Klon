@@ -3,7 +3,7 @@
     <uses-feature android:name="android.software.leanback" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
     <uses-feature android:name="android.hardware.gamepad" android:required="false" />
-    <application android:label="Echo-Chroniken" android:icon="@drawable/icon"
+    <application android:label="Echo-Chroniken Neu" android:icon="@drawable/icon"
         android:banner="@drawable/banner" android:theme="@android:style/Theme.Material.Light.NoActionBar"
         android:usesCleartextTraffic="false" android:allowBackup="true" android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true" android:supportsRtl="true" android:appCategory="game">
