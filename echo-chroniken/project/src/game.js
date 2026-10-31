@@ -1876,7 +1876,7 @@ function executeBattleAction(choice){
       select.appendChild(option);
     }
   }
-  labAlly.value='1'; labEnemy.value='9';
+  labAlly.value='1'; labEnemy.value='7';
   function refreshLabButtons(){
     const s=savedBeforeLab?'⏹ Test beenden':'⚔ Kampf-Test';
     document.getElementById('demo-desktop').textContent=s;
@@ -1901,8 +1901,8 @@ function executeBattleAction(choice){
     gameState.caughtIds={...gameState.caughtIds};
     gameState.seenIds={...gameState.seenIds};
     const id=Number(labAlly.value),eId=Number(labEnemy.value);
-    const ally=createMonsterInstance(id,Math.max(5,3+SPECIES[id-1].stage*5));
-    const enemy=createMonsterInstance(eId,Math.max(4,2+SPECIES[eId-1].stage*5));
+    const ally=createMonsterInstance(id, SPECIES[id-1].stage===1?5:SPECIES[id-1].stage===2?11:17);
+    const enemy=createMonsterInstance(eId, SPECIES[eId-1].stage===1?3:SPECIES[eId-1].stage===2?10:16);
     gameState.team=[ally];
     gameState.hasStarter=true;
     gameState.mode='BATTLE';
