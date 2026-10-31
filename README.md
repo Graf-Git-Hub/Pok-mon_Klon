@@ -14,6 +14,17 @@
 
 GBA-inspiriertes Fantasy-RPG mit 150 Geisterwesen, klassischen Kämpfen, Touchsteuerung und Gamepad-Eingabe.
 
+## 🌳 V0.10: Wurzelheim 2.0
+
+- Fünf unterschiedliche Häuser: Omas Haus, Kräuterhaus, Haus am See, Werkstatt und Dorfladen.
+- Gewundene Erd- und Pflasterwege statt der alten rechtwinkligen Hauptachsen.
+- Dorfplatz mit Brunnen, Sitzbänken, Weglaternen, Gärten und blühenden Dekorationen.
+- Kleine, organisch angeordnete **sichere** hohe Grasflächen im Dorf; wilde Geister nur außerhalb.
+- Drei neue ansprechbare Dorfbewohner: Tilda, Jaro und Mina.
+- Alte Questobjekte, Arenaleiter, See, Omas Eingang und Durchgänge erhalten.
+- Neue Navigationstests: `echo-chroniken/project/tests/village.cjs`.
+- Kommt als direkte APK mit Android-App-ID `de.echochroniken.game.dorf`: kann **neben V0.9** installiert werden, damit wegen der noch ausstehenden stabilen Signierung keine bestehende App oder Spielstand gelöscht werden muss. Spielstände werden dadurch **nicht** automatisch zwischen beiden Apps geteilt.
+
 ## 👵 Neu in V0.8: Spielbeginn bei Oma
 
 - **Neue Spielstände starten in Omas begehbarem Haus**, nicht mehr auf der Wiese.
