@@ -531,24 +531,51 @@
   }
 
   // --- KAMPFSYSTEM (32x32 GBA-MODUS) ---
-function startWildBattle(){
-    const {x,y}=gameState.player;
-    const inStart=x<=13 && y<=16;
-    const d=Math.max(0,Math.abs(x-5)+Math.abs(y-5)-8);
-    const cap=inStart?4:Math.min(20,5+Math.floor(d/4)+gameState.badges*2);
-    const low=inStart?2:Math.max(3,cap-2);
-    const wildLv=low+Math.floor(Math.random()*(cap-low+1));
-    const choices=SPECIES.filter(sp=>sp.id!==1 && sp.id<=Math.min(150,inStart?48:55+gameState.badges*35) && (inStart?sp.stage===1:sp.stage<=Math.min(3,1+gameState.badges)));
+// Encounter balance must never treat a beginner as a late-game traveler.
+  // Keep this logic independent from the map renderer to survive future map changes.
+  function wildEncounterLimits(player=gameState.player, badges=gameState.badges, team=gameState.team){
+    const x=Number(player?.x)||0, y=Number(player?.y)||0;
+    const earned=Math.max(0,Math.min(3,Math.floor(Number(badges)||0)));
+    const strongest=Math.max(5,...(Array.isArray(team)?team:[])
+      .map(m=>Math.max(1,Math.floor(Number(m?.lv)||1))));
+    // First wandering meadows stretch beyond the village; crossing x=13/y=16
+    // must NOT silently turn a starter encounter into Lv.13+.
+    const beginnerRoute=(x<=32 && y<=21);
+    const progressionCaps=[beginnerRoute?4:5,10,15,20];
+    const progressionFloors=[beginnerRoute?2:3,5,8,12];
+    const cap=Math.min(progressionCaps[earned],strongest+1);
+    const low=Math.min(cap,progressionFloors[earned]);
+    return {
+      low,cap,stageCap:earned===0?1:Math.min(3,earned+1),
+      poolCap:earned===0?48:Math.min(150,55+earned*35),
+      starterZone:earned===0,
+      // Training wheels for the first three victories: fewer HP and softer hits.
+      newcomer:earned===0 && (Number(gameState.battleWins)||0)<3
+    };
+  }
+  function startWildBattle(){
+    const limits=wildEncounterLimits();
+    const wildLv=limits.low+Math.floor(Math.random()*(limits.cap-limits.low+1));
+    const choices=SPECIES.filter(sp=>sp.id!==1 && sp.id<=limits.poolCap
+      && sp.stage<=limits.stageCap);
+    if(!choices.length)throw new Error('No wild species available at this stage');
     const wildId=choices[Math.floor(Math.random()*choices.length)].id;
     gameState.seenIds[wildId]=true;
     const enemy=createMonsterInstance(wildId,wildLv);
-    if(inStart){enemy.maxHp=Math.max(12,Math.round(enemy.maxHp*.82));enemy.hp=enemy.maxHp;enemy.encounterScale=.78;}
-    gameState.attackOrigin=null;gameState.mode='BATTLE';gameState.battle={isTrainer:false,trainerName:null,gymIndex:null,
+    if(limits.starterZone){
+      const hpScale=limits.newcomer?.70:.84;
+      enemy.maxHp=Math.max(12,Math.round(enemy.maxHp*hpScale));
+      enemy.hp=enemy.maxHp;
+      enemy.encounterScale=limits.newcomer?.60:.78;
+    }
+    gameState.attackOrigin=null;gameState.mode='BATTLE';
+    gameState.battle={isTrainer:false,trainerName:null,gymIndex:null,
       enemyQueue:[enemy],enemy,cursor:0,attackCursor:0,attackTop:0,
-      log:`Ein wildes ${SPECIES[wildId-1].name} (Lv.${wildLv}) erscheint!`,animTimer:0,busy:false};
+      log:`Ein wildes ${SPECIES[wildId-1].name} (Lv.${wildLv}) erscheint!`,
+      animTimer:0,busy:false};
     sfx.confirm();
   }
-  
+
     function startTrainerBattle(gymIndex, trainerName, roster) {
     const queue = roster.map(r => {
       gameState.seenIds[r.id] = true;
