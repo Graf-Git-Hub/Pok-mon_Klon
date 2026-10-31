@@ -1,5 +1,7 @@
 # Echo-Chroniken 🎮👻
 
+> **APK-Updates vorübergehend angehalten:** Der bisherige GitHub-Build erzeugte immer eine andere Debug-Signatur und wechselnde App-IDs. Dadurch sind Dorf, Fair, Neu, Paket und Pfad als getrennte Apps entstanden. Neue, inkompatible APKs werden nicht mehr automatisch veröffentlicht. Der feste App-Name und das dauerhaft signierte Release sind in [Pull Request #1](https://github.com/Graf-Git-Hub/Pok-mon_Klon/pull/1) vorbereitet. Zum Abschluss fehlen noch die privat hinterlegten Signier-Secrets. Der alte APK-Link kann bis dahin noch die bisherige Testversion enthalten. Alte Apps bitte nicht vor einer Sicherung der Spielstände deinstallieren.\n\n
+
 ## 🌲 V0.13: Der Flüsterpfad
 
 Eine neue spielbare frühe Nebenquest, ohne die bisherigen drei Arenen oder Omas Story zu verändern.
