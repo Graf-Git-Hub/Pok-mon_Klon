@@ -1756,6 +1756,9 @@ function executeBattleAction(choice){
     if(!gameState.hasStarter){pix(72,157,176,18,'#244d4acc');fText('✦ Geh zu Oma ins Haus',79,170,10,'#fff0c6');}
     if(window.EchoRoute && gameState.hasStarter){
       const route=window.EchoRoute.quest(gameState);
+      if(!route.accepted && gameState.introStage>=4){
+        pix(65,157,192,18,'#244d4acc');fText('✦ Suche Liora am Südpfad',72,170,9,'#fff0c6');
+      }
       if(route.accepted){
         pix(132,5,99,18,'#25484ddc');pix(134,7,95,14,'#e7d7ae');
         const routeLabel=route.guardianWon?'PFAD: GESCHAFFT':route.rewarded?'WALDHÜTER: PIKO':'SEELENLICHT '+route.lights.length+'/3';
