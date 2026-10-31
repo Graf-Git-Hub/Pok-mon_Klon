@@ -31,7 +31,8 @@ if ((Test-Path $keyPath) -and (Test-Path $protectedPass)) {
   Write-Host 'Bestehender Signierschluessel gefunden; er wird WIEDERVERWENDET.'
 } else {
   $bytes = New-Object byte[] 48
-  [Security.Cryptography.RandomNumberGenerator]::Fill($bytes)
+  $rng = [Security.Cryptography.RandomNumberGenerator]::Create()
+  try { $rng.GetBytes($bytes) } finally { $rng.Dispose() }
   $password = [Convert]::ToBase64String($bytes)
   $env:ECHO_LOCAL_SIGNING_PASS = $password
   & keytool -genkeypair -noprompt -alias $alias -keyalg RSA -keysize 3072 -sigalg SHA256withRSA -validity 10000 -storetype PKCS12 -keystore $keyPath -storepass:env ECHO_LOCAL_SIGNING_PASS -keypass:env ECHO_LOCAL_SIGNING_PASS -dname 'CN=Echo-Chroniken, O=Personal Android Game, C=DE'
