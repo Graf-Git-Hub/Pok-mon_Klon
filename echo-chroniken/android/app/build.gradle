@@ -1,22 +1,40 @@
 plugins { id 'com.android.application' }
 
+// This application ID is permanent. Never change it for ordinary updates.
+// Android requires one and the same PRIVATE signing key for every upgrade.
+def echoSigningPath = System.getenv('ECHO_KEYSTORE_PATH')
+def echoSigningPassword = System.getenv('ECHO_SIGNING_PASSWORD')
+def echoSigningAlias = System.getenv('ECHO_SIGNING_ALIAS') ?: 'echochroniken'
 android {
     namespace 'de.echochroniken.game'
     compileSdk 35
 
     defaultConfig {
-        applicationId 'de.echochroniken.game.fluesterpfad'
+        applicationId 'de.echochroniken.game.stable'
         minSdk 24
         targetSdk 35
-        versionCode 13
-        versionName '0.13.0-fluesterpfad'
+        versionCode 14
+        versionName '0.14.0'
+    }
+    signingConfigs {
+        stable {
+            storeFile file(echoSigningPath ?: 'missing-private-signing-keystore.p12')
+            storePassword echoSigningPassword ?: ''
+            keyAlias echoSigningAlias
+            keyPassword echoSigningPassword ?: ''
+            storeType 'pkcs12'
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
     buildTypes {
-        release { minifyEnabled false }
+        release {
+            signingConfig signingConfigs.stable
+            debuggable false
+            minifyEnabled false
+        }
     }
 }
 
