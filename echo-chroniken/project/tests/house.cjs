@@ -3,7 +3,7 @@ const read=p=>fs.readFileSync(p,'utf8');
 const context2d=()=>new Proxy({measureText(s){return {width:String(s).length*6}},getImageData(x,y,w,h){return {data:new Uint8ClampedArray(w*h*4)}},createImageData(w,h){return {data:new Uint8ClampedArray(w*h*4)}},createLinearGradient(){return {addColorStop(){}}}}, {get(t,k){return k in t?t[k]:()=>{}},set(t,k,v){t[k]=v;return true}});
 function element(){return {style:{},dataset:{},value:'',textContent:'',classList:{add(){},remove(){}},addEventListener(){},onclick:null,querySelectorAll(){return []},appendChild(){},getBoundingClientRect(){return {left:0,top:0,width:320,height:180}},getContext:context2d}}
 const els={},doc={documentElement:{classList:{add(){},remove(){}}},getElementById(id){return els[id]??(els[id]=element())},createElement:element,addEventListener(){}};
-const store={},win={document:doc,addEventListener(){},location:{search:''}};
+const store={},win={document:doc,addEventListener(){},location:{search:''},ECHO_BACK_URLS:{},ECHO_ATLAS_DATA:''};
 const env={document:doc,window:win,navigator:{getGamepads(){return []}},localStorage:{getItem:k=>store[k],setItem:(k,v)=>store[k]=v},location:win.location,URLSearchParams,Math,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
 vm.runInNewContext(read('data/species.js'),env);
 vm.runInNewContext(read('src/house.js'),env);
