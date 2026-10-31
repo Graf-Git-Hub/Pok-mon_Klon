@@ -59,8 +59,10 @@ jobs:
           test -s Echo-Chroniken-Universal.apk
           unzip -t Echo-Chroniken-Universal.apk | tail -n 1
           sha256sum Echo-Chroniken-Universal.apk
+      # TEMPORARY SAFETY LOCK: do not ship new, differently signed debug APKs.
+      # Permanent signer rollout: fix/one-stable-android-app (requires GitHub secrets).
       - name: Publish APK directly to GitHub Releases
-        if: github.ref == 'refs/heads/main'
+        if: ${{ false }}
         uses: softprops/action-gh-release@v3
         with:
           tag_name: android-latest
