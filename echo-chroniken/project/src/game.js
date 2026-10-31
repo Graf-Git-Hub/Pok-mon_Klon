@@ -786,6 +786,17 @@ function executeBattleAction(choice){
     gameState.player={x:7,y:9,dir:'up',stepPhase:0};
     sfx.confirm();
   }
+  // Phone users can also tap the visible package itself when standing near the table.
+  canvas.addEventListener('pointerdown', ev=>{
+    if(gameState.mode!=='OVERWORLD'||gameState.scene!=='HOUSE'||gameState.introStage!==1)return;
+    const rect=canvas.getBoundingClientRect();
+    const x=(ev.clientX-rect.left)*canvas.width/rect.width;
+    const y=(ev.clientY-rect.top)*canvas.height/rect.height;
+    if(x>=188&&x<=247&&y>=18&&y<=80&&window.EchoHouse.nearParcel(gameState.player)){
+      window.EchoHouse.talk(gameState,showDialog,createMonsterInstance,sfx);
+    }
+  });
+
   function interactFront() {
     if(gameState.scene==='HOUSE'){
       window.EchoHouse.talk(gameState,showDialog,createMonsterInstance,sfx);return;
