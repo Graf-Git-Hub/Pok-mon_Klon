@@ -215,6 +215,7 @@
   worldMap[6][4] = 6;  // Omas Heil-Brunnen
   worldMap[13][16] = 6; // Kreuzungs-Heilstein
   worldMap[21][30] = 6; // Heiligtum-Altar
+  if(window.EchoVillage){window.EchoVillage.map=worldMap;window.EchoVillage.build(worldMap);}
 
   // --- NPCS, ARENALEITER, TAGEBUCHSEITEN & NEBENAUFGABEN ---
   const npcs = [
@@ -344,6 +345,9 @@
       }
     }
   ];
+
+  // Village characters use the original dialogue and movement system.
+  if(window.EchoVillage)npcs.push(...window.EchoVillage.getNpcList());
 
   // --- SPIELZUSTAND (GAME STATE) ---
 
@@ -495,6 +499,14 @@
         if(!gameState.hasStarter)gameState.player={x:7,y:7,dir:'down',stepPhase:0};
       }
       gameState.introStage=Math.max(0,Math.min(4,Number(gameState.introStage)||0));
+      // Migrate old saved positions that now lie inside one of the new buildings.
+      if(gameState.scene==='OVERWORLD'&&window.EchoVillage&&gameState.player){
+        const p=gameState.player;
+        if(!worldMap[p.y]||[1,4,5,7].includes(worldMap[p.y][p.x])){
+          const h=window.EchoVillage.homes.find(h=>p.x>=h.x&&p.x<h.x+5&&p.y>=h.y&&p.y<h.y+3);
+          gameState.player={x:h?h.x+2:5,y:h?h.y+3:6,dir:'down',stepPhase:0};
+        }
+      }
       gameState.team.forEach(m=>{ensureMonsterMoves(m);if(!m.nextXp)m.nextXp=m.lv*18;});
       if((d.balanceVersion||0)<6){
         // Einmalige Wiedergutmachung für überharte frühe Kämpfe.
@@ -787,6 +799,16 @@ function executeBattleAction(choice){
     const ty = gameState.player.y + oy;
 
     // NPC oder Tagebuchseite vor dem Spieler?
+    const door=window.EchoVillage?.doorAt(tx,ty);
+    if(door){
+      const descriptions={
+        kraeuter:['Aus dem Kräuterhaus duftet es nach Salbei und Minze.','„Bin im Garten!“ steht auf dem Schild.'],
+        fischer:['Das Haus am See. An den Fenstern hängen kleine Geisterfisch-Bilder.','Die Bewohner sind gerade am Ufer.'],
+        werkstatt:['Aus der Werkstatt klingt fröhliches Hämmern.','„Sphären-Reparatur bald geöffnet“ steht auf einer Holztafel.'],
+        laden:['Vor dem Dorfladen stehen bunte Töpfe.','„Heute Inventur. Morgen wieder geöffnet!“']
+      };
+      showDialog(descriptions[door.id]||[door.name]);return;
+    }
     const npc = npcs.find(n => n.id!=='oma' && n.x === tx && n.y === ty);
     if (npc) {
       const lines = npc.talk();
@@ -1425,6 +1447,7 @@ function executeBattleAction(choice){
     pix(sx+8,sy,2,2,'#a7d0a0');pix(sx+1,sy+13,3,2,'#2f6d56');
   }
   function drawTile16(tile,sx,sy,tick,x,y){
+    if(window.EchoVillage?.paintTile(tile,ctx,sx,sy,x,y,tick,pix))return;
     if(tile===5){drawCobbles(sx,sy,x,y);return;}
     if(tile===3){drawCobbles(sx,sy,x,y);return;}
     if(tile===4){
@@ -1620,9 +1643,10 @@ function executeBattleAction(choice){
       drawTile16(worldMap[y][x],sx,sy,tick,x,y);
     }
     // high-resolution handcrafted cottage + paths + village details
-    gardenDecor(camX,camY,tick);
+    // Original straight fence/path decoration replaced by Wurzelheim 2.0.
     const homeX=3*16-camX,homeY=2*16-camY;
     drawCottage(homeX,homeY,tick);
+    if(window.EchoVillage)window.EchoVillage.draw(ctx,camX,camY,tick,pix);
     
       // Berry bushes around yard, placed at stable coordinate hashes
     for(let x=1;x<11;x++)for(let y=5;y<11;y++){
