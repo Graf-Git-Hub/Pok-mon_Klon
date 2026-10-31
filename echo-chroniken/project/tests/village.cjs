@@ -33,7 +33,7 @@ for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++){
 }
 assert(safeTall>=10);assert(wild>=10);assert(paths>=45);
 assert.notEqual(map[13][15],map[13][5],'Old rigid east-west line still dominates');
-const ctx={fillStyle:'',font:'',fillRect(){},fillText(){}};
+const ctx={fillStyle:'',font:'',fillRect(){},fillText(){},save(){},restore(){}};
 const draw=()=>{};
 assert.equal(v.paintTile(8,ctx,0,0,10,8,0,draw),true);
 assert.equal(v.paintTile(9,ctx,0,0,8,5,300,draw),true);
