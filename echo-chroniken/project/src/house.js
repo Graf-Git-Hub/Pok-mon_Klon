@@ -7,6 +7,15 @@ for(let x=10;x<=12;x++)for(let y=3;y<=4;y++)blocks.add(x+','+y);
 for(let y=3;y<=5;y++)blocks.add('14,'+y);
 blocks.add('2,7');blocks.add('3,7');
 const objective=s=>['Sprich mit Oma Martha','Hol das Paket vom Tisch','Sprich noch einmal mit Oma','Verlasse Omas Haus','Erkunde Wurzelheim'][Math.min(4,s.introStage||0)];
+/* The package occupies several visual pixels above its blocked table.
+   Approach from the front or side; facing never matters on touchscreen. */
+function nearParcel(p){
+  if(!p)return false;
+  return (p.x>=9&&p.x<=13&&p.y===5) ||
+         (p.x>=10&&p.x<=12&&p.y===6) ||
+         ((p.x===9||p.x===13)&&p.y===4) ||
+         (p.x>=10&&p.x<=12&&p.y===2);
+}
 function walk(s,dx,dy,dir,showDialog,stepSound){
   const p=s.player;p.dir=dir;const x=p.x+dx,y=p.y+dy;
   if(y>=10&&(x===7||x===8)){
@@ -39,7 +48,7 @@ function talk(s,showDialog,createMonster,sfx){
     showDialog(['Oma Martha: „Hier bist du immer willkommen.“','„Wenn deine Wesen müde sind, ruh dich bei mir aus.“']);
     s.team.forEach(m=>m.hp=m.maxHp);return;
   }
-  if(x===11&&y===4){
+  if(nearParcel(p) || (x===11&&y===4)){
     if(s.introStage===0){showDialog(['Ein Paket mit deinem Namen. Vielleicht sollte ich zuerst Oma fragen.']);return;}
     if(s.hasStarter){showDialog(['Der Karton ist leer. Das goldene Siegel glitzert noch immer.']);return;}
     s.team.push(createMonster(1,5));s.hasStarter=true;s.seenIds[1]=true;s.caughtIds[1]=true;s.introStage=2;
@@ -95,7 +104,7 @@ function render(ctx,tick,s,drawChar){
   if(!s.hasStarter){
     const gl=Math.sin(tick*.009);p(213,29+gl*2,3,3,'#fff3bb');p(230,39-gl*2,3,3,'#fff6c4');
     p(222,24-gl*2,2,6,'#ffe29b');p(220,26-gl*2,6,2,'#ffe29b');
-    if(s.introStage===1){p(202,16,38,13,'#294d49');label('PAKET!',221,25,9,'#fff1b6','center');}
+    if(s.introStage===1){p(198,16,47,13,'#294d49');label(nearParcel(s.player)?'A: ÖFFNEN':'PAKET!',221,25,8,'#fff1b6','center');}
   }
   // Oma, Spieler und kleiner Begleiter.
   drawChar(96,112,'#ad8193',0,'oma','right');
@@ -107,7 +116,7 @@ function render(ctx,tick,s,drawChar){
   // Schmale Questanzeige, nicht über dem Paket.
   p(26,146,111,23,'#2d5049');p(28,148,107,19,'#e8d1a1');
   label('OMAS HAUS',34,156,9,'#305650');label('★ '+Math.min(4,s.introStage||0)+'/4',34,165,8,'#4a7065');
-  p(178,149,115,18,'#2b4b45');label(objective(s),235,161,9,'#fff2c8','center');
+  p(178,149,115,18,'#2b4b45');label(s.introStage===1&&nearParcel(s.player)?'A: PAKET ÖFFNEN':objective(s),235,161,9,'#fff2c8','center');
 }
-window.EchoHouse={walk,talk,render,objective};
+window.EchoHouse={walk,talk,render,objective,nearParcel};
 })();
