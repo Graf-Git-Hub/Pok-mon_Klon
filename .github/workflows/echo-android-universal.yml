@@ -41,6 +41,7 @@ jobs:
           node tests/house.cjs
           node tests/village.cjs
           node tests/package.cjs
+          node tests/encounters.cjs
       - name: Check app controls and assets
         working-directory: echo-chroniken/android
         run: |
