@@ -123,6 +123,19 @@ function build(map){
   return map;
 }
 function paintTile(tile,ctx,sx,sy,x,y,tick,pix){
+  // Loose, naturally eroded paving stones, never a full square tile of uniform bricks.
+  if(tile===3){
+    paintTile(8,ctx,sx,sy,x,y,tick,pix);
+    const tones=['#dec9a1','#edd6b0','#bba98c','#d0b68b'];
+    for(let i=0;i<7;i++){
+      const u=1+Math.floor(hash(x*17+i*13,y*23+i,17)*12);
+      const v=1+Math.floor(hash(x*11+i,y*19+i*9,31)*13);
+      const w=2+(i%3);
+      pix(sx+u,sy+v,w,2,tones[Math.floor(hash(x+i,y-i,45)*tones.length)]);
+      pix(sx+u,sy+v,w,1,'#f0dfb6');
+    }
+    return true;
+  }
   if(tile!==8&&tile!==9)return false;
   const colors=tile===8?['#b99e78','#bca17b','#c1ab83','#b59c76']:['#68ad74','#70b67a','#65a675','#77b57b'];
   pix(sx,sy,16,16,colors[Math.floor(hash(x,y,10)*colors.length)]);
