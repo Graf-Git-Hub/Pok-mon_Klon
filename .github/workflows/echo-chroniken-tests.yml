@@ -17,6 +17,7 @@ jobs:
         run: |
           node tests/map-registry.cjs
           node tests/chapter3.cjs
+          node tests/chapter4.cjs
           node tests/save-compat.cjs
           node tests/story-registry.cjs
           node tests/back-art.cjs

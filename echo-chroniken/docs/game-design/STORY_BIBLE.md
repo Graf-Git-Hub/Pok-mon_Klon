@@ -1,6 +1,6 @@
 # ECHO-CHRONIKEN – STORY-BIBEL (vollständige Haupthandlung)
 
-> **Storystatus:** Kapitel 1–2 sind im heutigen Code angelegt. Kapitel 3 hat seit v0.18.0 einen ersten spielbaren Abschnitt in vier neuen Gebieten; umfassende Inszenierung fehlt noch. Kapitel 4–14 und Postgame sind weiterhin **Planung**, keine bereits programmierten Inhalte. Maßgeblich sind diese Dokumente und die Original-IDs in species.js. Geplant: 14 Kapitel + Postgame.
+> **Storystatus:** Kapitel 1–2 sind im heutigen Code angelegt. Kapitel 3 ist seit v0.18.0 in vier neuen Gebieten als erster Abschnitt spielbar. Kapitel 4 ergaenzt ab v0.19.0 fuenf Maps und die erste Echo-Bahn Wurzelheim-Moorglas. Kapitel 5–14 und Postgame sind weiterhin **Planung**, keine bereits programmierten Inhalte. Maßgeblich sind diese Dokumente und die Original-IDs in species.js. Geplant: 14 Kapitel + Postgame.
 
 ## Ein-Satz-Prämisse
 

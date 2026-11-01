@@ -453,6 +453,7 @@
 
     window.EchoMaps?.registerLegacy(worldMap);
     window.EchoChapter3?.register(worldMap);
+    window.EchoChapter4?.register();
 
     const gameState = {
     mode: 'OVERWORLD', // OVERWORLD, DIALOG, BATTLE, LEXICON, MENU
@@ -481,6 +482,8 @@
     platformProgress: {cleared:false,bestSeconds:null},
     ruinsProgress: {seals:[],bossWon:false,clueSeen:false},
     chapter3: null,
+    chapter4: null,
+    railCursor: 0,
     ruinsReturn: null,
     roomId: null,
     returnToVillage: null,
@@ -523,6 +526,7 @@
         platformProgress: gameState.platformProgress,
         ruinsProgress: gameState.ruinsProgress,
         chapter3: gameState.chapter3,
+        chapter4: gameState.chapter4,
         ruinsReturn: gameState.ruinsReturn,
         roomId: gameState.roomId,
         returnToVillage: gameState.returnToVillage,
@@ -558,6 +562,7 @@
       window.EchoPlatformer?.ensure(gameState);
       window.EchoRuins?.ensure(gameState);
       window.EchoChapter3?.ensure(gameState);
+      window.EchoChapter4?.ensure(gameState);
       if(gameState.scene==='BUILDING'&&!window.EchoInteriors?.ROOMS[gameState.roomId]){
         gameState.scene='OVERWORLD';gameState.player={x:5,y:6,dir:'down',stepPhase:0};
       }
@@ -628,9 +633,11 @@
     let limits=wildEncounterLimits();
     if(gameState.currentMapId!=='legacy_wurzeldorf'){
       const strongest=Math.max(5,...gameState.team.map(m=>m.lv||1));
-      const low=Math.min(10,Math.max(3,strongest-2));
-      limits={...limits,low,cap:Math.min(12,strongest+1),poolCap:150,stageCap:1,
-        starterZone:strongest<9,newcomer:false};
+      const late=gameState.currentMapId==='moorglas_bog';
+      const cap=late?Math.max(7,Math.min(17,strongest+1)):Math.min(12,strongest+1);
+      const low=late?Math.max(7,Math.min(cap,strongest-2)):Math.min(10,Math.max(3,strongest-2));
+      limits={...limits,low,cap,poolCap:150,stageCap:1,
+        starterZone:strongest<(late?11:9),newcomer:false};
     }
     const wildLv=limits.low+Math.floor(Math.random()*(limits.cap-limits.low+1));
     // Registry is explicit per map. If the current future map has no table,
@@ -854,6 +861,10 @@ function executeBattleAction(choice){
       b.busy = false;
     } else {
       gameState.mode = 'OVERWORLD';
+      if(b.chapter4Fight&&window.EchoChapter4){
+        msgs.push(...window.EchoChapter4.victory(gameState,b.chapter4Fight));
+        saveGame(true);
+      }
       if(b.chapter3Boss&&window.EchoChapter3){
          msgs.push(...window.EchoChapter3.victory(gameState));
          saveGame(true);
@@ -903,7 +914,8 @@ function executeBattleAction(choice){
       return;
     }
     if(gameState.currentMapId!=='legacy_wurzeldorf'){
-       const r=window.EchoChapter3.regionMove(gameState,dx,dy);
+       const region=window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3;
+       const r=region.regionMove(gameState,dx,dy);
        if(r.travel){sfx.confirm();saveGame(true);showDialog(r.lines);}
        else if(r.lines)showDialog(r.lines);
        else if(r.moved){
@@ -974,18 +986,28 @@ function executeBattleAction(choice){
 
   function interactFront() {
     if(gameState.scene==='OVERWORLD'&&gameState.currentMapId!=='legacy_wurzeldorf'){
+      const region=window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3;
       const dirs={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
       const [dx,dy]=dirs[gameState.player.dir]||[0,1];
-      const r=window.EchoChapter3.interact(gameState,gameState.player.x+dx,gameState.player.y+dy);
+      const r=region.interact(gameState,gameState.player.x+dx,gameState.player.y+dy);
       if(r.changed)saveGame(true);
       if(r.boss){
         showDialog(r.lines,()=>{
-          const level=Math.max(7,Math.min(10,(gameState.team[0]?.lv||5)+1));
-          startTrainerBattle(null,'Pumpenwaechter',[{id:65,lv:level}]);
-          gameState.battle.chapter3Boss=true;
+          const strongest=Math.max(5,...gameState.team.map(m=>m.lv||1));
+          const onRail=region===window.EchoChapter4;
+          const level=onRail?Math.max(9,Math.min(r.boss==='root'?17:15,strongest+(r.boss==='root'?2:1))):
+            Math.max(7,Math.min(10,strongest+1));
+          const species=onRail?(r.boss==='root'?67:29):65;
+          const title=onRail?(r.boss==='root'?'Schattenwurzel':'Kontinuum-Kurier'):'Pumpenwaechter';
+          startTrainerBattle(null,title,[{id:species,lv:level}]);
+          if(onRail)gameState.battle.chapter4Fight=r.boss;
+          else gameState.battle.chapter3Boss=true;
           gameState.battle.enemy.maxHp=Math.round(gameState.battle.enemy.maxHp*.78);
           gameState.battle.enemy.hp=gameState.battle.enemy.maxHp;
+          gameState.battle.enemy.encounterScale=.8;
         });
+      }else if(r.rail){
+        gameState.railCursor=0;gameState.mode='RAIL';sfx.confirm();
       }else if(r.lines)showDialog(r.lines);
       return;
     }
@@ -1101,6 +1123,22 @@ function executeBattleAction(choice){
   // --- EINGABE-STEUERUNG (TASTATUR + NINTENDO SWITCH GAMEPAD API) ---
   function handleCommand(cmd) {
     ensureAudio();
+    if(gameState.mode==='RAIL'){
+      const options=window.EchoRail.destinations(gameState);
+      if(cmd==='B'||cmd==='START'){gameState.mode='OVERWORLD';sfx.cancel();return;}
+      if(cmd==='UP'||cmd==='LEFT'){gameState.railCursor=(gameState.railCursor-1+options.length)%Math.max(1,options.length);sfx.blip();return;}
+      if(cmd==='DOWN'||cmd==='RIGHT'){gameState.railCursor=(gameState.railCursor+1)%Math.max(1,options.length);sfx.blip();return;}
+      if(cmd==='A'){
+        const target=options[gameState.railCursor];
+        if(target&&window.EchoRail.depart(gameState,target.id)){
+          gameState.mode='OVERWORLD';saveGame(true);sfx.confirm();
+          const finished=gameState.chapter4.completed;
+          showDialog(['Echo-Bahn: Ankunft in '+target.name+'.',
+            finished?'Kapitel 4 geschafft! Der Weichenpass gehoert dir.':'Du kannst jederzeit kostenlos zurueckfahren.']);
+        }else{gameState.mode='OVERWORLD';showDialog(['Bahnfahrt nicht moeglich.']);}
+      }
+      return;
+    }
     if(gameState.mode==='OVERWORLD'&&gameState.scene==='RUINS'&&cmd==='B'){
       window.EchoRuins.exit(gameState);saveGame(true);sfx.cancel();
       return;
@@ -1928,12 +1966,37 @@ function executeBattleAction(choice){
      if(!map){renderOverworld(tick);return;}
      const px=gameState.player.x,py=gameState.player.y;
      const camX=px*16-CX,camY=py*16-CY;
-     const industrial=gameState.currentMapId.startsWith('pumpworks_');
+     const industrial=gameState.currentMapId.startsWith('pumpworks_') ||
+       (window.EchoChapter4?.names[gameState.currentMapId] && gameState.currentMapId!=='moorglas_bog');
+     const bog=gameState.currentMapId==='moorglas_bog';
      pix(0,0,PW,PH,industrial?'#415d66':'#7aa596');
      for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++){
        const sx=x*16-camX,sy=y*16-camY;
        if(sx<-17||sy<-17||sx>PW||sy>PH)continue;
        const tile=map.tiles[y][x];
+       if(bog){
+         if(tile===1||tile===5){
+           pix(sx,sy,16,16,'#233f48');
+           pix(sx+2,sy+3,12,11,'#416856');
+           pix(sx+4,sy,9,9,'#618468');
+           pix(sx+6,sy+2,3,5,'#b1bb7e');
+         }else if(tile===4){
+           pix(sx,sy,16,16,'#286374');
+           pix(sx+2,sy+3+Math.sin(tick*.002+x)*2,10,2,'#528f9c');
+           pix(sx+5,sy+10,8,1,'#82b8a9');
+           if((x*7+y*3)%5===0)pix(sx+8,sy+5,5,3,'#699b83');
+         }else{
+           pix(sx,sy,16,16,tile===2?'#436f55':tile===3?'#6d8270':'#527a63');
+           pix(sx,sy,16,2,'#688f74');
+           pix(sx+2+(x%3),sy+5,3,2,'#83a37c');
+           pix(sx+9,sy+12,5,1,'#315f56');
+           if(tile===2){
+             pix(sx+4,sy+2,3,9,'#316f4c');
+             pix(sx+9,sy+4,3,8,'#89b47d');
+           }
+         }
+         continue;
+       }
        if(!industrial){drawTile16(tile,sx,sy,tick,x,y);continue;}
        if(tile===4){
          pix(sx,sy,16,16,'#3b708b');
@@ -1954,7 +2017,8 @@ function executeBattleAction(choice){
          pix(sx+3,sy+13,2,2,'#5a6f74');
        }
      }
-     window.EchoChapter3.draw(ctx,tick,gameState,camX,camY,pix,fText,drawChar16);
+     const painter=window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3;
+     painter.draw(ctx,tick,gameState,camX,camY,pix,fText,drawChar16);
      if(gameState.hasStarter&&gameState.team.length){
        const companion=getMonsterSprite(gameState.team[0].id,16);
        ctx.drawImage(companion,CX+13,CY-11+Math.sin(tick*.005)*2,18,18);
@@ -2317,6 +2381,17 @@ function executeBattleAction(choice){
   // Canvas-Buttons direkt antippen, ohne eine virtuelle A-Taste verwenden zu müssen.
   canvas.addEventListener('pointerdown',e=>{
     const r=canvas.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*PW,y=(e.clientY-r.top)/r.height*PH;
+    if(gameState.mode==='RAIL'){
+      if(x>=18&&x<=303&&y>=63){
+        const index=Math.floor((y-63)/31);
+        const choices=window.EchoRail.destinations(gameState);
+        if(index>=0&&index<choices.length){
+          gameState.railCursor=index;
+          handleCommand('A');
+        }
+      }
+      return;
+    }
     if(gameState.mode==='ATTACKS'){
       const menuOnly=gameState.attackOrigin==='OVERWORLD'||gameState.attackOrigin==='MENU';
       const b=gameState.battle,ally=menuOnly?gameState.team[0]:getActiveAlly();
@@ -2342,7 +2417,7 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
@@ -2380,7 +2455,9 @@ function executeBattleAction(choice){
       if(gameState.mode==='ATTACKS')renderAttackBook(tick);
     } else if (gameState.mode === 'MAP') {
       if(gameState.currentMapId==='legacy_wurzeldorf')window.EchoExplore.drawMap(ctx,worldMap,gameState);
-       else window.EchoChapter3.drawRegionMap(ctx,gameState);
+       else (window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3).drawRegionMap(ctx,gameState);
+    } else if (gameState.mode === 'RAIL') {
+      window.EchoChapter4.drawRailMenu(ctx,gameState,gameState.railCursor);
     } else if (gameState.mode === 'LEXICON') {
       renderLexicon();
     } else if (gameState.mode === 'MENU') {

@@ -55,6 +55,7 @@ jobs:
         run: |
           node tests/map-registry.cjs
           node tests/chapter3.cjs
+          node tests/chapter4.cjs
           node tests/save-compat.cjs
           node tests/story-registry.cjs
           node tests/smoke.cjs
@@ -72,6 +73,7 @@ jobs:
           node --check app/src/main/assets/src/quests/registry.js
           node --check app/src/main/assets/src/maps/registry.js
           node --check app/src/main/assets/src/maps/chapter3.js
+          node --check app/src/main/assets/src/maps/chapter4.js
           node --check app/src/main/assets/src/encounters/registry.js
           node --check app/src/main/assets/data/encounters.js
           node --check app/src/main/assets/src/game.js

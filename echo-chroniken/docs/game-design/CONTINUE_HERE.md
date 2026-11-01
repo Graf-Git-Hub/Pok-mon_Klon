@@ -1,33 +1,71 @@
-# CONTINUE HERE – genau hier am Spiel weiterbauen
+# CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
-Stand: 01.11.2026. Branch main. **Letzter auf GitHub bestätigter Release: v0.17.0** (Commit 2c8140f). Signierte v0.18.1 erfolgreich gebaut und veroeffentlicht: Quellcommit bc5734ec3935b857ff86ce2fe971c7218e51ed51; GitHub-Actions-Run 41320548450 erfolgreich. 2.448.329 Bytes, SHA256 506799cefd0880bda218667eae909bb4c625483d0f94077e07e14f4cfb4d40c1. APK auch auf Laptop Laura unter Desktop/Echo-Chroniken-Universal.apk abgelegt. Vor jeder Arbeit neuen HEAD lesen.
+Stand 01.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
+Die letzte bestaetigte signierte APK vor dem heutigen Kapitel-4-Ausbau war v0.18.1,
+Commit bc5734ec, GitHub Run 41320548450, SHA256
+506799cefd0880bda218667eae909bb4c625483d0f94077e07e14f4cfb4d40c1.
+**Code fuer v0.19.0 / versionCode 20 ist fertiggestellt und lokal getestet,
+aber neuen GitHub-Release erst nach erfolgreichem GitHub Actions Build behaupten.**
+Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
-## Erledigt im heutigen Ausbau
-- M01-04: Bereits zuvor abgeschlossene EncounterRegistry bleibt in v0.18.0 erhalten.
-- M01-05: Sichere bidirektionale Kartenportale mit Spawnpunkten, Sperrflags, Netzwerkvalidierung und tatsaechlicher Bewegung ueber D-Pad/Touch implementiert.
-- M02-01: Vier neue begehbare Maps (Nordufer, Nebelhafen, Pumpwerk, Kontrollraum) an Wurzelheim angebunden.
-- M02-02: Pumpwerk mit Strompult, Ventilen und Rotor; Zustand im Save gespeichert.
-- Erste Kapitel-3-Storymechanik: Sera, drei Zeugen, Pumpenwaechter als Kampf, Tonaufnahme, Wartungsmarke, einmalige Belohnung.
-- Eigene gewichtet validierte Basiswesen-Tabellen an Nordufer und Hafen (65/95/109/112) mit sanfter Levelkurve.
-- Zusatztile/Sprites fuer Hafen (Haeuser, Steg, Boot, Laternen), Pumpwerk und Kontrollraum.
-- Node-Tests fuer 8 reversible Portale, Sperren, alle Interaktionspunkte, Boss-/Loot-Flags, Save-Roundtrip bestanden.
-- Echte Headless-Chrome-Renderings aller fuenf Kartenansichten ohne JS-Fehler erzeugt: docs/visual-audit/chapter3_0.png bis chapter3_4.png.
-- Alle 18 bisherigen Node-Tests erneut grün. Android-Release v0.18.0 nach CI pruefen.
+## Abgeschlossene technische Voraussetzungen
 
-## NAECHSTE ENTWICKLUNGSAUFGABEN
-1. Signierte v0.18.1-APK ist bestaetigt: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk ; bei jedem neuen Release weiterhin feste App-ID und gleiche Signatur pruefen.
-2. M01-06/M02-05: Echte Screenshots durchlaufen, Pfad von Kapitel 2 bis Kapitel 3 mit Controller/Touch testen; Kollision und Speicherstand auf Android-Handy und TV pruefen. Kein echter Hardwaretest behaupten, solange er nicht durchgefuehrt ist.
-3. M02-03 ausbauen: bessere Zeugen-Dialoge, Sequenzen, Tonarchiv-Inszenierung, Quest-/Journal-Lesbarkeit und Szenen aus CH03. Das jetzt funktionierende Kapitel ist ein **erster spielbarer Slice**, nicht die vollstaendige filmische Kapitelinszenierung.
-4. M02-04: Kael-Alt-Arena nach Migrationsplan sinnvoll in Nebelhafen integrieren, ohne alte Orden/Positionen zu brechen. Begegnungsbalance mit echten Spieldurchlaeufen nachstellen.
-5. Kapitel 4 / Echo-Bahn (M03-01 ff.) mit Rueckwegen, Bahnständen und Weltgraph beginnen. Danach Kapitel 5 bis 14.
+- M01-04: Kartenabhängige EncounterRegistry, im alten Wurzelheim unverändert.
+- M01-05: Sichere bidirektionale Kartenübergänge, Save-Migration und Rückwege.
 
-## Unverrueckbare Regeln
-- Kapitel 4–14 und Echo-Bahn sind **noch nicht spielbar**.
-- IDs 1–150, Miora 1→2→3 bei Lv 8/15, alte 3 Orden, alle vorhandenen Save-Flags und App-ID beibehalten.
-- Echte Featuretests und Screenshots nach jedem Schritt. PRODUCTION_TASKS.csv, CHANGELOG.md, diese Datei und GitHub-Commit gemeinsam aktualisieren.
-- Kein ersetztes APK mit wechselnder Debug-Signatur. Alte Saves erhalten.
+## Jetzt spielbar im Quellcode
 
-## In neuem Chat lesen
-00_INDEX.md, STORY_BIBLE.md, PRODUCTION_TASKS.csv, CHAPTERS/CH03.md, CHAPTERS/CH04.md,
-WORLD_GRAPH.json, src/maps/registry.js, src/maps/chapter3.js, tests/chapter3.cjs,
-dann Git-HEAD, GitHub Actions Status und aktuellen Android Build.
+- Kapitel 1 und 2: Oma, Miora, Fluestern im Wald, Ruine und bestehende Nebenspiele.
+- Kapitel 3 (seit 0.18.x): Nordufer, Nebelhafen mit Zeugen, Pumpwerk, Kontrollraum,
+  Pumpenwaechter, zweite Vateraufnahme, gewichtete Wassergeist-Begegnungen.
+- Kapitel 4 (0.19.0): Tunnel direkt aus Kapitel-3-Kontrollraum,
+  unterirdischer Bahnhof Wurzelheim, Weichenhof, Bahnhof Moorglas, Moorglas-Senke.
+  Edda und A-C-B-Weichenraetsel. Erste **echte** Echo-Bahn mit Zielmenue,
+  D-Pad+A/B und Touch, kostenlos Wurzelheim <-> Moorglas, sicherer Rueckweg.
+  Kontinuum-Kurier und Schattenwurzel als echte Trainerkaempfe, einmalige
+  Belohnung nach Rueckfahrt; Heiler und Lore-Dialoge.
+- Moorglas-Wildtabelle: IDs 29,40,67,79,84,101,106 mit 100% Gewichtssumme und
+  moderater Gegner-Skalierung ab Level 7.
+- Alte 150 IDs, Miora-Entwicklung 1/2/3 auf Level 8/15, originale
+  Wurzelheim-Koordinaten, drei alte Arenaorden, saveSchemaVersion 2 und
+  permanente Android-Paket-ID bleiben unveraendert.
+
+## Teststand
+
+- src/maps/chapter4.js und tests/chapter4.cjs: 5 Karten,
+  bidirektionale Portale, Schalter A-C-B, Eisenbahn-Rueckfahrt,
+  Boss-Flags, Save-Migration, einmalige Loot-Belohnung, erreichbare Interaktionen.
+- Alle 20 Node-Testdateien erfolgreich.
+- Echte Chrome-Renderings chapter4_0.png bis chapter4_4.png,
+  chapter4_rail_menu.png, chapter4_boss.png in docs/visual-audit.
+- Browser-Steuerung: echter Kapitel-3->4-Durchgang, Zugzielwahl via
+  Controller und Touch, Boss-Dialog -> Kampf; keine JS-Ausnahmen.
+- Android Build-Assets lokal erstellt und JavaScript-Syntaxpruefung erfolgt.
+- **Keine reale Handy-/TV-Hardwarepruefung**, keine vollstaendige
+  Balance-/Story-Durchspielung. Diese Grenzen nicht verschweigen.
+
+## Genau naechste Aufgaben
+
+1. GitHub Android Workflow fuer 0.19.0 bestaetigen, Direct APK pruefen,
+   stabile Signatur und Paket-ID de.echochroniken.game.stable; auf
+   Desktop Laura downloaden, vorheriges APK ersetzen, SHA256 protokollieren.
+2. Echte Gameplay-Durchspielung Kapitel 3->4 auf Android und TV;
+   Quest-Unterbrechung, Umdrehen, Speichern, Bossverluste, Controller-Touch.
+3. Kapitel 4 ausbauen: Zuganimation, deutlicher Bahnhof-Look, Kael,
+   neue Musik/Sound-Effekte, wichtige Dialoge im Journal lesbar.
+4. Kapitel 5 (Stillwasser) als neue begehbare Region mit eigenem
+   Questloop und sicherer Bahnweiterfuehrung starten.
+5. Uebrige sechs Bahnverbindungen und Kapitel 6-14 + Postgame umsetzen.
+6. 50 generische Monster noch benennen, 15 Ruecken-Bildvarianten auditieren.
+
+**Nicht behaupten:** Kapitel 5-14, das vollstaendige acht Stationen
+umfassende Eisenbahnnetz, 150/150 erreichbar, komplettes fertiges Spiel.
+
+## Arbeitsregeln
+
+Vor jeder Aufgabe 00_INDEX.md, STORY_BIBLE.md, PRODUCTION_TASKS.csv,
+WORLD_GRAPH.json, CHAPTERS/CH04.md, CHAPTERS/CH05.md, src/maps/registry.js,
+src/maps/chapter3.js, src/maps/chapter4.js und aktuellen Git-HEAD lesen.
+Nach Code: Node-Tests, Chrome-Screenshots, Android-Build, Changelog,
+PRODUCTION_TASKS und diese Fortsetzungsdatei synchron aktualisieren.
+Keine neue Debug-Signierung, keine zweite App-ID, alte Spielstaende erhalten.

@@ -15,5 +15,14 @@ window.ECHO_ENCOUNTER_TABLES = Object.freeze([
     {id:95,weight:30,minLevel:3,maxLevel:12},
     {id:109,weight:25,minLevel:3,maxLevel:12},
     {id:112,weight:15,minLevel:3,maxLevel:12}
+  ]}),
+  Object.freeze({mapId:'moorglas_bog',mode:'weighted',entries:[
+    {id:29,weight:30,minLevel:7,maxLevel:17},
+    {id:40,weight:24,minLevel:7,maxLevel:17},
+    {id:67,weight:18,minLevel:7,maxLevel:17},
+    {id:79,weight:12,minLevel:7,maxLevel:17},
+    {id:84,weight:8,minLevel:7,maxLevel:17},
+    {id:101,weight:5,minLevel:7,maxLevel:17},
+    {id:106,weight:3,minLevel:7,maxLevel:17}
   ]})
 ]);

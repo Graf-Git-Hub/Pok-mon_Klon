@@ -1,5 +1,24 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-01 - v0.19.0: Unter den Wurzeln / Echo-Bahn
+- Fuenf neue begehbare Karten: root_tunnel, station_wurzelheim, rail_switchyard,
+  station_moorglas, moorglas_bog. Kontrolle aus Kapitel 3 bleibt bestehen.
+- Sicherer bidirektionaler Tunnel-Portalanschluss aus pumpworks_controlroom.
+- Zwei Bahnhofsziele mit echter Verbindung, D-Pad/A/B-/Touch-Zielwahl,
+  kostenloser Fahrt und Rueckfahrt ohne Abhaengigkeit von ungebauten Karten.
+- Eddas Weichen A-C-B, Kontinuum-Kurier, Schattenwurzel, Moorbrunnen,
+  Save-Flags und einmalige Abschluss-Belohnung nach Rueckreise.
+- Gewichtet validierte Wildtabelle mit sieben neuen Moor-Grundformen,
+  konservative Levelkurve und Schonregeln; historische Startregion unveraendert.
+- Eigener Industrie-/Stationsboden, nebeliger Moorkachel-Look,
+  sieben echte Chrome-Screenshots in docs/visual-audit.
+- Node-Tests aller 20 Dateien bestanden; chapter4.cjs testet u.a. alle Rueckwege,
+  Schalter, Bosse, Reise und Save-Roundtrip; Browsersteuerung und Boss getestet.
+- Android 0.19.0 / versionCode 20 vorbereitet. Neue signierte APK nach
+  GitHub CI und SHA256-Download-Pruefung bestaetigen.
+- **Offen:** Kapitel 5-14, 6 weitere Bahnverbindungen, reale Android-TV-/Handy-
+  Bedienung, Audio/Szenenpolitur und vollstaendige Spiel-Durchlaeufe.
+
 ## 2026-11-01 – Android 0.18.1 (visuelle Nachkontrolle)
 - Bei der Sichtpruefung fielen in Pumpwerksraeumen unpassende Aussenwelt-Baeume auf. Diese Tile-Darstellung ist durch metallene Industriewaende, Bodenplatten und animiertes Wasser ersetzt.
 - Echte Chrome-Steuerbefehle zum Betreten/Verlassen des Nordufers sowie zum Ausloesen des Bosskampfs bestanden.

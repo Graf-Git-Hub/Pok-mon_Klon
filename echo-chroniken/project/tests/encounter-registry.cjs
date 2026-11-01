@@ -6,10 +6,14 @@ for(const file of ['data/species.js','data/encounters.js','src/encounters/regist
  vm.runInNewContext(fs.readFileSync(file,'utf8'),context);
 const species=context.window.ECHO_SPECIES,defs=context.window.ECHO_ENCOUNTER_TABLES,q=context.window.EchoEncounters;
 assert.equal(species.length,150);
-assert.equal(defs.length,3,'Only implemented playable maps may have wild tables');
-assert.equal(q.initialize(species,defs),3);
-assert.deepEqual(Array.from(q.list()),['legacy_wurzeldorf','lake_north_path','nebelhafen_town']);
+assert.equal(defs.length,4,'Only implemented playable maps may have wild tables');
+assert.equal(q.initialize(species,defs),4);
+assert.deepEqual(Array.from(q.list()),['legacy_wurzeldorf','lake_north_path','nebelhafen_town','moorglas_bog']);
 assert.equal(q.has('nebelhafen_town'),true);
+const moor={low:7,cap:17,poolCap:150,stageCap:1,badges:0};
+assert.deepEqual(Array.from(q.preview('moorglas_bog',moor,12),x=>x.id),[29,40,67,79,84,101,106]);
+assert.equal(q.choose('moorglas_bog',moor,12,()=>0),29);
+assert.equal(q.choose('moorglas_bog',moor,12,()=>.999),106);
 const harbor={low:3,cap:12,poolCap:150,stageCap:1,badges:0};
 assert.deepEqual(Array.from(q.preview('lake_north_path',harbor,6),x=>x.id),[65,95,109,112]);
 assert.equal(q.choose('lake_north_path',harbor,6,()=>0),65);

@@ -1,5 +1,17 @@
 # Echo-Chroniken 🎮👻
 
+**v0.19.0 – Kapitel 4: Unter den Wurzeln / Erste Echo-Bahn:**
+Nach Kapitel 3 geht es direkt aus dem Kontrollraum in den Wurzeltunnel.
+Fuenf neue Karten (Wurzeltunnel, Bahnhof Wurzelheim, Weichenhof, Bahnhof Moorglas,
+Moorglas-Senke) und die erste *echte* Bahnverbindung Wurzelheim <-> Moorglas,
+kostenlos und mit sicherer Rueckfahrt. Edda, das Weichenraetsel **A -> C -> B**,
+Kontinuum-Kurier, Schattenwurzel, Moorheilbrunnen und eine neue Monster-Begegnungstabelle
+sind spielbar. Reisen per Gamepad-D-Pad/A/B und Touch; Speicherstaende funktionieren.
+**Wichtig:** Kapitel 5-14 und das erweiterte 8-Stationen-Netz sind weiterhin in Planung.
+Keine zusaetzliche Android-App, gleiche Paket-ID und stabile Signierung.
+
+
+
 **v0.18.1 – Kapitel 3 als spielbarer erster Ausbau (mit eigenen Pumpwerks-Boden-/Wandgrafiken):** Nordufer, Nebelhafen, Pumpwerk und Kontrollraum sind als vier neue Maps mit sicheren Hin-/Rueckwegen verbunden. Sera und drei Zeugen, ein Strom-/Ventil-/Rotor-Raetsel, Pumpenwaechter und Vaters zweite Aufnahme sind spielbar. Die neue Region schaltet sich nach dem Sieg in der Ruine der Echos frei (Nordufer-Tor bei 24/9). 150 Arten behalten ihre IDs, die ersten Wildbegegnungen in Nordufer und Nebelhafen sind eigene gewichtete Pools, alte Saves bleiben erhalten. **Kapitel 4–14, Bahn und umfangreiche Kapitel-3-Inszenierung stehen noch aus.**
 
 

@@ -12,11 +12,11 @@ M02-01;M2;Greybox lake route and Nebelhafen town;M01-05;maps/lake*, maps/nebelha
 M02-02;M2;Design pumpworks floor1 and controlroom puzzle;M02-01;maps/pumpworks*;Valve/water-level state survives save and reload;L;DONE
 M02-03;M2;Implement chapter 3 NPC dialog and audio evidence;M01-03,M02-02;data/chapters/ch03.json;All mandatory story beats deterministically reproducible;M;IN_PROGRESS
 M02-04;M2;Place wild encounter table, Kael migration design;M01-04,M02-03;data/encounters.js;IDs valid and 3 party archetypes can win;M;IN_PROGRESS
-M02-05;M2;Chapter 3 visual QA, performance, release gate;M02-04;tests/ch03.cjs;Complete intro→hafen→pumpwerk→return w/o softlock;M;TODO
-M03-01;M3;Implement RailRegistry and bidirectional station UI;M02-05;src/rail/*;"One-way omission impossible; no invalid destination";L;TODO
-M03-02;M3;Build underground Wurzelheim and Moorglas station;M03-01;maps/station*, maps/moorglas*;First free round trip and safe save after travel;L;TODO
-M03-03;M3;Chapter 4 story, courier, switchyard and boss;M03-02;data/chapters/ch04.json;Rail unlock flag and optional sidetrack persist;M;TODO
-M03-04;M3;Rail regression on TV gamepad and phone;M03-03;tests/railway.cjs;No softlocks after app pause/kill/reload;M;TODO
+M02-05;M2;Chapter 3 visual QA, performance, release gate;M02-04;tests/ch03.cjs;Complete intro→hafen→pumpwerk→return w/o softlock;M;IN_PROGRESS
+M03-01;M3;Implement RailRegistry and bidirectional station UI;M02-05;src/rail/*;"One-way omission impossible; no invalid destination";L;IN_PROGRESS
+M03-02;M3;Build underground Wurzelheim and Moorglas station;M03-01;maps/station*, maps/moorglas*;First free round trip and safe save after travel;L;DONE
+M03-03;M3;Chapter 4 story, courier, switchyard and boss;M03-02;data/chapters/ch04.json;Rail unlock flag and optional sidetrack persist;M;IN_PROGRESS
+M03-04;M3;Rail regression on TV gamepad and phone;M03-03;tests/railway.cjs;No softlocks after app pause/kill/reload;M;IN_PROGRESS
 M04-01;M4;Chapter 5 Stillwasser and memory-loop investigation;M03-04;maps/stillwasser*, data/chapters/ch05.json;Three clues, Lyra arc, station, fresh NPC dialog;L;TODO
 M04-02;M4;Chapter 6 Aschenruh, Glutklamm and forge;M04-01;maps/glut*, data/chapters/ch06.json;Workers rescued, resonance tool acquired, backtrack;L;TODO
 M04-03;M4;Chapter 7 Lichterhain and Echo-spur system;M04-02;maps/lichterhain*, src/echo-trails.js;Optional clues without forced full lexicon;L;TODO

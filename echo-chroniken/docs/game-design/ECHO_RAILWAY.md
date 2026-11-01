@@ -1,6 +1,6 @@
 # Echo-Bahn – Streckenbuch und Anti-Softlock-Vertrag
 
-> **Vorschlag zur Freigabe, nicht bereits implementiert.** Die Bahn ist zugleich Schnellreise und Welt-Lore. Das erste nutzbare Teilstück kommt mit Kapitel 4.
+> **Stand 01.11.2026: Erste Strecke Wurzelheim-Moorglas seit v0.19.0 als spielbarer Abschnitt implementiert. Sechs weitere geplante Linien, sechs weitere Stationen und die vollständige Bahninszenierung sind noch nicht gebaut.** Die Bahn ist zugleich Schnellreise und Welt-Lore. Das erste nutzbare Teilstück kommt mit Kapitel 4.
 
 ## Historischer Zweck und Story-Funktion
 
