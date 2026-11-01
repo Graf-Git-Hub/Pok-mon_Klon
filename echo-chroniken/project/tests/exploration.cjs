@@ -30,6 +30,22 @@ const canvas={
 };
 const map=Array.from({length:28},()=>Array(36).fill(0));
 for(let y=0;y<28;y++)for(let xx=0;xx<36;xx++)if(xx===0||y===0||xx===35||y===27)map[y][xx]=1;
+vm.runInNewContext(fs.readFileSync('src/village.js','utf8'),ctx);
+vm.runInNewContext(fs.readFileSync('src/first-route.js','utf8'),ctx);
+ctx.window.EchoVillage.map=map;ctx.window.EchoVillage.build(map);ctx.window.EchoRoute.build(map);
+const walkable=(xx,y)=>xx>0&&xx<35&&y>0&&y<27&&![1,4,5,7].includes(map[y][xx]);
+const seen=new Set(['5,6']),queue=[[5,6]];
+for(let i=0;i<queue.length;i++){
+ const [xx,y]=queue[i];
+ for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+   const nx=xx+dx,ny=y+dy,k=nx+','+ny;
+   if(walkable(nx,ny)&&!seen.has(k)){seen.add(k);queue.push([nx,ny]);}
+ }
+}
+for(const stash of x.STASHES){
+ const accessible=[[0,0],[0,1],[0,-1],[1,0],[-1,0]].some(([dx,dy])=>seen.has((stash.x+dx)+','+(stash.y+dy)));
+ assert(accessible,'Unreachable secret chest: '+stash.id);
+}
 x.drawMap(canvas,map,{...saved,player:{x:17,y:17}},);
 x.drawWorld(canvas,500,{...saved,player:{x:17,y:17}},0,0,()=>{});
 const gameplay=fs.readFileSync('src/game.js','utf8');
