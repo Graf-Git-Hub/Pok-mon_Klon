@@ -310,7 +310,7 @@ function render(ctx,tick,s,drawChar){
    near(s.player,ALTAR)?(q.seals.length===3?'A: WÄCHTER HERAUSFORDERN':'A: VERSIEGELTER ALTAR'):
    nearest?'A: '+nearest.name+'-SIEGEL AKTIVIEREN':
    near(s.player,MURAL,2)?'A: WANDINSCHRIFT LESEN':
-   'A: UNTERSUCHEN  ·  WURZEL → WASSER → STERN';
+   'A: UNTERSUCHEN · B: RAUS · WURZEL → WASSER → STERN';
  tx(hint,160,176,8,'#f4e6bf','center');
 }
 function drawBoss(ctx,tick,x,y,pix){
