@@ -63,6 +63,11 @@ function build(map){
 }
 function guideTalk(state,sfx){
   const q=quest(state);
+  if(state.ruinsProgress?.bossWon){
+    return ['Liora: „Vaters Aufnahme? Die Anker wurden also absichtlich abgeschaltet ...“',
+      '„Dann ist der Wald nicht krank. Jemand hat ihm die Erinnerungen genommen.“',
+      '„Du solltest Oma davon erzählen. Sie kannte die alten Signalwege.“'];
+  }
   if(!state.hasStarter)return ['Liora: „Hol erst dein Paket bei Oma ab, dann zeige ich dir den Waldpfad!“'];
   if(!q.accepted){
     q.accepted=true;
@@ -80,8 +85,14 @@ function guideTalk(state,sfx){
     return ['Liora: „Du hast wirklich alle drei gefunden! Der Flüsterpfad leuchtet wieder.“',
       '🎁 Du erhältst 2 Seelen-Tränke und 5 Seelen-Sphären!',
       '„Waldhüter Piko wartet am Ende des Pfades. Er prüft dich gern in einem freundlichen Kampf.“',
-      '„Östlich von Piko glitzert ein Traumtor. Dort wartet ein ganz anderes Abenteuer!“'];
+      '„Außerdem hat sich südöstlich ein altes Steintor geöffnet. Dein Vater kannte diese Stelle.“',
+      '„Falls du eine Pause brauchst: Östlich von Piko liegt auch ein seltsames Traumtor.“'];
   }
+  if(q.rewarded && !state.ruinsProgress?.bossWon)return [
+    'Liora: „Die drei Lichter haben ein verborgenes Tor geweckt.“',
+    '„Geh von hier nach Südosten. Hinter den moosigen Steinen liegt eine alte Ruine.“',
+    '„Auf einer Platte steht Vaters Zeichen. Vielleicht führt dich das weiter.“'
+  ];
   if(q.guardianWon)return ['Liora: „Sogar Piko hast du überzeugt. Wurzelheim kann stolz auf dich sein!“'];
   return ['Liora: „Danke für die Seelenlichter! Wenn du möchtest, fordere Piko am Ende des Pfades heraus.“',
     '„Und schau dir das Traumtor ganz im Osten des Waldes an!“'];
