@@ -2,6 +2,19 @@
 
 > **APK-Updates vorübergehend angehalten:** Der bisherige GitHub-Build erzeugte immer eine andere Debug-Signatur und wechselnde App-IDs. Dadurch sind Dorf, Fair, Neu, Paket und Pfad als getrennte Apps entstanden. Neue, inkompatible APKs werden nicht mehr automatisch veröffentlicht. Der feste App-Name und das dauerhaft signierte Release sind in [Pull Request #1](https://github.com/Graf-Git-Hub/Pok-mon_Klon/pull/1) vorbereitet. Zum Abschluss fehlen noch die privat hinterlegten Signier-Secrets. Der alte APK-Link kann bis dahin noch die bisherige Testversion enthalten. Alte Apps bitte nicht vor einer Sicherung der Spielstände deinstallieren.
 
+## 🏡 Neue Innenräume: Kräuterhaus und Werkstatt
+
+Die ehemals verschlossenen Gebäude in Wurzelheim sind jetzt **wirklich betretbar**:
+
+- **Kräuterhaus (bei Kartenfeld 14,5):** Fenja erklärt ein kleines Drei-Farben-Rätsel. Leuchte die Töpfe in der Reihenfolge Blau → Gold → Rosa an. Einmalige Belohnung: **2 Tränke und 3 Seelen-Sphären**.
+- **Werkstatt (bei Kartenfeld 6,17):** Mechanikerin Edda kalibriert deine Fang-Linse am Arbeitstisch. Danach erhöht sich die Fangchance dauerhaft um **8 Prozentpunkte**. Zusätzlich gibt es **2 Seelen-Sphären**.
+- Beide Räume haben eigenständige Pixel-Einrichtung und sind mit dem Steuerkreuz begehbar. **A** zum Untersuchen, unten durch die Tür zurück ins Dorf. Die Belohnungen sind nur einmal erhältlich.
+- Fortschritt und Rückkehrposition werden dauerhaft im lokalen Spielstand gespeichert, einschließlich Migration vorhandener Speicherstände.
+- **Kampfverbesserung:** Pixel-Angriffe fliegen vom Angreifer zum Ziel und die getroffene Seite wackelt. Gegnerangriffe sind jetzt auch sichtbar auf deinen Geist gerichtet.
+- **Tests:** `tests/interiors.cjs` für Rätsel/Belohnungen/Animationen und `tests/interiors-integration.cjs` für den tatsächlichen Controller-Ablauf durch beide Räume.
+
+**Hinweis zur APK:** Der Android-Quellcode wurde aktualisiert. Eine neue Installationsdatei wird noch nicht veröffentlicht, solange die dauerhafte Signierung fehlt. Keine weitere separate Test-App und kein zusätzliches Icon.
+
 ## 🗺️ Spielverbesserung: Entdeckerkarte und versteckte Vorräte
 
 - **Gebietskarte**: Auf Android-Handy über **🗺 Karte**, mit Controller über **SELECT / Minus** öffnen. **A, B oder START** schließen sie wieder. Der Spieler, Wege, Dorfhäuser, Questpunkte und ungeöffnete Vorräte werden angezeigt.
