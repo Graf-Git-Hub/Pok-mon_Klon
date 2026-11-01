@@ -1,0 +1,41 @@
+const assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
+const env={window:{},console,Math,Set};
+vm.runInNewContext(fs.readFileSync('src/interiors.js','utf8'),env);
+vm.runInNewContext(fs.readFileSync('src/combat-fx.js','utf8'),env);
+const h=env.window.EchoInteriors,fx=env.window.EchoCombatFX;
+assert(h&&fx);
+const sfx={confirm(){},step(){},cancel(){},evolve(){}};
+const dialog=[];
+let state={
+ scene:'OVERWORLD',roomId:null,hasStarter:true,
+ player:{x:14,y:5,dir:'up',stepPhase:0},potions:5,orbs:12,indoorProgress:null
+};
+assert(h.enter(state,'kraeuter'));assert.equal(state.scene,'BUILDING');
+assert.equal(state.player.x,7);assert.equal(state.player.y,8);
+const intro=h.interact(state,()=>{},sfx);assert(Array.isArray(intro));
+const solve=(ix)=>{state.player={x:h.POTIONS[ix].x,y:5,dir:'up',stepPhase:0};return h.interact(state,()=>{},sfx)};
+solve(2);assert.equal(h.ensure(state).kraeuter.index,0,'wrong pot should reset without reward');
+solve(0);assert.equal(h.ensure(state).kraeuter.index,1);
+solve(1);assert.equal(h.ensure(state).kraeuter.index,2);
+const reward=solve(2);assert.equal(h.ensure(state).kraeuter.solved,true);
+assert.equal(state.potions,7);assert.equal(state.orbs,15);assert(reward.join(' ').includes('Belohnung')||reward.join(' ').includes('bekommst'));
+solve(0);solve(1);solve(2);assert.equal(state.potions,7);assert.equal(state.orbs,15,'no repeated puzzle payout');
+state.player={x:7,y:8,dir:'down',stepPhase:0};
+h.walk(state,0,1,'down',()=>{},sfx);assert.equal(state.scene,'BUILDING');
+const exited=h.walk(state,0,1,'down',()=>{},sfx);assert(exited.exited);
+assert.equal(state.scene,'OVERWORLD');assert.equal(state.player.x,14);assert.equal(state.player.y,5);
+state.player={x:6,y:17,dir:'up',stepPhase:0};
+assert(h.enter(state,'werkstatt'));assert.equal(h.captureBonus(state),0);
+state.player={x:11,y:5,dir:'up',stepPhase:0};
+const upgrade=h.interact(state,()=>{},sfx);assert.equal(h.captureBonus(state),.08);
+assert(upgrade.join(' ').includes('Fang-Linse'));
+assert.equal(state.orbs,17);
+h.interact(state,()=>{},sfx);assert.equal(state.orbs,17);
+const saved=JSON.parse(JSON.stringify(state));
+assert.equal(h.ensure(saved).kraeuter.solved,true);assert.equal(h.captureBonus(saved),.08);
+const paint={fillStyle:'',font:'',save(){},restore(){},fillRect(){},fillText(){}};
+h.render(paint,200,saved,()=>{});
+const frames=[{animTimer:18,fxTarget:'enemy',lastAttackColor:'#abf'}, {animTimer:8,fxTarget:'ally',lastAttackColor:'#abb'}];
+frames.forEach(b=>fx.draw(paint,b,200));
+assert.equal(h.enter(state,'invalid'),false,'must not enter nonimplemented houses');
+console.log('PASS: two rooms, walk-out and restoration, color-order puzzle, one-time prizes, permanent catching bonus, save migration, rendered scenes and battle FX');
