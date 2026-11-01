@@ -1,11 +1,12 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
 Stand 01.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
-Die letzte bestaetigte signierte APK vor dem heutigen Kapitel-4-Ausbau war v0.18.1,
-Commit bc5734ec, GitHub Run 41320548450, SHA256
-506799cefd0880bda218667eae909bb4c625483d0f94077e07e14f4cfb4d40c1.
-**Code fuer v0.19.0 / versionCode 20 ist fertiggestellt und lokal getestet,
-aber neuen GitHub-Release erst nach erfolgreichem GitHub Actions Build behaupten.**
+**Letzte verifizierte signierte Android-APK: v0.19.0 / versionCode 20.**
+Quellcommit 6019e1e0cf315a5840584f7efa07afaca73f5c60;
+Android Actions Run 41328383208 erfolgreich, stabile App-ID de.echochroniken.game.stable.
+APK 2.454.774 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
+SHA256 A1F4FA96CD74E3F682BBE42B978462BEE2340F1EBBD5FB3A1C918B5D70FF70E2.
+Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
 ## Abgeschlossene technische Voraussetzungen

@@ -14,8 +14,11 @@
   sieben echte Chrome-Screenshots in docs/visual-audit.
 - Node-Tests aller 20 Dateien bestanden; chapter4.cjs testet u.a. alle Rueckwege,
   Schalter, Bosse, Reise und Save-Roundtrip; Browsersteuerung und Boss getestet.
-- Android 0.19.0 / versionCode 20 vorbereitet. Neue signierte APK nach
-  GitHub CI und SHA256-Download-Pruefung bestaetigen.
+- Android 0.19.0 / versionCode 20 **erfolgreich signiert und veroeffentlicht**:
+  Commit 6019e1e0cf315a5840584f7efa07afaca73f5c60;
+  GitHub Run 41328383208 erfolgreich, APK 2.454.774 Bytes;
+  SHA256 A1F4FA96CD74E3F682BBE42B978462BEE2340F1EBBD5FB3A1C918B5D70FF70E2.
+  APK auf Desktop von Laura ersetzt.
 - **Offen:** Kapitel 5-14, 6 weitere Bahnverbindungen, reale Android-TV-/Handy-
   Bedienung, Audio/Szenenpolitur und vollstaendige Spiel-Durchlaeufe.
 
