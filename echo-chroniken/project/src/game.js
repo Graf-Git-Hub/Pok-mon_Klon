@@ -724,8 +724,9 @@ function executeBattleAction(choice){
         } else {
           // Ohnmacht -> Zurück zu Oma Martha
           gameState.team.forEach(m => { m.hp = m.maxHp; });
-          gameState.player.x = 5;
-          gameState.player.y = 5;
+          // After a wipe the player really wakes up in Grandma's house.
+          gameState.scene='HOUSE';
+          gameState.player={x:7,y:9,dir:'up',stepPhase:0};
           gameState.encounterGrace=16;
           gameState.mode = 'OVERWORLD';
           saveGame(true);
@@ -813,7 +814,10 @@ function executeBattleAction(choice){
     if (gameState.mode !== 'OVERWORLD') return;
     gameState.player.dir = dirName;
     if(gameState.scene==='HOUSE'){
-      window.EchoHouse.walk(gameState,dx,dy,dirName,showDialog,sfx.step);return;
+      const previousScene=gameState.scene;
+      window.EchoHouse.walk(gameState,dx,dy,dirName,showDialog,sfx.step);
+      if(previousScene!==gameState.scene)saveGame(true);
+      return;
     }
     if(gameState.player.x===5 && gameState.player.y===5 && dx===0 && dy===-1){
       enterGrandmaHouse();return;
@@ -865,7 +869,8 @@ function executeBattleAction(choice){
 
   function interactFront() {
     if(gameState.scene==='HOUSE'){
-      window.EchoHouse.talk(gameState,showDialog,createMonsterInstance,sfx);return;
+      window.EchoHouse.talk(gameState,showDialog,createMonsterInstance,sfx);
+      saveGame(true);return;
     }
     if(gameState.player.x===5&&gameState.player.y===5&&gameState.player.dir==='up'){
       enterGrandmaHouse();return;
