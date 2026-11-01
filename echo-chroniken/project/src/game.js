@@ -734,7 +734,7 @@ function executeBattleAction(choice){
     ally.hp = Math.max(0, ally.hp - dmg);
     sfx.hit();
     b.animTimer=18;b.fxTarget='ally';
-    b.log = `${enemySp.name} nutzt ${move.name}! (${dmg} Schaden)`;
+    b.log = `${b.enemyDisplayName||enemySp.name} nutzt ${move.name}! (${dmg} Schaden)`;
 
     battleTimeout(() => {
       if (ally.hp <= 0) {
@@ -772,7 +772,7 @@ function executeBattleAction(choice){
     ally.xp += xpGain;
     sfx.confirm();
 
-    const msgs = [`${SPECIES[enemy.id - 1].name} wurde besänftigt! (+${xpGain} EP)`];
+    const msgs = [`${b.enemyDisplayName||SPECIES[enemy.id - 1].name} wurde besänftigt! (+${xpGain} EP)`];
 
     // Level-Up & Entwicklungs-Check
     while (ally.xp >= ally.nextXp) {
@@ -910,7 +910,7 @@ function executeBattleAction(choice){
       if(r.boss){
         showDialog(r.lines,()=>{
           startTrainerBattle(null,'Vergessener Wächter',[{id:7,lv:5}]);
-          const b=gameState.battle;b.ruinBoss=true;
+          const b=gameState.battle;b.ruinBoss=true;b.enemyDisplayName='Erinnerungshüter';
           b.enemy.maxHp=Math.max(16,Math.round(b.enemy.maxHp*.72));
           b.enemy.hp=b.enemy.maxHp;b.enemy.encounterScale=.65;
         });
@@ -1915,7 +1915,18 @@ function executeBattleAction(choice){
       const x=i*16-12,h=10+Math.floor(hash(i,12)*17);
       pix(x,86-h,7,h,'#96b79f');pix(x+3,79-h,3,9,'#729d8c');
     }
-    pix(0,91,320,27,'#90bd9c');
+    if(b.ruinBoss){
+      // Unique ancient sanctuary, distinct from normal bright-grass encounters.
+      pix(0,0,320,118,'#29464f');
+      for(let i=0;i<14;i++){
+        const x=i*25-12;
+        pix(x,18+(i%3)*9,15,68,'#3b6063');
+        pix(x+3,15+(i%3)*9,10,3,'#8e9a88');
+      }
+      pix(0,80,320,38,'#637e72');
+      for(let i=0;i<24;i++){let x=i*17+3;pix(x,83+(i%4)*8,8,2,i%2?'#8eaa8a':'#455f63');}
+      pix(0,100,320,18,'#526f66');
+    }else pix(0,91,320,27,'#90bd9c');
     for(let i=0;i<28;i++){
       const x=i*13+hash(i,92)*8,y=93+hash(i,12)*23;
       pix(x,y,2,2,i%3?'#b9d9a0':'#e3d4a1');
@@ -1928,13 +1939,15 @@ function executeBattleAction(choice){
     const shake=hurt && b.animTimer%2===0?3:0;
     ctx.save();ctx.imageSmoothingEnabled=true;
     // Enemy: FRONT VIEW, right / Player: TRUE REAR VIEW, left.
-    ctx.drawImage(getMonsterSprite(enemy.id,32),192+(b.fxTarget==='enemy'?shake:0),12+bounce,109,96);
+    if(b.ruinBoss&&window.EchoRuins)
+      window.EchoRuins.drawBoss(ctx,tick,199+(b.fxTarget==='enemy'?shake:0),9,(x,y,w,h,c)=>pix(x,y,w,h,c));
+    else ctx.drawImage(getMonsterSprite(enemy.id,32),192+(b.fxTarget==='enemy'?shake:0),12+bounce,109,96);
     ctx.drawImage(getMonsterBackSprite(ally.id),22+(b.fxTarget==='ally'?shake:0),32-bounce,111,90);
     ctx.restore();
     if(hurt && window.EchoCombatFX)window.EchoCombatFX.draw(ctx,b,tick);
     // Gegner-Leiste oben links
     boxArt(5,5,143,35,'#f8efd6','#365456','#fff9e7');
-    fText(enemySp.name,12,18,10,'#263f43');
+    fText(b.enemyDisplayName||enemySp.name,12,18,10,'#263f43');
     fText('Lv.'+enemy.lv,123,18,9,'#486e60','right');
     fText('KP',12,33,8,'#546a61');hpbar(31,26,109,enemy.hp/enemy.maxHp,'#69ad68');
     // Eigene Leiste rechts unten; mit genauen KP
