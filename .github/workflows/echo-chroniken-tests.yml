@@ -12,6 +12,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify early encounter balance and move persistence
+      - name: Test quests, routes, rewards, scenes and controller navigation
         working-directory: echo-chroniken/project
-        run: node tests/smoke.cjs
+        run: |
+          node tests/smoke.cjs
+          node tests/house.cjs
+          node tests/package.cjs
+          node tests/village.cjs
+          node tests/encounters.cjs
+          node tests/first-route.cjs
+          node tests/exploration.cjs
+          node tests/interiors.cjs
+          node tests/interiors-integration.cjs
