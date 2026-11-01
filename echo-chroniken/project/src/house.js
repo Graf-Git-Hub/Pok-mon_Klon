@@ -45,6 +45,23 @@ function talk(s,showDialog,createMonster,sfx){
       '„Geh ruhig hinaus und schau dich in Wurzelheim um. Im hohen Gras sei bitte vorsichtig.“'
     ]);return;}
     if(s.foundMusicBox&&!s.musicBoxDelivered){s.musicBoxDelivered=true;s.potions+=3;sfx.heal();showDialog(['Oma Martha: „Meine Spieluhr! Du hast sie gefunden!“','„Hier, nimm drei Seelen-Tränke als Dankeschön.“']);return;}
+    if(s.ruinsProgress?.bossWon&&!s.ruinsProgress.reported){
+      s.ruinsProgress.reported=true;
+      sfx.heal();
+      showDialog([
+        'Oma Martha legt die Hand auf die alte Kapsel. Sie wird plötzlich ganz still.',
+        '„Diese Stimme ... ja. Dein Vater hat die Erinnerungssignale untersucht.“',
+        '„Er sagte immer: Eine Erinnerung kann verschwinden, aber niemals einfach aufhören, wahr zu sein.“',
+        '„Die alten Leitungen führen nach Norden. Dort wurde zuletzt ein Signal aufgefangen.“',
+        '„Du musst nicht sofort gehen. Aber wenn du gehst, nimm Miora mit.“',
+        'KAPITEL 2 ABGESCHLOSSEN · Eine neue Spur führt nach Norden.'
+      ]);s.team.forEach(m=>m.hp=m.maxHp);return;
+    }
+    if(s.ruinsProgress?.reported){
+      showDialog(['Oma Martha: „Was dein Vater in der Ruine sagte, lässt mich nicht los.“',
+        '„Die Signalspur führt weiter nach Norden. Hier ist immer ein sicherer Ort für euch.“']);
+      s.team.forEach(m=>m.hp=m.maxHp);return;
+    }
     showDialog(['Oma Martha: „Hier bist du immer willkommen.“','„Wenn deine Wesen müde sind, ruh dich bei mir aus.“']);
     s.team.forEach(m=>m.hp=m.maxHp);return;
   }
