@@ -313,6 +313,42 @@ function render(ctx,tick,s,drawChar){
    'A: UNTERSUCHEN  ·  WURZEL → WASSER → STERN';
  tx(hint,160,176,8,'#f4e6bf','center');
 }
+function drawBoss(ctx,tick,x,y,pix){
+ // Dedicated enemy view: a cracked memory mask with carved roots, not a reused front sprite.
+ const b=(dx,dy,w,h,c)=>pix(x+dx,y+dy,w,h,c);
+ const bob=Math.round(Math.sin(tick*.004)*2);
+ const dy=bob;
+ // Shadow and low fog.
+ for(let i=0;i<6;i++){
+   b(1+i*9,69+(i%2)*2,10,3,i%2?'#668d8e':'#93b4a5');
+ }
+ // Branching crown: broad shape at the top, unique recognisable silhouette.
+ b(21,18+dy,37,52,'#23434d');
+ b(13,8+dy,14,35,'#365b60');b(54,9+dy,13,34,'#365b60');
+ b(9,4+dy,9,18,'#96a48f');b(13,1+dy,10,9,'#b2b49a');
+ b(58,2+dy,9,22,'#a6ad93');b(53,0+dy,11,9,'#c6bc98');
+ b(21,3+dy,10,20,'#7f988b');b(49,5+dy,10,17,'#718e83');
+ // Shoulder cloak with stepped edges, shadows and fragments.
+ b(15,39+dy,54,25,'#274952');b(20,31+dy,43,31,'#4d7170');
+ b(22,48+dy,39,21,'#365e63');
+ b(26,60+dy,11,9,'#7c9481');b(48,62+dy,8,7,'#698078');
+ b(14,52+dy,6,16,'#254853');b(66,53+dy,7,14,'#254853');
+ // Cracked ivory front mask, deliberately asymmetric.
+ b(29,14+dy,29,35,'#243e48');
+ b(27,11+dy,29,37,'#b9b59b');b(31,12+dy,23,35,'#e0c8a2');
+ b(29,16+dy,3,24,'#f3dbb1');b(50,17+dy,5,19,'#8e9584');
+ b(31,25+dy,9,8,'#36515c');b(45,25+dy,8,8,'#36515c');
+ b(33,27+dy,5,4,'#e9c979');b(47,27+dy,4,4,'#f5dca2');
+ b(39,34+dy,4,8,'#40555b');b(40,40+dy,9,3,'#7c8a7e');
+ b(43,14+dy,2,11,'#68756d');b(45,19+dy,4,2,'#68756d');
+ b(51,36+dy,2,6,'#68756d');
+ // Three signal sparks float at slightly different depths.
+ for(let i=0;i<3;i++){
+   const u=11+i*22,yy=19+Math.round(Math.sin(tick*.004+i*2)*4);
+   b(u,yy,2,5,i===0?'#b9e9be':i===1?'#8bc9d1':'#efcf85');
+   b(u-2,yy+2,6,1,'#fff1c3');
+ }
+}
 function drawEntrance(ctx,tick,s,camX,camY,pix){
  const x=ENTRY.x*16-camX,y=ENTRY.y*16-camY;
  if(x<-35||x>335||y<-40||y>195)return;
@@ -331,5 +367,5 @@ function drawEntrance(ctx,tick,s,camX,camY,pix){
    ctx.fillText('A: WALDRUINE',x-18,y-27);ctx.restore();
  }
 }
-window.EchoRuins={ENTRY,SEALS,ALTAR,MURAL,ensure,unlocked,prepareWorld,nearEntrance,entrance,canStep,walk,exit,interact,victory,objective,render,drawEntrance};
+window.EchoRuins={ENTRY,SEALS,ALTAR,MURAL,ensure,unlocked,prepareWorld,nearEntrance,entrance,canStep,walk,exit,interact,victory,objective,render,drawBoss,drawEntrance};
 })();
