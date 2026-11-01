@@ -163,6 +163,16 @@ function render(ctx,tick,s,drawChar){
  pix(28,19,264,138,'#587067');
  pix(30,21,260,136,'#6e8578');
  pix(30,26,260,130,'#697d6f');
+ // Collapsed edges interrupt the old masonry rhythm. The left side is overgrown,
+ // the right is cracked and washed out: two distinct, believable histories.
+ const brokenLeft=[[31,40,23,6],[31,47,16,11],[31,58,11,10],[44,44,12,4],[51,49,7,5],[33,83,9,20]];
+ for(const [x,y,w,h]of brokenLeft)pix(x,y,w,h,'#304d4c');
+ const brokenRight=[[270,44,18,8],[280,52,9,13],[268,56,8,6],[275,90,12,7],[282,108,8,23]];
+ for(const [x,y,w,h]of brokenRight)pix(x,y,w,h,'#304b50');
+ for(let i=0;i<8;i++){
+   const x=34+Math.floor(hash(i,17)*245),y=38+Math.floor(hash(i,41)*13);
+   pix(x,y,9+i%3,2,i%2?'#a6a891':'#8c9b8a');
+ }
  // Receding vaulted wall and fractured lintel.
  pix(28,20,264,27,'#2d454c');pix(30,24,260,21,'#486268');
  for(let i=0;i<7;i++){
@@ -199,6 +209,21 @@ function render(ctx,tick,s,drawChar){
  // Dark carpet/moss walkway to shrine, feathered sides.
  pix(128,45,64,110,'#435b58');
  pix(134,48,52,102,'#567567');
+ // A warm ancient signal splits the cool floor into three worn trails.
+ for(let j=0;j<7;j++){
+   pix(149+j%3*8,61+j*12,3,7,j%2?'#8f9776':'#a4a17b');
+ }
+ for(let j=0;j<8;j++){
+   const x=58+j*11,y=114-Math.floor(j*.83);
+   pix(x,y,8,2,j%2?'#7b927e':'#adad8a');
+ }
+ // Faint vertical shafts from the fractured roof, cut into stepped pixels.
+ for(let i=0;i<17;i++){
+   const y=42+i*5;
+   const x=98+i*3;
+   pix(x,y,11,3,'#c8bb8452');
+   if(i<10)pix(x+58,y+3,5,4,'#a5d3bf35');
+ }
  for(let i=0;i<38;i++){
    const x=128+Math.floor(hash(i,3)*65),y=51+Math.floor(hash(i,9)*99);
    pix(x,y,2+(i%3),2,i%4?'#78927a':'#9eb18e');
@@ -229,8 +254,17 @@ function render(ctx,tick,s,drawChar){
    pix(x-7,y+9,30,7,'#344d50');pix(x-4,y+8,24,5,'#879383');
    pix(x+1,y-8,15,24,'#2c4147');pix(x+4,y-11,10,25,'#a3a794');
    pix(x+6,y-10,6,19,'#6c7772');pix(x+5,y-9,2,15,'#c5c4a1');
-   pix(x+8,y-3,4,9,on?m.glow:'#233e44');
-   pix(x+7,y-2,6,6,on?m.color:'#6c7776');
+   pix(x+8,y-3,4,9,on?m.glow:m.color);
+   pix(x+7,y-2,6,6,on?m.color:m.color);
+   // Each rune has an unmistakable glyph even when it has not been activated.
+   if(i===0){ // split tree-root shape
+     pix(x+8,y-7,2,11,'#2b5551');pix(x+4,y-2,10,2,'#2b5551');
+     pix(x+5,y+1,2,4,'#2b5551');pix(x+12,y+1,2,4,'#2b5551');
+   }else if(i===1){
+     for(let j=0;j<3;j++)pix(x+6+j*3,y-2+j%2*2,3,2,'#2c5862');
+   }else{
+     pix(x+9,y-7,2,13,'#594e40');pix(x+5,y-2,10,3,'#594e40');
+   }
    pix(x+8,y-6,3,3,on?'#fff2ca':'#9d9e91');
    if(on){pix(x+4,y-14,2,3,m.glow);pix(x+15,y-13,2,2,m.color);}
    else if(pulse>.38)pix(x+11,y-14,2,3,'#b7aa7c');
@@ -238,12 +272,17 @@ function render(ctx,tick,s,drawChar){
  // Suspended boss mask / memory anchor with distinctive silhouette, not a stock monster stamp.
  const coreX=ALTAR.x*16,coreY=ALTAR.y*16;
  pix(coreX-29,coreY+16,62,7,'#203e46');pix(coreX-24,coreY+12,51,4,'#7b8c7d');
- pix(coreX-14,coreY-2,30,31,'#273e4a');pix(coreX-10,coreY-7,22,36,'#566c69');
- pix(coreX-7,coreY-9,16,27,q.bossWon?'#778a7c':'#b2a886');
- pix(coreX-7,coreY-8,4,8,'#334b52');pix(coreX+5,coreY-8,4,8,'#334b52');
- pix(coreX-3,coreY+3,3,4,q.seals.length===3?'#fff0ba':'#57747c');
- pix(coreX+3,coreY+3,3,4,q.seals.length===3?'#fff0ba':'#57747c');
- pix(coreX-2,coreY+12,7,2,'#40595a');
+ // A crescent of roots and two broken crest-horns give the guardian a silhouette.
+ pix(coreX-21,coreY+7,13,16,'#334a4f');pix(coreX+14,coreY+7,11,14,'#334a4f');
+ pix(coreX-20,coreY-8,11,15,'#4b6265');pix(coreX+13,coreY-8,11,15,'#4b6265');
+ pix(coreX-18,coreY-12,7,13,'#9ea38b');pix(coreX+15,coreY-12,7,13,'#9ea38b');
+ pix(coreX-14,coreY-2,30,31,'#273e4a');pix(coreX-11,coreY-8,24,36,'#566c69');
+ pix(coreX-9,coreY-10,20,30,q.bossWon?'#778a7c':'#b2a886');
+ pix(coreX-8,coreY-6,7,8,'#35474d');pix(coreX+3,coreY-6,7,8,'#35474d');
+ pix(coreX-5,coreY-3,4,5,q.seals.length===3?'#fff0ba':'#739a95');
+ pix(coreX+4,coreY-3,4,5,q.seals.length===3?'#fff0ba':'#739a95');
+ pix(coreX-2,coreY+6,6,7,'#384950');pix(coreX,coreY+10,2,7,'#ead6a3');
+ pix(coreX-8,coreY+19,17,3,'#344e50');
  if(q.seals.length===3&&!q.bossWon){
    pix(coreX-18,coreY-5,3,4,'#ffe8a6');pix(coreX+18,coreY+1,3,4,'#fff6d6');
    pix(coreX-1,coreY-17-pulse*2,4,5,'#f5e3a3');
@@ -266,7 +305,12 @@ function render(ctx,tick,s,drawChar){
  tx('RUINE DER ECHOS',8,11,10,'#f1dcaa');
  tx(q.bossWon?'★ GEREINIGT':('SIEGEL '+q.seals.length+'/3'),312,11,9,'#d1dfc2','right');
  pix(0,165,320,15,'#1b373f');
- const hint=q.bossWon?'ZUM AUSGANG  ▼':'A: UNTERSUCHEN  ·  WURZEL → WASSER → STERN';
+ const nearest=SEALS.find(m=>near(s.player,m));
+ const hint=q.bossWon?'ZUM AUSGANG  ▼':
+   near(s.player,ALTAR)?(q.seals.length===3?'A: WÄCHTER HERAUSFORDERN':'A: VERSIEGELTER ALTAR'):
+   nearest?'A: '+nearest.name+'-SIEGEL AKTIVIEREN':
+   near(s.player,MURAL,2)?'A: WANDINSCHRIFT LESEN':
+   'A: UNTERSUCHEN  ·  WURZEL → WASSER → STERN';
  tx(hint,160,176,8,'#f4e6bf','center');
 }
 function drawEntrance(ctx,tick,s,camX,camY,pix){
