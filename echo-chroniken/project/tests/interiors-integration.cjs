@@ -1,0 +1,46 @@
+// Real controller/game-state integration for the two new indoor locations.
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const read=p=>fs.readFileSync(p,'utf8');
+const context2d=()=>new Proxy({measureText(s){return {width:String(s).length*6}},getImageData(x,y,w,h){return {data:new Uint8ClampedArray(w*h*4)}},createImageData(w,h){return {data:new Uint8ClampedArray(w*h*4)}},createLinearGradient(){return {addColorStop(){}}}}, {get(t,k){return k in t?t[k]:()=>{}},set(t,k,v){t[k]=v;return true}});
+function element(){return {style:{},dataset:{},value:'',textContent:'',classList:{add(){},remove(){}},addEventListener(){},onclick:null,querySelectorAll(){return []},appendChild(){},getBoundingClientRect(){return {left:0,top:0,width:320,height:180}},getContext:context2d}}
+const els={},document={documentElement:{classList:{add(){},remove(){}}},getElementById(id){return els[id]??(els[id]=element())},createElement:element,addEventListener(){}};
+const store={},win={document,addEventListener(){},location:{search:''},ECHO_BACK_URLS:{},ECHO_ATLAS_DATA:''};
+const env={document,window:win,navigator:{getGamepads(){return []}},localStorage:{getItem:k=>store[k],setItem:(k,v)=>store[k]=v},location:win.location,URLSearchParams,Math,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
+for(const p of ['data/species.js','src/village.js','src/first-route.js','src/exploration.js','src/interiors.js','src/combat-fx.js','src/house.js'])vm.runInNewContext(read(p),env);
+const anchor='  // --- HAUPTSCHLEIFE (GAME LOOP) ---',engine=read('src/game.js');
+assert(engine.includes(anchor));
+vm.runInNewContext(engine.replace(anchor,'window.__buildingState=gameState;\n'+anchor),env);
+const s=win.__buildingState,press=cmd=>win.tvControllerInput(cmd);
+const clear=()=>{
+ let n=0;while(s.mode==='DIALOG'&&n++<25)press('A');assert(n<25,'dialog failed to close');
+};
+s.mode='OVERWORLD';s.scene='OVERWORLD';s.introStage=4;s.hasStarter=true;
+s.team=[{id:1,lv:5,hp:35,maxHp:35,moves:['seelenstups','lichtfunke'],xp:0,nextXp:90}];
+s.player={x:14,y:5,dir:'up',stepPhase:0};
+press('A');
+assert.equal(s.scene,'BUILDING');assert.equal(s.roomId,'kraeuter');
+assert.equal(s.player.x,7);assert.equal(s.player.y,8);
+for(let i=0;i<3;i++)press('UP');
+for(let i=0;i<2;i++)press('LEFT');
+press('A');assert.equal(s.indoorProgress.kraeuter.index,1);clear();
+for(let i=0;i<3;i++)press('RIGHT');
+press('A');assert.equal(s.indoorProgress.kraeuter.index,2);clear();
+for(let i=0;i<3;i++)press('RIGHT');
+press('A');assert.equal(s.indoorProgress.kraeuter.solved,true);clear();
+assert.equal(s.potions,7);assert.equal(s.orbs,15);
+for(let i=0;i<4;i++)press('LEFT');
+for(let i=0;i<5;i++)press('DOWN');
+assert.equal(s.scene,'OVERWORLD');assert.equal(s.player.x,14);assert.equal(s.player.y,5);
+s.player={x:6,y:17,dir:'up',stepPhase:0};
+press('A');assert.equal(s.scene,'BUILDING');assert.equal(s.roomId,'werkstatt');
+for(let i=0;i<3;i++)press('UP');
+for(let i=0;i<4;i++)press('RIGHT');
+press('A');assert.equal(s.indoorProgress.werkstatt.calibrated,true);clear();
+assert.equal(s.orbs,17);
+assert.equal(win.EchoInteriors.captureBonus(s),.08);
+const saved=JSON.parse(store.echo_chroniken_tv_save);
+assert.equal(saved.scene,'BUILDING');
+assert.equal(saved.roomId,'werkstatt');
+assert.equal(saved.indoorProgress.kraeuter.solved,true);
+assert.equal(saved.indoorProgress.werkstatt.calibrated,true);
+console.log('PASS: actual A+D-pad world doors, two room quests, exit, rewards, persistent native-compatible save');
