@@ -33,6 +33,40 @@ function registerLegacy(tiles){
  if(maps.has(LEGACY))return maps.get(LEGACY);
  return register({mapId:LEGACY,tiles,spawns:{village_safe:{x:5,y:6}},exits:[]});
 }
+function addSpawn(mapId,id,p){
+ const m=maps.get(mapId);
+ if(!m||typeof id!=='string'||!id||m.spawns[id]||
+   !obj(p)||!Number.isInteger(p.x)||!Number.isInteger(p.y)||
+   p.x<0||p.x>=m.width||p.y<0||p.y>=m.height||
+   blocked.has(m.tiles[p.y][p.x]))throw Error('Invalid new map spawn');
+ m.spawns[id]={x:p.x,y:p.y};return true;
+}
+function addExit(mapId,e){
+ const m=maps.get(mapId);
+ if(!m||!obj(e)||typeof e.exitId!=='string'||!e.exitId||
+    m.exits.some(x=>x.exitId===e.exitId)||
+    !Number.isInteger(e.x)||!Number.isInteger(e.y)||
+    e.x<0||e.x>=m.width||e.y<0||e.y>=m.height||
+    blocked.has(m.tiles[e.y][e.x])||
+    typeof e.toMapId!=='string'||typeof e.toSpawnId!=='string'||
+    typeof e.returnExitId!=='string')throw Error('Invalid new exit');
+ m.exits.push({...e});return true;
+}
+function getExitAt(mapId,x,y){
+ const m=maps.get(mapId);
+ return m?.exits.find(e=>e.x===x&&e.y===y)||null;
+}
+function validateNetwork(){
+ for(const m of maps.values())for(const e of m.exits){
+   const to=maps.get(e.toMapId), back=to?.exits.find(b=>
+     b.exitId===e.returnExitId&&b.toMapId===m.mapId&&
+     b.returnExitId===e.exitId&&m.spawns[b.toSpawnId]);
+   if(!to||!to.spawns[e.toSpawnId]||!back||!Number.isInteger(e.x)||
+      !Number.isInteger(e.y)||blocked.has(m.tiles[e.y]?.[e.x]))
+     throw Error('Disconnected or unsafe portal '+m.mapId+':'+e.exitId);
+ }
+ return true;
+}
 function migrateSave(save){
  if(!obj(save))throw Error('Invalid save object');
  if(Number(save.saveSchemaVersion||0)>VERSION)throw Error('Save is newer than this app');
@@ -85,6 +119,7 @@ function travel(state,exitId){
  state.scene='OVERWORLD';return true;
 }
 window.EchoMaps=Object.freeze({LEGACY,VERSION,SAVE_KEY,BACKUP_KEY,
- register,registerLegacy,get:id=>maps.get(id)||null,has:id=>maps.has(id),
+ register,registerLegacy,addSpawn,addExit,getExitAt,validateNetwork,
+ get:id=>maps.get(id)||null,has:id=>maps.has(id),
  migrateSave,backupLegacy,travel,list:()=>Array.from(maps.keys())});
 })();

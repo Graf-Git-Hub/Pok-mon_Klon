@@ -1,5 +1,17 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-01 – Kapitel-3-Ausbau: 0.18.0 lokal getestet
+- M01-05: Alle echten Kartenportale bidirektional, Sperrflags und abgesicherte Spawnpunkte.
+- Vier separate neue Maps: Nordufer, Nebelhafen, Pumpwerk und Kontrollraum; Omas Dorf und alte Arena-Koordinaten unveraendert.
+- Sera, drei Zeugen, Strompult, zwei Ventile, Pumpenrotor, Pumpenwaechter, Tonarchiv, Wartungsmarke.
+- Kapitel-3-Zustand im alten Save-Schema additiv gespeichert. Einmalige Questbelohnungen und Speicherrueckkehr geprueft.
+- Gewichtet validierte Wildtabellen fuer zwei neue Gebiete; historische Wurzelheim-Pools beibehalten.
+- Zusaetzliche Hafen- und Pumpwerksgrafiken; fuenf echte Headless-Chrome-Screenshots im visual-audit-Verzeichnis.
+- Kapitel-3-Unit-/Pfade-/Save-Tests grün, bestehende 18 Tests grün, Chrome ohne JS-Fehler.
+- Android versionCode 18 / 0.18.0 gesetzt; **GitHub Actions und signierten Release separat bestaetigen**.
+- Noch offen: ausgebaute Szenen, reale TV-/Handy-Hardwarepruefung, Kael-Migration, Kapitel 4–14.
+
+
 ## 2026-11-01: Masterplanung V1
 
 - 14 Hauptkapitel + Postgame als Szene-, Quest-, Gebiet- und Produktionskarten erstellt.

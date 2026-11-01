@@ -1,6 +1,6 @@
 # ECHO-CHRONIKEN – STORY-BIBEL (vollständige Haupthandlung)
 
-> **Storystatus:** Kapitel 1–2 sind im heutigen Code angelegt. Kapitel 3–14 und Postgame sind ein zusammenhängender **Vorschlag zur Freigabe**, keine bereits programmierten Inhalte. Maßgeblich sind diese Dokumente und die Original-IDs in species.js. Geplant: 14 Kapitel + Postgame.
+> **Storystatus:** Kapitel 1–2 sind im heutigen Code angelegt. Kapitel 3 hat seit v0.18.0 einen ersten spielbaren Abschnitt in vier neuen Gebieten; umfassende Inszenierung fehlt noch. Kapitel 4–14 und Postgame sind weiterhin **Planung**, keine bereits programmierten Inhalte. Maßgeblich sind diese Dokumente und die Original-IDs in species.js. Geplant: 14 Kapitel + Postgame.
 
 ## Ein-Satz-Prämisse
 

@@ -452,6 +452,7 @@
   }
 
     window.EchoMaps?.registerLegacy(worldMap);
+    window.EchoChapter3?.register(worldMap);
 
     const gameState = {
     mode: 'OVERWORLD', // OVERWORLD, DIALOG, BATTLE, LEXICON, MENU
@@ -479,6 +480,7 @@
     indoorProgress: {},
     platformProgress: {cleared:false,bestSeconds:null},
     ruinsProgress: {seals:[],bossWon:false,clueSeen:false},
+    chapter3: null,
     ruinsReturn: null,
     roomId: null,
     returnToVillage: null,
@@ -520,6 +522,7 @@
         indoorProgress: gameState.indoorProgress,
         platformProgress: gameState.platformProgress,
         ruinsProgress: gameState.ruinsProgress,
+        chapter3: gameState.chapter3,
         ruinsReturn: gameState.ruinsReturn,
         roomId: gameState.roomId,
         returnToVillage: gameState.returnToVillage,
@@ -554,18 +557,28 @@
       window.EchoInteriors?.ensure(gameState);
       window.EchoPlatformer?.ensure(gameState);
       window.EchoRuins?.ensure(gameState);
+      window.EchoChapter3?.ensure(gameState);
       if(gameState.scene==='BUILDING'&&!window.EchoInteriors?.ROOMS[gameState.roomId]){
         gameState.scene='OVERWORLD';gameState.player={x:5,y:6,dir:'down',stepPhase:0};
       }
       // Migrate old saved positions that now lie inside one of the new buildings.
-      if(gameState.scene==='OVERWORLD'&&window.EchoVillage&&gameState.player){
+      if(gameState.scene==='OVERWORLD'&&gameState.currentMapId==='legacy_wurzeldorf'&&window.EchoVillage&&gameState.player){
         const p=gameState.player;
         if(!worldMap[p.y]||[1,4,5,7].includes(worldMap[p.y][p.x])){
           const h=window.EchoVillage.homes.find(h=>p.x>=h.x&&p.x<h.x+5&&p.y>=h.y&&p.y<h.y+3);
           gameState.player={x:h?h.x+2:5,y:h?h.y+3:6,dir:'down',stepPhase:0};
         }
       }
-      gameState.team.forEach(m=>{ensureMonsterMoves(m);if(!m.nextXp)m.nextXp=m.lv*18;});
+      if(gameState.scene==='OVERWORLD'&&gameState.currentMapId!=='legacy_wurzeldorf'){
+         const m=window.EchoMaps?.get(gameState.currentMapId);
+         const p=gameState.player;
+         if(!m||!p||!m.tiles[p.y]||[1,4,5,7].includes(m.tiles[p.y][p.x])){
+           const safe=m?.spawns[gameState.safeSpawnId]||m?.spawns[Object.keys(m.spawns)[0]];
+           gameState.player={x:safe?.x??5,y:safe?.y??6,dir:'down',stepPhase:0};
+           if(!m){gameState.currentMapId='legacy_wurzeldorf';gameState.player.x=5;gameState.player.y=6;}
+         }
+       }
+       gameState.team.forEach(m=>{ensureMonsterMoves(m);if(!m.nextXp)m.nextXp=m.lv*18;});
       if((d.balanceVersion||0)<6){
         // Einmalige Wiedergutmachung für überharte frühe Kämpfe.
         gameState.team.forEach(m=>m.hp=m.maxHp);
@@ -612,7 +625,13 @@
     };
   }
   function startWildBattle(){
-    const limits=wildEncounterLimits();
+    let limits=wildEncounterLimits();
+    if(gameState.currentMapId!=='legacy_wurzeldorf'){
+      const strongest=Math.max(5,...gameState.team.map(m=>m.lv||1));
+      const low=Math.min(10,Math.max(3,strongest-2));
+      limits={...limits,low,cap:Math.min(12,strongest+1),poolCap:150,stageCap:1,
+        starterZone:strongest<9,newcomer:false};
+    }
     const wildLv=limits.low+Math.floor(Math.random()*(limits.cap-limits.low+1));
     // Registry is explicit per map. If the current future map has no table,
     // skip the encounter rather than silently pulling Wurzelheim's ghosts.
@@ -770,6 +789,8 @@ function executeBattleAction(choice){
           gameState.team.forEach(m => { m.hp = m.maxHp; });
           // After a wipe the player really wakes up in Grandma's house.
           gameState.scene='HOUSE';
+          gameState.currentMapId='legacy_wurzeldorf';
+          gameState.safeSpawnId='legacy_current_position';
           gameState.player={x:7,y:9,dir:'up',stepPhase:0};
           gameState.encounterGrace=16;
           gameState.mode = 'OVERWORLD';
@@ -833,7 +854,11 @@ function executeBattleAction(choice){
       b.busy = false;
     } else {
       gameState.mode = 'OVERWORLD';
-      if(b.ruinBoss && window.EchoRuins){
+      if(b.chapter3Boss&&window.EchoChapter3){
+         msgs.push(...window.EchoChapter3.victory(gameState));
+         saveGame(true);
+       }
+       if(b.ruinBoss && window.EchoRuins){
         msgs.push(...window.EchoRuins.victory(gameState));
         saveGame(true);
       }
@@ -877,13 +902,35 @@ function executeBattleAction(choice){
       if(previousScene!==gameState.scene)saveGame(true);
       return;
     }
-    if(gameState.player.x===5 && gameState.player.y===5 && dx===0 && dy===-1){
+    if(gameState.currentMapId!=='legacy_wurzeldorf'){
+       const r=window.EchoChapter3.regionMove(gameState,dx,dy);
+       if(r.travel){sfx.confirm();saveGame(true);showDialog(r.lines);}
+       else if(r.lines)showDialog(r.lines);
+       else if(r.moved){
+         sfx.step();
+         gameState.stepsSinceSave=(gameState.stepsSinceSave||0)+1;
+         if(gameState.stepsSinceSave>=24){gameState.stepsSinceSave=0;saveGame(true);}
+         if(gameState.encounterGrace>0)gameState.encounterGrace--;
+         else if(r.grass&&gameState.hasStarter&&Math.random()<.07)startWildBattle();
+       }
+       return;
+     }
+     if(gameState.player.x===5 && gameState.player.y===5 && dx===0 && dy===-1){
       enterGrandmaHouse();return;
     }
     const nx = gameState.player.x + dx;
     const ny = gameState.player.y + dy;
     if (nx < 0 || ny < 0 || nx >= MAP_W || ny >= MAP_H) return;
 
+    const portal=window.EchoMaps?.getExitAt('legacy_wurzeldorf',nx,ny);
+    if(portal){
+      const deny=window.EchoChapter3?.access(gameState,portal.exitId);
+      if(deny){showDialog(deny);return;}
+      if(window.EchoMaps.travel(gameState,portal.exitId)){
+        sfx.confirm();saveGame(true);
+        showDialog(['NORDUFER - Der Weg nach Nebelhafen beginnt.']);return;
+      }
+    }
     const tile = worldMap[ny][nx];
     if (tile === 1 || tile === 4 || tile === 5 || tile === 7) return; // Solide Objekte inkl. Relikt-Tisch
     if (npcs.some(n => n.id!=='oma' && n.x === nx && n.y === ny)) return;
@@ -926,6 +973,22 @@ function executeBattleAction(choice){
   });
 
   function interactFront() {
+    if(gameState.scene==='OVERWORLD'&&gameState.currentMapId!=='legacy_wurzeldorf'){
+      const dirs={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
+      const [dx,dy]=dirs[gameState.player.dir]||[0,1];
+      const r=window.EchoChapter3.interact(gameState,gameState.player.x+dx,gameState.player.y+dy);
+      if(r.changed)saveGame(true);
+      if(r.boss){
+        showDialog(r.lines,()=>{
+          const level=Math.max(7,Math.min(10,(gameState.team[0]?.lv||5)+1));
+          startTrainerBattle(null,'Pumpenwaechter',[{id:65,lv:level}]);
+          gameState.battle.chapter3Boss=true;
+          gameState.battle.enemy.maxHp=Math.round(gameState.battle.enemy.maxHp*.78);
+          gameState.battle.enemy.hp=gameState.battle.enemy.maxHp;
+        });
+      }else if(r.lines)showDialog(r.lines);
+      return;
+    }
     if(gameState.scene==='RUINS'){
       const r=window.EchoRuins.interact(gameState,sfx);
       if(r.heal)gameState.team.forEach(m=>m.hp=m.maxHp);
@@ -1860,7 +1923,25 @@ function executeBattleAction(choice){
   }
 
   // Canvas is 320×180, world origin at CX/CY, gives true wide-screen playfield.
-  function renderOverworld(tick){
+  function renderRegion(tick){
+     const map=window.EchoMaps?.get(gameState.currentMapId);
+     if(!map){renderOverworld(tick);return;}
+     const px=gameState.player.x,py=gameState.player.y;
+     const camX=px*16-CX,camY=py*16-CY;
+     pix(0,0,PW,PH,'#7aa596');
+     for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++){
+       const sx=x*16-camX,sy=y*16-camY;
+       if(sx<-17||sy<-17||sx>PW||sy>PH)continue;
+       drawTile16(map.tiles[y][x],sx,sy,tick,x,y);
+     }
+     window.EchoChapter3.draw(ctx,tick,gameState,camX,camY,pix,fText,drawChar16);
+     if(gameState.hasStarter&&gameState.team.length){
+       const companion=getMonsterSprite(gameState.team[0].id,16);
+       ctx.drawImage(companion,CX+13,CY-11+Math.sin(tick*.005)*2,18,18);
+     }
+     drawChar16(CX,CY,'#e06e59',gameState.player.stepPhase,'player',gameState.player.dir);
+   }
+   function renderOverworld(tick){
     pix(0,0,PW,PH,'#80b985');
     const px=gameState.player.x,py=gameState.player.y;
     const camX=px*16-CX, camY=py*16-CY;
@@ -1878,6 +1959,13 @@ function executeBattleAction(choice){
     if(window.EchoExplore)window.EchoExplore.drawWorld(ctx,tick,gameState,camX,camY,pix);
     if(window.EchoPlatformer)window.EchoPlatformer.drawPortal(ctx,tick,gameState,camX,camY,pix);
     if(window.EchoRuins)window.EchoRuins.drawEntrance(ctx,tick,gameState,camX,camY,pix);
+     // New north-shore passage remains visible even while locked.
+     const gx=24*16-camX,gy=9*16-camY;
+     if(gx>-17&&gx<PW&&gy>-17&&gy<PH){
+       pix(gx+2,gy,12,15,'#365969');pix(gx+4,gy+2,8,12,
+         gameState.ruinsProgress?.bossWon?'#f2c789':'#82999c');
+       pix(gx+6,gy+4,4,5,'#fff4c9');
+     }
     
       // Berry bushes around yard, placed at stable coordinate hashes
     for(let x=1;x<11;x++)for(let y=5;y<11;y++){
@@ -2234,7 +2322,7 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
@@ -2244,6 +2332,7 @@ function executeBattleAction(choice){
     if(gameState.scene==='HOUSE')window.EchoHouse.render(ctx,tick,gameState,drawChar16);
     else if(gameState.scene==='BUILDING')window.EchoInteriors.render(ctx,tick,gameState,drawChar16);
     else if(gameState.scene==='RUINS')window.EchoRuins.render(ctx,tick,gameState,drawChar16);
+    else if(gameState.scene==='OVERWORLD'&&gameState.currentMapId!=='legacy_wurzeldorf')renderRegion(tick);
     else renderOverworld(tick);
   }
 
@@ -2270,7 +2359,8 @@ function executeBattleAction(choice){
       else renderBattle(tick);
       if(gameState.mode==='ATTACKS')renderAttackBook(tick);
     } else if (gameState.mode === 'MAP') {
-      window.EchoExplore.drawMap(ctx,worldMap,gameState);
+      if(gameState.currentMapId==='legacy_wurzeldorf')window.EchoExplore.drawMap(ctx,worldMap,gameState);
+       else window.EchoChapter3.drawRegionMap(ctx,gameState);
     } else if (gameState.mode === 'LEXICON') {
       renderLexicon();
     } else if (gameState.mode === 'MENU') {

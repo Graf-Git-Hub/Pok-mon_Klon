@@ -6,10 +6,14 @@ for(const file of ['data/species.js','data/encounters.js','src/encounters/regist
  vm.runInNewContext(fs.readFileSync(file,'utf8'),context);
 const species=context.window.ECHO_SPECIES,defs=context.window.ECHO_ENCOUNTER_TABLES,q=context.window.EchoEncounters;
 assert.equal(species.length,150);
-assert.equal(defs.length,1,'Do not prematurely register unbuilt story maps');
-assert.equal(q.initialize(species,defs),1);
-assert.deepEqual(Array.from(q.list()),['legacy_wurzeldorf']);
-assert.equal(q.has('nebelhafen_town'),false);
+assert.equal(defs.length,3,'Only implemented playable maps may have wild tables');
+assert.equal(q.initialize(species,defs),3);
+assert.deepEqual(Array.from(q.list()),['legacy_wurzeldorf','lake_north_path','nebelhafen_town']);
+assert.equal(q.has('nebelhafen_town'),true);
+const harbor={low:3,cap:12,poolCap:150,stageCap:1,badges:0};
+assert.deepEqual(Array.from(q.preview('lake_north_path',harbor,6),x=>x.id),[65,95,109,112]);
+assert.equal(q.choose('lake_north_path',harbor,6,()=>0),65);
+assert.equal(q.choose('lake_north_path',harbor,6,()=>.999),112);
 const early={low:2,cap:4,poolCap:48,stageCap:1,badges:0};
 const preview=q.preview('legacy_wurzeldorf',early,3);
 const expected=Array.from(species.filter(s=>s.id!==1&&s.id<=48&&s.stage===1),s=>s.id);

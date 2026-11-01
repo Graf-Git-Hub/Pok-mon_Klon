@@ -6,12 +6,12 @@ M01-01;M1;Create MapRegistry with legacy 36×28 map adapter;M00-02;"src/maps/reg
 M01-02;M1;Add future save fields, currentMapId and safeSpawnId;M01-01;"src/game.js; src/maps/registry.js; tests/save-compat.cjs";Save schema v2, id/spawn metadata, backup and migration roundtrip;L;DONE
 M01-03;M1;Create StoryRegistry/QuestFlag adapter;M01-02;"src/quests/registry.js; tests/story-registry.cjs; src/first-route.js; src/ruins.js; src/house.js";"10 original quest status readers and 4 exactly-once rewards; legacy integration and real browser QA";M;DONE
 M01-04;M1;Create EncounterRegistry by mapId and species ID;M01-01;"data/encounters.js; src/encounters/registry.js; src/game.js; tests/encounter-registry.cjs; tests/encounters.cjs";150 species, 25 starter grass species, 1840 battle simulations, 20000 registry draws and weighted 100% table validation;M;DONE
-M01-05;M1;Create bidirectional portal and safe-return tests;M01-01;tests/world-map.cjs;All exits load correct map and return safely;M;TODO
-M01-06;M1;Build screenshots/visual audit in runner for maps;M01-01;tests/visual/*;Capture entrance, collision, exit, battle, reload;M;TODO
-M02-01;M2;Greybox lake route and Nebelhafen town;M01-05;maps/lake*, maps/nebelhafen*;Walk from old shore into safe new town and back;M;TODO
-M02-02;M2;Design pumpworks floor1 and controlroom puzzle;M02-01;maps/pumpworks*;Valve/water-level state survives save and reload;L;TODO
-M02-03;M2;Implement chapter 3 NPC dialog and audio evidence;M01-03,M02-02;data/chapters/ch03.json;All mandatory story beats deterministically reproducible;M;TODO
-M02-04;M2;Place wild encounter table, Kael migration design;M01-04,M02-03;data/encounters.js;IDs valid and 3 party archetypes can win;M;TODO
+M01-05;M1;Create bidirectional portal and safe-return tests;M01-01;tests/world-map.cjs;All exits load correct map and return safely;M;DONE
+M01-06;M1;Build screenshots/visual audit in runner for maps;M01-01;tests/visual/*;Capture entrance, collision, exit, battle, reload;M;IN_PROGRESS
+M02-01;M2;Greybox lake route and Nebelhafen town;M01-05;maps/lake*, maps/nebelhafen*;Walk from old shore into safe new town and back;M;DONE
+M02-02;M2;Design pumpworks floor1 and controlroom puzzle;M02-01;maps/pumpworks*;Valve/water-level state survives save and reload;L;DONE
+M02-03;M2;Implement chapter 3 NPC dialog and audio evidence;M01-03,M02-02;data/chapters/ch03.json;All mandatory story beats deterministically reproducible;M;IN_PROGRESS
+M02-04;M2;Place wild encounter table, Kael migration design;M01-04,M02-03;data/encounters.js;IDs valid and 3 party archetypes can win;M;IN_PROGRESS
 M02-05;M2;Chapter 3 visual QA, performance, release gate;M02-04;tests/ch03.cjs;Complete intro→hafen→pumpwerk→return w/o softlock;M;TODO
 M03-01;M3;Implement RailRegistry and bidirectional station UI;M02-05;src/rail/*;"One-way omission impossible; no invalid destination";L;TODO
 M03-02;M3;Build underground Wurzelheim and Moorglas station;M03-01;maps/station*, maps/moorglas*;First free round trip and safe save after travel;L;TODO
