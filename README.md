@@ -2,6 +2,18 @@
 
 > **APK-Updates vorübergehend angehalten:** Der bisherige GitHub-Build erzeugte immer eine andere Debug-Signatur und wechselnde App-IDs. Dadurch sind Dorf, Fair, Neu, Paket und Pfad als getrennte Apps entstanden. Neue, inkompatible APKs werden nicht mehr automatisch veröffentlicht. Der feste App-Name und das dauerhaft signierte Release sind in [Pull Request #1](https://github.com/Graf-Git-Hub/Pok-mon_Klon/pull/1) vorbereitet. Zum Abschluss fehlen noch die privat hinterlegten Signier-Secrets. Der alte APK-Link kann bis dahin noch die bisherige Testversion enthalten. Alte Apps bitte nicht vor einer Sicherung der Spielstände deinstallieren.
 
+## 🌙 Flüster-Sprung: Geisterwald und Papierwelt
+
+- **Erstes spielbares Jump’n’Run in Seitenansicht:** Ein leuchtendes Traumtor liegt **östlich von Waldhüter Piko** auf dem Waldpfad (Kartenfeld 32,24). Stelle dich direkt daneben und drücke **A**.
+- **Gleiches Spiel, anderer Grafikstil:** Anfangs farbiger Geisterwald mit Sprungplattformen und Geisterfallen. Ab dem zweiten Teil verwandelt sich alles in eine schwarz-weiße, karierte Papierwelt.
+- **Handy und TV:** Links/Rechts laufen, **A springen**, **START pausieren**, **B jederzeit ins Dorf zurückkehren**. Gamepad unterstützt Richtung + Sprung gleichzeitig.
+- **3 Echo-Funken**, mehrere Lücken und Fallen sowie **zwei Kontrollpunkte**. Bei Abstürzen kehrt die Figur zum letzten Kontrollpunkt zurück, ohne dass der Fortschritt in der RPG-Oberwelt verloren geht.
+- **Einmalige Belohnung beim ersten Abschluss:** 2 Seelen-Tränke und 5 Seelen-Sphären. Spätere Wiederholungen können den persönlichen Zeitrekord verbessern, vergeben aber keine weitere Erst-Belohnung.
+- Questfortschritt, Bestzeit und Erstabschluss werden im gleichen lokalen Spielstand abgelegt. Das Traumtor wird auf der Entdeckerkarte markiert; Liora und Piko geben Hinweise.
+- **Automatisierte Tests:** `tests/platformer.cjs` prüft Physik, Gefahren, Sammelobjekte, Kontrollpunkte, Pause, Replay und Belohnungen. `tests/platformer-integration.cjs` prüft den erreichbaren Karteneingang und echte Spielsteuerungsbefehle.
+
+**APK:** Der Android-Code wurde erfolgreich gebaut und geprüft, aber nicht veröffentlicht. Die neue dauerhafte APK-Signierung ist weiterhin offen. Deshalb wird bewusst keine fünfte oder sechste separate Test-App erstellt.
+
 ## 🏡 Neue Innenräume: Kräuterhaus und Werkstatt
 
 Die ehemals verschlossenen Gebäude in Wurzelheim sind jetzt **wirklich betretbar**:
