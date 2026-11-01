@@ -1,6 +1,6 @@
 # CONTINUE HERE – genau hier am Spiel weiterbauen
 
-Stand: 01.11.2026. Branch main. **Letzter auf GitHub bestätigter Release: v0.17.0** (Commit 2c8140f). Signierte v0.18.0 auf GitHub erfolgreich gebaut; der visuell verbesserte v0.18.1-Code (versionCode 19) ist lokal getestet. **v0.18.1-Release auf GitHub erst nach CI bestaetigen**. Vor jeder Arbeit neuen HEAD lesen.
+Stand: 01.11.2026. Branch main. **Letzter auf GitHub bestätigter Release: v0.17.0** (Commit 2c8140f). Signierte v0.18.1 erfolgreich gebaut und veroeffentlicht: Quellcommit bc5734ec3935b857ff86ce2fe971c7218e51ed51; GitHub-Actions-Run 41320548450 erfolgreich. 2.448.329 Bytes, SHA256 506799cefd0880bda218667eae909bb4c625483d0f94077e07e14f4cfb4d40c1. APK auch auf Laptop Laura unter Desktop/Echo-Chroniken-Universal.apk abgelegt. Vor jeder Arbeit neuen HEAD lesen.
 
 ## Erledigt im heutigen Ausbau
 - M01-04: Bereits zuvor abgeschlossene EncounterRegistry bleibt in v0.18.0 erhalten.
@@ -15,7 +15,7 @@ Stand: 01.11.2026. Branch main. **Letzter auf GitHub bestätigter Release: v0.17
 - Alle 18 bisherigen Node-Tests erneut grün. Android-Release v0.18.0 nach CI pruefen.
 
 ## NAECHSTE ENTWICKLUNGSAUFGABEN
-1. GitHub Actions Android-Build fuer v0.18.0 bestaetigen und direkt installierbare signierte APK abrufen; stabile App-ID de.echochroniken.game.stable und gleiches Schluesselmaterial.
+1. Signierte v0.18.1-APK ist bestaetigt: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk ; bei jedem neuen Release weiterhin feste App-ID und gleiche Signatur pruefen.
 2. M01-06/M02-05: Echte Screenshots durchlaufen, Pfad von Kapitel 2 bis Kapitel 3 mit Controller/Touch testen; Kollision und Speicherstand auf Android-Handy und TV pruefen. Kein echter Hardwaretest behaupten, solange er nicht durchgefuehrt ist.
 3. M02-03 ausbauen: bessere Zeugen-Dialoge, Sequenzen, Tonarchiv-Inszenierung, Quest-/Journal-Lesbarkeit und Szenen aus CH03. Das jetzt funktionierende Kapitel ist ein **erster spielbarer Slice**, nicht die vollstaendige filmische Kapitelinszenierung.
 4. M02-04: Kael-Alt-Arena nach Migrationsplan sinnvoll in Nebelhafen integrieren, ohne alte Orden/Positionen zu brechen. Begegnungsbalance mit echten Spieldurchlaeufen nachstellen.

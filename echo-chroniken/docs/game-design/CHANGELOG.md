@@ -3,7 +3,8 @@
 ## 2026-11-01 – Android 0.18.1 (visuelle Nachkontrolle)
 - Bei der Sichtpruefung fielen in Pumpwerksraeumen unpassende Aussenwelt-Baeume auf. Diese Tile-Darstellung ist durch metallene Industriewaende, Bodenplatten und animiertes Wasser ersetzt.
 - Echte Chrome-Steuerbefehle zum Betreten/Verlassen des Nordufers sowie zum Ausloesen des Bosskampfs bestanden.
-- Screenshots fuer Pumpwerk und Kontrollraum neu erstellt; Android versionCode 19 / versionName 0.18.1. Signierten CI-Release separat bestaetigen.
+- Screenshots fuer Pumpwerk und Kontrollraum neu erstellt; Android versionCode 19 / versionName 0.18.1.
+- **Signierter GitHub-Release verifiziert:** Commit bc5734ec, Android-Actions-Run 41320548450 erfolgreich, APK 2.448.329 Bytes, SHA256 506799cefd0880bda218667eae909bb4c625483d0f94077e07e14f4cfb4d40c1; auf Laptop-Desktop ersetzt.
 
 
 ## 2026-11-01 – Kapitel-3-Ausbau: 0.18.0 lokal getestet
