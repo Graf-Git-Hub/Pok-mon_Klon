@@ -469,6 +469,9 @@
     battleWins: 0,
     routeQuest: {accepted:false,lights:[],rewarded:false,guardianWon:false},
     explorationFound: [],
+    indoorProgress: {},
+    roomId: null,
+    returnToVillage: null,
     stepsSinceSave: 0,
     attackOrigin: null,
     dialogQueue: [],
@@ -501,6 +504,9 @@
         battleWins: gameState.battleWins,
         routeQuest: gameState.routeQuest,
         explorationFound: gameState.explorationFound,
+        indoorProgress: gameState.indoorProgress,
+        roomId: gameState.roomId,
+        returnToVillage: gameState.returnToVillage,
         balanceVersion: 6
       };
       localStorage.setItem('echo_chroniken_tv_save', JSON.stringify(saveObj));
@@ -525,6 +531,10 @@
       gameState.introStage=Math.max(0,Math.min(4,Number(gameState.introStage)||0));
       if(window.EchoRoute)window.EchoRoute.quest(gameState); // Keep old saves compatible.
       window.EchoExplore?.ensure(gameState);
+      window.EchoInteriors?.ensure(gameState);
+      if(gameState.scene==='BUILDING'&&!window.EchoInteriors?.ROOMS[gameState.roomId]){
+        gameState.scene='OVERWORLD';gameState.player={x:5,y:6,dir:'down',stepPhase:0};
+      }
       // Migrate old saved positions that now lie inside one of the new buildings.
       if(gameState.scene==='OVERWORLD'&&window.EchoVillage&&gameState.player){
         const p=gameState.player;
@@ -649,7 +659,8 @@ function executeBattleAction(choice){
       }else{
         if(gameState.orbs<=0){b.log='Keine Seelen-Sphären mehr!';sfx.cancel();return;}
         gameState.orbs--;b.busy=true;sfx.catch();
-        const chance=Math.min(.93,.63+(1-b.enemy.hp/b.enemy.maxHp)*.32);
+        const captureBoost=window.EchoInteriors?.captureBonus(gameState)||0;
+        const chance=Math.min(.98,.63+(1-b.enemy.hp/b.enemy.maxHp)*.32+captureBoost);
         b.log=`Eine Seelen-Sphäre fliegt durch die Luft ...`;
         battleTimeout(()=>{
           if(Math.random()<chance){
@@ -681,7 +692,7 @@ function executeBattleAction(choice){
     }
     const damage=skillDamage(ally,b.enemy,move);
     b.enemy.hp=Math.max(0,b.enemy.hp-damage);
-    b.animTimer=16;b.lastAttackColor=move.fx||'#ffe3a2';
+    b.animTimer=18;b.fxTarget='enemy';b.lastAttackColor=move.fx||'#ffe3a2';
     b.log=`${SPECIES[ally.id-1].name} nutzt ${move.name}! (${damage} Schaden)`;
     sfx.hit();
     battleTimeout(()=>{if(b.enemy.hp<=0)handleEnemyDefeated();else enemyCounterAttack();},650);
@@ -713,6 +724,7 @@ function executeBattleAction(choice){
     b.lastAttackColor=move.fx||'#afbcce';
     ally.hp = Math.max(0, ally.hp - dmg);
     sfx.hit();
+    b.animTimer=18;b.fxTarget='ally';
     b.log = `${enemySp.name} nutzt ${move.name}! (${dmg} Schaden)`;
 
     battleTimeout(() => {
@@ -813,6 +825,11 @@ function executeBattleAction(choice){
   function movePlayer(dx, dy, dirName) {
     if (gameState.mode !== 'OVERWORLD') return;
     gameState.player.dir = dirName;
+    if(gameState.scene==='BUILDING'){
+      const result=window.EchoInteriors.walk(gameState,dx,dy,dirName,showDialog,sfx);
+      if(result.exited)saveGame(true);
+      return;
+    }
     if(gameState.scene==='HOUSE'){
       const previousScene=gameState.scene;
       window.EchoHouse.walk(gameState,dx,dy,dirName,showDialog,sfx.step);
@@ -868,6 +885,12 @@ function executeBattleAction(choice){
   });
 
   function interactFront() {
+    if(gameState.scene==='BUILDING'){
+      const lines=window.EchoInteriors.interact(gameState,showDialog,sfx);
+      saveGame(true);
+      if(lines)showDialog(lines);
+      return;
+    }
     if(gameState.scene==='HOUSE'){
       window.EchoHouse.talk(gameState,showDialog,createMonsterInstance,sfx);
       saveGame(true);return;
@@ -893,6 +916,11 @@ function executeBattleAction(choice){
     // NPC oder Tagebuchseite vor dem Spieler?
     const door=window.EchoVillage?.doorAt(tx,ty);
     if(door){
+      if(window.EchoInteriors && ['kraeuter','werkstatt'].includes(door.id)){
+        window.EchoInteriors.enter(gameState,door.id);
+        sfx.confirm();saveGame(true);
+        return;
+      }
       const descriptions={
         kraeuter:['Aus dem Kräuterhaus duftet es nach Salbei und Minze.','„Bin im Garten!“ steht auf dem Schild.'],
         fischer:['Das Haus am See. An den Fenstern hängen kleine Geisterfisch-Bilder.','Die Bewohner sind gerade am Ufer.'],
@@ -2108,6 +2136,7 @@ function executeBattleAction(choice){
 
   function renderScene(tick){
     if(gameState.scene==='HOUSE')window.EchoHouse.render(ctx,tick,gameState,drawChar16);
+    else if(gameState.scene==='BUILDING')window.EchoInteriors.render(ctx,tick,gameState,drawChar16);
     else renderOverworld(tick);
   }
 
