@@ -1,0 +1,34 @@
+﻿id;milestone;name;dependsOn;likelyFiles;acceptance;effort;status
+M00-01;M0;Audit current 0.14 source, record exact 14 tests;-;README, game.js, tests;Source baseline report matched to master story;S;DONE
+M00-02;M0;Back up old save formats and write migration fixtures;M00-01;tests/fixtures;Seven golden save fixtures and round-trip tests;M;TODO
+M00-03;M0;Verify 150 creature IDs, 50 placeholder names and art assignments;M00-01;data/species.js, assets/atlas.js, assets/monster-backs-150.webp;150 unique ID records and 150 front/back map slots;M;TODO
+M01-01;M1;Create MapRegistry with legacy 36×28 map adapter;M00-02;src/maps/registry.js, src/game.js;"Legacy village and all 3 arenas unchanged; no save reset";L;TODO
+M01-02;M1;Add future save fields, currentMapId and safeSpawnId;M01-01;src/save.js, tests/story-migration.cjs;Old and new saves load, failed migration rolls back;L;TODO
+M01-03;M1;Create StoryRegistry/QuestFlag adapter;M01-02;src/quests/registry.js;"Rewards exactly once; old intro/ruins quests still work";M;TODO
+M01-04;M1;Create EncounterRegistry by mapId and species ID;M01-01;data/encounters.js;Weights sum 100%, early zone base forms only;M;TODO
+M01-05;M1;Create bidirectional portal and safe-return tests;M01-01;tests/world-map.cjs;All exits load correct map and return safely;M;TODO
+M01-06;M1;Build screenshots/visual audit in runner for maps;M01-01;tests/visual/*;Capture entrance, collision, exit, battle, reload;M;TODO
+M02-01;M2;Greybox lake route and Nebelhafen town;M01-05;maps/lake*, maps/nebelhafen*;Walk from old shore into safe new town and back;M;TODO
+M02-02;M2;Design pumpworks floor1 and controlroom puzzle;M02-01;maps/pumpworks*;Valve/water-level state survives save and reload;L;TODO
+M02-03;M2;Implement chapter 3 NPC dialog and audio evidence;M01-03,M02-02;data/chapters/ch03.json;All mandatory story beats deterministically reproducible;M;TODO
+M02-04;M2;Place wild encounter table, Kael migration design;M01-04,M02-03;data/encounters.js;IDs valid and 3 party archetypes can win;M;TODO
+M02-05;M2;Chapter 3 visual QA, performance, release gate;M02-04;tests/ch03.cjs;Complete intro→hafen→pumpwerk→return w/o softlock;M;TODO
+M03-01;M3;Implement RailRegistry and bidirectional station UI;M02-05;src/rail/*;"One-way omission impossible; no invalid destination";L;TODO
+M03-02;M3;Build underground Wurzelheim and Moorglas station;M03-01;maps/station*, maps/moorglas*;First free round trip and safe save after travel;L;TODO
+M03-03;M3;Chapter 4 story, courier, switchyard and boss;M03-02;data/chapters/ch04.json;Rail unlock flag and optional sidetrack persist;M;TODO
+M03-04;M3;Rail regression on TV gamepad and phone;M03-03;tests/railway.cjs;No softlocks after app pause/kill/reload;M;TODO
+M04-01;M4;Chapter 5 Stillwasser and memory-loop investigation;M03-04;maps/stillwasser*, data/chapters/ch05.json;Three clues, Lyra arc, station, fresh NPC dialog;L;TODO
+M04-02;M4;Chapter 6 Aschenruh, Glutklamm and forge;M04-01;maps/glut*, data/chapters/ch06.json;Workers rescued, resonance tool acquired, backtrack;L;TODO
+M04-03;M4;Chapter 7 Lichterhain and Echo-spur system;M04-02;maps/lichterhain*, src/echo-trails.js;Optional clues without forced full lexicon;L;TODO
+M05-01;M5;Chapter 8 Kronenstadt 4 compact districts;M04-03;maps/kronenstadt*, data/chapters/ch08.json;All gates, docs and station work on TV;XL;TODO
+M05-02;M5;Chapter 9 Frostgrat and phase lantern;M05-01;maps/frost*, src/phase-lantern.js;All bridges reversible, Vex and save safe;L;TODO
+M05-03;M5;Chapter 10 Unterstadt and central ring;M05-02;maps/under_city*, data/chapters/ch10.json;"No stuck underground player; city and rail still navigable";L;TODO
+M06-01;M6;Chapter 11 observatory, Varek confrontation;M05-03;maps/observatory*, data/chapters/ch11.json;Readable proof and fair battle, safe retreat;L;TODO
+M06-02;M6;Chapter 12 Elena/Maternalis family scenes;M06-01;data/chapters/ch12.json;Works for Miora, Seelara and Maternalis;M;TODO
+M06-03;M6;Chapter 13 resonance shaft and father confession;M06-02;maps/shaft*, data/chapters/ch13.json;All anchors reversible and final preparation safe;XL;TODO
+M06-04;M6;Chapter 14 final fight, epilogue and credits;M06-03;maps/core*, data/chapters/ch14.json;"Main story finished; not trapped in credits";XL;TODO
+M07-01;M7;Postgame species accessibility and side content;M06-04;data/postgame.json;All 94 non-starter base forms re-obtainable;L;TODO
+M07-02;M7;Rename 50 generic monsters after visual review;M00-03;data/species.js, localizations/de.json;No ID changes, name and artwork mapping correct;L;TODO
+M07-03;M7;Full balance pass with playthrough reports;M07-01;tests/balance/*;No impossible fights or unnatural grind spike;L;TODO
+M07-04;M7;End-to-end Android phone + TV test and signed release;M07-03;android/*;One app ID, stable signer, save update works;XL;TODO
+M07-05;M7;Localization and accessibility second pass;M07-04;localizations/*, UI;Legible UI, configurable controls, language fallback;M;TODO

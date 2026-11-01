@@ -1,0 +1,23 @@
+name: Echo-Chroniken Story and World Docs
+on:
+  push:
+    paths:
+      - 'echo-chroniken/docs/game-design/**'
+      - 'echo-chroniken/docs/MASTER_STORY_ROADMAP.md'
+      - 'echo-chroniken/project/data/species.js'
+      - '.github/workflows/echo-story-docs.yml'
+  pull_request:
+    paths:
+      - 'echo-chroniken/docs/game-design/**'
+      - 'echo-chroniken/project/data/species.js'
+      - '.github/workflows/echo-story-docs.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate 150 species, story chapters, world graph, rail network and document links
+        run: python echo-chroniken/docs/game-design/VALIDATE_DOCS.py

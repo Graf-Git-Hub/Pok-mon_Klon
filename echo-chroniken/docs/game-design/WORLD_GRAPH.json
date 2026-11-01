@@ -1,0 +1,1208 @@
+{
+  "revision": 1,
+  "status": "VORSCHLAG / NICHT IMPLEMENTIERT",
+  "baseline": "Einzelkarte worldMap 36x28 plus room-scene states; diese nicht unkoordiniert ersetzen",
+  "nodes": [
+    {
+      "mapId": "wurzeldorf_outdoor",
+      "firstChapter": 1,
+      "region": "wurzeldorf",
+      "safeSpawnId": "wurzeldorf_outdoor_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "martha_house",
+      "firstChapter": 1,
+      "region": "wurzeldorf",
+      "safeSpawnId": "martha_house_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "village_workshop",
+      "firstChapter": 1,
+      "region": "wurzeldorf",
+      "safeSpawnId": "village_workshop_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "village_herbal",
+      "firstChapter": 1,
+      "region": "wurzeldorf",
+      "safeSpawnId": "village_herbal_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "seelen_see_edge",
+      "firstChapter": 1,
+      "region": "wurzeldorf",
+      "safeSpawnId": "seelen_see_edge_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "forest_route",
+      "firstChapter": 2,
+      "region": "fluesterswald",
+      "safeSpawnId": "forest_route_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "forest_ruin",
+      "firstChapter": 2,
+      "region": "fluesterswald",
+      "safeSpawnId": "forest_ruin_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "dream_gate",
+      "firstChapter": 2,
+      "region": "fluesterswald",
+      "safeSpawnId": "dream_gate_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "lake_north_path",
+      "firstChapter": 3,
+      "region": "nebelhafen",
+      "safeSpawnId": "lake_north_path_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "nebelhafen_town",
+      "firstChapter": 3,
+      "region": "nebelhafen",
+      "safeSpawnId": "nebelhafen_town_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "pumpworks_floor1",
+      "firstChapter": 3,
+      "region": "nebelhafen",
+      "safeSpawnId": "pumpworks_floor1_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "pumpworks_controlroom",
+      "firstChapter": 3,
+      "region": "nebelhafen",
+      "safeSpawnId": "pumpworks_controlroom_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "root_tunnel",
+      "firstChapter": 4,
+      "region": "moorglas",
+      "safeSpawnId": "root_tunnel_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "station_wurzelheim",
+      "firstChapter": 4,
+      "region": "moorglas",
+      "safeSpawnId": "station_wurzelheim_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "rail_switchyard",
+      "firstChapter": 4,
+      "region": "moorglas",
+      "safeSpawnId": "rail_switchyard_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "moorglas_bog",
+      "firstChapter": 4,
+      "region": "moorglas",
+      "safeSpawnId": "moorglas_bog_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "station_moorglas",
+      "firstChapter": 4,
+      "region": "moorglas",
+      "safeSpawnId": "station_moorglas_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "moor_to_stillwater",
+      "firstChapter": 5,
+      "region": "stillwasser",
+      "safeSpawnId": "moor_to_stillwater_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "stillwasser_town",
+      "firstChapter": 5,
+      "region": "stillwasser",
+      "safeSpawnId": "stillwasser_town_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "stillwater_archive",
+      "firstChapter": 5,
+      "region": "stillwasser",
+      "safeSpawnId": "stillwater_archive_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "stillwater_tower",
+      "firstChapter": 5,
+      "region": "stillwasser",
+      "safeSpawnId": "stillwater_tower_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "ashrail_approach",
+      "firstChapter": 6,
+      "region": "glutklamm",
+      "safeSpawnId": "ashrail_approach_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "aschenruh_town",
+      "firstChapter": 6,
+      "region": "glutklamm",
+      "safeSpawnId": "aschenruh_town_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "glut_forge",
+      "firstChapter": 6,
+      "region": "glutklamm",
+      "safeSpawnId": "glut_forge_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "glut_chasm",
+      "firstChapter": 6,
+      "region": "glutklamm",
+      "safeSpawnId": "glut_chasm_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "garden_road",
+      "firstChapter": 7,
+      "region": "lichterhain",
+      "safeSpawnId": "garden_road_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "lichterhain_grove",
+      "firstChapter": 7,
+      "region": "lichterhain",
+      "safeSpawnId": "lichterhain_grove_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "name_library",
+      "firstChapter": 7,
+      "region": "lichterhain",
+      "safeSpawnId": "name_library_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "echo_garden",
+      "firstChapter": 7,
+      "region": "lichterhain",
+      "safeSpawnId": "echo_garden_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "capital_outer_gate",
+      "firstChapter": 8,
+      "region": "kronenstadt",
+      "safeSpawnId": "capital_outer_gate_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "kronenstadt_upper",
+      "firstChapter": 8,
+      "region": "kronenstadt",
+      "safeSpawnId": "kronenstadt_upper_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "central_archive",
+      "firstChapter": 8,
+      "region": "kronenstadt",
+      "safeSpawnId": "central_archive_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "station_kronenstadt",
+      "firstChapter": 8,
+      "region": "kronenstadt",
+      "safeSpawnId": "station_kronenstadt_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "research_hall",
+      "firstChapter": 8,
+      "region": "kronenstadt",
+      "safeSpawnId": "research_hall_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "frost_approach",
+      "firstChapter": 9,
+      "region": "frostgrat",
+      "safeSpawnId": "frost_approach_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "frost_station",
+      "firstChapter": 9,
+      "region": "frostgrat",
+      "safeSpawnId": "frost_station_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "ice_caverns",
+      "firstChapter": 9,
+      "region": "frostgrat",
+      "safeSpawnId": "ice_caverns_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "station_frost",
+      "firstChapter": 9,
+      "region": "frostgrat",
+      "safeSpawnId": "station_frost_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "under_city_station",
+      "firstChapter": 10,
+      "region": "unterstadt",
+      "safeSpawnId": "under_city_station_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "under_city_homes",
+      "firstChapter": 10,
+      "region": "unterstadt",
+      "safeSpawnId": "under_city_homes_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "resonance_mainring",
+      "firstChapter": 10,
+      "region": "unterstadt",
+      "safeSpawnId": "resonance_mainring_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "continuum_vault",
+      "firstChapter": 10,
+      "region": "unterstadt",
+      "safeSpawnId": "continuum_vault_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "star_ridge",
+      "firstChapter": 11,
+      "region": "observatorium",
+      "safeSpawnId": "star_ridge_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "observatory_hall",
+      "firstChapter": 11,
+      "region": "observatorium",
+      "safeSpawnId": "observatory_hall_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "observatory_telescope",
+      "firstChapter": 11,
+      "region": "observatorium",
+      "safeSpawnId": "observatory_telescope_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "observatory_roof",
+      "firstChapter": 11,
+      "region": "observatorium",
+      "safeSpawnId": "observatory_roof_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "memory_room",
+      "firstChapter": 12,
+      "region": "wurzeldorf",
+      "safeSpawnId": "memory_room_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "old_family_garden",
+      "firstChapter": 12,
+      "region": "wurzeldorf",
+      "safeSpawnId": "old_family_garden_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "shaft_entry",
+      "firstChapter": 13,
+      "region": "resonanzschacht",
+      "safeSpawnId": "shaft_entry_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "shaft_level1",
+      "firstChapter": 13,
+      "region": "resonanzschacht",
+      "safeSpawnId": "shaft_level1_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "shaft_level2",
+      "firstChapter": 13,
+      "region": "resonanzschacht",
+      "safeSpawnId": "shaft_level2_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "shaft_anchors",
+      "firstChapter": 13,
+      "region": "resonanzschacht",
+      "safeSpawnId": "shaft_anchors_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "father_chamber",
+      "firstChapter": 13,
+      "region": "resonanzschacht",
+      "safeSpawnId": "father_chamber_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "core_access",
+      "firstChapter": 14,
+      "region": "resonanzkern",
+      "safeSpawnId": "core_access_safe",
+      "kind": "hub",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "memory_reflections",
+      "firstChapter": 14,
+      "region": "resonanzkern",
+      "safeSpawnId": "memory_reflections_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "resonance_core",
+      "firstChapter": 14,
+      "region": "resonanzkern",
+      "safeSpawnId": "resonance_core_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "epilogue_wurzelheim",
+      "firstChapter": 14,
+      "region": "resonanzkern",
+      "safeSpawnId": "epilogue_wurzelheim_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "optional_echo_garden_annex",
+      "firstChapter": 15,
+      "region": "postgame",
+      "safeSpawnId": "optional_echo_garden_annex_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "rail_heritage_museum",
+      "firstChapter": 15,
+      "region": "postgame",
+      "safeSpawnId": "rail_heritage_museum_safe",
+      "kind": "submap",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "station_nebelhafen",
+      "firstChapter": 4,
+      "region": "railway",
+      "safeSpawnId": "station_nebelhafen_platform",
+      "kind": "station",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "station_stillwasser",
+      "firstChapter": 5,
+      "region": "railway",
+      "safeSpawnId": "station_stillwasser_platform",
+      "kind": "station",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "mapId": "station_aschenruh",
+      "firstChapter": 6,
+      "region": "railway",
+      "safeSpawnId": "station_aschenruh_platform",
+      "kind": "station",
+      "status": "DESIGN_ONLY"
+    }
+  ],
+  "edges": [
+    {
+      "fromMapId": "martha_house",
+      "toMapId": "wurzeldorf_outdoor",
+      "requiredFlag": "chapter01_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "wurzeldorf_outdoor",
+      "toMapId": "village_workshop",
+      "requiredFlag": "chapter01_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "wurzeldorf_outdoor",
+      "toMapId": "village_herbal",
+      "requiredFlag": "chapter01_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "wurzeldorf_outdoor",
+      "toMapId": "seelen_see_edge",
+      "requiredFlag": "chapter01_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "wurzeldorf_outdoor",
+      "toMapId": "forest_route",
+      "requiredFlag": "chapter01_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "forest_route",
+      "toMapId": "forest_ruin",
+      "requiredFlag": "routeQuest.rewarded",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "forest_route",
+      "toMapId": "dream_gate",
+      "requiredFlag": "routeQuest.rewarded",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "lake_north_path",
+      "toMapId": "nebelhafen_town",
+      "requiredFlag": "chapter03_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "nebelhafen_town",
+      "toMapId": "pumpworks_floor1",
+      "requiredFlag": "chapter03_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "pumpworks_floor1",
+      "toMapId": "pumpworks_controlroom",
+      "requiredFlag": "chapter03_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "root_tunnel",
+      "toMapId": "station_wurzelheim",
+      "requiredFlag": "chapter04_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_wurzelheim",
+      "toMapId": "rail_switchyard",
+      "requiredFlag": "chapter04_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "rail_switchyard",
+      "toMapId": "moorglas_bog",
+      "requiredFlag": "chapter04_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "moorglas_bog",
+      "toMapId": "station_moorglas",
+      "requiredFlag": "chapter04_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "moor_to_stillwater",
+      "toMapId": "stillwasser_town",
+      "requiredFlag": "chapter05_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "stillwasser_town",
+      "toMapId": "stillwater_archive",
+      "requiredFlag": "chapter05_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "stillwater_archive",
+      "toMapId": "stillwater_tower",
+      "requiredFlag": "chapter05_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "ashrail_approach",
+      "toMapId": "aschenruh_town",
+      "requiredFlag": "chapter06_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "aschenruh_town",
+      "toMapId": "glut_forge",
+      "requiredFlag": "chapter06_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "glut_forge",
+      "toMapId": "glut_chasm",
+      "requiredFlag": "chapter06_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "garden_road",
+      "toMapId": "lichterhain_grove",
+      "requiredFlag": "chapter07_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "lichterhain_grove",
+      "toMapId": "name_library",
+      "requiredFlag": "chapter07_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "name_library",
+      "toMapId": "echo_garden",
+      "requiredFlag": "chapter07_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "capital_outer_gate",
+      "toMapId": "kronenstadt_upper",
+      "requiredFlag": "chapter08_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "kronenstadt_upper",
+      "toMapId": "central_archive",
+      "requiredFlag": "chapter08_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "central_archive",
+      "toMapId": "station_kronenstadt",
+      "requiredFlag": "chapter08_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_kronenstadt",
+      "toMapId": "research_hall",
+      "requiredFlag": "chapter08_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "frost_approach",
+      "toMapId": "frost_station",
+      "requiredFlag": "chapter09_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "frost_station",
+      "toMapId": "ice_caverns",
+      "requiredFlag": "chapter09_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "ice_caverns",
+      "toMapId": "station_frost",
+      "requiredFlag": "chapter09_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "under_city_station",
+      "toMapId": "under_city_homes",
+      "requiredFlag": "chapter10_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "under_city_homes",
+      "toMapId": "resonance_mainring",
+      "requiredFlag": "chapter10_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "resonance_mainring",
+      "toMapId": "continuum_vault",
+      "requiredFlag": "chapter10_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "star_ridge",
+      "toMapId": "observatory_hall",
+      "requiredFlag": "chapter11_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "observatory_hall",
+      "toMapId": "observatory_telescope",
+      "requiredFlag": "chapter11_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "observatory_telescope",
+      "toMapId": "observatory_roof",
+      "requiredFlag": "chapter11_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "martha_house",
+      "toMapId": "memory_room",
+      "requiredFlag": "chapter12_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "memory_room",
+      "toMapId": "old_family_garden",
+      "requiredFlag": "chapter12_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "shaft_entry",
+      "toMapId": "shaft_level1",
+      "requiredFlag": "chapter13_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "shaft_level1",
+      "toMapId": "shaft_level2",
+      "requiredFlag": "chapter13_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "shaft_level2",
+      "toMapId": "shaft_anchors",
+      "requiredFlag": "chapter13_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "shaft_anchors",
+      "toMapId": "father_chamber",
+      "requiredFlag": "chapter13_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "core_access",
+      "toMapId": "memory_reflections",
+      "requiredFlag": "chapter14_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "memory_reflections",
+      "toMapId": "resonance_core",
+      "requiredFlag": "chapter14_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "seelen_see_edge",
+      "toMapId": "lake_north_path",
+      "requiredFlag": "chapter02_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "nebelhafen_town",
+      "toMapId": "root_tunnel",
+      "requiredFlag": "chapter03_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "wurzeldorf_outdoor",
+      "toMapId": "station_wurzelheim",
+      "requiredFlag": "chapter04_available",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "moorglas_bog",
+      "toMapId": "moor_to_stillwater",
+      "requiredFlag": "chapter04_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "stillwasser_town",
+      "toMapId": "ashrail_approach",
+      "requiredFlag": "chapter05_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "glut_chasm",
+      "toMapId": "garden_road",
+      "requiredFlag": "chapter06_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "lichterhain_grove",
+      "toMapId": "capital_outer_gate",
+      "requiredFlag": "chapter07_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "kronenstadt_upper",
+      "toMapId": "frost_approach",
+      "requiredFlag": "chapter08_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "kronenstadt_upper",
+      "toMapId": "under_city_station",
+      "requiredFlag": "chapter09_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "resonance_mainring",
+      "toMapId": "star_ridge",
+      "requiredFlag": "chapter10_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "observatory_hall",
+      "toMapId": "martha_house",
+      "requiredFlag": "chapter11_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "under_city_station",
+      "toMapId": "shaft_entry",
+      "requiredFlag": "chapter12_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "father_chamber",
+      "toMapId": "core_access",
+      "requiredFlag": "chapter13_complete",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "resonance_core",
+      "toMapId": "epilogue_wurzelheim",
+      "requiredFlag": "main_story_finished",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "epilogue_wurzelheim",
+      "toMapId": "wurzeldorf_outdoor",
+      "requiredFlag": "main_story_finished",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "echo_garden",
+      "toMapId": "optional_echo_garden_annex",
+      "requiredFlag": "main_story_finished",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_kronenstadt",
+      "toMapId": "rail_heritage_museum",
+      "requiredFlag": "main_story_finished",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_wurzelheim",
+      "toMapId": "wurzeldorf_outdoor",
+      "requiredFlag": "rail_wurzelheim",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_moorglas",
+      "toMapId": "moorglas_bog",
+      "requiredFlag": "rail_moorglas",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_nebelhafen",
+      "toMapId": "nebelhafen_town",
+      "requiredFlag": "rail_nebelhafen",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_stillwasser",
+      "toMapId": "stillwasser_town",
+      "requiredFlag": "rail_stillwasser",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_aschenruh",
+      "toMapId": "aschenruh_town",
+      "requiredFlag": "rail_aschenruh",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_kronenstadt",
+      "toMapId": "kronenstadt_upper",
+      "requiredFlag": "rail_kronenstadt",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_frost",
+      "toMapId": "frost_station",
+      "requiredFlag": "rail_frost",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "under_city_station",
+      "toMapId": "under_city_homes",
+      "requiredFlag": "rail_undercity",
+      "travelMode": "walk",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_wurzelheim",
+      "toMapId": "station_moorglas",
+      "requiredFlag": "chapter04_complete",
+      "travelMode": "rail",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_wurzelheim",
+      "toMapId": "station_nebelhafen",
+      "requiredFlag": "chapter04_complete",
+      "travelMode": "rail",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_moorglas",
+      "toMapId": "station_stillwasser",
+      "requiredFlag": "chapter05_complete",
+      "travelMode": "rail",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_stillwasser",
+      "toMapId": "station_aschenruh",
+      "requiredFlag": "chapter06_complete",
+      "travelMode": "rail",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_aschenruh",
+      "toMapId": "station_kronenstadt",
+      "requiredFlag": "chapter08_complete",
+      "travelMode": "rail",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_kronenstadt",
+      "toMapId": "station_frost",
+      "requiredFlag": "chapter09_complete",
+      "travelMode": "rail",
+      "bidirectional": true,
+      "safeReturn": true
+    },
+    {
+      "fromMapId": "station_kronenstadt",
+      "toMapId": "under_city_station",
+      "requiredFlag": "chapter10_complete",
+      "travelMode": "rail",
+      "bidirectional": true,
+      "safeReturn": true
+    }
+  ],
+  "stations": [
+    {
+      "mapId": "station_wurzelheim",
+      "label": "Wurzelheim",
+      "chapter": 4,
+      "unlockedFlag": "rail_wurzelheim",
+      "surfaceMapId": "wurzeldorf_outdoor"
+    },
+    {
+      "mapId": "station_moorglas",
+      "label": "Moorglas",
+      "chapter": 4,
+      "unlockedFlag": "rail_moorglas",
+      "surfaceMapId": "moorglas_bog"
+    },
+    {
+      "mapId": "station_nebelhafen",
+      "label": "Nebelhafen",
+      "chapter": 4,
+      "unlockedFlag": "rail_nebelhafen",
+      "surfaceMapId": "nebelhafen_town"
+    },
+    {
+      "mapId": "station_stillwasser",
+      "label": "Stillwasser",
+      "chapter": 5,
+      "unlockedFlag": "rail_stillwasser",
+      "surfaceMapId": "stillwasser_town"
+    },
+    {
+      "mapId": "station_aschenruh",
+      "label": "Aschenruh",
+      "chapter": 6,
+      "unlockedFlag": "rail_aschenruh",
+      "surfaceMapId": "aschenruh_town"
+    },
+    {
+      "mapId": "station_kronenstadt",
+      "label": "Kronenstadt",
+      "chapter": 8,
+      "unlockedFlag": "rail_kronenstadt",
+      "surfaceMapId": "kronenstadt_upper"
+    },
+    {
+      "mapId": "station_frost",
+      "label": "Frostgrat",
+      "chapter": 9,
+      "unlockedFlag": "rail_frost",
+      "surfaceMapId": "frost_station"
+    },
+    {
+      "mapId": "under_city_station",
+      "label": "Unterstadt",
+      "chapter": 10,
+      "unlockedFlag": "rail_undercity",
+      "surfaceMapId": "under_city_homes"
+    }
+  ],
+  "railConnections": [
+    {
+      "a": "station_wurzelheim",
+      "b": "station_moorglas",
+      "unlockedFlag": "chapter04_complete"
+    },
+    {
+      "a": "station_wurzelheim",
+      "b": "station_nebelhafen",
+      "unlockedFlag": "chapter04_complete"
+    },
+    {
+      "a": "station_moorglas",
+      "b": "station_stillwasser",
+      "unlockedFlag": "chapter05_complete"
+    },
+    {
+      "a": "station_stillwasser",
+      "b": "station_aschenruh",
+      "unlockedFlag": "chapter06_complete"
+    },
+    {
+      "a": "station_aschenruh",
+      "b": "station_kronenstadt",
+      "unlockedFlag": "chapter08_complete"
+    },
+    {
+      "a": "station_kronenstadt",
+      "b": "station_frost",
+      "unlockedFlag": "chapter09_complete"
+    },
+    {
+      "a": "station_kronenstadt",
+      "b": "under_city_station",
+      "unlockedFlag": "chapter10_complete"
+    }
+  ]
+}

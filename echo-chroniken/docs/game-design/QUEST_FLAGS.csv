@@ -1,0 +1,61 @@
+﻿key;type;default;set_by;consumed_by;status
+hasStarter;boolean;False;Miora package;LEGACY / must preserve;CURRENT_CODE
+gymDefeated;array;[False, False, False];three prototype arenas;LEGACY / must preserve;CURRENT_CODE
+ruinsProgress.reported;boolean;False;dialogue after guardian;LEGACY / must preserve;CURRENT_CODE
+ruinsProgress.bossWon;boolean;False;Ruins guardian;LEGACY / must preserve;CURRENT_CODE
+routeQuest.guardianWon;boolean;False;optional Piko test;LEGACY / must preserve;CURRENT_CODE
+routeQuest.rewarded;boolean;False;Liora three-light reward;LEGACY / must preserve;CURRENT_CODE
+routeQuest.lights;array;[];three spirit lights;LEGACY / must preserve;CURRENT_CODE
+routeQuest.accepted;boolean;False;Liora quest;LEGACY / must preserve;CURRENT_CODE
+introStage;integer;0;Omas Haus und paket/intro;LEGACY / must preserve;CURRENT_CODE
+story.ch01.stage;integer;0;CH01 scene steps;Quest UI and chapter advance;FUTURE
+story.ch01.completed;boolean;False;chapter02_available;Chapter unlocks;FUTURE
+story.ch01.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch02.stage;integer;0;CH02 scene steps;Quest UI and chapter advance;FUTURE
+story.ch02.completed;boolean;False;chapter02_complete AND lake_route_unlocked;Chapter unlocks;FUTURE
+story.ch02.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch03.stage;integer;0;CH03 scene steps;Quest UI and chapter advance;FUTURE
+story.ch03.completed;boolean;False;chapter03_complete AND maintenance_token;Chapter unlocks;FUTURE
+story.ch03.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch04.stage;integer;0;CH04 scene steps;Quest UI and chapter advance;FUTURE
+story.ch04.completed;boolean;False;chapter04_complete AND rail_wurzelheim AND rail_moorglas;Chapter unlocks;FUTURE
+story.ch04.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch05.stage;integer;0;CH05 scene steps;Quest UI and chapter advance;FUTURE
+story.ch05.completed;boolean;False;chapter05_complete AND truth_evidence_3;Chapter unlocks;FUTURE
+story.ch05.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch06.stage;integer;0;CH06 scene steps;Quest UI and chapter advance;FUTURE
+story.ch06.completed;boolean;False;chapter06_complete AND resonance_tool;Chapter unlocks;FUTURE
+story.ch06.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch07.stage;integer;0;CH07 scene steps;Quest UI and chapter advance;FUTURE
+story.ch07.completed;boolean;False;chapter07_complete AND capital_archive_key;Chapter unlocks;FUTURE
+story.ch07.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch08.stage;integer;0;CH08 scene steps;Quest UI and chapter advance;FUTURE
+story.ch08.completed;boolean;False;chapter08_complete AND frost_pass;Chapter unlocks;FUTURE
+story.ch08.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch09.stage;integer;0;CH09 scene steps;Quest UI and chapter advance;FUTURE
+story.ch09.completed;boolean;False;chapter09_complete AND phase_lantern;Chapter unlocks;FUTURE
+story.ch09.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch10.stage;integer;0;CH10 scene steps;Quest UI and chapter advance;FUTURE
+story.ch10.completed;boolean;False;chapter10_complete AND central_ring_offline;Chapter unlocks;FUTURE
+story.ch10.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch11.stage;integer;0;CH11 scene steps;Quest UI and chapter advance;FUTURE
+story.ch11.completed;boolean;False;chapter11_complete AND varek_first_defeated;Chapter unlocks;FUTURE
+story.ch11.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch12.stage;integer;0;CH12 scene steps;Quest UI and chapter advance;FUTURE
+story.ch12.completed;boolean;False;chapter12_complete AND shaft_key;Chapter unlocks;FUTURE
+story.ch12.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch13.stage;integer;0;CH13 scene steps;Quest UI and chapter advance;FUTURE
+story.ch13.completed;boolean;False;chapter13_complete AND anchors_freed_3;Chapter unlocks;FUTURE
+story.ch13.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch14.stage;integer;0;CH14 scene steps;Quest UI and chapter advance;FUTURE
+story.ch14.completed;boolean;False;main_story_finished;Chapter unlocks;FUTURE
+story.ch14.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+story.ch15.stage;integer;0;CH15 scene steps;Quest UI and chapter advance;FUTURE
+story.ch15.completed;boolean;False;optional_postgame_completed;Chapter unlocks;FUTURE
+story.ch15.rewardClaimed;boolean;False;completion reward transaction;prevent duplicate loot;FUTURE
+saveSchemaVersion;integer;2;migration routine;MIGRATION / FUTURE;FUTURE
+currentMapId;string;legacy_wurzeldorf;Map Registry;MIGRATION / FUTURE;FUTURE
+safeSpawnId;string;legacy_default;Map Registry;MIGRATION / FUTURE;FUTURE
+railUnlocked;array;[];railway side effects;MIGRATION / FUTURE;FUTURE
+railTripsCompleted;array;[];rail travel history;MIGRATION / FUTURE;FUTURE
+lastSafeHub;string;wurzeldorf_outdoor;defeat/resume;MIGRATION / FUTURE;FUTURE
