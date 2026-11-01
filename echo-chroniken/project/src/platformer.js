@@ -246,8 +246,27 @@ function render(ctx,now,s){
    ctx.font='bold 9px monospace';ctx.fillText('START: WEITER',97,99);ctx.fillText('B: ZUM DORF',97,109);
  }
 }
+function drawPortal(ctx,tick,state,camX,camY,pix){
+ if(!state.hasStarter)return;
+ const x=PORTAL.x*16-camX,y=PORTAL.y*16-camY;
+ if(x<-24||x>330||y<-28||y>188)return;
+ const glow=Math.sin(tick*.004);
+ pix(x-1,y+12,20,4,'#547a67');
+ pix(x+1,y+2,16,14,'#334950');
+ pix(x+3,y+1,12,15,'#7c678f');
+ pix(x+5,y+3,8,12,'#beadcf');
+ pix(x+7,y+4,4,10,'#f2e9c5');
+ pix(x+8,y-2-glow,2,5,'#fff3c7');
+ pix(x-3,y+5,2,2,'#d4b0ec');
+ pix(x+18,y+2,2,2,'#e8cfed');
+ if(nearPortal(state)){
+   pix(x-24,y-17,68,13,'#254c47');
+   ctx.save();ctx.fillStyle='#fff1b6';ctx.font='bold 8px monospace';
+   ctx.fillText('A: TRAUMTOR',x-20,y-8);ctx.restore();
+ }
+}
 function snapshot(){
  return run?{x:run.x,y:run.y,hearts:run.hearts,collected:[...run.collected],paused:run.paused,checkpointIndex:run.checkpointIndex,elapsed:run.elapsed,grounded:run.grounded}:null;
 }
-window.EchoPlatformer={PORTAL,LENGTH,FLOORS,PLATFORMS,SHARDS,TRAPS,CHECKPOINTS,ensure,nearPortal,enter,exit,input,update,render,snapshot};
+window.EchoPlatformer={PORTAL,LENGTH,FLOORS,PLATFORMS,SHARDS,TRAPS,CHECKPOINTS,ensure,nearPortal,enter,exit,input,update,render,drawPortal,snapshot};
 })();
