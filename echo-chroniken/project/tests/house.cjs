@@ -8,6 +8,8 @@ const env={document:doc,window:win,navigator:{getGamepads(){return []}},localSto
 vm.runInNewContext(read('data/species.js'),env);
 vm.runInNewContext(read('src/village.js'),env);
 vm.runInNewContext(read('src/first-route.js'),env);
+vm.runInNewContext(read('src/interiors.js'),env);
+vm.runInNewContext(read('src/combat-fx.js'),env);
 vm.runInNewContext(read('src/house.js'),env);
 vm.runInNewContext(read('src/game.js'),env);
 const input=win.tvControllerInput,snap=win.echoQASnapshot;
