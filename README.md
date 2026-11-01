@@ -2,6 +2,17 @@
 
 > **APK-Updates vorübergehend angehalten:** Der bisherige GitHub-Build erzeugte immer eine andere Debug-Signatur und wechselnde App-IDs. Dadurch sind Dorf, Fair, Neu, Paket und Pfad als getrennte Apps entstanden. Neue, inkompatible APKs werden nicht mehr automatisch veröffentlicht. Der feste App-Name und das dauerhaft signierte Release sind in [Pull Request #1](https://github.com/Graf-Git-Hub/Pok-mon_Klon/pull/1) vorbereitet. Zum Abschluss fehlen noch die privat hinterlegten Signier-Secrets. Der alte APK-Link kann bis dahin noch die bisherige Testversion enthalten. Alte Apps bitte nicht vor einer Sicherung der Spielstände deinstallieren.
 
+## 🗺️ Spielverbesserung: Entdeckerkarte und versteckte Vorräte
+
+- **Gebietskarte**: Auf Android-Handy über **🗺 Karte**, mit Controller über **SELECT / Minus** öffnen. **A, B oder START** schließen sie wieder. Der Spieler, Wege, Dorfhäuser, Questpunkte und ungeöffnete Vorräte werden angezeigt.
+- **Drei sichtbare Pixel-Vorratskisten** im Dorf und auf dem Waldpfad, die mit **A** aus der Nähe geöffnet werden. Die gefundenen Seelen-Tränke und Seelen-Sphären werden nur einmal vergeben.
+- **Verlässlicher Spielstand**: automatisches Speichern bei wichtigen Interaktionen, Beute, gewonnener/geflohener Begegnung, verändertem Attackenbuch und regelmäßig während der Erkundung. Alte Spielstände bekommen eine leere Vorratsliste statt zu scheitern.
+- **Fairere Erkundung**: Wildbegegnungschance pro hohem Grasfeld von 12 % auf **8 %** reduziert und längere Schonfrist nach Kämpfen. Gegnerlevel bleiben nach den bisherigen Balancingregeln.
+- **Nach einer Niederlage** wacht man tatsächlich in Omas Haus auf, nicht unpassend draußen auf dem Weg.
+- **Tests**: `tests/exploration.cjs` prüft Kartenanzeige, einmalige Vorräte, Datenerhalt und die Erreichbarkeit aller Verstecke auf der tatsächlichen Dorfkarte.
+
+**Android-Stand:** Die funktionierende App-Erweiterung liegt im Quellcode. Die öffentliche APK-Veröffentlichung bleibt wegen des Signaturproblems pausiert, bis [die dauerhafte App-Signierung](https://github.com/Graf-Git-Hub/Pok-mon_Klon/pull/1) fertig eingerichtet ist. Keine zusätzliche App-ID und kein weiteres störendes Icon.
+
 ## 🌲 V0.13: Der Flüsterpfad
 
 Eine neue spielbare frühe Nebenquest, ohne die bisherigen drei Arenen oder Omas Story zu verändern.
