@@ -53,6 +53,8 @@ function drawWorld(ctx,tick,state,camX,camY,pix){
 }
 function objective(state){
  if(!state.hasStarter)return 'Hol zuerst Miora bei Oma ab';
+ if(state.ruinsProgress?.bossWon&&!state.ruinsProgress?.reported)return 'Erzähl Oma von Vaters Aufnahme';
+ if(state.routeQuest?.rewarded&&!state.ruinsProgress?.bossWon)return 'Erkunde die Waldruine im Südosten';
  const q=state.routeQuest;
  if(!q?.accepted)return 'Liora wartet im Süden beim Waldpfad';
  if((q.lights||[]).length<3)return 'Seelenlichter: '+(q.lights||[]).length+'/3';
@@ -80,6 +82,13 @@ function drawMap(ctx,world,state){
  // Destinations and non-spoilery quest markers.
  for(const [x,y] of [[5,5],[14,5],[27,5],[6,17],[22,17]]){
    const [px,py]=pos(x,y);marker(ctx,px,py,'#f4ca83');
+ }
+ // Chapter 2 ruin is a separate story destination, not an invisible trigger.
+ if(window.EchoRuins && state.hasStarter){
+   const p=window.EchoRuins.ENTRY;
+   const [dx,dy]=pos(p.x,p.y);
+   const done=!!state.ruinsProgress?.bossWon;
+   marker(ctx,dx,dy,done?'#9be1b7':'#f2c07d',5,5);
  }
  // The optional dream-portal opens the side-scrolling ghost challenge.
  if(state.hasStarter && window.EchoPlatformer){
