@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>ECHO CHRONIKEN V0.13 | Der Flüsterpfad</title>
+<title>ECHO CHRONIKEN | Entdeckerkarte & Flüsterpfad</title>
 <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
@@ -24,7 +24,8 @@
       <button class="touch-tool" data-cmd="START" aria-label="Spielmenü öffnen">☰ Menü</button>
       <button class="touch-tool" data-cmd="R" aria-label="Seelen-Lexikon öffnen">✦ Seelen</button>
       <button class="touch-tool" data-cmd="L" aria-label="Nächstes Teammitglied">↻ Team</button>
-      <button class="touch-tool" id="demo-mobile">⚔ Kampf</button>
+      <button class="touch-tool" id="demo-mobile" hidden style="display:none">⚔ Kampf</button>
+      <button class="touch-tool" data-cmd="MAP" aria-label="Entdeckerkarte öffnen">🗺 Karte</button>
       <button class="touch-tool" data-cmd="MOVES">⚡ Attacken</button>
     <button class="touch-tool" id="touch-sound" aria-label="Ton an oder aus">🔊 Ton</button>
     </div>
@@ -57,6 +58,7 @@
 <script src="assets/backs.js"></script>
 <script src="src/village.js"></script>
 <script src="src/first-route.js"></script>
+<script src="src/exploration.js"></script>
 <script src="src/house.js"></script>
 <script src="src/game.js"></script>
 </body>
