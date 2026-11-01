@@ -1,5 +1,21 @@
 # Echo-Chroniken 🎮👻
 
+## 🌲 Kapitel 2: Das Flüstern im Wald · spielbarer Storyabschnitt
+
+**Neu auf GitHub:** Nach Lioras drei Seelenlichtern öffnet sich bei (25,20) am Waldpfad die **Ruine der Echos**.
+
+- Eigener, sorgfältig gestalteter Tempelraum mit verwittertem Stein, Wurzelwerk, flachen Wasserbecken und drei unterschiedlich leuchtenden Erinnerungssiegeln.
+- Ein kleines nachvollziehbares Rätsel: **WURZEL → WASSER → STERN**, eine lesbare Wandinschrift und ein erreichbarer Ausgang (Steuerkreuz + A, **B** jederzeit zurück ins Dorf).
+- Besonderer Kampf gegen den **Erinnerungshüter**, mit eigens gezeichneter Kampfmaske, Level 5 und anfängerfreundlichem Balancing.
+- Neue Vater-Aufnahme nach dem Kampf; Liora und Oma Martha haben passende Folgedialoge und ein gespeichertes Kapitelende.
+- Einmalige Belohnung: **2 Tränke und 3 Seelen-Sphären**, mit sicherem Speicherstand.
+- Echtes visuelles Audit: [Sichtprüfungsbericht und fünf Spiel-Screenshots](echo-chroniken/docs/CHAPTER2_VISUAL_QA.md).
+- Tests: `tests/ruins.cjs` und `tests/ruins-integration.cjs`; vorhandene Quests bleiben bestehen.
+
+**Wichtig:** Der Android-Quellcode enthält die Erweiterung. **Noch keine neue öffentliche APK**, solange die dauerhafte Signierung offen ist. Der alte Direkt-APK-Link zeigt nicht dieses Kapitel. Wir erzeugen absichtlich keine zusätzliche Test-App.
+
+
+
 > **APK-Updates vorübergehend angehalten:** Der bisherige GitHub-Build erzeugte immer eine andere Debug-Signatur und wechselnde App-IDs. Dadurch sind Dorf, Fair, Neu, Paket und Pfad als getrennte Apps entstanden. Neue, inkompatible APKs werden nicht mehr automatisch veröffentlicht. Der feste App-Name und das dauerhaft signierte Release sind in [Pull Request #1](https://github.com/Graf-Git-Hub/Pok-mon_Klon/pull/1) vorbereitet. Zum Abschluss fehlen noch die privat hinterlegten Signier-Secrets. Der alte APK-Link kann bis dahin noch die bisherige Testversion enthalten. Alte Apps bitte nicht vor einer Sicherung der Spielstände deinstallieren.
 
 ## 🌙 Flüster-Sprung: Geisterwald und Papierwelt
