@@ -48,3 +48,8 @@ GitHub-Actions-Build einschließlich signierter Veröffentlichung erfolgreich, Q
 - Neue Tests mit 20.000 Zufallsziehungen und 1.840 echten simulierten Wildkämpfen; Chrome-Tests beider Fassungen, Screenshots, keine JS-Fehler.
 - Android-Projektversion auf 0.17.0 / VersionCode 17 gesetzt. Signierten Release bei GitHub erst verifizieren.
 - Nächster Auftrag M01-05: sichere, reale bidirektionale Kartenportale.
+
+
+### Verifizierter Android-Release v0.17.0
+
+GitHub-Actions-Release mit bestehender Android-App-ID und stabiler Signatur erfolgreich, Build aus Commit 2c8140f1f480ba6a2f5f563bac0895e3a7822414. APK 2.440.828 Bytes, SHA256 fc34298f2841a3a528a0ea3f164f1f0ff6c13e5ea041c74eb1f1ed5e6cda1fa2. Direkt-APK auf den Laptop-Desktop geladen und mit identischer Prüfsumme verifiziert; EncounterRegistry, Encounter-Daten und 150er-Rückatlas sind enthalten.

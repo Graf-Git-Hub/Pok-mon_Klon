@@ -1,6 +1,6 @@
 # CONTINUE HERE – genauer nächster Entwicklungsauftrag
 
-Stand: 01.11.2026. Android-Releaseziel: v0.17.0 (GitHub-Release zuerst überprüfen). Codebasis vor Aufgabe: 1dd4350. Aktuellen HEAD vor jeder Arbeit neu lesen.
+Stand: 01.11.2026. Android v0.17.0 signiert, über GitHub veröffentlicht und auf dem Laptop-Desktop geprüft (Quellcommit 2c8140f). Codebasis vor Aufgabe: 1dd4350. Aktuellen HEAD vor jeder Arbeit neu lesen.
 
 ## Bereits erledigt
 
