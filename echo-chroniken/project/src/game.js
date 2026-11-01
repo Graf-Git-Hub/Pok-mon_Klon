@@ -468,6 +468,8 @@
     encounterGrace: 0,
     battleWins: 0,
     routeQuest: {accepted:false,lights:[],rewarded:false,guardianWon:false},
+    explorationFound: [],
+    stepsSinceSave: 0,
     attackOrigin: null,
     dialogQueue: [],
     dialogCallback: null,
@@ -498,6 +500,7 @@
         encounterGrace: gameState.encounterGrace,
         battleWins: gameState.battleWins,
         routeQuest: gameState.routeQuest,
+        explorationFound: gameState.explorationFound,
         balanceVersion: 6
       };
       localStorage.setItem('echo_chroniken_tv_save', JSON.stringify(saveObj));
@@ -521,6 +524,7 @@
       }
       gameState.introStage=Math.max(0,Math.min(4,Number(gameState.introStage)||0));
       if(window.EchoRoute)window.EchoRoute.quest(gameState); // Keep old saves compatible.
+      window.EchoExplore?.ensure(gameState);
       // Migrate old saved positions that now lie inside one of the new buildings.
       if(gameState.scene==='OVERWORLD'&&window.EchoVillage&&gameState.player){
         const p=gameState.player;
@@ -651,16 +655,17 @@ function executeBattleAction(choice){
           if(Math.random()<chance){
             const captured=b.enemy; captured.hp=Math.max(1,captured.hp);
             gameState.caughtIds[captured.id]=true;
-            gameState.encounterGrace=8;
+            gameState.encounterGrace=16;
             if(gameState.team.length<6)gameState.team.push(captured);
             gameState.mode='OVERWORLD';
+            saveGame(true);
             showDialog([`✨ ${SPECIES[captured.id-1].name} hat sich dir angeschlossen!`,gameState.team.includes(captured)?'Willkommen im Team!':'Dein Team ist voll. Das Wesen wartet im Archiv.']);
           }else{b.log='Die Sphäre öffnet sich wieder!';battleTimeout(enemyCounterAttack,550);}
         },600);
       }
     }else if(choice===3){
       if(b.isTrainer)b.log='Aus einer Arena kannst du nicht fliehen!';
-      else {gameState.mode='OVERWORLD';gameState.encounterGrace=6;sfx.cancel();}
+      else {gameState.mode='OVERWORLD';gameState.encounterGrace=12;sfx.cancel();saveGame(true);}
     }
   }
   function useSelectedAttack(){
@@ -691,6 +696,7 @@ function executeBattleAction(choice){
     if(b){b.attackCursor=next; b.attackTop=Math.max(0,Math.min(next,ally.moves.length-6));}
     else gameState.freeAttackCursor=next;
     sfx.confirm();
+    saveGame(true);
   }
   
     function enemyCounterAttack() {
@@ -720,8 +726,9 @@ function executeBattleAction(choice){
           gameState.team.forEach(m => { m.hp = m.maxHp; });
           gameState.player.x = 5;
           gameState.player.y = 5;
-          gameState.encounterGrace=12;
+          gameState.encounterGrace=16;
           gameState.mode = 'OVERWORLD';
+          saveGame(true);
           showDialog([
             'Deine Geister-Wesen waren erschöpft...',
             'Oma Martha hat euch zu Hause wieder gesund gepflegt!'
@@ -735,7 +742,7 @@ function executeBattleAction(choice){
 
   function handleEnemyDefeated() {
     gameState.battleWins=(gameState.battleWins||0)+1;
-    gameState.encounterGrace=7;
+    gameState.encounterGrace=14;
     const b = gameState.battle;
     const ally = getActiveAlly();
     const enemy = b.enemy;
@@ -796,6 +803,7 @@ function executeBattleAction(choice){
           msgs.push('Alle Wesen dieser Welt sind die Seelen Verstorbener – und dein Starter-Wesen trägt die unsterbliche Seele deiner Mutter Elena!');
         }
       }
+      saveGame(true);
       showDialog(msgs);
     }
   }
@@ -828,10 +836,15 @@ function executeBattleAction(choice){
     gameState.player.y = ny;
     gameState.player.stepPhase = (gameState.player.stepPhase + 1) % 2;
     sfx.step();
+    // Quiet checkpoint on walks, without disrupting controls or dialogue.
+    gameState.stepsSinceSave=(gameState.stepsSinceSave||0)+1;
+    if(gameState.hasStarter && gameState.stepsSinceSave>=24){
+      gameState.stepsSinceSave=0;saveGame(true);
+    }
 
     // Zufallskampf im hohen Geister-Gras
     if(gameState.encounterGrace>0)gameState.encounterGrace--;
-    else if(tile===2&&gameState.hasStarter&&Math.random()<0.12)startWildBattle();
+    else if(tile===2&&gameState.hasStarter&&Math.random()<0.08)startWildBattle();
   }
 
   function enterGrandmaHouse(){
@@ -862,6 +875,11 @@ function executeBattleAction(choice){
     const tx = gameState.player.x + ox;
     const ty = gameState.player.y + oy;
 
+    if(window.EchoExplore){
+      const supply=window.EchoExplore.collect(gameState);
+      if(supply){sfx.catch();saveGame(true);showDialog(supply);return;}
+    }
+
     if(window.EchoRoute){
       const found=window.EchoRoute.collectNear(gameState,sfx);
       if(found){saveGame(true);showDialog(found);return;}
@@ -881,6 +899,7 @@ function executeBattleAction(choice){
     const npc = npcs.find(n => n.id!=='oma' && n.x === tx && n.y === ty);
     if (npc) {
       const lines = npc.talk();
+      saveGame(true);
       if (lines) showDialog(lines);
       return;
     }
@@ -912,6 +931,7 @@ function executeBattleAction(choice){
       gameState.team.forEach(m => { m.hp = m.maxHp; });
       gameState.orbs = Math.max(gameState.orbs, 5);
       sfx.heal();
+      saveGame(true);
       showDialog(['✨ Am Seelen-Brunnen wurden alle deine Wesen vollständig geheilt und deine Seelen-Sphären aufgefrischt!']);
     }
   }
@@ -919,6 +939,13 @@ function executeBattleAction(choice){
   // --- EINGABE-STEUERUNG (TASTATUR + NINTENDO SWITCH GAMEPAD API) ---
   function handleCommand(cmd) {
     ensureAudio();
+    if((cmd==='MAP'||cmd==='SELECT')&&gameState.mode==='OVERWORLD'){
+      gameState.mode='MAP';sfx.confirm();return;
+    }
+    if(gameState.mode==='MAP'){
+      if(['A','B','START','MAP','SELECT'].includes(cmd)){gameState.mode='OVERWORLD';sfx.cancel();}
+      return;
+    }
 
     if(cmd==='MOVES' && ['OVERWORLD','MENU','BATTLE'].includes(gameState.mode)){
       if(!gameState.team.length){showDialog(['Du brauchst zuerst Miora, um dein Attackenbuch zu öffnen.']);return;}
@@ -967,7 +994,7 @@ function executeBattleAction(choice){
       else if (cmd === 'LEFT') movePlayer(-1, 0, 'left');
       else if (cmd === 'RIGHT') movePlayer(1, 0, 'right');
       else if (cmd === 'A') interactFront();
-      else if (cmd === 'R' || cmd === 'SELECT') { gameState.mode = 'LEXICON'; sfx.confirm(); }
+      else if (cmd === 'R') { gameState.mode = 'LEXICON'; sfx.confirm(); }
       else if (cmd === 'START') { gameState.mode = 'MENU'; gameState.menuCursor = 0; sfx.blip(); }
       else if (cmd === 'L') {
         if (gameState.team.length > 1) {
@@ -1717,6 +1744,7 @@ function executeBattleAction(choice){
     drawCottage(homeX,homeY,tick);
     if(window.EchoVillage)window.EchoVillage.draw(ctx,camX,camY,tick,pix);
     if(window.EchoRoute)window.EchoRoute.draw(ctx,tick,gameState,camX,camY,pix);
+    if(window.EchoExplore)window.EchoExplore.drawWorld(ctx,tick,gameState,camX,camY,pix);
     
       // Berry bushes around yard, placed at stable coordinate hashes
     for(let x=1;x<11;x++)for(let y=5;y<11;y++){
@@ -2067,7 +2095,7 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,routeQuest:gameState.routeQuest,introStage:gameState.introStage,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
@@ -2094,6 +2122,8 @@ function executeBattleAction(choice){
       if(gameState.mode==='ATTACKS'&&['OVERWORLD','MENU'].includes(gameState.attackOrigin))renderScene(tick);
       else renderBattle(tick);
       if(gameState.mode==='ATTACKS')renderAttackBook(tick);
+    } else if (gameState.mode === 'MAP') {
+      window.EchoExplore.drawMap(ctx,worldMap,gameState);
     } else if (gameState.mode === 'LEXICON') {
       renderLexicon();
     } else if (gameState.mode === 'MENU') {
