@@ -43,6 +43,7 @@ jobs:
           node tests/package.cjs
           node tests/encounters.cjs
           node tests/first-route.cjs
+          node tests/exploration.cjs
       - name: Check app controls and assets
         working-directory: echo-chroniken/android
         run: |
