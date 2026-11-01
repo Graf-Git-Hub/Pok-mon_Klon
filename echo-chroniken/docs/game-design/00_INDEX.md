@@ -55,3 +55,7 @@ Kopieren: „Öffne Graf-Git-Hub/Pok-mon_Klon, lies echo-chroniken/docs/game-des
 ## Pflichtregeln
 
 1. Vor Codeänderung CONTINUE_HERE und Ist-Code lesen. 2. Keine geplante Map als bestehend ausgeben. 3. Monster-IDs nicht umnummerieren; alte Saves nicht ändern, bevor Migrationstests existieren. 4. Für jedes Feature Spielscreenshot, Tests, neuer Commit. 5. Danach CONTINUE_HERE aktualisieren. 6. APK niemals mit neuer Debug-Signatur veröffentlichen.
+
+## EncounterRegistry seit v0.17
+
+[API, Gewichtungsregeln und Zukunftskarten](ENCOUNTER_REGISTRY.md). Aktuell nur Wurzelheim aktiv; spätere Regionen sind Planung.

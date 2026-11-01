@@ -38,3 +38,13 @@
 ### Verifizierter Android-Release v0.16.0
 
 GitHub-Actions-Build einschließlich signierter Veröffentlichung erfolgreich, Quellcommit 4272e942c8512c0c15a33a5ad15f7b6b937fdd7c. APK 2.438.406 Bytes; SHA256 955c987d0b556dc572d0a6f552f03f6b5c1eb01c3fccd7fb8f45f2d8a4c8e426. Das APK wurde auf den Desktop geladen, Prüfsumme, QuestRegistry und 150er-Rückatlas wurden bestätigt.
+
+## 2026-11-01: M01-04 / EncounterRegistry und Android v0.17.0
+
+- Alle echten 150 Art-IDs in einer neuen kartenabhängigen EncounterRegistry validiert.
+- Nur legacy_wurzeldorf aktiv, mit identischem 25-Grundformen-Anfängerpool und alten Level-/Schonregeln. Neue Regionen sind Design.
+- Zukünftige gewichtete Tabellen müssen 100 Prozent ergeben und eigene gültige IDs, Level und Badge-Gates verwenden. Unbekannte Maps verwenden keine alte Dorftabelle.
+- Modulare Engine integriert, Offline-Einzeldatei gesondert mit ihrer historischen Levelkurve eingebunden.
+- Neue Tests mit 20.000 Zufallsziehungen und 1.840 echten simulierten Wildkämpfen; Chrome-Tests beider Fassungen, Screenshots, keine JS-Fehler.
+- Android-Projektversion auf 0.17.0 / VersionCode 17 gesetzt. Signierten Release bei GitHub erst verifizieren.
+- Nächster Auftrag M01-05: sichere, reale bidirektionale Kartenportale.

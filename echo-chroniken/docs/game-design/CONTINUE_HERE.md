@@ -1,22 +1,25 @@
-# CONTINUE HERE – exakter nächster Arbeitsschritt
+# CONTINUE HERE – genauer nächster Entwicklungsauftrag
 
-Stand: 01.11.2026. Android v0.16.0 ist dauerhaft signiert, geprüft und veröffentlicht (Build 4272e94). Basiskommit vor dieser Aufgabe: 085f7ab. Aktuellen HEAD bei Beginn neuer Arbeit erneut lesen.
+Stand: 01.11.2026. Android-Releaseziel: v0.17.0 (GitHub-Release zuerst überprüfen). Codebasis vor Aufgabe: 1dd4350. Aktuellen HEAD vor jeder Arbeit neu lesen.
 
-## Abgeschlossen
+## Bereits erledigt
 
-- M00-02: acht synthetische alte Spielstände und ein defektes JSON als Migrationstests.
-- M01-01: MapRegistry mit unveränderter Wurzelheim-Karte (36x28).
-- M01-02: additives Save-Schema 2 und lokales einmaliges Originalbackup älterer Spielstände.
-- **M01-03:** StoryRegistry mit zehn bestehenden Quest-IDs; die vier Belohnungen von Liora, Piko, Erinnerungshüter und Oma Martha werden über die bisherigen Questflags exakt einmal erteilt. Bereits vorhandene Spielstände erhalten keine zusätzlichen Questfelder. Der Adapter ist in Browser und Offline-HTML eingebunden.
+- M00-02: Acht synthetische Save-Fixtures und ein defekter JSON-Speicherstand geprüft.
+- M01-01: Alte 36×28-Wurzelheimkarte über MapRegistry-Adapter registriert, Positionen unverändert.
+- M01-02: Save-Schema 2 additiv und einmalige lokale Rohsicherung älterer Spielstände.
+- M01-03: QuestRegistry für zehn echte vorhandene Quests, vier Einmal-Belohnungen.
+- **M01-04 abgeschlossen:** neue EncounterRegistry in `project/src/encounters/registry.js`, Daten unter `project/data/encounters.js`. Prüft echte Arten-IDs 1 bis 150, Evolutionsstufen und abweichende Gewichte. Nur Wurzelheim ist bisher als Begegnungskarte registriert. Anfänger bleiben bei 25 wilden Basisarten und den bestehenden Schonregeln; die Level-/Kampfberechnung der modularen Fassung ist unverändert. Zukünftige Karten brauchen explizite Tabellen, unbekannte Gebiete bekommen niemals heimlich Wurzelheimer Monster.
 
-Noch nicht spielbar: Nebelhafen, Echo-Bahn, Kapitel 3–14. Storykonzeption ist weiterhin getrennt vom Code.
+## GENAU NÄCHSTE AUFGABE: M01-05
 
-## EXAKT NÄCHSTER TASK: M01-04
+**Echte bidirektionale Kartenübergänge** vorbereiten und ins Spiel integrieren: fromMapId, exitId, toMapId, toSpawnId, returnExitId und notwendige Questflags. Zunächst eine kleine separate Testkarte über einen sicheren Rückweg aus Wurzelheim erreichbar machen. Alte Dorf-/Arenakoordinaten nicht versetzen, existierende Spieler-Positionen und Spielstände unverändert laden. Tests für Zurückreisen, Abbrechen, Controller/Touch und Save/Load. Anschließend M01-06 visuelle Gesamtprüfung und dann Kapitel 3 Nebelhafen.
 
-EncounterRegistry mit mapId und festen Art-IDs. Als erste Karte nur legacy_wurzeldorf registrieren; existierenden fairen Anfangspool und Levelregeln beibehalten. 150 Arten validieren, Wahrscheinlichkeits-Gewichte summieren, unbekannte IDs und Entwicklungsformen in frühen Grasfeldern ausschließen. Neue Tests für sichere Default-Tabelle, Mapwechsel und Wiederholbarkeit. Erst nach M01-04 die realen bidirektionalen Portale (M01-05) und die visuelle Gesamt-QA (M01-06) einbauen, dann Kapitel 3 Nebelhafen.
+## Weiter offen
 
-Unabhängig offen: M00-03, grafische Eins-zu-eins-Prüfung aller 150 Arten (15 ergänzte Rückansichten und 50 generische Namen).
+M00-03: 150 Wesen auf passende Front-/Rückansichten prüfen; 15 Rückansichten sind ergänzte Varianten, 50 Arten tragen Platzhalternamen. Story-Kapitel 3 bis 14 und Echo-Bahn sind noch nicht spielbar. Die geplante regionale Monsterverteilung in MONSTER_DISTRIBUTION.csv ist NICHT schon als Wildtabelle implementiert.
 
-## Neues Chatfenster / Arbeitsregel
+## In einem neuen Chat lesen
 
-Lies erst 00_INDEX.md, IMPLEMENTATION_ROADMAP.md, PRODUCTION_TASKS.csv, QUEST_FLAGS_AND_SAVES.md, SYSTEMS_ARCHITECTURE.md und WORLD_GRAPH.json. Danach aktuellen Gamecode und Git-HEAD prüfen. Alte Questflags, Inventar, Team, Kartenpositionen, Spielersteuerung und Android-Signierung erhalten. Nach jedem Schritt alle Tests, echte Screenshots, CONTINUE_HERE.md und CHANGELOG.md aktualisieren und committen.
+00_INDEX.md, PRODUCTION_TASKS.csv, ENCOUNTER_REGISTRY.md, SYSTEMS_ARCHITECTURE.md, QUEST_FLAGS_AND_SAVES.md, WORLD_GRAPH.json, CHAPTERS/CH03.md, dann aktuellen Quellcode und Tests.
+
+Nach jedem Auftrag GitHub-Tests, echte Screenshots, PRODUCTION_TASKS.csv, CHANGELOG.md und diese Datei aktualisieren; keine weitere Android-App-ID oder Debug-Signierung verwenden.

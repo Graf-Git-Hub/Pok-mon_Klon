@@ -1,5 +1,8 @@
 # Echo-Chroniken 🎮👻
 
+**v0.17.0:** Kartenabhängige Begegnungsverwaltung mit 150 ID-Prüfungen und erhaltenem Anfänger-Balancing. Die Echo-Bahn und die neuen Regionen bleiben geplant.
+
+
 **v0.16.0:** Der Quest-Adapter hält die bestehenden zehn Aufgaben zentral nachvollziehbar und verhindert Doppelbelohnungen bei Liora, Piko, dem Ruinenhüter und Omas Spieluhr. Die neuen Städte/Bahn sind noch geplant, nicht spielbar.
 
 

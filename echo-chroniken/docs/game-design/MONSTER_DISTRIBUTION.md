@@ -71,3 +71,7 @@
 ## Nächste Redaktionsaufgabe
 
 Art-Tabelle mit 150 Front- und Rückgrafiken visuell gegentesten. Insbesondere die 15 ergänzten Rückansichten sind keine automatisch verifizierten individuellen Designs. Danach für die 50 Namen Alternativen vorschlagen und einzeln auf Art-ID referenzieren.
+
+## Aktive Fangorte gegenüber Plan (v0.17)
+
+Die 150 Zeilen der CSV sind ein Verteilungs**plan**. In der jetzigen APK gibt es nur eine aktive Begegnungs-Region: legacy_wurzeldorf. Bei 0 Orden enthält sie 25 Grundformen der bisherigen IDs 2–48. Spätere Orden vergrößern den Pool. Keine der anderen geplanten Städte hat heute eine aktive Tabelle.

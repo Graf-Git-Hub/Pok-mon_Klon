@@ -36,3 +36,11 @@ tests/story-registry.cjs umfasst 10 Quest-IDs, Pflichtvoraussetzungen, vier Einm
 - [Offline-HTML](../visual-audit/story-registry-v016-offline.png)
 
 Ein vollständiger echter Android- und TV-Durchlauf steht weiterhin aus.
+
+## EncounterRegistry-Testlauf v0.17
+
+- `tests/encounter-registry.cjs`: 150 Arten verifiziert, 20.000 deterministische Ziehungen; IDs, Entwicklungsgrad, Gewichtssummen, Level-/Badge-Gates und unbekannte Karten.
+- `tests/encounters.cjs`: 1.840 echte Wildkampfsimulationen mit eingebundener Registry, 10 Ortskoordinaten und variierenden Spieler-Teams.
+- [Modulare Browserfassung: echter Chrome-Screenshot](../visual-audit/encounter-registry-v017-modular.png).
+- [Offline-HTML: echter Chrome-Screenshot](../visual-audit/encounter-registry-v017-offline.png).
+- Kein vollständiger realer Android-Geräte-Durchlauf nachgewiesen.

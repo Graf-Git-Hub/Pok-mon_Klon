@@ -87,6 +87,7 @@
   // 150 originale PNG-Monster aus den drei eingesandten 256px-Boegen.
   // Die Evolutionsketten stammen aus KACHEL_INDEX.csv, nicht mehr aus ID-Modulo.
   const SPECIES = window.ECHO_SPECIES;
+  if(window.EchoEncounters)window.EchoEncounters.initialize(SPECIES,window.ECHO_ENCOUNTER_TABLES);
 
   // --- SPRITE-RENDERER: 16x16 (Oberwelt/Lexikon) & 32x32 (Kampf) ---
   const spriteCache16 = {};
@@ -613,10 +614,20 @@
   function startWildBattle(){
     const limits=wildEncounterLimits();
     const wildLv=limits.low+Math.floor(Math.random()*(limits.cap-limits.low+1));
-    const choices=SPECIES.filter(sp=>sp.id!==1 && sp.id<=limits.poolCap
-      && sp.stage<=limits.stageCap);
-    if(!choices.length)throw new Error('No wild species available at this stage');
-    const wildId=choices[Math.floor(Math.random()*choices.length)].id;
+    // Registry is explicit per map. If the current future map has no table,
+    // skip the encounter rather than silently pulling Wurzelheim's ghosts.
+    let wildId;
+    if(window.EchoEncounters){
+      wildId=window.EchoEncounters.choose(gameState.currentMapId||'legacy_wurzeldorf',
+        {...limits,badges:gameState.badges},wildLv);
+      if(wildId===null)return false;
+    }else{
+      // Standalone legacy unit harnesses still run without new modules.
+      const choices=SPECIES.filter(sp=>sp.id!==1 && sp.id<=limits.poolCap
+        && sp.stage<=limits.stageCap);
+      if(!choices.length)throw new Error('No wild species available at this stage');
+      wildId=choices[Math.floor(Math.random()*choices.length)].id;
+    }
     gameState.seenIds[wildId]=true;
     const enemy=createMonsterInstance(wildId,wildLv);
     if(limits.starterZone){

@@ -40,3 +40,7 @@ Eine neue Karten-Registry ist im Code, die bestehende 36×28-Oberwelt und deren 
 ## Nachtrag: StoryRegistry M01-03
 
 Die Bibliothek project/src/quests/registry.js führt lesbare IDs für 10 bereits vorhandene Quests ein: Oma/Paket, Wurzelheim verlassen, Spieluhr, Lioras Lichter, Piko, Erinnerungshüter, Oma-Bericht, Kael, Lyra und Vex. Vier dieser Quests verwenden eine bereits bestehende Flagstelle für eine idempotente Belohnung. Neue Gebiete oder Kapitel sind dadurch noch nicht programmiert.
+
+## Nachtrag v0.17: Begegnungsverwaltung
+
+Nur die bestehende Dorfkarte legacy_wurzeldorf ist als aktive Begegnungskarte registriert. Frühere Wildbegegnungs-IDs, Levelobergrenzen und die Anfangs-Kampfschonung der modularen Android-Fassung bleiben unverändert. Für zukünftige Gebiete können eigene gewichtete, streng validierte Encounter-Tabellen registriert werden; weitere Orte sind damit noch nicht spielbar.

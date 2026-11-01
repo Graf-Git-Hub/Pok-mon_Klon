@@ -61,6 +61,7 @@ jobs:
           node tests/village.cjs
           node tests/package.cjs
           node tests/encounters.cjs
+          node tests/encounter-registry.cjs
           node tests/first-route.cjs
       - name: Check Android controls and bundle offline assets
         working-directory: echo-chroniken/android
@@ -69,6 +70,8 @@ jobs:
           python3 build_assets.py
           node --check app/src/main/assets/src/quests/registry.js
           node --check app/src/main/assets/src/maps/registry.js
+          node --check app/src/main/assets/src/encounters/registry.js
+          node --check app/src/main/assets/data/encounters.js
           node --check app/src/main/assets/src/game.js
           node --check app/src/main/assets/platform.js
       - name: Test native Android build in pull requests (not released)

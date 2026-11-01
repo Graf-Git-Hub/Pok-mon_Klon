@@ -24,6 +24,7 @@ jobs:
           node tests/package.cjs
           node tests/village.cjs
           node tests/encounters.cjs
+          node tests/encounter-registry.cjs
           node tests/first-route.cjs
           node tests/exploration.cjs
           node tests/interiors.cjs

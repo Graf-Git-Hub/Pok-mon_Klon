@@ -8,12 +8,15 @@ const save={},window={document,addEventListener(){},location:{search:''},ECHO_BA
 const env={window,document,navigator:{getGamepads(){return []}},location:window.location,URLSearchParams,Math,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(k){return save[k]},setItem(k,v){save[k]=v}},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
 const species=fs.readFileSync('data/species.js','utf8'),engine=fs.readFileSync('src/game.js','utf8');
 vm.runInNewContext(species,env);
+vm.runInNewContext(fs.readFileSync('data/encounters.js','utf8'),env);
+vm.runInNewContext(fs.readFileSync('src/encounters/registry.js','utf8'),env);
 vm.runInNewContext(fs.readFileSync('src/village.js','utf8'),env);
 vm.runInNewContext(fs.readFileSync('src/house.js','utf8'),env);
 const mark='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 assert(engine.includes(mark));
 vm.runInNewContext(engine.replace(mark,'window.testWild={state:gameState,wildEncounterLimits,startWildBattle,createMonsterInstance};\n'+mark),env);
 const q=window.testWild;assert(q&&q.wildEncounterLimits);
+assert(window.EchoEncounters?.has('legacy_wurzeldorf'),'Actual battle engine must use EncounterRegistry');
 q.state.scene='OVERWORLD';q.state.hasStarter=true;q.state.team=[q.createMonsterInstance(1,5)];q.state.badges=0;q.state.battleWins=0;
 const locations=[[5,6],[12,14],[13,17],[14,17],[18,20],[30,15],[30,20],[31,22],[34,24],[2,26]];
 let count=0;
