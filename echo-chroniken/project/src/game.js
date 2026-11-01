@@ -1138,9 +1138,29 @@ function executeBattleAction(choice){
     setTimeout(() => toastEl.classList.remove('show'), 3500);
   });
 
+  let platformButtonA=false,platformButtonB=false,platformButtonStart=false;
   function pollGamepad(now) {
     const pads = navigator.getGamepads ? navigator.getGamepads() : [];
     const gp = pads[0];
+    if(gameState.mode==='PLATFORM'){
+      if(!gp){platformButtonA=false;platformButtonB=false;platformButtonStart=false;return;}
+      const b=(idx)=>!!gp.buttons?.[idx]?.pressed;
+      const left=b(14)||(gp.axes[0]||0)<-.45;
+      const right=b(15)||(gp.axes[0]||0)>.45;
+      const jump=b(1)||b(0);
+      const back=b(2)||b(3);
+      const pause=b(9);
+      // An independent jump edge lets the player hold the stick and jump together.
+      if(jump&&!platformButtonA)handleCommand('A');
+      if(back&&!platformButtonB)handleCommand('B');
+      if(pause&&!platformButtonStart)handleCommand('START');
+      platformButtonA=jump;platformButtonB=back;platformButtonStart=pause;
+      if(gameState.mode==='PLATFORM'&&now-lastPadTime>=95){
+        if(left!==right){handleCommand(left?'LEFT':'RIGHT');lastPadTime=now;}
+      }
+      return;
+    }
+    platformButtonA=false;platformButtonB=false;platformButtonStart=false;
     if (!gp || now - lastPadTime < 155) return;
 
     const axX = gp.axes[0] || 0;
