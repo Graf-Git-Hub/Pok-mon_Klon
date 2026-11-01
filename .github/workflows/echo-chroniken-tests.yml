@@ -15,6 +15,7 @@ jobs:
       - name: Test quests, routes, rewards, scenes and controller navigation
         working-directory: echo-chroniken/project
         run: |
+          node tests/back-art.cjs
           node tests/smoke.cjs
           node tests/house.cjs
           node tests/package.cjs

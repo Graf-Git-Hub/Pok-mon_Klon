@@ -3,9 +3,11 @@ package de.echochroniken.game;
 import android.app.Activity;
 import android.app.UiModeManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -29,6 +32,8 @@ public class MainActivity extends Activity {
     private static final String TAG = "EchoChroniken";
     private WebView webView;
     private boolean television;
+    private static final int PICK_BACK_ART = 8129;
+    private ValueCallback<Uri[]> fileChooserCallback;
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private String heldStick = null;
     private final Runnable stickRepeater = new Runnable() {
@@ -59,7 +64,7 @@ public class MainActivity extends Activity {
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setAllowFileAccess(false);
-        settings.setAllowContentAccess(false);
+        settings.setAllowContentAccess(true); // Android image picker grants a one-time content URI.
         settings.setMediaPlaybackRequiresUserGesture(false);
         settings.setDefaultTextEncodingName("UTF-8");
         webView.addJavascriptInterface(new DeviceBridge(), "EchoAndroid");
@@ -84,8 +89,40 @@ public class MainActivity extends Activity {
                 return true;
             }
         });
-        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback,
+                                                        FileChooserParams params) {
+                if (television) return false;
+                if (fileChooserCallback != null) fileChooserCallback.onReceiveValue(null);
+                fileChooserCallback = callback;
+                try {
+                    Intent picker = new Intent(Intent.ACTION_GET_CONTENT);
+                    picker.addCategory(Intent.CATEGORY_OPENABLE);
+                    picker.setType("image/*");
+                    startActivityForResult(Intent.createChooser(picker, "Geisterbilder auswählen"), PICK_BACK_ART);
+                    return true;
+                } catch (Exception e) {
+                    fileChooserCallback = null;
+                    Log.e(TAG, "Image picker unavailable", e);
+                    return false;
+                }
+            }
+        });
         webView.loadUrl("https://appassets.androidplatform.net/assets/index.html");
+    }
+
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PICK_BACK_ART) {
+            ValueCallback<Uri[]> callback = fileChooserCallback;
+            fileChooserCallback = null;
+            if (callback != null) {
+                Uri[] chosen = resultCode == RESULT_OK && data != null && data.getData() != null
+                        ? new Uri[]{data.getData()} : null;
+                callback.onReceiveValue(chosen);
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private final class DeviceBridge {
@@ -189,6 +226,10 @@ public class MainActivity extends Activity {
         showImmersive();
     }
     @Override public void onDestroy() {
+        if (fileChooserCallback != null) {
+            fileChooserCallback.onReceiveValue(null);
+            fileChooserCallback = null;
+        }
         mainHandler.removeCallbacks(stickRepeater);
         if (webView != null) { webView.destroy(); webView = null; }
         super.onDestroy();

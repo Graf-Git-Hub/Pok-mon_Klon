@@ -1829,6 +1829,8 @@ function executeBattleAction(choice){
     backSpriteImages[id] = img;
   }
   function getMonsterBackSprite(id) {
+    const imported = window.EchoBackArt?.getSprite(id);
+    if (imported) return imported;
     const back = backSpriteImages[String(id)];
     if(back && back.complete && back.naturalWidth>0) return back;
     return getMonsterSprite(id,32);
