@@ -1858,17 +1858,10 @@ function executeBattleAction(choice){
     const shake=hurt && b.animTimer%2===0?3:0;
     ctx.save();ctx.imageSmoothingEnabled=true;
     // Enemy: FRONT VIEW, right / Player: TRUE REAR VIEW, left.
-    ctx.drawImage(getMonsterSprite(enemy.id,32),192+shake,12+bounce,109,96);
-    ctx.drawImage(getMonsterBackSprite(ally.id),22,32-bounce,111,90);
+    ctx.drawImage(getMonsterSprite(enemy.id,32),192+(b.fxTarget==='enemy'?shake:0),12+bounce,109,96);
+    ctx.drawImage(getMonsterBackSprite(ally.id),22+(b.fxTarget==='ally'?shake:0),32-bounce,111,90);
     ctx.restore();
-    if(hurt){
-      for(let j=0;j<11;j++){
-        const pos=(b.animTimer*7+j*23)%100;
-        const x=99+pos*1.4; const y=68-Math.sin(j*2.4+b.animTimer*.4)*19;
-        pix(x,y,3,3,j%2?'#fbf6e3':(b.lastAttackColor||'#a33ff5'));
-      }
-      pix(222+shake,43,12,2,'#fff4c8');
-    }
+    if(hurt && window.EchoCombatFX)window.EchoCombatFX.draw(ctx,b,tick);
     // Gegner-Leiste oben links
     boxArt(5,5,143,35,'#f8efd6','#365456','#fff9e7');
     fText(enemySp.name,12,18,10,'#263f43');
