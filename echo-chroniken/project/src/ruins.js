@@ -21,7 +21,7 @@ function ensure(s){
  q.seals=Array.isArray(q.seals)?q.seals.filter((v,i,a)=>SEALS.some(t=>t.id===v)&&a.indexOf(v)===i):[];
  // Saved puzzle progress must always be a valid prefix of the intended order.
  if(q.seals.some((v,i)=>SEALS[i].id!==v))q.seals=[];
- q.bossWon=!!q.bossWon;q.clueSeen=!!q.clueSeen;
+ q.bossWon=!!q.bossWon;q.clueSeen=!!q.clueSeen;q.reported=!!q.reported;
  return q;
 }
 function prepareWorld(map){
@@ -130,7 +130,7 @@ function interact(s,sfx){
 function victory(s){
  const q=ensure(s);
  if(q.bossWon)return [];
- q.bossWon=true;
+ q.bossWon=true;q.reported=false;
  s.potions=(Number(s.potions)||0)+2;
  s.orbs=(Number(s.orbs)||0)+3;
  return [
@@ -146,7 +146,7 @@ function victory(s){
 function objective(s){
  const q=ensure(s);
  if(!unlocked(s))return 'Hilf Liora mit den drei Seelenlichtern';
- if(q.bossWon)return 'Die Wahrheit der Erinnerung: Sprich mit Oma';
+ if(q.bossWon)return q.reported?'Kapitel 2 abgeschlossen · neue Spur im Norden':'Die Wahrheit der Erinnerung: Sprich mit Oma';
  if(q.seals.length===3)return 'Stelle dich dem vergessenen Wächter';
  return 'Aktiviere WURZEL → WASSER → STERN ('+q.seals.length+'/3)';
 }
