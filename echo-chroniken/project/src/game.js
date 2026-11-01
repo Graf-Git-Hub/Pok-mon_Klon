@@ -217,6 +217,7 @@
   worldMap[21][30] = 6; // Heiligtum-Altar
   if(window.EchoVillage){window.EchoVillage.map=worldMap;window.EchoVillage.build(worldMap);}
   if(window.EchoRoute)window.EchoRoute.build(worldMap);
+  if(window.EchoRuins)window.EchoRuins.prepareWorld(worldMap);
 
   // --- NPCS, ARENALEITER, TAGEBUCHSEITEN & NEBENAUFGABEN ---
   const npcs = [
@@ -471,6 +472,8 @@
     explorationFound: [],
     indoorProgress: {},
     platformProgress: {cleared:false,bestSeconds:null},
+    ruinsProgress: {seals:[],bossWon:false,clueSeen:false},
+    ruinsReturn: null,
     roomId: null,
     returnToVillage: null,
     stepsSinceSave: 0,
@@ -507,6 +510,8 @@
         explorationFound: gameState.explorationFound,
         indoorProgress: gameState.indoorProgress,
         platformProgress: gameState.platformProgress,
+        ruinsProgress: gameState.ruinsProgress,
+        ruinsReturn: gameState.ruinsReturn,
         roomId: gameState.roomId,
         returnToVillage: gameState.returnToVillage,
         balanceVersion: 6
@@ -535,6 +540,7 @@
       window.EchoExplore?.ensure(gameState);
       window.EchoInteriors?.ensure(gameState);
       window.EchoPlatformer?.ensure(gameState);
+      window.EchoRuins?.ensure(gameState);
       if(gameState.scene==='BUILDING'&&!window.EchoInteriors?.ROOMS[gameState.roomId]){
         gameState.scene='OVERWORLD';gameState.player={x:5,y:6,dir:'down',stepPhase:0};
       }
@@ -804,6 +810,10 @@ function executeBattleAction(choice){
       b.busy = false;
     } else {
       gameState.mode = 'OVERWORLD';
+      if(b.ruinBoss && window.EchoRuins){
+        msgs.push(...window.EchoRuins.victory(gameState));
+        saveGame(true);
+      }
       if(b.routeGuardian && window.EchoRoute){
         msgs.push(...window.EchoRoute.keeperWin(gameState,sfx));
         saveGame(true);
@@ -828,6 +838,11 @@ function executeBattleAction(choice){
   function movePlayer(dx, dy, dirName) {
     if (gameState.mode !== 'OVERWORLD') return;
     gameState.player.dir = dirName;
+    if(gameState.scene==='RUINS'){
+      const result=window.EchoRuins.walk(gameState,dx,dy,dirName,sfx);
+      if(result.exited)saveGame(true);
+      return;
+    }
     if(gameState.scene==='BUILDING'){
       const result=window.EchoInteriors.walk(gameState,dx,dy,dirName,showDialog,sfx);
       if(result.exited)saveGame(true);
@@ -888,6 +903,25 @@ function executeBattleAction(choice){
   });
 
   function interactFront() {
+    if(gameState.scene==='RUINS'){
+      const r=window.EchoRuins.interact(gameState,sfx);
+      if(r.heal)gameState.team.forEach(m=>m.hp=m.maxHp);
+      if(r.changed||r.heal)saveGame(true);
+      if(r.boss){
+        showDialog(r.lines,()=>{
+          startTrainerBattle(null,'Vergessener Wächter',[{id:7,lv:5}]);
+          const b=gameState.battle;b.ruinBoss=true;
+          b.enemy.maxHp=Math.max(16,Math.round(b.enemy.maxHp*.72));
+          b.enemy.hp=b.enemy.maxHp;b.enemy.encounterScale=.65;
+        });
+      }else if(r.lines)showDialog(r.lines);
+      return;
+    }
+    if(gameState.scene==='OVERWORLD'&&window.EchoRuins?.nearEntrance(gameState)){
+      const r=window.EchoRuins.entrance(gameState);
+      if(r.entered){sfx.confirm();saveGame(true);}
+      showDialog(r.lines);return;
+    }
     if(gameState.scene==='OVERWORLD'&&window.EchoPlatformer?.nearPortal(gameState)){
       if(window.EchoPlatformer.enter(gameState)){
         sfx.confirm();saveGame(true);return;
@@ -1813,6 +1847,7 @@ function executeBattleAction(choice){
     if(window.EchoRoute)window.EchoRoute.draw(ctx,tick,gameState,camX,camY,pix);
     if(window.EchoExplore)window.EchoExplore.drawWorld(ctx,tick,gameState,camX,camY,pix);
     if(window.EchoPlatformer)window.EchoPlatformer.drawPortal(ctx,tick,gameState,camX,camY,pix);
+    if(window.EchoRuins)window.EchoRuins.drawEntrance(ctx,tick,gameState,camX,camY,pix);
     
       // Berry bushes around yard, placed at stable coordinate hashes
     for(let x=1;x<11;x++)for(let y=5;y<11;y++){
@@ -2156,7 +2191,7 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
@@ -2165,6 +2200,7 @@ function executeBattleAction(choice){
   function renderScene(tick){
     if(gameState.scene==='HOUSE')window.EchoHouse.render(ctx,tick,gameState,drawChar16);
     else if(gameState.scene==='BUILDING')window.EchoInteriors.render(ctx,tick,gameState,drawChar16);
+    else if(gameState.scene==='RUINS')window.EchoRuins.render(ctx,tick,gameState,drawChar16);
     else renderOverworld(tick);
   }
 
