@@ -48,6 +48,8 @@ jobs:
           node tests/interiors-integration.cjs
           node tests/platformer.cjs
           node tests/platformer-integration.cjs
+          node tests/ruins.cjs
+          node tests/ruins-integration.cjs
       - name: Check app controls and assets
         working-directory: echo-chroniken/android
         run: |
