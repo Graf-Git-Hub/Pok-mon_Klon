@@ -1,6 +1,6 @@
 # CONTINUE HERE – exakter Projektstand und nächster Task
 
-**Stand:** 01.11.2026. **Codeziel:** Android v0.15.0, Release im GitHub-Workflow prüfen. **Letzte Roadmap-Basis vor Codeänderung:** `d2d97e2`; HEAD beim nächsten Chat neu prüfen.
+**Stand:** 01.11.2026. **Release bestätigt:** Android v0.15.0, dauerhaft signiert und am 01.11.2026 erfolgreich über GitHub veröffentlicht. APK geprüft; der App-Build stammt aus Commit ae50b36583a9d4c47a50f3822983498df55de7f9. **Letzte Roadmap-Basis vor Codeänderung:** `d2d97e2`; HEAD beim nächsten Chat neu prüfen.
 
 ## Abgeschlossene Produktionsaufträge
 
