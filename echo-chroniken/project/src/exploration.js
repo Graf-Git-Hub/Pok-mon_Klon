@@ -81,6 +81,12 @@ function drawMap(ctx,world,state){
  for(const [x,y] of [[5,5],[14,5],[27,5],[6,17],[22,17]]){
    const [px,py]=pos(x,y);marker(ctx,px,py,'#f4ca83');
  }
+ // The optional dream-portal opens the side-scrolling ghost challenge.
+ if(state.hasStarter && window.EchoPlatformer){
+   const portal=window.EchoPlatformer.PORTAL;
+   const [dx,dy]=pos(portal.x,portal.y);
+   marker(ctx,dx,dy,state.platformProgress?.cleared?'#a8e3b4':'#e6a8f5',4,4);
+ }
  for(const st of STASHES){
    if(ensure(state).includes(st.id))continue;
    const [px,py]=pos(st.x,st.y);marker(ctx,px,py,'#ffdc7c',2,2);
