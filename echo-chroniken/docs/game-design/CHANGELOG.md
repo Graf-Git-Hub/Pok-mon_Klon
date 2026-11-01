@@ -34,3 +34,7 @@
 - Neuer story-registry.cjs-Test; Integration mit Legacy-Code. Realer Chrome-Lauf mit 10 aktiven Questdefinitionen in modularer und Offline-Fassung, echte Screenshots.
 - Neue Android-Releaseversion 0.16.0 (VersionCode 16); erfolgreiche Signierung und Veröffentlichung nach GitHub-Workflow bestätigen.
 - Nächster Task M01-04: EncounterRegistry.
+
+### Verifizierter Android-Release v0.16.0
+
+GitHub-Actions-Build einschließlich signierter Veröffentlichung erfolgreich, Quellcommit 4272e942c8512c0c15a33a5ad15f7b6b937fdd7c. APK 2.438.406 Bytes; SHA256 955c987d0b556dc572d0a6f552f03f6b5c1eb01c3fccd7fb8f45f2d8a4c8e426. Das APK wurde auf den Desktop geladen, Prüfsumme, QuestRegistry und 150er-Rückatlas wurden bestätigt.

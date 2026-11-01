@@ -1,6 +1,6 @@
 # CONTINUE HERE – exakter nächster Arbeitsschritt
 
-Stand: 01.11.2026. Nach dem Release 0.15 ist das nächste Ziel Android 0.16.0. Basiskommit vor dieser Aufgabe: 085f7ab. Aktuellen HEAD bei Beginn neuer Arbeit erneut lesen.
+Stand: 01.11.2026. Android v0.16.0 ist dauerhaft signiert, geprüft und veröffentlicht (Build 4272e94). Basiskommit vor dieser Aufgabe: 085f7ab. Aktuellen HEAD bei Beginn neuer Arbeit erneut lesen.
 
 ## Abgeschlossen
 
