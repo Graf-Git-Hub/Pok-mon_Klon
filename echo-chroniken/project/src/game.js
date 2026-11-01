@@ -470,6 +470,7 @@
     routeQuest: {accepted:false,lights:[],rewarded:false,guardianWon:false},
     explorationFound: [],
     indoorProgress: {},
+    platformProgress: {cleared:false,bestSeconds:null},
     roomId: null,
     returnToVillage: null,
     stepsSinceSave: 0,
@@ -505,6 +506,7 @@
         routeQuest: gameState.routeQuest,
         explorationFound: gameState.explorationFound,
         indoorProgress: gameState.indoorProgress,
+        platformProgress: gameState.platformProgress,
         roomId: gameState.roomId,
         returnToVillage: gameState.returnToVillage,
         balanceVersion: 6
@@ -532,6 +534,7 @@
       if(window.EchoRoute)window.EchoRoute.quest(gameState); // Keep old saves compatible.
       window.EchoExplore?.ensure(gameState);
       window.EchoInteriors?.ensure(gameState);
+      window.EchoPlatformer?.ensure(gameState);
       if(gameState.scene==='BUILDING'&&!window.EchoInteriors?.ROOMS[gameState.roomId]){
         gameState.scene='OVERWORLD';gameState.player={x:5,y:6,dir:'down',stepPhase:0};
       }
@@ -885,6 +888,11 @@ function executeBattleAction(choice){
   });
 
   function interactFront() {
+    if(gameState.scene==='OVERWORLD'&&window.EchoPlatformer?.nearPortal(gameState)){
+      if(window.EchoPlatformer.enter(gameState)){
+        sfx.confirm();saveGame(true);return;
+      }
+    }
     if(gameState.scene==='BUILDING'){
       const lines=window.EchoInteriors.interact(gameState,showDialog,sfx);
       saveGame(true);
@@ -972,6 +980,12 @@ function executeBattleAction(choice){
   // --- EINGABE-STEUERUNG (TASTATUR + NINTENDO SWITCH GAMEPAD API) ---
   function handleCommand(cmd) {
     ensureAudio();
+    if(gameState.mode==='PLATFORM'){
+      const wasPlaying=gameState.mode==='PLATFORM';
+      window.EchoPlatformer.input(gameState,cmd);
+      if(wasPlaying&&gameState.mode==='OVERWORLD'){saveGame(true);sfx.cancel();}
+      return;
+    }
     if((cmd==='MAP'||cmd==='SELECT')&&gameState.mode==='OVERWORLD'){
       gameState.mode='MAP';sfx.confirm();return;
     }
@@ -1778,6 +1792,7 @@ function executeBattleAction(choice){
     if(window.EchoVillage)window.EchoVillage.draw(ctx,camX,camY,tick,pix);
     if(window.EchoRoute)window.EchoRoute.draw(ctx,tick,gameState,camX,camY,pix);
     if(window.EchoExplore)window.EchoExplore.drawWorld(ctx,tick,gameState,camX,camY,pix);
+    if(window.EchoPlatformer)window.EchoPlatformer.drawPortal(ctx,tick,gameState,camX,camY,pix);
     
       // Berry bushes around yard, placed at stable coordinate hashes
     for(let x=1;x<11;x++)for(let y=5;y<11;y++){
@@ -2041,7 +2056,7 @@ function executeBattleAction(choice){
   function updateTouchLabel() {
     if (lastTouchMode === gameState.mode) return;
     lastTouchMode = gameState.mode;
-    touchALabel.textContent = ({TITLE: 'Starten', DIALOG: 'Weiter', OVERWORLD: 'Aktion', BATTLE: 'Wählen', ATTACKS:'Angriff', LEXICON: 'Info', MENU: 'Wählen'})[gameState.mode] || 'OK';
+    touchALabel.textContent = ({TITLE: 'Starten', DIALOG: 'Weiter', OVERWORLD: 'Aktion', PLATFORM:'Springen', BATTLE: 'Wählen', ATTACKS:'Angriff', LEXICON: 'Info', MENU: 'Wählen'})[gameState.mode] || 'OK';
   }
 
 
@@ -2121,7 +2136,7 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
@@ -2136,12 +2151,18 @@ function executeBattleAction(choice){
   // --- HAUPTSCHLEIFE (GAME LOOP) ---
   function loop(tick) {
     pollGamepad(tick);
+    if(gameState.mode==='PLATFORM'){
+      const event=window.EchoPlatformer.update(gameState,tick);
+      if(event?.completed){saveGame(true);sfx.evolve();showDialog(event.lines);}
+    }
     updateTouchLabel();
 
     if (gameState.mode === 'TITLE') {
       renderTitle(tick);
     } else if (gameState.mode === 'OVERWORLD') {
       renderScene(tick);
+    } else if (gameState.mode === 'PLATFORM') {
+      window.EchoPlatformer.render(ctx,tick,gameState);
     } else if (gameState.mode === 'DIALOG') {
       renderScene(tick);
       renderDialog();
