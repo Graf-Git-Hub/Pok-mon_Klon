@@ -79,16 +79,19 @@ function guideTalk(state,sfx){
     sfx?.catch?.();
     return ['Liora: „Du hast wirklich alle drei gefunden! Der Flüsterpfad leuchtet wieder.“',
       '🎁 Du erhältst 2 Seelen-Tränke und 5 Seelen-Sphären!',
-      '„Waldhüter Piko wartet am Ende des Pfades. Er prüft dich gern in einem freundlichen Kampf.“'];
+      '„Waldhüter Piko wartet am Ende des Pfades. Er prüft dich gern in einem freundlichen Kampf.“',
+      '„Östlich von Piko glitzert ein Traumtor. Dort wartet ein ganz anderes Abenteuer!“'];
   }
   if(q.guardianWon)return ['Liora: „Sogar Piko hast du überzeugt. Wurzelheim kann stolz auf dich sein!“'];
-  return ['Liora: „Danke für die Seelenlichter! Wenn du möchtest, fordere Piko am Ende des Pfades heraus.“'];
+  return ['Liora: „Danke für die Seelenlichter! Wenn du möchtest, fordere Piko am Ende des Pfades heraus.“',
+    '„Und schau dir das Traumtor ganz im Osten des Waldes an!“'];
 }
 function keeperTalk(state){
   const q=quest(state);
   if(!state.hasStarter)return ['Waldhüter Piko: „Bring erst ein Seelenwesen mit, dann zeige ich dir meinen Prüfkampf.“'];
   if(!q.rewarded)return ['Waldhüter Piko: „Drei Lichter hüten unseren Pfad. Hilf Liora, sie zu sammeln!“'];
-  if(q.guardianWon)return ['Waldhüter Piko: „Du hast die Prüfung bestanden. Mögen deine Seelenwesen behütet bleiben!“'];
+  if(q.guardianWon)return ['Waldhüter Piko: „Du hast die Prüfung bestanden. Mögen deine Seelenwesen behütet bleiben!“',
+    '„Mein Geheimtipp: Ein paar Schritte östlich liegt der Flüster-Sprung.“'];
   return null; // Start the optional single Lv.4 trainer fight via the existing engine.
 }
 function collectNear(state,sfx){
