@@ -53,6 +53,8 @@ jobs:
       - name: Test shared game engine and starter balance
         working-directory: echo-chroniken/project
         run: |
+          node tests/map-registry.cjs
+          node tests/save-compat.cjs
           node tests/smoke.cjs
           node tests/house.cjs
           node tests/village.cjs
@@ -64,6 +66,7 @@ jobs:
         run: |
           node tests/check-platform.cjs
           python3 build_assets.py
+          node --check app/src/main/assets/src/maps/registry.js
           node --check app/src/main/assets/src/game.js
           node --check app/src/main/assets/platform.js
       - name: Test native Android build in pull requests (not released)

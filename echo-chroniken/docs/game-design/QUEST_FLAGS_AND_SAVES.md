@@ -95,3 +95,8 @@ Jedes Event: id, chapterId, kind, prerequisites[], mapId, triggerId, dialogueId,
 ## Automatische Teststrategie
 
 Testdateien unter `echo-chroniken/project/tests/` und neue `story-migration.cjs`, `world-map.cjs`, `railway.cjs`, `chapters-completion.cjs`; Details in TEST_PLAN.md. Bei jedem Commit alte 14 Checks mit ausführen.
+
+
+## Implementiert: Legacy-Migration Schema v2
+
+Die Karte `legacy_wurzeldorf` referenziert die alte 36×28-Oberwelt. Beim Laden fehlende `currentMapId` und `safeSpawnId` werden additiv ergänzt. Das originale alte JSON wird nur einmal lokal unter `echo_chroniken_tv_save_before_maps_v2` gesichert; es wird nicht an GitHub übertragen. Bestehende Haus-/Gebäudeszenen behalten beim Laden ihre ursprünglichen Player-Koordinaten. Bei unbekannten Zukunftskarten wird zur Sicherheit auf Wurzelheim (5,6) zurückgesetzt, wobei Team, Orden und Quests erhalten bleiben. Weitere Bahn-/Storyflags sind weiterhin nur geplant.

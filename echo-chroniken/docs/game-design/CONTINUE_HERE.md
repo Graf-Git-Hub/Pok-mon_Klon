@@ -1,23 +1,28 @@
 # CONTINUE HERE – exakter Projektstand und nächster Task
 
-**Datum Dokumentation:** 2026-11-01. **Basis-Commit vor dieser Roadmap:** `edfeb6c`. Der tatsächliche Roadmap-Commit steht im Git-Verlauf. **Produktiv:** Kapitel 1/2 teilweise spielbar, Android v0.14.0. **Konzeption:** Kapitel 3–14, Postgame, Bahn und neue Maps fertig ausgearbeitet; NICHT in der APK implementiert.
+**Stand:** 01.11.2026. **Codeziel:** Android v0.15.0, Release im GitHub-Workflow prüfen. **Letzte Roadmap-Basis vor Codeänderung:** `d2d97e2`; HEAD beim nächsten Chat neu prüfen.
 
-## Nächste verbindliche Arbeit
+## Abgeschlossene Produktionsaufträge
 
-**Task M00-02 → M01-01:** Zuerst historische Spielstände als Golden-Save-Fixtures für vor Paket, nach Paket, mitten in Seelenlichtern, nach Ruinenboss, Arena, neues Format und beschädigte Save sichern. Dann eine MapRegistry einführen, die die existierende 36×28-Welt als `legacy_wurzeldorf` unverändert lädt. Neue Felder `currentMapId`/`safeSpawnId` ausschließlich additiv migrieren. **Noch KEINE neue Hafenmap bauen**, bevor die alten 14 Tests plus neue Save-/Map-Tests grün sind.
+- **M00-02 DONE:** Acht synthetische Golden-Save-Fixtures plus beschädigter JSON-Testfall. Dies sind **keine privaten Nutzer-Spielstände**.
+- **M01-01 DONE:** Karten-Registry `project/src/maps/registry.js`, Adapter `legacy_wurzeldorf` für echte 36×28-Karte. Keine Verschiebung der bestehenden Karte oder NPCs; synthetische bidirektionale Kartenwechsel getestet.
+- **M01-02 DONE:** Schema-2-Metadaten `currentMapId`, `safeSpawnId`, `saveSchemaVersion`. Bei Laden eines älteren gültigen Saves wird dessen Originaltext einmal unter `echo_chroniken_tv_save_before_maps_v2` **lokal auf demselben Gerät** gesichert. Bestehendes Team, Inventar, Arenen, Ruinen und Quests bleiben erhalten.
+- **Nicht implementiert:** Neue Städte, Bahn, Nebelhafen und Kapitel 3–14. Kein privater Spielstand wurde für Tests ausgelesen oder auf GitHub geladen.
 
-## Lese-Reihenfolge für neuen Chat
+## Exakt nächster Task: M01-03
 
-1. `00_INDEX.md`. 2. `PROJECT_BASELINE.md`. 3. `IMPLEMENTATION_ROADMAP.md` Tasks M0/M1. 4. `QUEST_FLAGS_AND_SAVES.md`. 5. `WORLD_MAP.md` und `WORLD_GRAPH.json`. 6. `CHAPTERS/CH03.md`. 7. Aktuelle `project/src/game.js`, `data/species.js` und Tests.
+Baue einen **StoryRegistry/QuestFlag-Adapter**, der zunächst nur vorhandene Questflags von Oma, Liora, Piko, Ruine und Arenen liest und einmalige Rewardtransaktionen sichert. Kein Rewrite dieser bestehenden Quests. Neue Tests für Pflichtvoraussetzungen, Doppelextras und altes Save-Schema. Danach weiter mit **M01-04 EncounterRegistry**, **M01-05 reale Portal-Integration**, **M01-06 visuelle QA**, anschließend Kapitel 3 Nebelhafen.
 
-## Blocker und Entscheidungen
+Offener unabhängiger Task **M00-03:** Original-IDs, Front- und Rückbilder der 150 Wesen paarweise prüfen. 15 Rückansichten sind ergänzte Varianten; 50 Arten tragen Platzhalternamen. Nicht stillschweigend umbenennen.
 
-Varek/Mira/Kontinuum sind noch nicht ausdrücklich vom Nutzer freigegebene kreative Vorschläge. 50 Platzhalternamen und 15 Rückansichtsvarianten sind noch zu prüfen. Noch kein MapRegistry-/Bahnsystem. Echter vollständiger Geräte- und Spieltest fehlt.
+## Neuer Chat: Lesereihenfolge
 
-## NICHT tun
+1. `00_INDEX.md`, 2. `PROJECT_BASELINE.md`, 3. `PRODUCTION_TASKS.csv` / `IMPLEMENTATION_ROADMAP.md`,
+4. `QUEST_FLAGS_AND_SAVES.md` und `SYSTEMS_ARCHITECTURE.md`, 5. `WORLD_MAP.md`,
+6. aktuellen Spielcode in `echo-chroniken/project/src/` und die Tests.
 
-Keine separate neue Android-App veröffentlichen; die feste Signatur erhalten. Keine alten Koordinaten/NPCs ohne Save-Migration ändern. Nicht behaupten, alle 14 Kapitel seien schon programmiert. Die fertige Lore nicht bei jedem neuen Chat unbemerkt umschreiben.
+## Regeln beim Weiterarbeiten
 
-## Arbeitsende einer Folge-Session
+Keine neue App-ID oder Debug-Signatur. Keine alten Koordinaten und Story-Flags ohne Save-Migration verändern. Vor neuen Karten nachweisbare Rückwege; Codeänderungen erst nach Tests, Screenshots und Dokumentaktualisierung veröffentlichen.
 
-Task in `PRODUCTION_TASKS.csv` mit Testergebnis/Commit aktualisieren. `CHANGELOG.md` ergänzen. Hier aktuellen Task, offene Blocker und HEAD eintragen. Änderungen nach GitHub pushen. Der nächste Chat bekommt dann wieder diese Datei.
+**Nach jedem Task:** `PRODUCTION_TASKS.csv`, `CHANGELOG.md` und diese Datei mit Ergebnissen, Blockern und aktuellem HEAD aktualisieren.

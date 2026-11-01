@@ -450,10 +450,15 @@
     return m;
   }
 
+    window.EchoMaps?.registerLegacy(worldMap);
+
     const gameState = {
     mode: 'OVERWORLD', // OVERWORLD, DIALOG, BATTLE, LEXICON, MENU
     player: { x: 7, y: 7, dir: 'down', stepPhase: 0 },
     scene: 'HOUSE',
+    saveSchemaVersion: 2,
+    currentMapId: 'legacy_wurzeldorf',
+    safeSpawnId: 'legacy_current_position',
     introStage: 0, // 0: Oma; 1: Paket; 2: Oma; 3: Ausgang; 4: Wurzelheim
     hasStarter: false,
     team: [],
@@ -490,6 +495,9 @@
     if (typeof savedBeforeLab !== "undefined" && savedBeforeLab) return;
     try {
       const saveObj = {
+        saveSchemaVersion: 2,
+        currentMapId: gameState.currentMapId,
+        safeSpawnId: gameState.safeSpawnId,
         player: gameState.player,
         scene: gameState.scene,
         introStage: gameState.introStage,
@@ -528,7 +536,11 @@
       const raw = localStorage.getItem('echo_chroniken_tv_save');
       if (!raw) return false;
       const d = JSON.parse(raw);
-      Object.assign(gameState, d);
+      if (!d || typeof d !== 'object' || Array.isArray(d)) return false;
+      // Check upgrade BEFORE mutating a game state; this also rejects future schemas.
+      const upgraded = window.EchoMaps?.migrateSave(d) || d;
+      window.EchoMaps?.backupLegacy(localStorage, raw, d);
+      Object.assign(gameState, upgraded);
       // Migration: bereits begonnene Spielstände behalten ihr Team und ihren Fortschritt.
       if(!d.scene){
         gameState.scene=gameState.hasStarter?'OVERWORLD':'HOUSE';

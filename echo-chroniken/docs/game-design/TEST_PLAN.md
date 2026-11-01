@@ -23,3 +23,7 @@ Nicht auf KI-Illustrationen als angebliche Ingame-Screenshots verlassen. Echte B
 ## Build- und Release-Schutz
 
 APK signiert mit bestehendem festen Key und unveränderter packageId `de.echochroniken.game.stable`. VersionCode bei nächster APK erhöhen; niemals erneut mit zufälligem Debug-Key veröffentlichen. Alte Test-Apps bleiben getrennt, Spielstandmigration separat behandeln. Release nur nach Signatur- und APK-Inhaltsprüfung.
+
+## Chrome-Sichtprüfung der Karten-Registry (01.11.2026)
+
+Beide Browserfassungen (modular und Offline-HTML) wurden mit einem echten lokalen Chrome-Aufruf gestartet. `EchoMaps.list()` lieferte jeweils `legacy_wurzeldorf`, Speicherschema 2, und es traten keine JavaScript-Seitenfehler auf. [Echter Chrome-Screenshot](../visual-audit/legacy-map-registry-v015.png). Eine zweite spielbare Map wurde bewusst noch nicht hinzugefuegt.

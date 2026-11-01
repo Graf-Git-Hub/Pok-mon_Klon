@@ -1,5 +1,8 @@
 # Echo-Chroniken 🎮👻
 
+**Technischer Stand v0.15.0:** Die bisherige Wurzelheim-Karte ist in einer additiven MapRegistry erfasst. Gültige ältere Spielstände werden beim Laden lokal gesichert und migrationssicher gelesen. Acht synthetische Spielstände plus ein Fehlerfall und 16 Gameplay-Tests wurden geprüft. **Neue Städte und die Echo-Bahn sind noch nicht spielbar.**
+
+
 **Neu: Alle 150 Kampf-Rückansichten sind in Android und Browser enthalten (kein Import nötig).**
 
 ## 🌲 Kapitel 2: Das Flüstern im Wald · spielbarer Storyabschnitt

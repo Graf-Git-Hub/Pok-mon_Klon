@@ -1,0 +1,52 @@
+{
+  "player": {
+    "x": 7,
+    "y": 7,
+    "dir": "down",
+    "stepPhase": 0
+  },
+  "scene": "HOUSE",
+  "introStage": 0,
+  "hasStarter": false,
+  "team": [],
+  "caughtIds": {},
+  "seenIds": {},
+  "badges": 0,
+  "gymDefeated": [
+    false,
+    false,
+    false
+  ],
+  "pages": [
+    false,
+    false,
+    false
+  ],
+  "foundMusicBox": false,
+  "musicBoxDelivered": false,
+  "potions": 5,
+  "orbs": 12,
+  "encounterGrace": 0,
+  "battleWins": 0,
+  "routeQuest": {
+    "accepted": false,
+    "lights": [],
+    "rewarded": false,
+    "guardianWon": false
+  },
+  "explorationFound": [],
+  "indoorProgress": {},
+  "platformProgress": {
+    "cleared": false,
+    "bestSeconds": null
+  },
+  "ruinsProgress": {
+    "seals": [],
+    "bossWon": false,
+    "clueSeen": false
+  },
+  "ruinsReturn": null,
+  "roomId": null,
+  "returnToVillage": null,
+  "balanceVersion": 6
+}

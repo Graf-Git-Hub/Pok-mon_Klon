@@ -31,3 +31,8 @@ Kapitel 3 bis 14 und Postgame, Varek/Mira/Kontinuum-Handlungsstränge, neue Stä
 ## Source-of-Truth
 
 Aktueller Code/Tests für Ist-Zustand; diese Dokumente als Zielplan; ausdrückliche Nutzerentscheidungen in DECISIONS; ältere Chat-Aussagen sind allein kein zuverlässiger Projektstand.
+
+
+## Nachtrag 2026-11-01: Maps & Speicherstände v0.15
+
+Eine neue Karten-Registry ist im Code, die bestehende 36×28-Oberwelt und deren Zimmer bleiben identisch. Noch keine neue Stadt freigeschaltet. Schema v2 ergänzt Kartenschlüssel und sicheren Spawn ohne Änderung der alten Quest-/Arenendaten; bei erstem Laden älterer gültiger Spielstände bleibt ein lokaler Backup-Rohtext erhalten. Die Sicherung bleibt auf demselben Android-/Browser-Gerät und wurde anhand synthetischer Fixtures geprüft. Echte Nutzerdaten und vollständige Gerätetests sind **nicht** damit abgedeckt.

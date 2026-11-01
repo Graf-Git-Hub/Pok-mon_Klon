@@ -1,0 +1,79 @@
+{
+  "player": {
+    "x": 21,
+    "y": 22,
+    "dir": "up",
+    "stepPhase": 0
+  },
+  "scene": "OVERWORLD",
+  "introStage": 4,
+  "hasStarter": true,
+  "team": [
+    {
+      "uid": "fixture-miora",
+      "id": 1,
+      "lv": 9,
+      "xp": 0,
+      "nextXp": 90,
+      "hp": 56,
+      "maxHp": 56,
+      "moves": [
+        "seelenstups",
+        "lichtfunke"
+      ]
+    }
+  ],
+  "caughtIds": {
+    "1": true
+  },
+  "seenIds": {
+    "1": true
+  },
+  "badges": 0,
+  "gymDefeated": [
+    false,
+    false,
+    false
+  ],
+  "pages": [
+    false,
+    false,
+    false
+  ],
+  "foundMusicBox": false,
+  "musicBoxDelivered": false,
+  "potions": 9,
+  "orbs": 16,
+  "encounterGrace": 0,
+  "battleWins": 0,
+  "routeQuest": {
+    "accepted": true,
+    "lights": [
+      0,
+      1,
+      2
+    ],
+    "rewarded": true,
+    "guardianWon": true
+  },
+  "explorationFound": [],
+  "indoorProgress": {},
+  "platformProgress": {
+    "cleared": false,
+    "bestSeconds": null
+  },
+  "ruinsProgress": {
+    "seals": [
+      "root",
+      "water",
+      "star"
+    ],
+    "bossWon": true,
+    "clueSeen": true,
+    "reported": false
+  },
+  "ruinsReturn": null,
+  "roomId": null,
+  "returnToVillage": null,
+  "balanceVersion": 6
+}

@@ -1,9 +1,9 @@
 ﻿id;milestone;name;dependsOn;likelyFiles;acceptance;effort;status
 M00-01;M0;Audit current 0.14 source, record exact 14 tests;-;README, game.js, tests;Source baseline report matched to master story;S;DONE
-M00-02;M0;Back up old save formats and write migration fixtures;M00-01;tests/fixtures;Seven golden save fixtures and round-trip tests;M;TODO
+M00-02;M0;Back up old save formats and write migration fixtures;M00-01;"tests/fixtures/saves/*; tests/save-compat.cjs";8 synthetic fixtures, corrupted JSON, exact backup and reload;M;DONE
 M00-03;M0;Verify 150 creature IDs, 50 placeholder names and art assignments;M00-01;data/species.js, assets/atlas.js, assets/monster-backs-150.webp;150 unique ID records and 150 front/back map slots;M;TODO
-M01-01;M1;Create MapRegistry with legacy 36×28 map adapter;M00-02;src/maps/registry.js, src/game.js;"Legacy village and all 3 arenas unchanged; no save reset";L;TODO
-M01-02;M1;Add future save fields, currentMapId and safeSpawnId;M01-01;src/save.js, tests/story-migration.cjs;Old and new saves load, failed migration rolls back;L;TODO
+M01-01;M1;Create MapRegistry with legacy 36×28 map adapter;M00-02;"src/maps/registry.js; src/game.js; project/index.html; offline HTML";Real 36x28 legacy adapter, original NPC positions and all existing tests;L;DONE
+M01-02;M1;Add future save fields, currentMapId and safeSpawnId;M01-01;"src/game.js; src/maps/registry.js; tests/save-compat.cjs";Save schema v2, id/spawn metadata, backup and migration roundtrip;L;DONE
 M01-03;M1;Create StoryRegistry/QuestFlag adapter;M01-02;src/quests/registry.js;"Rewards exactly once; old intro/ruins quests still work";M;TODO
 M01-04;M1;Create EncounterRegistry by mapId and species ID;M01-01;data/encounters.js;Weights sum 100%, early zone base forms only;M;TODO
 M01-05;M1;Create bidirectional portal and safe-return tests;M01-01;tests/world-map.cjs;All exits load correct map and return safely;M;TODO
