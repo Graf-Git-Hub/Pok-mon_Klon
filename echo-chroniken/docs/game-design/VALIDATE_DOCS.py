@@ -24,6 +24,7 @@ ids=[x['id'] for x in tasks]
 assert len(ids)>=30 and len(ids)==len(set(ids))
 assert next(t for t in tasks if t['id']=='M00-01')['status']=='DONE'
 assert next(t for t in tasks if t['id']=='M00-02')['status']=='DONE'
+assert next(t for t in tasks if t['id']=='M01-03')['status']=='DONE'
 for t in tasks:
     for dep in t['dependsOn'].split(','):
         if dep and dep!='-':assert dep in ids,(t['id'],dep)
@@ -49,5 +50,5 @@ for f in R.rglob('*.md'):
 index=(R/'00_INDEX.md').read_text(encoding='utf-8')
 assert 'CONTINUE_HERE.md' in index and 'CHAPTERS/CH14.md' in index
 cont=(R/'CONTINUE_HERE.md').read_text(encoding='utf-8')
-assert 'M01-03' in cont and 'M01-02' in cont
+assert 'M01-04' in cont and 'M01-03' in cont
 print(f'PASS story documentation: 150 species, 14+postgame chapters, {len(nodes)} maps, {len(world["edges"])} edges, 8 stations, 7 rail links, {len(tasks)} tasks and all internal links')

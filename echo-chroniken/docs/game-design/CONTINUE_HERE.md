@@ -1,28 +1,22 @@
-# CONTINUE HERE – exakter Projektstand und nächster Task
+# CONTINUE HERE – exakter nächster Arbeitsschritt
 
-**Stand:** 01.11.2026. **Release bestätigt:** Android v0.15.0, dauerhaft signiert und am 01.11.2026 erfolgreich über GitHub veröffentlicht. APK geprüft; der App-Build stammt aus Commit ae50b36583a9d4c47a50f3822983498df55de7f9. **Letzte Roadmap-Basis vor Codeänderung:** `d2d97e2`; HEAD beim nächsten Chat neu prüfen.
+Stand: 01.11.2026. Nach dem Release 0.15 ist das nächste Ziel Android 0.16.0. Basiskommit vor dieser Aufgabe: 085f7ab. Aktuellen HEAD bei Beginn neuer Arbeit erneut lesen.
 
-## Abgeschlossene Produktionsaufträge
+## Abgeschlossen
 
-- **M00-02 DONE:** Acht synthetische Golden-Save-Fixtures plus beschädigter JSON-Testfall. Dies sind **keine privaten Nutzer-Spielstände**.
-- **M01-01 DONE:** Karten-Registry `project/src/maps/registry.js`, Adapter `legacy_wurzeldorf` für echte 36×28-Karte. Keine Verschiebung der bestehenden Karte oder NPCs; synthetische bidirektionale Kartenwechsel getestet.
-- **M01-02 DONE:** Schema-2-Metadaten `currentMapId`, `safeSpawnId`, `saveSchemaVersion`. Bei Laden eines älteren gültigen Saves wird dessen Originaltext einmal unter `echo_chroniken_tv_save_before_maps_v2` **lokal auf demselben Gerät** gesichert. Bestehendes Team, Inventar, Arenen, Ruinen und Quests bleiben erhalten.
-- **Nicht implementiert:** Neue Städte, Bahn, Nebelhafen und Kapitel 3–14. Kein privater Spielstand wurde für Tests ausgelesen oder auf GitHub geladen.
+- M00-02: acht synthetische alte Spielstände und ein defektes JSON als Migrationstests.
+- M01-01: MapRegistry mit unveränderter Wurzelheim-Karte (36x28).
+- M01-02: additives Save-Schema 2 und lokales einmaliges Originalbackup älterer Spielstände.
+- **M01-03:** StoryRegistry mit zehn bestehenden Quest-IDs; die vier Belohnungen von Liora, Piko, Erinnerungshüter und Oma Martha werden über die bisherigen Questflags exakt einmal erteilt. Bereits vorhandene Spielstände erhalten keine zusätzlichen Questfelder. Der Adapter ist in Browser und Offline-HTML eingebunden.
 
-## Exakt nächster Task: M01-03
+Noch nicht spielbar: Nebelhafen, Echo-Bahn, Kapitel 3–14. Storykonzeption ist weiterhin getrennt vom Code.
 
-Baue einen **StoryRegistry/QuestFlag-Adapter**, der zunächst nur vorhandene Questflags von Oma, Liora, Piko, Ruine und Arenen liest und einmalige Rewardtransaktionen sichert. Kein Rewrite dieser bestehenden Quests. Neue Tests für Pflichtvoraussetzungen, Doppelextras und altes Save-Schema. Danach weiter mit **M01-04 EncounterRegistry**, **M01-05 reale Portal-Integration**, **M01-06 visuelle QA**, anschließend Kapitel 3 Nebelhafen.
+## EXAKT NÄCHSTER TASK: M01-04
 
-Offener unabhängiger Task **M00-03:** Original-IDs, Front- und Rückbilder der 150 Wesen paarweise prüfen. 15 Rückansichten sind ergänzte Varianten; 50 Arten tragen Platzhalternamen. Nicht stillschweigend umbenennen.
+EncounterRegistry mit mapId und festen Art-IDs. Als erste Karte nur legacy_wurzeldorf registrieren; existierenden fairen Anfangspool und Levelregeln beibehalten. 150 Arten validieren, Wahrscheinlichkeits-Gewichte summieren, unbekannte IDs und Entwicklungsformen in frühen Grasfeldern ausschließen. Neue Tests für sichere Default-Tabelle, Mapwechsel und Wiederholbarkeit. Erst nach M01-04 die realen bidirektionalen Portale (M01-05) und die visuelle Gesamt-QA (M01-06) einbauen, dann Kapitel 3 Nebelhafen.
 
-## Neuer Chat: Lesereihenfolge
+Unabhängig offen: M00-03, grafische Eins-zu-eins-Prüfung aller 150 Arten (15 ergänzte Rückansichten und 50 generische Namen).
 
-1. `00_INDEX.md`, 2. `PROJECT_BASELINE.md`, 3. `PRODUCTION_TASKS.csv` / `IMPLEMENTATION_ROADMAP.md`,
-4. `QUEST_FLAGS_AND_SAVES.md` und `SYSTEMS_ARCHITECTURE.md`, 5. `WORLD_MAP.md`,
-6. aktuellen Spielcode in `echo-chroniken/project/src/` und die Tests.
+## Neues Chatfenster / Arbeitsregel
 
-## Regeln beim Weiterarbeiten
-
-Keine neue App-ID oder Debug-Signatur. Keine alten Koordinaten und Story-Flags ohne Save-Migration verändern. Vor neuen Karten nachweisbare Rückwege; Codeänderungen erst nach Tests, Screenshots und Dokumentaktualisierung veröffentlichen.
-
-**Nach jedem Task:** `PRODUCTION_TASKS.csv`, `CHANGELOG.md` und diese Datei mit Ergebnissen, Blockern und aktuellem HEAD aktualisieren.
+Lies erst 00_INDEX.md, IMPLEMENTATION_ROADMAP.md, PRODUCTION_TASKS.csv, QUEST_FLAGS_AND_SAVES.md, SYSTEMS_ARCHITECTURE.md und WORLD_GRAPH.json. Danach aktuellen Gamecode und Git-HEAD prüfen. Alte Questflags, Inventar, Team, Kartenpositionen, Spielersteuerung und Android-Signierung erhalten. Nach jedem Schritt alle Tests, echte Screenshots, CONTINUE_HERE.md und CHANGELOG.md aktualisieren und committen.

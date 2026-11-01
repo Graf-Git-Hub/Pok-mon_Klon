@@ -27,3 +27,12 @@ APK signiert mit bestehendem festen Key und unveränderter packageId `de.echochr
 ## Chrome-Sichtprüfung der Karten-Registry (01.11.2026)
 
 Beide Browserfassungen (modular und Offline-HTML) wurden mit einem echten lokalen Chrome-Aufruf gestartet. `EchoMaps.list()` lieferte jeweils `legacy_wurzeldorf`, Speicherschema 2, und es traten keine JavaScript-Seitenfehler auf. [Echter Chrome-Screenshot](../visual-audit/legacy-map-registry-v015.png). Eine zweite spielbare Map wurde bewusst noch nicht hinzugefuegt.
+
+## StoryRegistry v0.16 – Testprotokoll
+
+tests/story-registry.cjs umfasst 10 Quest-IDs, Pflichtvoraussetzungen, vier Einmalzahlungen und die Integration in Lioras, Pikos, Omas und des Erinnerungshüters bestehende Funktionen. Alte Saves werden ohne Flagänderung gelesen; überhöhte Auszahlungen abgefangen. Echte Chrome-Tests beider Fassungen haben 10 aktive Einträge, keine JavaScript-Seitenfehler und Screenshots:
+
+- [Modulare Fassung](../visual-audit/story-registry-v016-modular.png)
+- [Offline-HTML](../visual-audit/story-registry-v016-offline.png)
+
+Ein vollständiger echter Android- und TV-Durchlauf steht weiterhin aus.

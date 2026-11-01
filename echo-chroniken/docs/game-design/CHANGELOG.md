@@ -25,3 +25,12 @@
 - APK SHA256: 1dacfb677c4d950e434436c17b537cbd6f657fc1dfa1e8f93f9a79d2869d70e6.
 - Android-APK hat den neuen Karten-Registry-Code und den 150er-Geisteratlas; erneuter Download auf dem Laptop-Desktop geprüft.
 - Build aus Commit ae50b36583a9d4c47a50f3822983498df55de7f9.
+
+## 2026-11-01 – M01-03 StoryRegistry / Android v0.16.0
+
+- StoryRegistry mit zehn vorhandenen Quests und unveränderten Save-Flags eingeführt.
+- Einmalige Belohnung für Liora (+2 Tränke/+5 Sphären), Piko (+1/+3), Erinnerungshüter (+2/+3) und Omas Spieluhr (+3/+0).
+- Bewusst keine neue Story-Flag-Datenstruktur; altes Speichern und das reguläre erste Kapitel funktionieren weiter.
+- Neuer story-registry.cjs-Test; Integration mit Legacy-Code. Realer Chrome-Lauf mit 10 aktiven Questdefinitionen in modularer und Offline-Fassung, echte Screenshots.
+- Neue Android-Releaseversion 0.16.0 (VersionCode 16); erfolgreiche Signierung und Veröffentlichung nach GitHub-Workflow bestätigen.
+- Nächster Task M01-04: EncounterRegistry.

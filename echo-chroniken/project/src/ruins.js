@@ -130,9 +130,13 @@ function interact(s,sfx){
 function victory(s){
  const q=ensure(s);
  if(q.bossWon)return [];
- q.bossWon=true;q.reported=false;
- s.potions=(Number(s.potions)||0)+2;
- s.orbs=(Number(s.orbs)||0)+3;
+ if(window.EchoStory){
+  if(!window.EchoStory.claimReward(s,'ruins.guardian'))return [];
+ }else{
+  q.bossWon=true;q.reported=false;
+  s.potions=(Number(s.potions)||0)+2;
+  s.orbs=(Number(s.orbs)||0)+3;
+ }
  return [
   'Der Wächter senkt seinen Kopf. Sein Schatten zerfällt in goldene Funken.',
   'Eine Aufnahme aus Vaters Kapsel beginnt zu spielen:',

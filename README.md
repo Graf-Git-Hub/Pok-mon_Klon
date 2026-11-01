@@ -1,5 +1,8 @@
 # Echo-Chroniken 🎮👻
 
+**v0.16.0:** Der Quest-Adapter hält die bestehenden zehn Aufgaben zentral nachvollziehbar und verhindert Doppelbelohnungen bei Liora, Piko, dem Ruinenhüter und Omas Spieluhr. Die neuen Städte/Bahn sind noch geplant, nicht spielbar.
+
+
 **Technischer Stand v0.15.0:** Die bisherige Wurzelheim-Karte ist in einer additiven MapRegistry erfasst. Gültige ältere Spielstände werden beim Laden lokal gesichert und migrationssicher gelesen. Acht synthetische Spielstände plus ein Fehlerfall und 16 Gameplay-Tests wurden geprüft. **Neue Städte und die Echo-Bahn sind noch nicht spielbar.**
 
 

@@ -30,7 +30,7 @@ function run(raw) {
    clearInterval(){},requestAnimationFrame(){}};
  for(const file of ['data/species.js','src/village.js','src/first-route.js',
    'src/exploration.js','src/interiors.js','src/combat-fx.js','src/platformer.js',
-   'src/ruins.js','src/house.js','src/maps/registry.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
+   'src/ruins.js','src/house.js','src/maps/registry.js','src/quests/registry.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
  const injected='window.__saveQA={state:gameState,saveGame,loadGame};\n';
  vm.runInNewContext(game.replace('  // --- HAUPTSCHLEIFE (GAME LOOP) ---',
    injected+'  // --- HAUPTSCHLEIFE (GAME LOOP) ---'),env);

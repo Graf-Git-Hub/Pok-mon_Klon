@@ -55,6 +55,7 @@ jobs:
         run: |
           node tests/map-registry.cjs
           node tests/save-compat.cjs
+          node tests/story-registry.cjs
           node tests/smoke.cjs
           node tests/house.cjs
           node tests/village.cjs
@@ -66,6 +67,7 @@ jobs:
         run: |
           node tests/check-platform.cjs
           python3 build_assets.py
+          node --check app/src/main/assets/src/quests/registry.js
           node --check app/src/main/assets/src/maps/registry.js
           node --check app/src/main/assets/src/game.js
           node --check app/src/main/assets/platform.js

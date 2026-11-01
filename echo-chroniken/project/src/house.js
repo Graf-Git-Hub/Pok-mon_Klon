@@ -44,7 +44,11 @@ function talk(s,showDialog,createMonster,sfx){
       '„Dein Vater wusste, dass die Kapsel eines Tages zu dir finden würde.“',
       '„Geh ruhig hinaus und schau dich in Wurzelheim um. Im hohen Gras sei bitte vorsichtig.“'
     ]);return;}
-    if(s.foundMusicBox&&!s.musicBoxDelivered){s.musicBoxDelivered=true;s.potions+=3;sfx.heal();showDialog(['Oma Martha: „Meine Spieluhr! Du hast sie gefunden!“','„Hier, nimm drei Seelen-Tränke als Dankeschön.“']);return;}
+    if(s.foundMusicBox&&!s.musicBoxDelivered){
+      if(window.EchoStory){
+        if(!window.EchoStory.claimReward(s,'martha.musicbox'))return;
+      }else{s.musicBoxDelivered=true;s.potions+=3;}
+      sfx.heal();showDialog(['Oma Martha: „Meine Spieluhr! Du hast sie gefunden!“','„Hier, nimm drei Seelen-Tränke als Dankeschön.“']);return;}
     if(s.ruinsProgress?.bossWon&&!s.ruinsProgress.reported){
       s.ruinsProgress.reported=true;
       sfx.heal();

@@ -100,3 +100,13 @@ Testdateien unter `echo-chroniken/project/tests/` und neue `story-migration.cjs`
 ## Implementiert: Legacy-Migration Schema v2
 
 Die Karte `legacy_wurzeldorf` referenziert die alte 36×28-Oberwelt. Beim Laden fehlende `currentMapId` und `safeSpawnId` werden additiv ergänzt. Das originale alte JSON wird nur einmal lokal unter `echo_chroniken_tv_save_before_maps_v2` gesichert; es wird nicht an GitHub übertragen. Bestehende Haus-/Gebäudeszenen behalten beim Laden ihre ursprünglichen Player-Koordinaten. Bei unbekannten Zukunftskarten wird zur Sicherheit auf Wurzelheim (5,6) zurückgesetzt, wobei Team, Orden und Quests erhalten bleiben. Weitere Bahn-/Storyflags sind weiterhin nur geplant.
+
+## StoryRegistry M01-03 tatsächlich implementiert
+
+Die vorhandenen Flagfelder bleiben die einzige Wahrheit. window.EchoStory.ids(), inspect(state,id), canClaim(state,id), claimReward(state,id) und snapshot(state) lesen bzw. prüfen diese alten Felder. Nur vier bekannte Belohnungen werden verändert:
+- martha.musicbox: musicBoxDelivered; 3 Tränke
+- woodland.liora: routeQuest.rewarded; 2 Tränke, 5 Sphären
+- woodland.piko: routeQuest.guardianWon; 1 Trank, 3 Sphären
+- ruins.guardian: ruinsProgress.bossWon; 2 Tränke, 3 Sphären
+
+Der Quest-Adapter kopiert keine Belohnungen in ein zweites Ledger. Die IDs der drei Arenen bleiben ausschließlich statuslesend. Fehlende Voraussetzungen geben keine Gegenstände. Bereits abgeschlossene alte Quests werden niemals erneut bezahlt.

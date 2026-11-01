@@ -80,7 +80,11 @@ function guideTalk(state,sfx){
     '„Schau bei den Blumenwiesen südlich des Dorfes. Das letzte Licht liegt nahe dem Waldhüter.“'
   ];
   if(!q.rewarded){
-    q.rewarded=true;state.potions=(state.potions||0)+2;state.orbs=(state.orbs||0)+5;
+    if(window.EchoStory){
+      if(!window.EchoStory.claimReward(state,'woodland.liora'))return ['Liora: „Die Lichter sind sicher. Danke für deine Hilfe!“'];
+    }else{
+      q.rewarded=true;state.potions=(state.potions||0)+2;state.orbs=(state.orbs||0)+5;
+    }
     sfx?.catch?.();
     return ['Liora: „Du hast wirklich alle drei gefunden! Der Flüsterpfad leuchtet wieder.“',
       '🎁 Du erhältst 2 Seelen-Tränke und 5 Seelen-Sphären!',
@@ -120,7 +124,11 @@ function collectNear(state,sfx){
 function keeperWin(state,sfx){
   const q=quest(state);
   if(q.guardianWon)return [];
-  q.guardianWon=true;state.orbs=(state.orbs||0)+3;state.potions=(state.potions||0)+1;
+  if(window.EchoStory){
+    if(!window.EchoStory.claimReward(state,'woodland.piko'))return [];
+  }else{
+    q.guardianWon=true;state.orbs=(state.orbs||0)+3;state.potions=(state.potions||0)+1;
+  }
   sfx?.evolve?.();
   return ['🏆 Waldhüter Piko: „Du hast den Flüsterpfad gemeistert!“',
     '🎁 Du erhältst 3 Seelen-Sphären und 1 Seelen-Trank.',
