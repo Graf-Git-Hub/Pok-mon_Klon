@@ -1147,8 +1147,8 @@ function executeBattleAction(choice){
       const b=(idx)=>!!gp.buttons?.[idx]?.pressed;
       const left=b(14)||(gp.axes[0]||0)<-.45;
       const right=b(15)||(gp.axes[0]||0)>.45;
-      const jump=b(1)||b(0);
-      const back=b(2)||b(3);
+      const jump=b(1); // Switch A, right face button
+      const back=b(0); // Switch B, lower face button
       const pause=b(9);
       // An independent jump edge lets the player hold the stick and jump together.
       if(jump&&!platformButtonA)handleCommand('A');
