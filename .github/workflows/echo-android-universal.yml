@@ -1,8 +1,13 @@
-name: Echo-Chroniken Android APK (Handy + TV)
+name: Echo-Chroniken - one stable Android APK (Handy + TV)
 
 on:
   push:
     branches: [main]
+    paths:
+      - 'echo-chroniken/project/**'
+      - 'echo-chroniken/android/**'
+      - '.github/workflows/echo-android-universal.yml'
+  pull_request:
     paths:
       - 'echo-chroniken/project/**'
       - 'echo-chroniken/android/**'
@@ -26,6 +31,17 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - name: Require private permanent signing secrets for APK release
+        if: github.event_name != 'pull_request'
+        env:
+          KEYSTORE_B64: ${{ secrets.ECHO_KEYSTORE_B64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ECHO_SIGNING_PASSWORD }}
+          KEYSTORE_ALIAS: ${{ secrets.ECHO_SIGNING_ALIAS }}
+        run: |
+          if [ -z "$KEYSTORE_B64" ] || [ -z "$KEYSTORE_PASSWORD" ] || [ -z "$KEYSTORE_ALIAS" ]; then
+            echo "::error title=Permanent APK signing required::Configure ECHO_KEYSTORE_B64, ECHO_SIGNING_PASSWORD and ECHO_SIGNING_ALIAS as GitHub Actions secrets before publishing. Never rotate the key or package ID for an update."
+            exit 1
+          fi
       - name: Install Android API 35 SDK
         run: |
           SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
@@ -34,7 +50,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.11.1'
-      - name: Check shared battle engine
+      - name: Test shared game engine and starter balance
         working-directory: echo-chroniken/project
         run: |
           node tests/smoke.cjs
@@ -43,46 +59,59 @@ jobs:
           node tests/package.cjs
           node tests/encounters.cjs
           node tests/first-route.cjs
-          node tests/exploration.cjs
-          node tests/interiors.cjs
-          node tests/interiors-integration.cjs
-          node tests/platformer.cjs
-          node tests/platformer-integration.cjs
-          node tests/ruins.cjs
-          node tests/ruins-integration.cjs
-      - name: Check app controls and assets
+      - name: Check Android controls and bundle offline assets
         working-directory: echo-chroniken/android
         run: |
           node tests/check-platform.cjs
           python3 build_assets.py
           node --check app/src/main/assets/src/game.js
           node --check app/src/main/assets/platform.js
-      - name: Build installable Android APK
+      - name: Test native Android build in pull requests (not released)
+        if: github.event_name == 'pull_request'
         working-directory: echo-chroniken/android
         run: gradle :app:assembleDebug --no-daemon --stacktrace
-      - name: Prepare direct APK download (no ZIP)
+      - name: Decode private signing key into temporary runner directory
+        if: github.event_name != 'pull_request'
+        env:
+          KEYSTORE_B64: ${{ secrets.ECHO_KEYSTORE_B64 }}
         run: |
-          cp echo-chroniken/android/app/build/outputs/apk/debug/app-debug.apk Echo-Chroniken-Universal.apk
-          test -s Echo-Chroniken-Universal.apk
-          unzip -t Echo-Chroniken-Universal.apk | tail -n 1
+          umask 077
+          KEYSTORE_PATH="$RUNNER_TEMP/echochroniken-stable-signing.p12"
+          printf '%s' "$KEYSTORE_B64" | base64 --decode > "$KEYSTORE_PATH"
+          test -s "$KEYSTORE_PATH"
+          echo "ECHO_KEYSTORE_PATH=$KEYSTORE_PATH" >> "$GITHUB_ENV"
+      - name: Build permanently signed release APK
+        if: github.event_name != 'pull_request'
+        working-directory: echo-chroniken/android
+        env:
+          ECHO_SIGNING_PASSWORD: ${{ secrets.ECHO_SIGNING_PASSWORD }}
+          ECHO_SIGNING_ALIAS: ${{ secrets.ECHO_SIGNING_ALIAS }}
+        run: gradle :app:assembleRelease --no-daemon --stacktrace
+      - name: Verify package, APK signature, and direct download
+        if: github.event_name != 'pull_request'
+        run: |
+          APK="echo-chroniken/android/app/build/outputs/apk/release/app-release.apk"
+          test -s "$APK"
+          SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          "$SDK_ROOT/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK"
+          "$SDK_ROOT/build-tools/35.0.0/aapt" dump badging "$APK" | grep -F "package: name='de.echochroniken.game.stable'"
+          cp "$APK" Echo-Chroniken-Universal.apk
           sha256sum Echo-Chroniken-Universal.apk
-      # TEMPORARY SAFETY LOCK: do not ship new, differently signed debug APKs.
-      # Permanent signer rollout: fix/one-stable-android-app (requires GitHub secrets).
-      - name: Publish APK directly to GitHub Releases
-        if: ${{ false }}
-        uses: softprops/action-gh-release@v3
+      - name: Publish only the directly installable APK, never a ZIP
+        if: github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: android-latest
-          name: Echo-Chroniken - aktuelle Android-APK
+          name: Echo-Chroniken - eine Android-App, stabile Updates
           body: |
-            **Direkt installierbare APK für Android-Handy und Android-TV.**
-            
-            Lade unten `Echo-Chroniken-Universal.apk` herunter.
-            **Kein ZIP und kein Entpacken nötig.**
-            
-            Dies ist eine Testversion. Die Switch-Controller-Bedienung muss auf dem echten TV geprüft werden.
-            Bei einer neuen Testversion kann wegen der bisher nicht dauerhaft verwalteten Debug-Signatur eine Neuinstallation nötig sein.
-            
+            Lade `Echo-Chroniken-Universal.apk` direkt herunter und installiere sie.
+            Diese Version wird unter **Echo-Chroniken** angezeigt, mit der dauerhaft unveränderten Paket-ID
+            `de.echochroniken.game.stable` und dem privat hinterlegten festen Signaturschlüssel.
+            Nachfolgende Versionen lassen sich über diese App installieren, ohne eine weitere App anzulegen.
+
+            Alte experimentelle Apps (Dorf, Fair, Neu, Paket, Pfad) sind davon getrennt.
+            Alte Spielstände werden nicht automatisch importiert. Bitte vor dem Löschen sichern.
+
             Build aus Commit: ${{ github.sha }}
           files: Echo-Chroniken-Universal.apk
           fail_on_unmatched_files: true

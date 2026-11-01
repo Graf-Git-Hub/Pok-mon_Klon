@@ -1,12 +1,12 @@
-/* Optional 135-art back sheet, preserving eight bundled backs and all savegames. */
+/* Complete bundled 150-ghost battle-back atlas; custom import remains optional. */
 (() => {
 'use strict';
-const COUNT=135, KEY='echo_chroniken_back_sheet_v1', cache=Object.create(null);
-let source=null,kind='';
+const COUNT=150, KEY='echo_chroniken_back_sheet_v2', cache=Object.create(null);
+let source=null,kind='',activeCount=0;
 const api={
- get count(){return source?COUNT:0},
+ get count(){return source?activeCount:0},
  getSprite(id){
-  if(!source||!Number.isInteger(id)||id<1||id>COUNT)return null;
+  if(!source||!Number.isInteger(id)||id<1||id>activeCount)return null;
   if(cache[id])return cache[id];
   const canvas=document.createElement('canvas'); canvas.width=76;canvas.height=76;
   const ctx=canvas.getContext('2d',{willReadFrequently:true});
@@ -36,7 +36,7 @@ const api={
   const data=await new Promise((ok,fail)=>{const reader=new FileReader();reader.onload=()=>ok(reader.result);reader.onerror=()=>fail(Error('Bild nicht lesbar.'));reader.readAsDataURL(file)});
   await load(String(data));
   try{localStorage.setItem(KEY,data)}catch(e){console.warn('Bild nicht dauerhaft gespeichert',e)}
-  return COUNT;
+  return activeCount;
  }
 };
 window.EchoBackArt=api;
@@ -45,9 +45,9 @@ function load(url){
   const img=new Image();
   img.onload=()=>{
    const ratio=img.width/img.height;
-   if(img.width>=1000&&ratio>1.25&&ratio<1.75)kind='combined';
-   else if(img.width>=200&&Math.abs(ratio-10/14)<.09)kind='atlas';
-   else{reject(Error('Erwartet: drei Bildbögen nebeneinander oder ein 10x14 Sprite-Atlas.'));return}
+   if(img.width>=1000&&ratio>1.25&&ratio<1.75){kind='combined';activeCount=135;}
+   else if(img.width>=200&&Math.abs(ratio-10/15)<.10){kind='atlas';activeCount=Math.min(150,Math.floor(img.height/(img.width/10))*10);}
+   else{reject(Error('Erwartet: drei Bildbögen nebeneinander oder ein 10x15 Sprite-Atlas.'));return}
    source=img;Object.keys(cache).forEach(k=>delete cache[k]);resolve();
   };
   img.onerror=()=>reject(Error('Rückansichten konnten nicht geladen werden.'));
@@ -55,7 +55,7 @@ function load(url){
  });
 }
 let saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}
-load(saved||'assets/monster-backs-135.webp').catch(()=>{});
+load(saved||window.ECHO_BACKS_ATLAS||'assets/monster-backs-150.webp').catch(()=>{});
 document.addEventListener('DOMContentLoaded',()=>{
  const button=document.getElementById('back-art-button');
  const input=document.getElementById('back-art-import');
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  button.addEventListener('click',()=>input.click());
  input.addEventListener('change',async()=>{
   const file=input.files&&input.files[0]; if(!file)return;
-  try{const n=await api.importFile(file);status.textContent=n+' Rückansichten aktiv, 15 fehlen in den Vorlagen.'}
+  try{const n=await api.importFile(file);status.textContent=n+' Rückansichten aktiv.'}
   catch(e){status.textContent=e.message}
   input.value='';
  });

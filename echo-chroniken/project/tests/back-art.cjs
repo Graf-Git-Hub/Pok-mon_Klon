@@ -10,6 +10,8 @@ const java = fs.readFileSync(path.join(project,'../android/app/src/main/java/de/
 assert.match(html, /src="src\/back-art\.js"/);
 assert.match(html, /id="back-art-import"/);
 assert.match(game, /window\.EchoBackArt\?\.getSprite\(id\)/);
+assert.match(code, /monster-backs-150\.webp/);
+assert.ok(fs.statSync(path.join(project,'assets/monster-backs-150.webp')).size > 50000);
 assert.match(java, /onShowFileChooser/);
 assert.match(java, /PICK_BACK_ART/);
 assert.match(java, /setAllowContentAccess\(true\)/);
@@ -26,4 +28,4 @@ assert.equal(api.count, 0);
 assert.equal(api.getSprite(1), null);
 assert.equal(api.getSprite(150), null);
 assert.equal(typeof listener, 'function');
-console.log('PASS: 135 back-art loader; 15 fallbacks; browser and Android picker wired.');
+console.log('PASS: 150 back-art loader; bundled WebP atlas; browser and Android picker wired.');

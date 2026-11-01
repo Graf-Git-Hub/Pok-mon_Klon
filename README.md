@@ -1,5 +1,7 @@
 # Echo-Chroniken 🎮👻
 
+**Neu: Alle 150 Kampf-Rückansichten sind in Android und Browser enthalten (kein Import nötig).**
+
 ## 🌲 Kapitel 2: Das Flüstern im Wald · spielbarer Storyabschnitt
 
 **Neu auf GitHub:** Nach Lioras drei Seelenlichtern öffnet sich bei (25,20) am Waldpfad die **Ruine der Echos**.
