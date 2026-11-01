@@ -911,6 +911,7 @@ function executeBattleAction(choice){
         showDialog(r.lines,()=>{
           startTrainerBattle(null,'Vergessener Wächter',[{id:7,lv:5}]);
           const b=gameState.battle;b.ruinBoss=true;b.enemyDisplayName='Erinnerungshüter';
+          b.log='Der Erinnerungshüter erwacht!';
           b.enemy.maxHp=Math.max(16,Math.round(b.enemy.maxHp*.72));
           b.enemy.hp=b.enemy.maxHp;b.enemy.encounterScale=.65;
         });
@@ -1014,6 +1015,10 @@ function executeBattleAction(choice){
   // --- EINGABE-STEUERUNG (TASTATUR + NINTENDO SWITCH GAMEPAD API) ---
   function handleCommand(cmd) {
     ensureAudio();
+    if(gameState.mode==='OVERWORLD'&&gameState.scene==='RUINS'&&cmd==='B'){
+      window.EchoRuins.exit(gameState);saveGame(true);sfx.cancel();
+      return;
+    }
     if(gameState.mode==='PLATFORM'){
       const wasPlaying=gameState.mode==='PLATFORM';
       window.EchoPlatformer.input(gameState,cmd);
@@ -1940,7 +1945,7 @@ function executeBattleAction(choice){
     ctx.save();ctx.imageSmoothingEnabled=true;
     // Enemy: FRONT VIEW, right / Player: TRUE REAR VIEW, left.
     if(b.ruinBoss&&window.EchoRuins)
-      window.EchoRuins.drawBoss(ctx,tick,199+(b.fxTarget==='enemy'?shake:0),9,(x,y,w,h,c)=>pix(x,y,w,h,c));
+      window.EchoRuins.drawBoss(ctx,tick,199+(b.fxTarget==='enemy'?shake:0),21,(x,y,w,h,c)=>pix(x,y,w,h,c));
     else ctx.drawImage(getMonsterSprite(enemy.id,32),192+(b.fxTarget==='enemy'?shake:0),12+bounce,109,96);
     ctx.drawImage(getMonsterBackSprite(ally.id),22+(b.fxTarget==='ally'?shake:0),32-bounce,111,90);
     ctx.restore();
