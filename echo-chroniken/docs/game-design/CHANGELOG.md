@@ -1,5 +1,11 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-01 – Android 0.18.1 (visuelle Nachkontrolle)
+- Bei der Sichtpruefung fielen in Pumpwerksraeumen unpassende Aussenwelt-Baeume auf. Diese Tile-Darstellung ist durch metallene Industriewaende, Bodenplatten und animiertes Wasser ersetzt.
+- Echte Chrome-Steuerbefehle zum Betreten/Verlassen des Nordufers sowie zum Ausloesen des Bosskampfs bestanden.
+- Screenshots fuer Pumpwerk und Kontrollraum neu erstellt; Android versionCode 19 / versionName 0.18.1. Signierten CI-Release separat bestaetigen.
+
+
 ## 2026-11-01 – Kapitel-3-Ausbau: 0.18.0 lokal getestet
 - M01-05: Alle echten Kartenportale bidirektional, Sperrflags und abgesicherte Spawnpunkte.
 - Vier separate neue Maps: Nordufer, Nebelhafen, Pumpwerk und Kontrollraum; Omas Dorf und alte Arena-Koordinaten unveraendert.

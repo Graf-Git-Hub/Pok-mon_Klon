@@ -1,6 +1,6 @@
 # Echo-Chroniken 🎮👻
 
-**v0.18.0 – Kapitel 3 als spielbarer erster Ausbau:** Nordufer, Nebelhafen, Pumpwerk und Kontrollraum sind als vier neue Maps mit sicheren Hin-/Rueckwegen verbunden. Sera und drei Zeugen, ein Strom-/Ventil-/Rotor-Raetsel, Pumpenwaechter und Vaters zweite Aufnahme sind spielbar. Die neue Region schaltet sich nach dem Sieg in der Ruine der Echos frei (Nordufer-Tor bei 24/9). 150 Arten behalten ihre IDs, die ersten Wildbegegnungen in Nordufer und Nebelhafen sind eigene gewichtete Pools, alte Saves bleiben erhalten. **Kapitel 4–14, Bahn und umfangreiche Kapitel-3-Inszenierung stehen noch aus.**
+**v0.18.1 – Kapitel 3 als spielbarer erster Ausbau (mit eigenen Pumpwerks-Boden-/Wandgrafiken):** Nordufer, Nebelhafen, Pumpwerk und Kontrollraum sind als vier neue Maps mit sicheren Hin-/Rueckwegen verbunden. Sera und drei Zeugen, ein Strom-/Ventil-/Rotor-Raetsel, Pumpenwaechter und Vaters zweite Aufnahme sind spielbar. Die neue Region schaltet sich nach dem Sieg in der Ruine der Echos frei (Nordufer-Tor bei 24/9). 150 Arten behalten ihre IDs, die ersten Wildbegegnungen in Nordufer und Nebelhafen sind eigene gewichtete Pools, alte Saves bleiben erhalten. **Kapitel 4–14, Bahn und umfangreiche Kapitel-3-Inszenierung stehen noch aus.**
 
 
 

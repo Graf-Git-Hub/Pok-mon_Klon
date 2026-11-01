@@ -1,6 +1,6 @@
 # CONTINUE HERE – genau hier am Spiel weiterbauen
 
-Stand: 01.11.2026. Branch main. **Letzter auf GitHub bestätigter Release: v0.17.0** (Commit 2c8140f). Der neue Code fuer v0.18.0 mit spielbarem Kapitel 3 ist lokal auf Laptop Laura getestet; **GitHub-Release erst nach CI bestaetigen**. Vor jeder Arbeit neuen HEAD lesen.
+Stand: 01.11.2026. Branch main. **Letzter auf GitHub bestätigter Release: v0.17.0** (Commit 2c8140f). Signierte v0.18.0 auf GitHub erfolgreich gebaut; der visuell verbesserte v0.18.1-Code (versionCode 19) ist lokal getestet. **v0.18.1-Release auf GitHub erst nach CI bestaetigen**. Vor jeder Arbeit neuen HEAD lesen.
 
 ## Erledigt im heutigen Ausbau
 - M01-04: Bereits zuvor abgeschlossene EncounterRegistry bleibt in v0.18.0 erhalten.

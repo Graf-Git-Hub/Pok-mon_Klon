@@ -1928,11 +1928,31 @@ function executeBattleAction(choice){
      if(!map){renderOverworld(tick);return;}
      const px=gameState.player.x,py=gameState.player.y;
      const camX=px*16-CX,camY=py*16-CY;
-     pix(0,0,PW,PH,'#7aa596');
+     const industrial=gameState.currentMapId.startsWith('pumpworks_');
+     pix(0,0,PW,PH,industrial?'#415d66':'#7aa596');
      for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++){
        const sx=x*16-camX,sy=y*16-camY;
        if(sx<-17||sy<-17||sx>PW||sy>PH)continue;
-       drawTile16(map.tiles[y][x],sx,sy,tick,x,y);
+       const tile=map.tiles[y][x];
+       if(!industrial){drawTile16(tile,sx,sy,tick,x,y);continue;}
+       if(tile===4){
+         pix(sx,sy,16,16,'#3b708b');
+         pix(sx+2,sy+3,11,2,'#72b4c1');
+         pix(sx+5+Math.sin(tick*.003+x+y)*2,sy+10,8,1,'#a3d1cf');
+       }else if(tile===1||tile===5){
+         pix(sx,sy,16,16,'#2b4753');
+         pix(sx+1,sy+1,14,14,'#506e75');
+         pix(sx+2,sy+2,12,4,'#688b91');
+         pix(sx+3,sy+9,10,3,'#34515e');
+         pix(sx+2,sy+2,2,2,'#cfb87f');
+         pix(sx+12,sy+12,2,2,'#cfb87f');
+       }else{
+         pix(sx,sy,16,16,(x+y)%2?'#829797':'#778d90');
+         pix(sx,sy,16,1,'#a1aeaa');
+         pix(sx,sy,1,16,'#5b777c');
+         pix(sx+13,sy+3,2,2,'#c8c2a7');
+         pix(sx+3,sy+13,2,2,'#5a6f74');
+       }
      }
      window.EchoChapter3.draw(ctx,tick,gameState,camX,camY,pix,fText,drawChar16);
      if(gameState.hasStarter&&gameState.team.length){
