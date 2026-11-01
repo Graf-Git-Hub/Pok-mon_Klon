@@ -46,6 +46,8 @@ jobs:
           node tests/exploration.cjs
           node tests/interiors.cjs
           node tests/interiors-integration.cjs
+          node tests/platformer.cjs
+          node tests/platformer-integration.cjs
       - name: Check app controls and assets
         working-directory: echo-chroniken/android
         run: |
