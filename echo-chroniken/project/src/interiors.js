@@ -126,7 +126,7 @@ function render(ctx,tick,s,drawChar){
  for(let i=0;i<6;i++){rect(123+i*13,114,4,27,'#ecd5a4');}
  rect(45,66,45,12,room.wood);rect(48,66,39,7,'#d9b486');
  rect(49,77,7,20,room.wood);rect(81,77,7,20,room.wood);
- drawChar(4*16,7*16,id==='kraeuter'?'#bd8294':'#85aeb8',0);
+ drawChar(4*16,7*16,id==='kraeuter'?'#bd8294':'#85aeb8',0,id==='kraeuter'?'nemi':'taro','down');
  if(id==='kraeuter'){
    // Three clearly spaced interactable pots, with visible order/progress.
    rect(77,55,128,11,room.wood);
@@ -152,7 +152,7 @@ function render(ctx,tick,s,drawChar){
  rect(128,152,62,25,room.wood);rect(133,155,52,22,'#a17d5e');
  rect(147,157,25,18,'#6a8c83');rect(165,164,3,3,'#ffe3a3');
  rect(120,174,78,4,'#4c423d');
- drawChar(s.player.x*16+8,s.player.y*16, '#e17f74',s.player.stepPhase);
+ drawChar(s.player.x*16+8,s.player.y*16, '#e17f74',s.player.stepPhase,'player',s.player.dir);
  rect(23,137,100,20,'#365d55');
  txt(room.name,29,150,9,'#fff1c5');
  if(id==='kraeuter'&&!p.kraeuter.solved)txt('LICHT '+p.kraeuter.index+'/3',209,151,8,'#fff6c7');

@@ -1,5 +1,17 @@
 # Echo-Chroniken 🎮👻
 
+**v0.20.0 - Neue Spielfiguren:** Der alte kantige Menschen-Renderer wurde gegen eine
+komplett neue originale Pixel-Sprite-Engine ausgetauscht. 16 individuelle
+Figurendesigns (Spieler, Junge, Maedchen, Oma, Edda, Kurier, Bahnwaerterin,
+Zeugen, Arenaleiter, Haendler und Dorfbewohner), alle mit 4 Blickrichtungen
+und 3 Bewegungsphasen je Richtung. Neue Frisuren, Gesichter, Kleidung,
+gespiegelte Seitenansichten und transparente 16x20-Pixel-Sprites.
+Omas Haus, Wurzelheim, Nebelhafen, Moorglas und Innenraeume verwenden
+denselben Renderer. Reine Pixelgrafik, kein Bilderdienst und keine
+Zusatzdownloads. Alte Spielstaende bleiben nutzbar.
+Screenshots: `echo-chroniken/docs/visual-audit/characters-contact-sheet.png`,
+`characters-home.png` und `characters-village.png`.
+
 **v0.19.0 – Kapitel 4: Unter den Wurzeln / Erste Echo-Bahn:**
 Nach Kapitel 3 geht es direkt aus dem Kontrollraum in den Wurzeltunnel.
 Fuenf neue Karten (Wurzeltunnel, Bahnhof Wurzelheim, Weichenhof, Bahnhof Moorglas,

@@ -143,7 +143,7 @@ function regionMove(s,dx,dy){
   return {handled:true,lines:['Weg derzeit gesperrt.']};
  }
  if(blocked.has(m.tiles[y][x])||markers[m.mapId]?.some(p=>p.x===x&&p.y===y))return {handled:true};
- s.player.x=x;s.player.y=y;s.player.stepPhase=(s.player.stepPhase+1)%2;
+ s.player.x=x;s.player.y=y;s.player.stepPhase=s.player.stepPhase===1?2:1;
  return {handled:true,moved:true,grass:m.tiles[y][x]===2};
 }
 function interact(s,tx,ty){
@@ -253,7 +253,7 @@ function draw(ctx,tick,s,camX,camY,pix,letter,drawChar){
   const x=p.x*16-camX,y=p.y*16-camY;
   if(x<-16||x>320||y<-16||y>180)continue;
   if(['edda','courier','stationMaster'].includes(p.type)){
-   drawChar(x,y,p.type==='courier'?'#9d768d':'#c8a46f',Math.floor(tick/500)%2,'citizen','down');
+   drawChar(x,y,p.type==='courier'?'#9d768d':'#c8a46f',0,p.type==='courier'?'courier':p.type==='edda'?'edda':'stationMaster','down');
   }else if(p.type==='rootBoss'){
    pix(x-3,y-3,22,20,'#2e3c4f');pix(x+2,y,13,15,'#775b88');
    pix(x+4,y+3,3,3,'#ebc2d4');pix(x+12,y+3,3,3,'#ebc2d4');

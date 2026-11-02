@@ -1,5 +1,21 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - v0.20.0: Menschenfiguren komplett neu gezeichnet
+- Neue lokale Sprite-Engine src/characters.js: 16 unterschiedliche Figurenrollen,
+  alle mit 4 Richtungen und 3 Phasen, insgesamt 192 mögliche Sprite-Frames.
+- Kleidung, Frisuren, Gesicht, Oma-Dutt, Mädchen-Zopf, Bahnmuetzen und
+  Figurenfarben sind eigenstaendig im Raster 16x20px entworfen und gecacht.
+- Player, Oma, alle Dorfbewohner, Kapitel-3-Zeugen, Edda, Kurier,
+  Stationshueterin, Innenraeume und alte Arenaleiter in Engine integriert.
+- Weitere Rollen ueber eindeutige ID-Aliase zugeordnet, alte Farbgebung
+  fuer sonstige NPCs weiterhin als abweichende Kleidung moeglich.
+- Neuer Test tests/characters.cjs fuer 16 Figuren x 12 Posen, Animation,
+  Caching und transparente Pixel-Sprites; Regression der Spieltests bestanden.
+- Echte Chrome-Bilder der Sprite-Uebersicht, Omas Haus, Wurzelheim,
+  Moorglas und Bahnhoefe in docs/visual-audit gespeichert.
+- Android 0.20.0 / versionCode 21. Signierten Build nach GitHub CI pruefen.
+
+
 ## 2026-11-01 - v0.19.0: Unter den Wurzeln / Echo-Bahn
 - Fuenf neue begehbare Karten: root_tunnel, station_wurzelheim, rail_switchyard,
   station_moorglas, moorglas_bog. Kontrolle aus Kapitel 3 bleibt bestehen.

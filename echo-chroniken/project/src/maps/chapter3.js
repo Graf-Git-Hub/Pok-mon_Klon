@@ -146,7 +146,7 @@ function regionMove(s,dx,dy){
   if(blocked.has(map.tiles[y][x])||markers[s.currentMapId]?.some(m=>m.x===x&&m.y===y))
     return {handled:true};
   s.player.x=x;s.player.y=y;
-  s.player.stepPhase=(s.player.stepPhase+1)%2;
+  s.player.stepPhase=s.player.stepPhase===1?2:1;
   return {handled:true,moved:true,grass:map.tiles[y][x]===2};
 }
 function interact(s,tx,ty){
@@ -291,7 +291,7 @@ function draw(ctx,tick,s,camX,camY,pix,letter,drawCharacter){
     const x=p.x*16-camX,y=p.y*16-camY;
     if(x<-20||y<-22||x>330||y>192)continue;
     if(['sera','witness0','witness1','witness2'].includes(p.type)){
-      drawCharacter(x,y,p.type==='sera'?'#e9aa67':'#7ac3b5',Math.floor(tick/480)%2,'citizen','down');
+      drawCharacter(x,y,p.type==='sera'?'#e9aa67':'#7ac3b5',0,p.type,'down');
     }else{
       const color=p.type==='boss'?'#ae696f':p.type==='recording'?'#ffd18b':
         p.type==='heal'?'#a0e7cf':p.type==='note'?'#87bed8':'#bda77e';

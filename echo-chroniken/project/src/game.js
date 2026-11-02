@@ -955,7 +955,7 @@ function executeBattleAction(choice){
 
     gameState.player.x = nx;
     gameState.player.y = ny;
-    gameState.player.stepPhase = (gameState.player.stepPhase + 1) % 2;
+    gameState.player.stepPhase = gameState.player.stepPhase===1 ? 2 : 1;
     sfx.step();
     // Quiet checkpoint on walks, without disrupting controls or dialogue.
     gameState.stepsSinceSave=(gameState.stepsSinceSave||0)+1;
@@ -1433,7 +1433,7 @@ function executeBattleAction(choice){
     }
   }
 
-  function drawChar16(sx, sy, color, step = 0) {
+  function drawChar16Legacy(sx, sy, color, step = 0) {
     ctx.fillStyle = 'rgba(0,0,0,0.45)';
     ctx.fillRect(sx + 3, sy + 13, 10, 3);
     ctx.fillStyle = '#10002b';
@@ -1875,32 +1875,10 @@ function executeBattleAction(choice){
   }
 
     // 16x22 adventurer with shading, unique NPC costumes, proper two-leg cycle
+  // All human characters use the same hand-pixelled 12-frame renderer.
   function drawChar16(sx,sy,color,step=0,role='player',dir='down'){
-    const y=sy-4;let coat=color, hat='#31455c',skin='#e9b893',hair='#77503e';
-    if(role==='oma'){coat='#a87e9f';hat='#e6d2c0';skin='#e6b596';hair='#cad1c1';}
-    else if(role==='gym1'){coat='#4a9079';hat='#254f50';}
-    else if(role==='gym2'){coat='#587b9d';hat='#416281';}
-    else if(role==='gym3'){coat='#8c6a9b';hat='#45385b';}
-    else if(role==='player'){coat='#d7685a';hat='#386f85';}
-    pix(sx+3,y+17,11,2,'#518261');pix(sx+5,y+18,7,1,'#568c69');
-    pix(sx+4,y+4,9,11,'#263c42');
-    // boots+trousers, animated independent legs
-    pix(sx+5,y+13+(step?1:0),3,4,'#485b65');pix(sx+9,y+13+(step?0:1),3,4,'#394c63');
-    pix(sx+4,y+16+(step?1:0),4,2,'#292c42');pix(sx+9,y+16+(step?0:1),4,2,'#292c42');
-    // coat sleeve + torso + belt
-    pix(sx+3,y+9,11,6,'#263c42');pix(sx+4,y+9,9,5,coat);pix(sx+5,y+9,2,3,'#ecb77f');
-    pix(sx+10,y+9,2,3,'#d0a177');pix(sx+6,y+12,5,2,role==='oma'?'#e3c797':'#e9d7ac');
-    pix(sx+8,y+12,1,2,'#3e5361');
-    // hair and facial plane
-    pix(sx+5,y+3,8,7,'#3b4650');pix(sx+6,y+4,6,5,skin);
-    pix(sx+6,y+7,1,1,'#684940');pix(sx+10,y+7,1,1,'#684940');
-    if(dir==='up'){pix(sx+6,y+4,6,5,hair);pix(sx+7,y+6,4,2,'#3a5764');}
-    else if(dir==='left'){pix(sx+7,y+7,1,1,'#453942');pix(sx+11,y+7,1,2,skin);}
-    else if(dir==='right'){pix(sx+10,y+7,1,1,'#453942');pix(sx+5,y+7,1,2,skin);}
-    // hat / hair styling
-    pix(sx+5,y+1,9,4,'#273b49');pix(sx+6,y+1,7,3,hat);
-    if(role==='oma'){pix(sx+6,y,6,2,'#dad9c4');pix(sx+4,y+3,2,6,'#ded8c7');pix(sx+12,y+4,2,6,'#c6b7bc');}
-    else {pix(sx+4,y+4,9,1,hat);pix(sx+8,y+2,2,1,'#92b3ad');}
+    if(!window.EchoCharacters)throw Error('Character sprite module missing');
+    window.EchoCharacters.draw(ctx,sx,sy,role,dir,step,color);
   }
   function drawObject(n,x,y,tick){
     const bob=Math.sin(tick*.005+n.x)*1;
@@ -2064,7 +2042,7 @@ function executeBattleAction(choice){
       let sx=n.x*16-camX,sy=n.y*16-camY;
       if(sx<-16||sy<-20||sx>PW||sy>PH)return;
       if(n.isObject)drawObject(n,sx,sy,tick);
-      else drawChar16(sx,sy,n.color,Math.floor(tick/460)%2,n.id==='oma'?'oma':n.id,n.id==='oma'?'down':'left');
+      else drawChar16(sx,sy,n.color,0,n.id==='oma'?'oma':n.id,n.id==='oma'?'down':'left');
     });
     // a companion hovers immediately behind player, out of overlap
     if(gameState.hasStarter&&gameState.team.length){

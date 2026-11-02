@@ -9,6 +9,20 @@ SHA256 A1F4FA96CD74E3F682BBE42B978462BEE2340F1EBBD5FB3A1C918B5D70FF70E2.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
+## Neuste Aenderung 2026-11-02: Sprite-Neubau fuer Android 0.20.0
+
+- Neuer Modul src/characters.js. Originale 16x20-Pixel-Menschen
+  mit 16 Rollen, jeweils 4 Richtungen x 3 Schrittmuster. Keine externen Assets.
+- Zentraler Renderer in src/game.js; genutzt von house.js, interiors.js,
+  Wurzelheim, Chapter 3 und Chapter 4. Eigenstaendige Frisuren und Kleidung.
+- tests/characters.cjs validiert alle 192 Framekombinationen.
+- Reale Screenshots in docs/visual-audit/characters-contact-sheet.png,
+  characters-home.png, characters-village.png und characters-world-*.png.
+- Bestehende 20 Node-Tests plus neuer Sprite-Test bestanden; Browser ohne
+  JavaScript-Fehler in Dorf, Haus, Bahnhof und Moorglas.
+- Signierter Android 0.20.0 Release muss auf GitHub verifiziert werden,
+  danach Direct-APK und Laptop-Kopie aktualisieren; stabile App-ID behalten.
+
 ## Abgeschlossene technische Voraussetzungen
 
 - M01-04: Kartenabhängige EncounterRegistry, im alten Wurzelheim unverändert.
