@@ -92,12 +92,12 @@ Der Schluss hält die Entscheidung offen, wie viel von einem Menschen in einem E
 | --- | --- | --- | --- | --- |
 | 01 | Das versiegelte Paket | Wurzelheim | Das Kind kehrt in Omas Haus zurück | bereits teilweise |
 | 02 | Das Flüstern im Wald | Flüsterpfad & Ruine der Echos | Liora bittet um Hilfe bei drei verirrten Seelenlichtern | bereits teilweise |
-| 03 | Stimmen am Seelen-See | Nebelhafen und altes Pumpwerk | Am See sind sonst friedliche Wasserechos verstummt | geplant |
-| 04 | Unter den Wurzeln | Wurzelheim-Untergrund und Moorglas | Der Wartungstunnel führt zu einem unterirdischen Bahnsteig, von dem Oma Martha nur al | geplant |
-| 05 | Das Dorf, das niemand verlässt | Stillwasser | In Stillwasser erzählen die Bewohner jedes Mal dieselben Geschichten | geplant |
-| 06 | Glut unter der Asche | Aschenruh und Glutklamm | Edda bittet um einen Abstecher nach Aschenruh, wo früher Kapselgehäuse geschmiedet wu | geplant |
-| 07 | Der Garten der Namen | Lichterhain | Im Lichterhain wachsen keine gewöhnlichen Blumen, sondern Namen, die andere längst ve | geplant |
-| 08 | Kronenstadt | Kronenstadt & Zentralarchiv | Kronenstadt ist die erste echte Metropole der Region und Bahnknoten | geplant |
+| 03 | Stimmen am Seelen-See | Nebelhafen und altes Pumpwerk | Am See sind sonst friedliche Wasserechos verstummt | spielbarer Ausbau |
+| 04 | Unter den Wurzeln | Wurzelheim-Untergrund und Moorglas | Der Wartungstunnel führt zu einem unterirdischen Bahnsteig, von dem Oma Martha nur al | spielbarer Ausbau |
+| 05 | Das Dorf, das niemand verlässt | Stillwasser | In Stillwasser erzählen die Bewohner jedes Mal dieselben Geschichten | spielbarer Ausbau |
+| 06 | Glut unter der Asche | Aschenruh und Glutklamm | Edda bittet um einen Abstecher nach Aschenruh, wo früher Kapselgehäuse geschmiedet wu | spielbarer Erstaufbau v0.22.0 |
+| 07 | Der Garten der Namen | Lichterhain | Im Lichterhain wachsen keine gewöhnlichen Blumen, sondern Namen, die andere längst ve | spielbarer Erstaufbau v0.22.0 |
+| 08 | Kronenstadt | Kronenstadt & Zentralarchiv | Kronenstadt ist die erste echte Metropole der Region und Bahnknoten | spielbarer Erstaufbau v0.22.0 |
 | 09 | Frostgrat | Frostgrat & Forschungsstation | Im Frostgrat führt eine Spur zur letzten Expedition des Vaters | geplant |
 | 10 | Die Stadt unter der Stadt | Unterstadt & Zentralring | Unter Kronenstadt liegt die erste Wohnsiedlung der Resonanzforscher | geplant |
 | 11 | Das Sternenobservatorium | Observatorium über der Region | Das Observatorium blickt nicht in eine Parallelwelt, sondern misst Schwingungen, die  | geplant |

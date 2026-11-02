@@ -21,8 +21,11 @@
   alle Ausgaenge und Interaktionspunkte erreichbar.
 - Echter Chrome-Test: 13 Karten, 3 echte Story-Bosskaempfe,
   Controller-Portal und Touch-Bahnreise, keine JS-Fehler.
-- Android v0.22.0 / versionCode 23 vorbereitet; CI-Signatur, Release,
-  SHA256 und Desktop-APK erst nach erfolgreichem Build bestaetigen.
+- Android v0.22.0 / versionCode 23 erfolgreich signiert und veroeffentlicht.
+  Commit 88f12891689f85288ed9102a8ddb709bf0a38acb,
+  GitHub Actions 41385068540 SUCCESS, 2.476.555 Bytes,
+  SHA256 6DAB7CCB25C1D386B428FC6DFF9F6F40D4977FFE1E00AB159EEEC51BF41656A4.
+  Desktop Laura aktualisiert.
 - Weiter offen: reale Handy/TV-Abnahme, komplette Story-Durchspielung,
   Animation/Audio/Portraits, grafischer Feinschliff, Kapitel 9-14 und Postgame.
 

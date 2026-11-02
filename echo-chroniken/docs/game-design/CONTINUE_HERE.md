@@ -1,11 +1,11 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
 Stand 02.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
-**Letzte verifizierte signierte Android-APK: v0.21.0 / versionCode 22.**
-Quellcommit 72967b541cbed280dcbd3af52e8659fc0b46d760;
-Android Actions Run 41379112904 erfolgreich, stabile App-ID de.echochroniken.game.stable.
-APK 2.464.065 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
-SHA256 611C0B7D24D733FEC5665C78B40EB10EE3BC4F134101F0D2AAFECC88C865AF05.
+**Letzte verifizierte signierte Android-APK: v0.22.0 / versionCode 23.**
+Quellcommit 88f12891689f85288ed9102a8ddb709bf0a38acb;
+Android Actions Run 41385068540 SUCCESS, stabile App-ID de.echochroniken.game.stable.
+APK 2.476.555 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
+SHA256 6DAB7CCB25C1D386B428FC6DFF9F6F40D4977FFE1E00AB159EEEC51BF41656A4.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
@@ -37,10 +37,12 @@ Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 - **Naechster Schritt:** Kapitel 9 Frostgrat mit Phasenlaterne und
   reversiblen Bruecken umsetzen, dann Kapitel 10 Unterstadt und Kapitel 11
   Observatorium. Davor aktuelle GitHub Actions, APK und Screenshots pruefen.
-- **Release v0.22.0:** erst nach signiertem GitHub-Actions-SUCCESS,
-  Pruefsumme und APK-Download als verifiziert bezeichnen.
+- **Release v0.22.0 verifiziert:** Android CI 41385068540 SUCCESS;
+  signierte stabile APK direkt auf GitHub veroeffentlicht, Groesse 2.476.555
+  Bytes, SHA256 6DAB7CCB25C1D386B428FC6DFF9F6F40D4977FFE1E00AB159EEEC51BF41656A4;
+  Desktop Laura aktualisiert. Echte Android-Handy/TV-Hardware weiterhin offen.
 
-## Stand 02.11.2026 - Kapitel 5 als spielbarer Ausbau
+## Historischer Stand v0.21.0 - Kapitel 5 als spielbarer Ausbau
 - Android 0.21.0 / versionCode 22 erfolgreich signiert und veroeffentlicht:
   CI 41379112904 SUCCESS, commit 72967b5, Desktop-APK aktualisiert.
 - src/maps/chapter5.js: Moorglas-Nebelpfad, Dorf Stillwasser, Archiv,
@@ -118,7 +120,7 @@ Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 - **Keine reale Handy-/TV-Hardwarepruefung**, keine vollstaendige
   Balance-/Story-Durchspielung. Diese Grenzen nicht verschweigen.
 
-## Genau naechste Aufgaben
+## Historische Aufgabenliste aus v0.19.0 (durch neuen Abschnitt oben ueberholt)
 
 1. GitHub Android Workflow fuer 0.19.0 bestaetigen, Direct APK pruefen,
    stabile Signatur und Paket-ID de.echochroniken.game.stable; auf
@@ -132,8 +134,8 @@ Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 5. Uebrige sechs Bahnverbindungen und Kapitel 6-14 + Postgame umsetzen.
 6. 50 generische Monster noch benennen, 15 Ruecken-Bildvarianten auditieren.
 
-**Nicht behaupten:** Kapitel 5-14, das vollstaendige acht Stationen
-umfassende Eisenbahnnetz, 150/150 erreichbar, komplettes fertiges Spiel.
+**Nicht behaupten:** Kapitel 9-14 oder Postgame, das vollstaendige acht Stationen
+umfassende Eisenbahnnetz, 150/150 erreichbar oder das komplett fertige Spiel.
 
 ## Arbeitsregeln
 
