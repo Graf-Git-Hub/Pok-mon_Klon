@@ -1,9 +1,44 @@
 # Story-Roadmap Änderungsverlauf
 
-## 2026-11-02 - QA-Testbranch, noch nicht in main
-- Neuer map-spawn-reachability.cjs Regressionstest: alle 123 Nichtlegacy-Spawns erreichen ihre Ausgaenge; 117 Portal-Rundreisen geprueft.
-- Im isolierten Branch 27/27 Tests, Android-Plattformtest, Dokumentvalidator und Chrome-Startbild erfolgreich.
-- Keine Aenderung an Monster-IDs, SaveSchema, Android-App-ID, Signatur oder Release. Keine APK veroeffentlicht.
+## 2026-11-02 - PR #2: Routen-/Spawn-Regression
+- Neuer automatischer Test map-spawn-reachability.cjs fuer alle Nichtlegacy-Spawns, begehbare Ausgaenge und reversible Portal-Rundreisen.
+- Integration auf dem aktuellen v0.26.0-Archivstand statt dem urspruenglichen Basiscommit 28867fd.
+- Lokal 28/28 Node-Tests, Android-Plattformtest, Dokumentvalidator, git diff --check und echte Chrome-156-Archiv-QA auf Desktop/Touch bestanden; Screenshots geprueft. GitHub-CI folgt.
+- Keine Aenderung an IDs, SaveSchema, App-ID, Android-Version oder Signatur; keine neue APK.
+
+## 2026-11-02 - v0.26.0: Echo-Archiv und Regressionen
+- v0.26.0 / versionCode 27 signiert veroeffentlicht. GitHub Merge
+  063d8d28ad99e01b2d9705352f963739e6c9d68f, Android Run 41472119030
+  SUCCESS, Tests 41472119169 SUCCESS, Docs 41472119062 SUCCESS.
+  Gleichbleibende Paket-ID de.echochroniken.game.stable; Zertifikat-SHA256
+  84be81f8472b62b59527e4fcf67b19fa7d2e3ef4c0b05069c60139a45ec8ec87
+  identisch zu 0.25.0 laut apksigner-Logs beider erfolgreichen CI-Runs.
+  APK: 2.505.606 Bytes, SHA256
+  dfa29f84abb9efcc61040cfbbf94facd8dca8c06d7cb594362784d349fb6c875.
+  Direktdownload auf Laura mit Hashvergleich bestaetigt, Desktop-APK ersetzt.
+- Review-Fund behoben: Kampf-Labor verwendet eine tiefe Archivkopie.
+  Labor-Tausch, HP-/Attackenaenderungen und Laborende veraendern die echte
+  Sammlung nicht; Regression mit anschliessendem Save/Reload bestanden.
+- Vorhandene Archiv-Reparatur uebernommen: zusaetzliche Faenge werden als
+  individuelle Wesen gespeichert und koennen mit dem Sechserteam tauschen.
+- Touch-Hitbox der letzten sichtbaren Archivzeile korrigiert.
+- Familien-/Finaldialoge erkennen archivierte Miora, Seelara und Maternalis;
+  keine automatische Teamverschiebung, kein Verlust der Begleiterin.
+- Reale Spielcode-Tests fuer 144 Fang-Autosaves, Reload, Controller und Touch;
+  Archiv-Stresstest mit 3000 Wesen, 10000 Tauschen und 100 JSON-Roundtrips.
+- Beide GitHub-Workflows testen alle CJS-Tests statt unvollstaendiger Listen.
+- Im isolierten Integrations-Worktree erneut 27/27 Spieltests,
+  Android-Plattformtest und Dokumentvalidator bestanden.
+- Chrome-156-Integration mit Desktop-Keyboard und echtem Touch-Viewport,
+  144 archivierten Wesen, Seitenwechsel, Autosave/Reload sowie Migration
+  ohne Archiv erfolgreich, ohne Browser-JavaScript-Fehler.
+  Sieben visuell gepruefte Screenshots plus report.json unter
+  docs/visual-audit/archive-qa/, reproduzierbar mit
+  project/qa/archive-browser.py (Python Playwright).
+- Originaler uncommitteter Nutzerstand und Bilder auf Laura geschuetzt;
+  Integration ueber isolierten Zweig fix/echo-archive-safe-20261102,
+  PR #3 erfolgreich in main gemergt. Neuer Release erst nach drei gruenen
+  Checks, erfolgreichem apksigner/AAPT und SHA256-Abgleich veroeffentlicht.
 
 ## 2026-11-02 - v0.25.0: Postgame „Die freien Linien“
 - Acht neue Karten: Echo-Garten, sechs Fangwiesen, begehbares Bahn-Museum.

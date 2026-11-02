@@ -470,6 +470,7 @@
     introStage: 0, // 0: Oma; 1: Paket; 2: Oma; 3: Ausgang; 4: Wurzelheim
     hasStarter: false,
     team: [],
+    archive: [],
     caughtIds: {},
     seenIds: {},
     badges: 0,
@@ -527,6 +528,7 @@
         introStage: gameState.introStage,
         hasStarter: gameState.hasStarter,
         team: gameState.team,
+        archive: gameState.archive,
         caughtIds: gameState.caughtIds,
         seenIds: gameState.seenIds,
         badges: gameState.badges,
@@ -599,6 +601,7 @@
       window.EchoEndgame?.ensure(gameState);
        window.EchoFinale?.ensure(gameState);
       window.EchoPostgame?.ensure(gameState);
+      window.EchoArchive?.ensure(gameState);
       if(gameState.scene==='BUILDING'&&!window.EchoInteriors?.ROOMS[gameState.roomId]){
         gameState.scene='OVERWORLD';gameState.player={x:5,y:6,dir:'down',stepPhase:0};
       }
@@ -773,10 +776,10 @@ function executeBattleAction(choice){
             const captured=b.enemy; captured.hp=Math.max(1,captured.hp);
             gameState.caughtIds[captured.id]=true;
             gameState.encounterGrace=16;
-            if(gameState.team.length<6)gameState.team.push(captured);
+            const joinedTeam=window.EchoArchive.capture(gameState,captured);
             gameState.mode='OVERWORLD';
             saveGame(true);
-            showDialog([`✨ ${SPECIES[captured.id-1].name} hat sich dir angeschlossen!`,gameState.team.includes(captured)?'Willkommen im Team!':'Dein Team ist voll. Das Wesen wartet im Archiv.']);
+            showDialog([`✨ ${SPECIES[captured.id-1].name} hat sich dir angeschlossen!`,joinedTeam?'Willkommen im Team!':'Dein Team ist voll. Das Wesen wartet im Archiv.']);
           }else{b.log='Die Sphäre öffnet sich wieder!';battleTimeout(enemyCounterAttack,550);}
         },600);
       }
@@ -1228,6 +1231,26 @@ function executeBattleAction(choice){
   // --- EINGABE-STEUERUNG (TASTATUR + NINTENDO SWITCH GAMEPAD API) ---
   function handleCommand(cmd) {
     ensureAudio();
+    if(gameState.mode==='ARCHIVE'){
+      const stored=window.EchoArchive.ensure(gameState);
+      if(cmd==='B'||cmd==='START'){gameState.mode='MENU';sfx.cancel();return;}
+      if(cmd==='UP'||cmd==='DOWN'){
+        if(stored.length)gameState.archiveCursor=(gameState.archiveCursor+(cmd==='UP'?-1:1)+stored.length)%stored.length;
+        sfx.blip();return;
+      }
+      if(cmd==='LEFT'||cmd==='RIGHT'){
+        const n=gameState.team.length;
+        if(n)gameState.archiveTeamCursor=(gameState.archiveTeamCursor+(cmd==='LEFT'?-1:1)+n)%n;
+        sfx.blip();return;
+      }
+      if(cmd==='A'){
+        if(window.EchoArchive.exchange(gameState,gameState.archiveCursor||0,gameState.archiveTeamCursor||0)){
+          ensureMonsterMoves(gameState.team[gameState.archiveTeamCursor||0]);
+          saveGame(true);sfx.confirm();
+        }else sfx.cancel();
+      }
+      return;
+    }
     if(gameState.mode==='RAIL'){
       const options=window.EchoRail.destinations(gameState);
       if(cmd==='B'||cmd==='START'){gameState.mode='OVERWORLD';sfx.cancel();return;}
@@ -1360,8 +1383,8 @@ function executeBattleAction(choice){
 
     if (gameState.mode === 'MENU') {
       if (cmd === 'B' || cmd === 'START') { gameState.mode = 'OVERWORLD'; sfx.cancel(); }
-      else if (cmd === 'UP') { gameState.menuCursor = (gameState.menuCursor + 3) % 4; sfx.blip(); }
-      else if (cmd === 'DOWN') { gameState.menuCursor = (gameState.menuCursor + 1) % 4; sfx.blip(); }
+      else if (cmd === 'UP') { gameState.menuCursor = (gameState.menuCursor + 4) % 5; sfx.blip(); }
+      else if (cmd === 'DOWN') { gameState.menuCursor = (gameState.menuCursor + 1) % 5; sfx.blip(); }
       else if (cmd === 'A') {
         if (gameState.menuCursor === 0) { gameState.mode = 'LEXICON'; sfx.confirm(); }
         else if (gameState.menuCursor === 1) {
@@ -1375,7 +1398,12 @@ function executeBattleAction(choice){
           }
         }
         else if (gameState.menuCursor === 2) { saveGame(); }
-        else if (gameState.menuCursor === 3) { gameState.mode = 'OVERWORLD'; sfx.cancel(); }
+        else if (gameState.menuCursor === 3) {
+          window.EchoArchive.ensure(gameState);
+          gameState.archiveCursor=0;gameState.archiveTeamCursor=0;
+          gameState.mode='ARCHIVE';sfx.confirm();
+        }
+        else if (gameState.menuCursor === 4) { gameState.mode = 'OVERWORLD'; sfx.cancel(); }
       }
     }
   }
@@ -2330,15 +2358,41 @@ function executeBattleAction(choice){
   function renderMenu(){
     pix(0,0,PW,PH,'#1c393e95');
     boxArt(47,14,226,153,'#ecdcb8','#2d514d');
-    fText('✦ REISETAGEBUCH ✦',160,37,15,'#345851','center');
-    fText(`Vaters Seiten: ${gameState.pages.filter(Boolean).length}/3     Orden: ${gameState.badges}/3`,66,55,9,'#557064');
-    const items=['Buch der 150 Seelen',`Team heilen  (${gameState.potions} Tränke)`,'Spielstand speichern','Zurück ins Abenteuer'];
-    items.forEach((s,i)=>{
-      let y=75+i*21;
-      if(gameState.menuCursor===i){pix(62,y-12,197,18,'#93b6a0');pix(62,y-12,3,18,'#ebcc78');}
-      fText((gameState.menuCursor===i?'▶ ':'  ')+s,68,y,11,gameState.menuCursor===i?'#244a43':'#526759');
+    fText('REISETAGEBUCH',160,37,15,'#345851','center');
+    fText('Vaters Seiten: '+gameState.pages.filter(Boolean).length+'/3   Orden: '+gameState.badges+'/3',66,55,9,'#557064');
+    const items=['Buch der 150 Seelen','Team heilen ('+gameState.potions+' Traenke)',
+      'Spielstand speichern','Echo-Archiv ('+gameState.archive.length+')','Zurueck ins Abenteuer'];
+    items.forEach((label,i)=>{
+      const y=75+i*18;
+      if(gameState.menuCursor===i){pix(62,y-11,197,16,'#93b6a0');pix(62,y-11,3,16,'#ebcc78');}
+      fText((gameState.menuCursor===i?'> ':'  ')+label,68,y,10,
+        gameState.menuCursor===i?'#244a43':'#526759');
     });
-    fText('A: Auswählen        B: Schließen',160,156,8,'#5c7466','center');
+    fText('A: Auswaehlen  B: Schliessen',160,165,8,'#5c7466','center');
+  }
+  function renderArchive(){
+    pix(0,0,PW,PH,'#254c50');
+    boxArt(6,6,308,168,'#eadcb7','#244943');
+    fText('ECHO-ARCHIV',160,25,17,'#365b56','center');
+    const stored=window.EchoArchive.ensure(gameState),n=gameState.team.length;
+    const teamIndex=Math.min(gameState.archiveTeamCursor||0,Math.max(0,n-1));
+    const ally=gameState.team[teamIndex];
+    fText('TEAM '+(teamIndex+1)+'/'+n+'  <  >',18,47,11,'#48675b');
+    fText(ally?SPECIES[ally.id-1].name+' Lv.'+ally.lv:'Kein Team',137,47,11,'#345851');
+    fText('GELAGERTE ECHOS: '+stored.length,18,68,11,'#48675b');
+    if(!stored.length)fText('Noch keine Echos im Archiv.',18,98,11,'#526759');
+    else{
+      const cursor=Math.min(gameState.archiveCursor||0,stored.length-1);
+      const first=Math.max(0,Math.min(cursor-2,Math.max(0,stored.length-5)));
+      for(let row=0;row<5&&first+row<stored.length;row++){
+        const index=first+row,m=stored[index],y=87+row*15;
+        if(index===cursor)pix(16,y-11,288,15,'#a2c4a9');
+        const sp=SPECIES[m.id-1];
+        fText((index===cursor?'> ':'  ')+(index+1)+'. '+(sp?.name||'Unbekannt')+
+          '  Lv.'+m.lv,23,y,10,index===cursor?'#294d43':'#5b7061');
+      }
+    }
+    fText('A: Tauschen  B: Zurueck',160,167,9,'#48675b','center');
   }
   function renderLexicon(){
     pix(0,0,PW,PH,'#315b5b');
@@ -2434,7 +2488,7 @@ function executeBattleAction(choice){
   function updateTouchLabel() {
     if (lastTouchMode === gameState.mode) return;
     lastTouchMode = gameState.mode;
-    touchALabel.textContent = ({TITLE: 'Starten', DIALOG: 'Weiter', OVERWORLD: 'Aktion', PLATFORM:'Springen', BATTLE: 'Wählen', ATTACKS:'Angriff', LEXICON: 'Info', MENU: 'Wählen'})[gameState.mode] || 'OK';
+    touchALabel.textContent = ({TITLE: 'Starten', DIALOG: 'Weiter', OVERWORLD: 'Aktion', PLATFORM:'Springen', BATTLE: 'Wählen', ATTACKS:'Angriff', LEXICON: 'Info', ARCHIVE: 'Tauschen', MENU: 'Wählen'})[gameState.mode] || 'OK';
   }
 
 
@@ -2473,6 +2527,8 @@ function executeBattleAction(choice){
   document.getElementById('lab-start').addEventListener('click',()=>{
     if(savedBeforeLab)exitLab();
     savedBeforeLab={...gameState};
+    // Lab swaps and battles must not mutate the real archived individuals.
+    gameState.archive=JSON.parse(JSON.stringify(gameState.archive));
     gameState.attackOrigin=null;
     gameState.caughtIds={...gameState.caughtIds};
     gameState.seenIds={...gameState.seenIds};
@@ -2489,6 +2545,19 @@ function executeBattleAction(choice){
   // Canvas-Buttons direkt antippen, ohne eine virtuelle A-Taste verwenden zu müssen.
   canvas.addEventListener('pointerdown',e=>{
     const r=canvas.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*PW,y=(e.clientY-r.top)/r.height*PH;
+    if(gameState.mode==='ARCHIVE'){
+      if(y>=34&&y<=56){handleCommand(x<120?'LEFT':'RIGHT');return;}
+      if(x>=16&&x<304&&y>=76&&y<151){
+        const stored=window.EchoArchive.ensure(gameState),cursor=gameState.archiveCursor||0;
+        const first=Math.max(0,Math.min(cursor-2,Math.max(0,stored.length-5)));
+        const index=first+Math.floor((y-76)/15);
+        if(index<stored.length){
+          if(index===cursor)handleCommand('A');
+          else{gameState.archiveCursor=index;sfx.blip();}
+        }
+      }
+      return;
+    }
     if(gameState.mode==='RAIL'){
       const choices=window.EchoRail.destinations(gameState);
       const rowH=Math.min(25,Math.floor(90/Math.max(1,choices.length)));
@@ -2526,7 +2595,7 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,chapter6:gameState.chapter6,chapter7:gameState.chapter7,chapter8:gameState.chapter8,chapter9:gameState.chapter9,chapter10:gameState.chapter10,chapter11:gameState.chapter11,chapter12:gameState.chapter12,chapter13:gameState.chapter13,chapter14:gameState.chapter14,postgame:gameState.postgame,optional_postgame_completed:gameState.optional_postgame_completed,main_story_finished:gameState.main_story_finished,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,chapter6:gameState.chapter6,chapter7:gameState.chapter7,chapter8:gameState.chapter8,chapter9:gameState.chapter9,chapter10:gameState.chapter10,chapter11:gameState.chapter11,chapter12:gameState.chapter12,chapter13:gameState.chapter13,chapter14:gameState.chapter14,postgame:gameState.postgame,optional_postgame_completed:gameState.optional_postgame_completed,main_story_finished:gameState.main_story_finished,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),archiveCount:gameState.archive.length,dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
@@ -2574,6 +2643,8 @@ function executeBattleAction(choice){
       window.EchoChapter4.drawRailMenu(ctx,gameState,gameState.railCursor);
     } else if (gameState.mode === 'LEXICON') {
       renderLexicon();
+    } else if (gameState.mode === 'ARCHIVE') {
+      renderArchive();
     } else if (gameState.mode === 'MENU') {
       renderScene(tick);
       renderMenu();
