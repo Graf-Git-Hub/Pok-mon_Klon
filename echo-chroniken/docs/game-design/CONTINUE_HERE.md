@@ -1,5 +1,33 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## QUALITAETSPAKET 02.11.2026 - 50 Monster-Namen und Finale-Pixelkulissen
+- Isolierter Worktree C:/Users/graf8/Documents/GitHub/Echo_Quality_Pass_20261102,
+  Zweig feature/echo-gameplay-quality-pass-20261102; Basis main 3cc1a7b8.
+  Originaler Hauptarbeitsbaum mit uncommitteten Nutzerdateien unangetastet.
+- Zwei vorher karge Szenen in src/maps/story-finale.js visuell ausgebaut:
+  memory_room mit Familienbilder-Galerie, Musterteppich, Spiegel und
+  Verschluss-Status; resonance_core mit gestuftem Maschinenring, Leitungen,
+  animierten Lichtfarben und Gruenstatus fuer freiwillig befreite Anker.
+  Alle Elemente zeichnen nur Pixel, keine Kollisionen, Portale, IDs oder
+  Story-Flags wurden veraendert; Fortschritt ist visuell erkennbar.
+- 50 zuvor generische Einzelwesen nach VISUELLEM Atlas-Review mit einzigartigen
+  Namen und passenden Familienbezeichnungen versehen. IDs 1..150, Stats,
+  Typen, Entwicklungsregeln und Save-Schema v2 unveraendert.
+  Zwei Kontaktblaetter (je 25 Wesen) und das 50er Mapping stehen unter
+  docs/visual-audit/monster-naming sowie MONSTER_NAME_REVIEW.json.
+  MONSTER_DISTRIBUTION.csv und Validator synchronisiert (50 geprueft,
+  null offene Platzhalternamen); Namen im echten Bestiarium ueberprueft.
+- Neue Regressionen: tests/finale-landmarks.cjs und
+  tests/monster-name-review.cjs. Browser-QA mit Chrome 156,
+  Desktop + 412px Touch, 7 Quest-Checkpoint-Bilder,
+  3 Bestiarium-Bilder, Save/Reload und JS-Fehlerpruefung.
+  Weitere 100 Wesen-Grafiken und Hardware bleiben offen.
+- Android-Releasekandidat 0.27.0 / versionCode 28; Paket-ID und
+  private Signatur bleiben unveraendert. Kein Release ohne frische
+  GitHub-CI-SUCCESS-, apksigner- und SHA256-Pruefung.
+- Offen: kompletter manueller Storydurchlauf, reales Handy/Android-TV,
+  Gameplay-Balancing, Audio/Animationen, Lokalisierung und Barrierefreiheit.
+
 ## QA 02.11.2026 - Story-/Postgame-Checkpoint-Regression (isolierter Zweig)
 - Branch test/echo-story-postgame-softlock-20261102 auf origin/main 8a35ebe; Original-Worktree mit fremden Aenderungen unangetastet.
 - Neuer Test project/tests/quest-save-checkpoints.cjs: 100 JSON-Save-/Migrations-Roundtrips, 58 Interaktionen, 3 atomar gesperrte Portale, verkehrte Reihenfolgen von Erinnerungen/Wiesentafeln, Kapitel 12-14 und Postgame, alle Boss-Siegflags und einmalige Belohnungen, archivierte Maternalis.

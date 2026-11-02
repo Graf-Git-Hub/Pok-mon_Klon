@@ -1,0 +1,306 @@
+{
+  "basis": "Atlas 10 Spalten x 15 Reihen, 128x128 Pixel je Spezies; Kontaktblaetter lokal visuell geprueft am 02.11.2026.",
+  "rules": "Nur neue Namen fuer die 50 bisherigen Platzhalter, keine Arten-IDs, Entwicklungsstufen, Stats, Typen oder Save-Schema aendern.",
+  "reviewed": [
+    {
+      "id": 4,
+      "oldName": "Spukwesen 01",
+      "newName": "Glimmerpfote",
+      "visual": "weiße Katze mit violettem Geisterschweif"
+    },
+    {
+      "id": 10,
+      "oldName": "Spukwesen 02",
+      "newName": "Nachtpfote",
+      "visual": "schwarze Katze mit violetten Flammen"
+    },
+    {
+      "id": 15,
+      "oldName": "Spukwesen 03",
+      "newName": "Lichtflämmchen",
+      "visual": "helle Katzenform mit lavendelfarbenem Geisterfeuer"
+    },
+    {
+      "id": 20,
+      "oldName": "Spukwesen 04",
+      "newName": "Nebelflöckchen",
+      "visual": "kleiner weißer Geist mit Nebelfäden"
+    },
+    {
+      "id": 26,
+      "oldName": "Spukwesen 05",
+      "newName": "Gischtflöckchen",
+      "visual": "blauer Wassergeist mit verwirbeltem Schweif"
+    },
+    {
+      "id": 32,
+      "oldName": "Spukwesen 06",
+      "newName": "Schattenwuschel",
+      "visual": "dunkles zotteliges Geistertier mit blauen Flammen"
+    },
+    {
+      "id": 37,
+      "oldName": "Spukwesen 07",
+      "newName": "Rosahoppel",
+      "visual": "weißer Hase mit rosafarbenem Feuerschweif"
+    },
+    {
+      "id": 42,
+      "oldName": "Spukwesen 08",
+      "newName": "Flammenlöffel",
+      "visual": "heller Hase mit langen Ohren und rosa Glut"
+    },
+    {
+      "id": 48,
+      "oldName": "Spukwesen 09",
+      "newName": "Dunkelhoppel",
+      "visual": "schwarzer Hase mit rotem Schattenfeuer"
+    },
+    {
+      "id": 54,
+      "oldName": "Spukwesen 10",
+      "newName": "Tauhorn",
+      "visual": "mintgrünes Geisterreh mit kleinem Geweih"
+    },
+    {
+      "id": 59,
+      "oldName": "Spukwesen 11",
+      "newName": "Mondkitz",
+      "visual": "helles Geisterreh mit mintfarbenem Schweif"
+    },
+    {
+      "id": 64,
+      "oldName": "Spukwesen 12",
+      "newName": "Nachtgeweih",
+      "visual": "schwarzer Hirsch mit grünen Geisterflammen"
+    },
+    {
+      "id": 70,
+      "oldName": "Spukwesen 13",
+      "newName": "Funkenfähe",
+      "visual": "helle Fuchsfigur mit orangefarbenem Flammenschweif"
+    },
+    {
+      "id": 76,
+      "oldName": "Spukwesen 14",
+      "newName": "Sonnenwedel",
+      "visual": "oranger Fuchs mit hoher Flammenmähne"
+    },
+    {
+      "id": 81,
+      "oldName": "Spukwesen 15",
+      "newName": "Kohlenschweif",
+      "visual": "dunkler Fuchs mit rotglühendem Schweif"
+    },
+    {
+      "id": 86,
+      "oldName": "Spukwesen 16",
+      "newName": "Wolkeneulchen",
+      "visual": "rundes weißes Eulengeisterchen mit Flügeln"
+    },
+    {
+      "id": 92,
+      "oldName": "Spukwesen 17",
+      "newName": "Lavendelflaum",
+      "visual": "violette Eule mit ausgebreiteten Flügeln"
+    },
+    {
+      "id": 98,
+      "oldName": "Spukwesen 18",
+      "newName": "Schattenfeder",
+      "visual": "dunkle Eule mit violettem Flammenkleid"
+    },
+    {
+      "id": 103,
+      "oldName": "Spukwesen 19",
+      "newName": "Mondflatter",
+      "visual": "helle Fledermaus mit violetten Schwingen"
+    },
+    {
+      "id": 108,
+      "oldName": "Spukwesen 20",
+      "newName": "Nachtflatter",
+      "visual": "dunkle Fledermaus in violettem Geisterfeuer"
+    },
+    {
+      "id": 111,
+      "oldName": "Spukwesen 21",
+      "newName": "Quellflosse",
+      "visual": "hellblaues Jungtier mit Flossenohren"
+    },
+    {
+      "id": 114,
+      "oldName": "Spukwesen 22",
+      "newName": "Flutwirbel",
+      "visual": "blauer schlangenförmiger Wasserdrache"
+    },
+    {
+      "id": 117,
+      "oldName": "Spukwesen 23",
+      "newName": "Tiefenwyrm",
+      "visual": "dunkler Meeresdrache mit blauem Feuer"
+    },
+    {
+      "id": 120,
+      "oldName": "Spukwesen 24",
+      "newName": "Schimmerpanzer",
+      "visual": "kleine weiße Schildkröte mit Geistergesicht"
+    },
+    {
+      "id": 123,
+      "oldName": "Spukwesen 25",
+      "newName": "Moorschild",
+      "visual": "grüne Schildkröte mit Grabsteinen auf dem Panzer"
+    },
+    {
+      "id": 126,
+      "oldName": "Spukwesen 26",
+      "newName": "Gruftpanzer",
+      "visual": "dunkelviolette Schildkröte mit Grabsteinpanzer"
+    },
+    {
+      "id": 127,
+      "oldName": "Spukwesen 27",
+      "newName": "Himmelsmiez",
+      "visual": "weiße geflügelte Katze mit Heiligenschein"
+    },
+    {
+      "id": 128,
+      "oldName": "Spukwesen 28",
+      "newName": "Engelschnurr",
+      "visual": "helle Katze mit Flügeln und goldenem Heiligenschein"
+    },
+    {
+      "id": 129,
+      "oldName": "Spukwesen 29",
+      "newName": "Dunkelhalo",
+      "visual": "dunkle geflügelte Katze mit violettem Heiligenschein"
+    },
+    {
+      "id": 130,
+      "oldName": "Spukwesen 30",
+      "newName": "Glockenkalb",
+      "visual": "kleines weiß-schwarzes Geisterkalb mit Glocke"
+    },
+    {
+      "id": 131,
+      "oldName": "Spukwesen 31",
+      "newName": "Wiesenbimmel",
+      "visual": "weißes Kalb mit Glocke und dunklen Flecken"
+    },
+    {
+      "id": 132,
+      "oldName": "Spukwesen 32",
+      "newName": "Knochenstier",
+      "visual": "Stierschädel mit hellblauen Geisterflammen"
+    },
+    {
+      "id": 133,
+      "oldName": "Spukwesen 33",
+      "newName": "Wolkenpiep",
+      "visual": "kleines weißes Vogelgespenst mit gelbem Schnabel"
+    },
+    {
+      "id": 134,
+      "oldName": "Spukwesen 34",
+      "newName": "Gischtpiep",
+      "visual": "blauer Vogelgeist mit welligem Flammenschweif"
+    },
+    {
+      "id": 135,
+      "oldName": "Spukwesen 35",
+      "newName": "Sturmschnabel",
+      "visual": "schwarzer Rabe mit blauen Geisterflammen"
+    },
+    {
+      "id": 136,
+      "oldName": "Spukwesen 36",
+      "newName": "Rosagrunzer",
+      "visual": "rosa Ferkel mit pinkem Geisterfeuer"
+    },
+    {
+      "id": 137,
+      "oldName": "Spukwesen 37",
+      "newName": "Knochenschnüff",
+      "visual": "rosa Schweinchen mit sichtbarem Skelett"
+    },
+    {
+      "id": 138,
+      "oldName": "Spukwesen 38",
+      "newName": "Schattenborste",
+      "visual": "dunkler Eber mit pinken Geisterflammen"
+    },
+    {
+      "id": 139,
+      "oldName": "Spukwesen 39",
+      "newName": "Ringelgeist",
+      "visual": "heller Waschbär mit Ringelschwanz und blauer Aura"
+    },
+    {
+      "id": 140,
+      "oldName": "Spukwesen 40",
+      "newName": "Dämmerstreif",
+      "visual": "violetter Waschbär mit Geisterflammen"
+    },
+    {
+      "id": 141,
+      "oldName": "Spukwesen 41",
+      "newName": "Nachtringel",
+      "visual": "dunkler Waschbär mit violettem Flammenschweif"
+    },
+    {
+      "id": 142,
+      "oldName": "Spukwesen 42",
+      "newName": "Rosenlöffel",
+      "visual": "weißer Hase mit leuchtenden rosa Ohren"
+    },
+    {
+      "id": 143,
+      "oldName": "Spukwesen 43",
+      "newName": "Flimmerhase",
+      "visual": "weißer Hase mit weichem rosafarbenem Feuer"
+    },
+    {
+      "id": 144,
+      "oldName": "Spukwesen 44",
+      "newName": "Glutohren",
+      "visual": "schwarzer Hase mit rot-orangefarbenen Flammen"
+    },
+    {
+      "id": 145,
+      "oldName": "Spukwesen 45",
+      "newName": "Froststachel",
+      "visual": "weißer Igel mit hellblauen Eisstacheln"
+    },
+    {
+      "id": 146,
+      "oldName": "Spukwesen 46",
+      "newName": "Eisschauer",
+      "visual": "dunkler Igel mit blauen Frostflammen"
+    },
+    {
+      "id": 147,
+      "oldName": "Spukwesen 47",
+      "newName": "Dornschatten",
+      "visual": "dunkles Stachelwesen mit violetter Aura"
+    },
+    {
+      "id": 148,
+      "oldName": "Spukwesen 48",
+      "newName": "Funkennuss",
+      "visual": "helles Eichhörnchen mit grüner Flamme und Nuss"
+    },
+    {
+      "id": 149,
+      "oldName": "Spukwesen 49",
+      "newName": "Wolkennuss",
+      "visual": "weißes Eichhörnchen mit mintgrünem Schweif und Nuss"
+    },
+    {
+      "id": 150,
+      "oldName": "Spukwesen 50",
+      "newName": "Nachtsammler",
+      "visual": "schwarzes Eichhörnchen mit grünen Geisterflammen"
+    }
+  ]
+}

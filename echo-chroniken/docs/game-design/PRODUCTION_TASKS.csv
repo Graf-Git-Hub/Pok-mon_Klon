@@ -1,7 +1,7 @@
 id;milestone;name;dependsOn;likelyFiles;acceptance;effort;status
 M00-01;M0;Audit current 0.14 source, record exact 14 tests;-;README, game.js, tests;Source baseline report matched to master story;S;DONE
 M00-02;M0;Back up old save formats and write migration fixtures;M00-01;"tests/fixtures/saves/*; tests/save-compat.cjs";8 synthetic fixtures, corrupted JSON, exact backup and reload;M;DONE
-M00-03;M0;Verify 150 creature IDs, 50 placeholder names and art assignments;M00-01;data/species.js, assets/atlas.js, assets/monster-backs-150.webp;150 unique ID records and 150 front/back map slots;M;TODO
+M00-03;M0;Verify 150 creature IDs, 50 placeholder names and art assignments;M00-01;data/species.js, assets/atlas.js, assets/monster-backs-150.webp;150 unique ID records and 150 front/back map slots;M;IN_PROGRESS
 M01-01;M1;Create MapRegistry with legacy 36×28 map adapter;M00-02;"src/maps/registry.js; src/game.js; project/index.html; offline HTML";Real 36x28 legacy adapter, original NPC positions and all existing tests;L;DONE
 M01-02;M1;Add future save fields, currentMapId and safeSpawnId;M01-01;"src/game.js; src/maps/registry.js; tests/save-compat.cjs";Save schema v2, id/spawn metadata, backup and migration roundtrip;L;DONE
 M01-03;M1;Create StoryRegistry/QuestFlag adapter;M01-02;"src/quests/registry.js; tests/story-registry.cjs; src/first-route.js; src/ruins.js; src/house.js";"10 original quest status readers and 4 exactly-once rewards; legacy integration and real browser QA";M;DONE
@@ -28,7 +28,7 @@ M06-02;M6;Chapter 12 Elena/Maternalis family scenes;M06-01;data/chapters/ch12.js
 M06-03;M6;Chapter 13 resonance shaft and father confession;M06-02;maps/shaft*, data/chapters/ch13.json;All anchors reversible and final preparation safe;XL;IN_PROGRESS
 M06-04;M6;Chapter 14 final fight, epilogue and credits;M06-03;maps/core*, data/chapters/ch14.json;"Main story finished; not trapped in credits";XL;IN_PROGRESS
 M07-01;M7;Postgame species accessibility and side content;M06-04;data/postgame.json;All 94 non-starter base forms re-obtainable;L;IN_PROGRESS
-M07-02;M7;Rename 50 generic monsters after visual review;M00-03;data/species.js, localizations/de.json;No ID changes, name and artwork mapping correct;L;TODO
+M07-02;M7;Rename 50 generic monsters after visual review;M00-03;data/species.js, localizations/de.json;No ID changes, name and artwork mapping correct;L;DONE
 M07-03;M7;Full balance pass with playthrough reports;M07-01;tests/balance/*;No impossible fights or unnatural grind spike;L;TODO
 M07-04;M7;End-to-end Android phone + TV test and signed release;M07-03;android/*;One app ID, stable signer, save update works;XL;TODO
 M07-05;M7;Localization and accessibility second pass;M07-04;localizations/*, UI;Legible UI, configurable controls, language fallback;M;TODO

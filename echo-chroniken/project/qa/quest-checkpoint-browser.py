@@ -23,7 +23,13 @@ cases = [
       "postgame": {"clues": [0, 1, 2], "trials": [0]}}),
     ("postgame-mobile", "postgame_meadow_04", "from_garden", (12, 14),
      {"main_story_finished": True, "chapter14": {"completed": True},
-      "postgame": {"clues": [0, 1, 2], "trials": [0]}})
+      "postgame": {"clues": [0, 1, 2], "trials": [0]}}),
+    ("family-memory-mobile", "memory_room", "from_martha", (12, 11),
+     {"chapter11": {"completed": True}, "chapter12": {"martha": True, "pictures": [0, 1]}}),
+    ("finale-core-mobile", "resonance_core", "from_reflections", (14, 14),
+     {"chapter13": {"completed": True}, "chapter14": {"machineReady": True,
+      "memories": [0, 1, 2], "memoriesReady": True, "varekWon": True,
+      "freed": [0, 1, 2]}})
 ]
 
 class Handler(http.server.SimpleHTTPRequestHandler):

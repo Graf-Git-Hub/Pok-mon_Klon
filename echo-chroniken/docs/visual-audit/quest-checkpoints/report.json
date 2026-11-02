@@ -25,6 +25,16 @@
       "name": "postgame-mobile",
       "map": "postgame_meadow_04",
       "viewport": "touch"
+    },
+    {
+      "name": "family-memory-mobile",
+      "map": "memory_room",
+      "viewport": "touch"
+    },
+    {
+      "name": "finale-core-mobile",
+      "map": "resonance_core",
+      "viewport": "touch"
     }
   ],
   "errors": []
