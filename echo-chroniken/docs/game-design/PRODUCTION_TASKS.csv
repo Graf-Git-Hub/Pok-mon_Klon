@@ -27,7 +27,7 @@ M06-01;M6;Chapter 11 observatory, Varek confrontation;M05-03;maps/observatory*, 
 M06-02;M6;Chapter 12 Elena/Maternalis family scenes;M06-01;data/chapters/ch12.json;Works for Miora, Seelara and Maternalis;M;IN_PROGRESS
 M06-03;M6;Chapter 13 resonance shaft and father confession;M06-02;maps/shaft*, data/chapters/ch13.json;All anchors reversible and final preparation safe;XL;IN_PROGRESS
 M06-04;M6;Chapter 14 final fight, epilogue and credits;M06-03;maps/core*, data/chapters/ch14.json;"Main story finished; not trapped in credits";XL;IN_PROGRESS
-M07-01;M7;Postgame species accessibility and side content;M06-04;data/postgame.json;All 94 non-starter base forms re-obtainable;L;TODO
+M07-01;M7;Postgame species accessibility and side content;M06-04;data/postgame.json;All 94 non-starter base forms re-obtainable;L;IN_PROGRESS
 M07-02;M7;Rename 50 generic monsters after visual review;M00-03;data/species.js, localizations/de.json;No ID changes, name and artwork mapping correct;L;TODO
 M07-03;M7;Full balance pass with playthrough reports;M07-01;tests/balance/*;No impossible fights or unnatural grind spike;L;TODO
 M07-04;M7;End-to-end Android phone + TV test and signed release;M07-03;android/*;One app ID, stable signer, save update works;XL;TODO

@@ -1,5 +1,24 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - v0.25.0: Postgame „Die freien Linien“
+- Acht neue Karten: Echo-Garten, sechs Fangwiesen, begehbares Bahn-Museum.
+- Nach Kapitel 14 aus dem Epilog erreichbar, jederzeit sicherer Rueckweg.
+- Sechs 100%-gewichtete Wildbegegnungstabellen: alle 94 Nichtstarter-
+  Grundarten sind nach der Hauptgeschichte erneut auffindbar.
+- Sechs Erinnerungsplatten, drei freiwillige Trainerkaempfe, Museumsraetsel
+  Wurzelheim-Moorglas-Stillwasser, Hinweise nach Fehlern, kosmetische
+  Zuglackierung, wiederholbare Erinnerungsfeier, einmaliger Abschlussloot.
+- SaveSchema 2, bestehende Monster-IDs, App-ID und Signatur unveraendert.
+- Verbesserte Garten-/Wiesen-Tiles und historischer Museumszug.
+- tests/postgame.cjs: 60 Karten, 94 Arten, Puzzle, Bossflags, Rueckwege,
+  150er-Katalog und sichere Speicherung. Chrome: acht Maps, Portal,
+  echter Bosskampf, Museum und Pixel-7-Touch-Dialog ohne JS-Fehler;
+  zehn neue Screenshots.
+- Android 0.25.0 / versionCode 26. CI-Ergebnis vor Release pruefen.
+- Offen: reale Android-Handy/TV-Abnahme, kompletter manueller Durchlauf,
+  Audio, 50 generische Wesen-Namen, Grafik- und Balancing-Feinschliff.
+
+
 ## 2026-11-02 - v0.24.0: Kapitel 12-14 als spielbare Erstfassung
 - 12 neue begehbare Karten in src/maps/story-finale.js: Marthas Erinnerung,
   Familienzimmer und Garten; fuenf Resonanzschacht-Ebenen; Kernzugang,

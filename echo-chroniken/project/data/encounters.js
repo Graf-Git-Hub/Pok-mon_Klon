@@ -65,5 +65,14 @@ window.ECHO_ENCOUNTER_TABLES = Object.freeze([
     ]})),
   Object.freeze({mapId:'star_ridge',mode:'weighted',entries:[
     {id:62,weight:100,minLevel:8,maxLevel:47}
-  ]})
+  ]}),
+  // Six freely accessible postgame meadows cover all 94 non-starter base forms.
+  ...Array.from({length:6},(_,i)=>{
+    const bases=window.ECHO_SPECIES.filter(s=>s.stage===1&&s.id!==1).map(s=>s.id);
+    const batch=bases.slice(i*16,(i+1)*16);
+    return Object.freeze({mapId:'postgame_meadow_0'+(i+1),mode:'weighted',
+      entries:batch.map((id,j)=>({id,
+        weight:Math.floor(100/batch.length)+(j<100%batch.length?1:0),
+        minLevel:8,maxLevel:65}))});
+  })
 ]);

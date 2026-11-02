@@ -1,5 +1,5 @@
 # Kapitel 15 – Postgame: Die freien Linien
-> **Status:** VORSCHLAG / noch nicht implementiert.
+> **Status 02.11.2026:** Spielbare Erstfassung v0.25.0: acht Karten (Echo-Garten, sechs Wiesen, Bahn-Museum), drei freiwillige Gartenkaempfe, sechs Erinnerungsplatten, Museumsraetsel, Feier und einmalige Belohnung. Alle 94 Nichtstarter-Grundarten auf sechs 100%-gewichteten Begegnungstabellen. Echte Android-Handy/TV-Tests und grafischer Feinschliff bleiben offen.
 > **Planversion:** 2026-11-01. Kreative neue Grundsatzentscheidungen stehen zur Freigabe.
 
 ## Dramaturgie und Story

@@ -1,5 +1,14 @@
 # Echo-Chroniken 🎮👻
 
+**v0.25.0 - Die freien Linien (Postgame):**
+Nach dem Finale oeffnen sich ein Echo-Garten, sechs Wiesen mit allen 94
+Nichtstarter-Grundarten und das begehbare Bahn-Museum. Drei freiwillige
+Gartenpruefungen, sechs Erinnerungsplatten, Museums-Zugraetsel mit Hinweisen,
+Erinnerungsfeier und kosmetische Zuglackierung. Acht neue Karten und sechs
+100%-gewichtete Wildbegegnungstabellen; alle Wege reversibel, Spielstaende
+und App-ID kompatibel. 26 Node-Tests, Chrome-Screenshots, echter optionaler
+Bosskampf und Portal getestet. Reale Android-Handy/TV-Abnahme offen.
+
 **v0.24.0 - Kapitel 12-14 (spielbarer Erstaufbau):**
 12 neue begehbare Karten: Familiengeschichte bei Oma Martha, Resonanzschacht
 mit Vater und Schachtwache sowie Varek-Finale mit Epilog. Drei Kapitelquests,

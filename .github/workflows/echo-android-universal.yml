@@ -60,6 +60,7 @@ jobs:
           node tests/story-regions.cjs
           node tests/story-endgame.cjs
           node tests/story-finale.cjs
+          node tests/postgame.cjs
           node tests/characters.cjs
           node tests/save-compat.cjs
           node tests/story-registry.cjs
@@ -83,6 +84,7 @@ jobs:
           node --check app/src/main/assets/src/maps/story-regions.js
           node --check app/src/main/assets/src/maps/story-endgame.js
           node --check app/src/main/assets/src/maps/story-finale.js
+          node --check app/src/main/assets/src/maps/postgame.js
           node --check app/src/main/assets/src/characters.js
           node --check app/src/main/assets/src/encounters/registry.js
           node --check app/src/main/assets/data/encounters.js

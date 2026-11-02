@@ -458,6 +458,7 @@
     window.EchoStoryRegions?.register();
     window.EchoEndgame?.register();
      window.EchoFinale?.register();
+    window.EchoPostgame?.register();
 
     const gameState = {
     mode: 'OVERWORLD', // OVERWORLD, DIALOG, BATTLE, LEXICON, MENU
@@ -497,6 +498,8 @@
      chapter12: null,
      chapter13: null,
      chapter14: null,
+     postgame: null,
+     optional_postgame_completed: false,
      main_story_finished: false,
     railCursor: 0,
     ruinsReturn: null,
@@ -552,6 +555,8 @@
          chapter12: gameState.chapter12,
          chapter13: gameState.chapter13,
          chapter14: gameState.chapter14,
+         postgame: gameState.postgame,
+         optional_postgame_completed: gameState.optional_postgame_completed,
          main_story_finished: gameState.main_story_finished,
         ruinsReturn: gameState.ruinsReturn,
         roomId: gameState.roomId,
@@ -593,6 +598,7 @@
       window.EchoStoryRegions?.ensure(gameState);
       window.EchoEndgame?.ensure(gameState);
        window.EchoFinale?.ensure(gameState);
+      window.EchoPostgame?.ensure(gameState);
       if(gameState.scene==='BUILDING'&&!window.EchoInteriors?.ROOMS[gameState.roomId]){
         gameState.scene='OVERWORLD';gameState.player={x:5,y:6,dir:'down',stepPhase:0};
       }
@@ -664,15 +670,18 @@
     if(gameState.currentMapId!=='legacy_wurzeldorf'){
       const strongest=Math.max(5,...gameState.team.map(m=>m.lv||1));
       const late=gameState.currentMapId==='moorglas_bog';
+      const postgameZone=!!window.EchoPostgame?.names[gameState.currentMapId];
       const storyChapter=window.EchoFinale?.chapterOf[gameState.currentMapId]||
          window.EchoEndgame?.chapterOf[gameState.currentMapId]||
         window.EchoStoryRegions?.chapterOf[gameState.currentMapId]||0;
       const chapterCap=storyChapter===6?26:storyChapter===7?30:
         storyChapter===8?35:storyChapter===9?39:storyChapter===10?43:
          storyChapter===11?47:storyChapter===12?50:storyChapter===13?55:60;
-      const cap=storyChapter?Math.max(8,Math.min(chapterCap,strongest+1)):
+      const cap=postgameZone?Math.max(8,Math.min(65,strongest+1)):
+        storyChapter?Math.max(8,Math.min(chapterCap,strongest+1)):
         late?Math.max(7,Math.min(17,strongest+1)):Math.min(12,strongest+1);
-      const low=storyChapter?Math.max(8,Math.min(cap,strongest-2)):
+      const low=postgameZone?Math.max(8,Math.min(cap,strongest-2)):
+        storyChapter?Math.max(8,Math.min(cap,strongest-2)):
         late?Math.max(7,Math.min(cap,strongest-2)):Math.min(10,Math.max(3,strongest-2));
       limits={...limits,low,cap,poolCap:150,stageCap:1,
         starterZone:strongest<(late?11:9),newcomer:false};
@@ -900,6 +909,10 @@ function executeBattleAction(choice){
       b.busy = false;
     } else {
       gameState.mode = 'OVERWORLD';
+      if(b.postgameFight&&window.EchoPostgame){
+        msgs.push(...window.EchoPostgame.victory(gameState,b.postgameFight));
+        saveGame(true);
+      }
       if(b.finaleFight&&window.EchoFinale){
          msgs.push(...window.EchoFinale.victory(gameState,b.finaleFight));
          saveGame(true);
@@ -969,7 +982,8 @@ function executeBattleAction(choice){
       return;
     }
     if(gameState.currentMapId!=='legacy_wurzeldorf'){
-       const region=window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
+       const region=window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
+          window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
           window.EchoEndgame?.names[gameState.currentMapId] ? window.EchoEndgame :
          window.EchoStoryRegions?.names[gameState.currentMapId] ? window.EchoStoryRegions :
          window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
@@ -1045,7 +1059,8 @@ function executeBattleAction(choice){
 
   function interactFront() {
     if(gameState.scene==='OVERWORLD'&&gameState.currentMapId!=='legacy_wurzeldorf'){
-      const region=window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
+      const region=window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
+          window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
           window.EchoEndgame?.names[gameState.currentMapId] ? window.EchoEndgame :
          window.EchoStoryRegions?.names[gameState.currentMapId] ? window.EchoStoryRegions :
          window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
@@ -1061,27 +1076,32 @@ function executeBattleAction(choice){
           const onStill=region===window.EchoChapter5;
           const onStory=region===window.EchoStoryRegions;
           const onEndgame=region===window.EchoEndgame;
-           const onFinale=region===window.EchoFinale;
+           const onPostgame=region===window.EchoPostgame;
+          const onFinale=region===window.EchoFinale;
           const storyChapter=window.EchoFinale?.chapterOf[gameState.currentMapId]||
          window.EchoEndgame?.chapterOf[gameState.currentMapId]||
         window.EchoStoryRegions?.chapterOf[gameState.currentMapId]||0;
-          const level=onFinale?Math.max(20,Math.min(storyChapter===13?55:60,strongest+2)):
+          const level=onPostgame?Math.max(12,Math.min(65,strongest+2)):
+           onFinale?Math.max(20,Math.min(storyChapter===13?55:60,strongest+2)):
              onEndgame?Math.max(18,Math.min(storyChapter===9?39:storyChapter===10?43:47,strongest+2)):
             onStory?Math.max(12,Math.min(storyChapter===6?26:storyChapter===7?30:35,strongest+2)):
             onStill?Math.max(17,Math.min(r.boss==='lyra'?22:20,strongest+2)):
             onRail?Math.max(9,Math.min(r.boss==='root'?17:15,strongest+(r.boss==='root'?2:1))):
             Math.max(7,Math.min(10,strongest+1));
-          const species=onFinale?({shaftGuardian:112,varekFinal:150}[r.boss]||112):
+          const species=onPostgame?({postgameTrial0:57,postgameTrial1:87,postgameTrial2:112}[r.boss]||57):
+           onFinale?({shaftGuardian:112,varekFinal:150}[r.boss]||112):
              onEndgame?({vexFrost:112,ringGuardian:89,varekFirst:62}[r.boss]||112):
             onStory?({smelter:23,core:124,hunter:57,shadow:81,guard:45}[r.boss]||23):
             onStill?(r.boss==='mirror'?81:40):onRail?(r.boss==='root'?67:29):65;
-          const title=onFinale?({shaftGuardian:'Schachtwache',varekFinal:'Severin Varek - Finale'}[r.boss]||'Kernwaechter'):
+          const title=onPostgame?({postgameTrial0:'Pikos Gartenpruefung',postgameTrial1:'Nalias Gartenpruefung',postgameTrial2:'Vex Gartenpruefung'}[r.boss]||'Gartenpruefung'):
+           onFinale?({shaftGuardian:'Schachtwache',varekFinal:'Severin Varek - Finale'}[r.boss]||'Kernwaechter'):
              onEndgame?({vexFrost:'Vex am Frostgrat',ringGuardian:'Ringhueter',varekFirst:'Varek'}[r.boss]||'Resonanzwaechter'):
             onStory?({smelter:'Schmelzmeister',core:'Instabiler Ofenkern',hunter:'Kontinuum-Jaeger',shadow:'Namensschatten',guard:'Archivwaechter'}[r.boss]||'Echo-Waechter'):
             onStill?(r.boss==='mirror'?'Gedaechtnisspiegel':'Lyra'):
             onRail?(r.boss==='root'?'Schattenwurzel':'Kontinuum-Kurier'):'Pumpenwaechter';
           startTrainerBattle(null,title,[{id:species,lv:level}]);
-          if(onFinale)gameState.battle.finaleFight=r.boss;
+          if(onPostgame)gameState.battle.postgameFight=r.boss;
+          else if(onFinale)gameState.battle.finaleFight=r.boss;
            else if(onEndgame)gameState.battle.endgameFight=r.boss;
           else if(onStory)gameState.battle.storyRegionFight=r.boss;
           else if(onStill)gameState.battle.chapter5Fight=r.boss;
@@ -2037,6 +2057,10 @@ function executeBattleAction(choice){
        const sx=x*16-camX,sy=y*16-camY;
        if(sx<-17||sy<-17||sx>PW||sy>PH)continue;
        const tile=map.tiles[y][x];
+       if(window.EchoPostgame?.names[gameState.currentMapId]){
+          window.EchoPostgame.drawTile(pix,tile,sx,sy,x,y,tick,gameState.currentMapId);
+          continue;
+        }
        if(window.EchoFinale?.names[gameState.currentMapId]){
           window.EchoFinale.drawTile(pix,tile,sx,sy,x,y,tick,gameState.currentMapId);
           continue;
@@ -2096,7 +2120,8 @@ function executeBattleAction(choice){
          pix(sx+3,sy+13,2,2,'#5a6f74');
        }
      }
-     const painter=window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
+     const painter=window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
+          window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
         window.EchoEndgame?.names[gameState.currentMapId] ? window.EchoEndgame :
        window.EchoStoryRegions?.names[gameState.currentMapId] ? window.EchoStoryRegions :
         window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
@@ -2501,7 +2526,7 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,chapter6:gameState.chapter6,chapter7:gameState.chapter7,chapter8:gameState.chapter8,chapter9:gameState.chapter9,chapter10:gameState.chapter10,chapter11:gameState.chapter11,chapter12:gameState.chapter12,chapter13:gameState.chapter13,chapter14:gameState.chapter14,main_story_finished:gameState.main_story_finished,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,chapter6:gameState.chapter6,chapter7:gameState.chapter7,chapter8:gameState.chapter8,chapter9:gameState.chapter9,chapter10:gameState.chapter10,chapter11:gameState.chapter11,chapter12:gameState.chapter12,chapter13:gameState.chapter13,chapter14:gameState.chapter14,postgame:gameState.postgame,optional_postgame_completed:gameState.optional_postgame_completed,main_story_finished:gameState.main_story_finished,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
@@ -2539,7 +2564,8 @@ function executeBattleAction(choice){
       if(gameState.mode==='ATTACKS')renderAttackBook(tick);
     } else if (gameState.mode === 'MAP') {
       if(gameState.currentMapId==='legacy_wurzeldorf')window.EchoExplore.drawMap(ctx,worldMap,gameState);
-       else (window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
+       else (window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
+          window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
            window.EchoEndgame?.names[gameState.currentMapId] ? window.EchoEndgame :
           window.EchoStoryRegions?.names[gameState.currentMapId] ? window.EchoStoryRegions :
          window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :

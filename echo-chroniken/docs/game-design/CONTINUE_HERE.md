@@ -1,5 +1,32 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## NEUER STAND 02.11.2026 - Postgame v0.25.0 (CI noch ausstehend)
+- Zweiter und letzter erweiterter Durchlauf: Postgame als spielbare Erstfassung.
+- 8 Karten in project/src/maps/postgame.js: optional_echo_garden_annex,
+  rail_heritage_museum und postgame_meadow_01 bis postgame_meadow_06.
+  Einstieg aus epilogue_wurzelheim nach main_story_finished, alle Rueckwege
+  reversibel, keine alten IDs, App-ID oder saveSchemaVersion geaendert.
+- 6 Wiesen mit sechs 100%-gewichteten Begegnungstabellen: alle 94
+  Nichtstarter-Grundarten (stage=1) je genau einmal in einer Wiese.
+  Starter ID 1 bleibt ausschliesslich beim Spieler, Entwicklungen unveraendert.
+- 6 Erinnerungstafeln, 3 optionale freundschaftliche Garten-Bosskaempfe,
+  Bahn-Museum mit Stationsreihenfolge Wurzelheim-Moorglas-Stillwasser,
+  Hinweise nach Fehlversuchen, kosmetische Zuglackierung, Erinnerungsfeier
+  und Belohnung nur einmal. optional_postgame_completed speicherbar.
+- tests/postgame.cjs prueft 60 MapRegistry-Karten, 94 Arten, Puzzle,
+  Siege, Questfortschritt, Speicherstand und BFS-Rueckwege.
+- Chrome: docs/visual-audit/postgame_00.png bis postgame_07.png,
+  postgame_trial_boss.png und postgame_mobile_touch.png; 8 Karten,
+  Portal, Boss, Museum und Pixel-7-Touch-Dialog ohne JS-Fehler.
+  Garten, Wiesen und Museum erhielten neue Pixelgrafik und Zugausstellung.
+- **CI-Signatur und Android-Release erst nach erfolgreichem Build bestaetigen.**
+- Offen: echter Handy/TV-Test, kompletter manueller Durchlauf, Audio,
+  50 generische Spukwesen-Namen, weitere Grafikpolitur, Endgame-Balancing.
+- **Naechster NORMALER stündlicher Auftrag:** erst offene Story/Postgame-
+  Fehler beheben, danach Grafik, Dialoge, Balance, Controller, Touch,
+  Performance und Langzeittests. Keine weitere Zwei-Durchlaeufe-Anweisung.
+
+
 ## NEUER STAND 02.11.2026 - Kapitel 12-14 (v0.24.0 Kandidat)
 - Mehrfach-Arbeitspaket Durchlauf 1 von 2: (A) Story 12-14 spielbarer
   Erstaufbau, (B) Kamera-Grenz-Clamping gegen leere Kartenraender,
