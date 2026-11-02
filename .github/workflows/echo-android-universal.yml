@@ -27,12 +27,37 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - name: Gate signed release on an increased Android versionCode
+        id: version_gate
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          set -euo pipefail
+          before="${{ github.event.before }}"
+          if [[ ! "$before" =~ ^[0-9a-f]{40}$ ]] || [[ "$before" == "0000000000000000000000000000000000000000" ]]; then
+            echo "::error::Cannot verify previous Android versionCode; refusing release."
+            exit 1
+          fi
+          git fetch --no-tags --depth=1 origin "$before"
+          old_version="$(git show "$before:echo-chroniken/android/app/build.gradle" | sed -nE 's/^[[:space:]]*versionCode[[:space:]]+([0-9]+).*/\1/p' | head -n 1)"
+          new_version="$(sed -nE 's/^[[:space:]]*versionCode[[:space:]]+([0-9]+).*/\1/p' echo-chroniken/android/app/build.gradle | head -n 1)"
+          if [[ ! "$old_version" =~ ^[0-9]+$ ]] || [[ ! "$new_version" =~ ^[0-9]+$ ]]; then
+            echo "::error::Android versionCode missing or invalid; refusing release."
+            exit 1
+          fi
+          if (( new_version > old_version )); then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+            echo "Android versionCode increased: $old_version -> $new_version"
+          else
+            echo "release=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::No Android versionCode increase ($old_version -> $new_version); tests run but no APK is signed or published."
+          fi
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
       - name: Require private permanent signing secrets for APK release
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && steps.version_gate.outputs.release == 'true'
         env:
           KEYSTORE_B64: ${{ secrets.ECHO_KEYSTORE_B64 }}
           KEYSTORE_PASSWORD: ${{ secrets.ECHO_SIGNING_PASSWORD }}
@@ -81,7 +106,7 @@ jobs:
         working-directory: echo-chroniken/android
         run: gradle :app:assembleDebug --no-daemon --stacktrace
       - name: Decode private signing key into temporary runner directory
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && steps.version_gate.outputs.release == 'true'
         env:
           KEYSTORE_B64: ${{ secrets.ECHO_KEYSTORE_B64 }}
         run: |
@@ -91,14 +116,14 @@ jobs:
           test -s "$KEYSTORE_PATH"
           echo "ECHO_KEYSTORE_PATH=$KEYSTORE_PATH" >> "$GITHUB_ENV"
       - name: Build permanently signed release APK
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && steps.version_gate.outputs.release == 'true'
         working-directory: echo-chroniken/android
         env:
           ECHO_SIGNING_PASSWORD: ${{ secrets.ECHO_SIGNING_PASSWORD }}
           ECHO_SIGNING_ALIAS: ${{ secrets.ECHO_SIGNING_ALIAS }}
         run: gradle :app:assembleRelease --no-daemon --stacktrace
       - name: Verify package, APK signature, and direct download
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && steps.version_gate.outputs.release == 'true'
         run: |
           APK="echo-chroniken/android/app/build/outputs/apk/release/app-release.apk"
           test -s "$APK"
@@ -108,7 +133,7 @@ jobs:
           cp "$APK" Echo-Chroniken-Universal.apk
           sha256sum Echo-Chroniken-Universal.apk
       - name: Publish only the directly installable APK, never a ZIP
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && steps.version_gate.outputs.release == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: android-latest
