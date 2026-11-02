@@ -53,24 +53,9 @@ jobs:
       - name: Test shared game engine and starter balance
         working-directory: echo-chroniken/project
         run: |
-          node tests/map-registry.cjs
-          node tests/chapter3.cjs
-          node tests/chapter4.cjs
-          node tests/chapter5.cjs
-          node tests/story-regions.cjs
-          node tests/story-endgame.cjs
-          node tests/story-finale.cjs
-          node tests/postgame.cjs
-          node tests/characters.cjs
-          node tests/save-compat.cjs
-          node tests/story-registry.cjs
-          node tests/smoke.cjs
-          node tests/house.cjs
-          node tests/village.cjs
-          node tests/package.cjs
-          node tests/encounters.cjs
-          node tests/encounter-registry.cjs
-          node tests/first-route.cjs
+          for test in tests/*.cjs; do
+            node "$test" || exit 1
+          done
       - name: Check Android controls and bundle offline assets
         working-directory: echo-chroniken/android
         run: |
@@ -88,6 +73,7 @@ jobs:
           node --check app/src/main/assets/src/characters.js
           node --check app/src/main/assets/src/encounters/registry.js
           node --check app/src/main/assets/data/encounters.js
+          node --check app/src/main/assets/src/archive.js
           node --check app/src/main/assets/src/game.js
           node --check app/src/main/assets/platform.js
       - name: Test native Android build in pull requests (not released)

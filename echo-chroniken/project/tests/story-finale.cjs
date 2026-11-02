@@ -105,3 +105,11 @@ for(const id of [1,2,3]){
  assert(out.lines.join(' ').includes(['','Miora','Seelara','Maternalis'][id]),'evolution-safe mother line '+id);
 }
 console.log('PASS Finale 12-14: 12 maps, chapter gates, 3 puzzles, 2 boss flags, reversible exits, save v2, 3 mother forms, 3 unique rewards, BFS');
+
+for(const [id,name] of [[1,'Miora'],[2,'Seelara'],[3,'Maternalis']]){
+ const state={currentMapId:'memory_room',team:[{id:7}],archive:[{id}],
+ chapter12:{martha:true,pictures:[0]},chapter11:{completed:true}};
+ const before=JSON.stringify({team:state.team,archive:state.archive});
+ assert(final.interact(state,12,12).lines.join(' ').includes(name),'Archived mother retains her actual form');
+ assert.equal(JSON.stringify({team:state.team,archive:state.archive}),before,'Story cannot move or duplicate archived mother');
+}

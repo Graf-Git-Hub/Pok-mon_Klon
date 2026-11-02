@@ -1,5 +1,32 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - Unreleased: Echo-Archiv und Regressionen (Browserabnahme bestanden)
+- Android-Releasekandidat 0.26.0 / versionCode 27 vorbereitet;
+  permanente App-ID und private Signaturkonfiguration unveraendert.
+  Noch keine signierte APK 0.26.0 veroeffentlicht.
+- Review-Fund behoben: Kampf-Labor verwendet eine tiefe Archivkopie.
+  Labor-Tausch, HP-/Attackenaenderungen und Laborende veraendern die echte
+  Sammlung nicht; Regression mit anschliessendem Save/Reload bestanden.
+- Vorhandene Archiv-Reparatur uebernommen: zusaetzliche Faenge werden als
+  individuelle Wesen gespeichert und koennen mit dem Sechserteam tauschen.
+- Touch-Hitbox der letzten sichtbaren Archivzeile korrigiert.
+- Familien-/Finaldialoge erkennen archivierte Miora, Seelara und Maternalis;
+  keine automatische Teamverschiebung, kein Verlust der Begleiterin.
+- Reale Spielcode-Tests fuer 144 Fang-Autosaves, Reload, Controller und Touch;
+  Archiv-Stresstest mit 3000 Wesen, 10000 Tauschen und 100 JSON-Roundtrips.
+- Beide GitHub-Workflows testen alle CJS-Tests statt unvollstaendiger Listen.
+- Im isolierten Integrations-Worktree erneut 27/27 Spieltests,
+  Android-Plattformtest und Dokumentvalidator bestanden.
+- Chrome-156-Integration mit Desktop-Keyboard und echtem Touch-Viewport,
+  144 archivierten Wesen, Seitenwechsel, Autosave/Reload sowie Migration
+  ohne Archiv erfolgreich, ohne Browser-JavaScript-Fehler.
+  Sieben visuell gepruefte Screenshots plus report.json unter
+  docs/visual-audit/archive-qa/, reproduzierbar mit
+  project/qa/archive-browser.py (Python Playwright).
+- Originaler uncommitteter Nutzerstand und Bilder auf Laura geschuetzt;
+  separater Zweig fix/echo-archive-safe-20261102 fuer die Integration.
+  APK und Release erst nach gruenen neuen CI-Runs und Signatur/Hash-Abgleich.
+
 ## 2026-11-02 - v0.25.0: Postgame „Die freien Linien“
 - Acht neue Karten: Echo-Garten, sechs Fangwiesen, begehbares Bahn-Museum.
 - Nach Kapitel 14 aus dem Epilog erreichbar, jederzeit sicherer Rueckweg.
