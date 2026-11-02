@@ -1,5 +1,29 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## VERIFIZIERT 02.11.2026 - v0.27.0 signiert veroeffentlicht
+- PR #8 merged, main-Commit ad3293ffb8ce11bcb3a8812af9820be359bd8b0e.
+  GitHub-Actions auf diesem Merge: Tests 41490437926 SUCCESS,
+  Docs 41490438433 SUCCESS, Android Release 41490437649 SUCCESS.
+- Android versionName 0.27.0 / versionCode 28, stabile App-ID
+  de.echochroniken.game.stable. apksigner verifiziert und Zertifikats-
+  SHA256 84be81f8472b62b59527e4fcf67b19fa7d2e3ef4c0b05069c60139a45ec8ec87
+  identisch zu v0.26.0.
+- Direkt installierbares Release-Asset 2.507.202 Bytes, SHA256
+  9b09cf4ab8f2ebf2ce46831abd3ecc2c23a03c68ba2172524cea9e7344204a83.
+  GitHub Release-Digest und direkt heruntergeladene APK auf Laura
+  exakt verglichen; Desktop-APK ersetzt und Hash nach Kopie geprueft.
+  Vorgaenger v0.26.0 im TEMP-Ordner gesichert.
+  URL: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
+- 50 visuell gepruefte Wesen-Namen und zwei neu gestaltete Finale-Szenen
+  enthalten. 31/31 lokale Node-Tests, 10 Chrome-Screenshots ohne JS-Fehler,
+  Android-Plattformtest und Dokumentvalidator bestanden.
+- Originales Benutzer-Worktree bleibt auf HEAD 28867fd mit uncommitteten
+  Benutzerbildern/Assets und wurde weder ueberschrieben noch geaendert.
+  KEINE reale Installation auf Android-Handy/TV durchgefuehrt.
+- Weiter offen: manueller Story-/Postgame-Durchlauf, Balance, Audio,
+  restliche 100 Wesen-/Rueckansichten, Mobil/TV-Hardware, Accessibility
+  und Lokalisierung. Entwicklungswaechter bleibt auf Benutzerwunsch AUS.
+
 ## QUALITAETSPAKET 02.11.2026 - 50 Monster-Namen und Finale-Pixelkulissen
 - Isolierter Worktree C:/Users/graf8/Documents/GitHub/Echo_Quality_Pass_20261102,
   Zweig feature/echo-gameplay-quality-pass-20261102; Basis main 3cc1a7b8.

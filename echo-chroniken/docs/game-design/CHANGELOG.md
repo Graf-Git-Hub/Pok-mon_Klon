@@ -1,6 +1,16 @@
 # Story-Roadmap Änderungsverlauf
 
-## 2026-11-02 - v0.27.0 Releasekandidat: Figurenlexikon und finale Schauplaetze
+## 2026-11-02 - v0.27.0 veroeffentlicht: Figurenlexikon und finale Schauplaetze
+- PR #8 in main integriert (ad3293ffb8ce11bcb3a8812af9820be359bd8b0e).
+  Actions Tests 41490437926, Docs 41490438433, Android 41490437649
+  alle SUCCESS; Releaseversion 0.27.0 / versionCode 28.
+- Direkte APK 2.507.202 Bytes, SHA256
+  9b09cf4ab8f2ebf2ce46831abd3ecc2c23a03c68ba2172524cea9e7344204a83.
+  Paket-ID de.echochroniken.game.stable unveraendert; cert SHA256
+  84be81f8472b62b59527e4fcf67b19fa7d2e3ef4c0b05069c60139a45ec8ec87
+  identisch zu Vorgangerversion laut apksigner. Github-Asset-Digest und
+  SHA256 auf Laura nach Direktdownload sowie Desktop-Kopie verifiziert.
+  Vorgaenger-APK im TEMP-Ordner gesichert. Echte Android-Hardware offen.
 - Nach echtem visuellen Audit des 150er-Atlas alle 50 generischen
   Spukwesen-Namen individuell ersetzt und Familienlabels harmonisiert.
   Original-IDs, Typen, Stats, Evolutionsketten und Save-Schema unveraendert;
@@ -15,8 +25,8 @@
   Checkpoints und 3 Bestiarium-Eintraege ohne JS-Fehler.
 - MONSTER_DISTRIBUTION.csv und Dokumentvalidator aktualisiert;
   Roadmap M07-02 auf DONE, 150er-Gesamtaudit noch IN_PROGRESS.
-- Android 0.27.0/versionCode 28 fuer echte Spielinhaltsaenderung geplant;
-  keine APK vor CI, Signatur- und SHA256-Pruefung.
+- Android 0.27.0/versionCode 28 erst nach erfolgreichen CI-Pruefungen,
+  Signaturkontrolle und SHA256-Direktdownload veroeffentlicht.
 
 ## 2026-11-02 - Story-/Postgame-Checkpoint-QA
 - Regression fuer 100 Save/Reload-Checkpoints, 58 Story-/Postgame-Interaktionen, 3 gesperrte Portale ohne Seiteneffekte, umgekehrte Reihenfolgen und einmalige Belohnungen.
