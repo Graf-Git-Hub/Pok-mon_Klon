@@ -1,5 +1,13 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## QA 02.11.2026 16:08 - isolierter Testbranch (nicht main)
+- Branch automation/map-spawn-regression-20261102: neuer Test project/tests/map-spawn-reachability.cjs.
+- Prueft 60 Maps, 123 sichere Spawnpunkte, 310 Spawn-zu-Ausgang-Wege und 117 Portal-Hin-und-Rueckreisen.
+- 27/27 Node-Tests im isolierten HEAD-28867fd-Klon bestanden; Android-Plattformtest, Dokumentvalidator und diff-check gruen.
+- Echter Chrome-Headless-Screenshot der unveraenderten Startoberflaeche: TEMP/echo_isolated_qa_20261102_1605.png, visuell geprueft.
+- NICHT in main integriert oder veroeffentlicht: Codex auf Laura aktiv, fremde uncommittete Archivdateien unangetastet.
+- Nach konfliktfreier Uebernahme alle Tests inkl. Archiv und Browser erneut ausfuehren; CI, Signatur, SHA256 vor APK.
+
 ## NEUER STAND 02.11.2026 - Postgame v0.25.0 (signiert veroeffentlicht)
 - Zweiter und letzter erweiterter Durchlauf: Postgame als spielbare Erstfassung.
 - 8 Karten in project/src/maps/postgame.js: optional_echo_garden_annex,

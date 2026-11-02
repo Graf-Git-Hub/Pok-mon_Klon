@@ -1,5 +1,10 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - QA-Testbranch, noch nicht in main
+- Neuer map-spawn-reachability.cjs Regressionstest: alle 123 Nichtlegacy-Spawns erreichen ihre Ausgaenge; 117 Portal-Rundreisen geprueft.
+- Im isolierten Branch 27/27 Tests, Android-Plattformtest, Dokumentvalidator und Chrome-Startbild erfolgreich.
+- Keine Aenderung an Monster-IDs, SaveSchema, Android-App-ID, Signatur oder Release. Keine APK veroeffentlicht.
+
 ## 2026-11-02 - v0.25.0: Postgame „Die freien Linien“
 - Acht neue Karten: Echo-Garten, sechs Fangwiesen, begehbares Bahn-Museum.
 - Nach Kapitel 14 aus dem Epilog erreichbar, jederzeit sicherer Rueckweg.
