@@ -13,8 +13,8 @@ android {
         applicationId 'de.echochroniken.game.stable'
         minSdk 24
         targetSdk 35
-        versionCode 28
-        versionName '0.27.0'
+        versionCode 29
+        versionName '0.28.0'
     }
     signingConfigs {
         stable {

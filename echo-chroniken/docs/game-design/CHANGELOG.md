@@ -1,5 +1,29 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - v0.28.0 Reserveteam-EP und spaete Bosse
+- Nach jedem gegnerischen Sieg bleibt die originale volle EP-Belohnung
+  fuer das aktive Wesen erhalten. Alle gesunden Reservemonster teilen
+  einen zusaetzlichen 40%-Pool; KO-Monster und Archiv nehmen nicht teil.
+- Levelaufstieg, Entwicklung, Attacken und Lexikon werden auch bei
+  Reserve-EP korrekt aktualisiert, ohne IDs oder SaveSchema zu aendern.
+- Spaete Schluesselbosse (Kapitel 11, Kapitel 13/14 und Postgame)
+  von .78/.80 auf .90 KP- und .95 Schadensfaktor angehoben.
+  Fruehe/normalere Bosse unveraendert. 2700 deterministische
+  Einzelduelle mit drei Kampf-Archetypen und bis 10 Level Abstand
+  untersucht; Zielniveau fair gewinnbar. Kein echter Voll-Durchlauf.
+- Zwei neue Regressionstests und echte Desktop-/Touch-Kampf-QA in
+  Chrome 156 mit vier Screenshots und Bericht. Insgesamt 35/35 Node-Tests,
+  elf Browser-Screenshots inklusive Story-Reload, Android-Plattformtest,
+  Dokumentvalidator und git diff --check lokal erfolgreich.
+- Signierte v0.28.0 wird erst nach CI-SUCCESS, Signatur-/Paketpruefung
+  und SHA256-Direktdownload veroeffentlicht.
+
+## 2026-11-02 - v0.28.0 Balancing: Heilung und sichere Niederlage
+- Gegnerische Heilfaehigkeiten verursachen keinen Schaden mehr; 30% Chance zur einmaligen Heilung unter 35% KP.
+- Spaete Niederlagen fuehren zum sicheren lokalen Karten-Einstieg, im Startgebiet weiterhin zu Oma.
+- Zwei neue Spielcode-Tests; 33/33 Node-Tests und sieben Chrome-156-QA-Screenshots erfolgreich.
+- Android v0.28.0 mit versionCode 29 vorbereitet; Freigabe erst nach CI, Signatur und SHA256.
+
 ## 2026-11-02 - v0.27.0 veroeffentlicht: Figurenlexikon und finale Schauplaetze
 - PR #8 in main integriert (ad3293ffb8ce11bcb3a8812af9820be359bd8b0e).
   Actions Tests 41490437926, Docs 41490438433, Android 41490437649

@@ -828,7 +828,21 @@ function executeBattleAction(choice){
     const enemySp = SPECIES[enemy.id - 1];
 
     ensureMonsterMoves(enemy);
-    const move=ATTACKS[enemy.moves[Math.floor(Math.random()*Math.min(2,enemy.moves.length))]]||ATTACKS.seelenstups;
+    const offensive=enemy.moves.filter(id=>ATTACKS[id]&&ATTACKS[id].power>0).slice(0,2);
+    const healing=enemy.moves.find(id=>ATTACKS[id]?.heal);
+    // Healing spells must never deal phantom damage. Bosses may recover only once.
+    if(healing&&!b.enemyHealUsed&&enemy.hp>0&&enemy.hp<=enemy.maxHp*.35&&Math.random()<.30){
+      const move=ATTACKS[healing];
+      const healed=Math.min(move.heal,enemy.maxHp-enemy.hp);
+      enemy.hp+=healed;
+      b.enemyHealUsed=true;
+      b.animTimer=18;b.fxTarget='enemy';
+      b.log=`${b.enemyDisplayName||enemySp.name} nutzt ${move.name}! (+${healed} KP)`;
+      sfx.heal();
+      battleTimeout(()=>{b.busy=false;},700);
+      return;
+    }
+    const move=ATTACKS[offensive[Math.floor(Math.random()*offensive.length)]]||ATTACKS.seelenstups;
     const dmg=Math.max(2,Math.round(skillDamage(enemy,ally,move)*(enemy.encounterScale||1)));
     b.lastAttackColor=move.fx||'#afbcce';
     ally.hp = Math.max(0, ally.hp - dmg);
@@ -843,17 +857,28 @@ function executeBattleAction(choice){
           b.log = `${allySp.name} zieht sich zurück! ${SPECIES[nextAlive.id - 1].name} springt ein!`;
           b.busy = false;
         } else {
-          // Ohnmacht -> Zurück zu Oma Martha
+          // Losing a late-game battle must not erase hours of return travel.
           gameState.team.forEach(m => { m.hp = m.maxHp; });
-          // After a wipe the player really wakes up in Grandma's house.
-          gameState.scene='HOUSE';
-          gameState.currentMapId='legacy_wurzeldorf';
-          gameState.safeSpawnId='legacy_current_position';
-          gameState.player={x:7,y:9,dir:'up',stepPhase:0};
+          const map=window.EchoMaps?.get(gameState.currentMapId);
+          const safe=map?.spawns?.[gameState.safeSpawnId]||
+            (map?.spawns?Object.values(map.spawns)[0]:null);
+          const localRespawn=gameState.scene==='OVERWORLD'&&
+            gameState.currentMapId!=='legacy_wurzeldorf'&&safe;
+          if(localRespawn){
+            gameState.player={x:safe.x,y:safe.y,dir:'down',stepPhase:0};
+          }else{
+            gameState.scene='HOUSE';
+            gameState.currentMapId='legacy_wurzeldorf';
+            gameState.safeSpawnId='legacy_current_position';
+            gameState.player={x:7,y:9,dir:'up',stepPhase:0};
+          }
           gameState.encounterGrace=16;
           gameState.mode = 'OVERWORLD';
           saveGame(true);
-          showDialog([
+          showDialog(localRespawn?[
+            'Deine Geister-Wesen waren erschoepft...',
+            'Du bist am letzten sicheren Wegpunkt wieder aufgewacht.'
+          ]:[
             'Deine Geister-Wesen waren erschöpft...',
             'Oma Martha hat euch zu Hause wieder gesund gepflegt!'
           ]);
@@ -871,13 +896,24 @@ function executeBattleAction(choice){
     const ally = getActiveAlly();
     const enemy = b.enemy;
     const xpGain = enemy.lv * 11 + (b.isTrainer ? 18 : 8);
-    ally.xp += xpGain;
     sfx.confirm();
 
     const msgs = [`${b.enemyDisplayName||SPECIES[enemy.id - 1].name} wurde besänftigt! (+${xpGain} EP)`];
 
-    // Level-Up & Entwicklungs-Check
-    while (ally.xp >= ally.nextXp) {
+    // The active fighter keeps 100% of its XP. Healthy reserves share one
+    // extra 40%-sized pool, never a full reward for every team slot.
+    const reserves=gameState.team.filter(member=>member!==ally&&member.hp>0);
+    const reserveXp=reserves.length?Math.floor(xpGain*.4/reserves.length):0;
+    const activeFighter=ally;
+    for(const member of [activeFighter,...reserves]){
+      const points=member===activeFighter?xpGain:reserveXp;
+      if(points<=0)continue;
+      const ally=member;
+      if(!Number.isFinite(ally.nextXp)||ally.nextXp<=0)
+        ally.nextXp=ally.lv*18;
+      ally.xp=Math.max(0,Number(ally.xp)||0)+points;
+      // Preserve original level-up, permanent skills and evolution rules.
+      while (ally.xp >= ally.nextXp) {
       ensureMonsterMoves(ally);
       ally.lv++;
       ally.xp -= ally.nextXp;
@@ -904,10 +940,13 @@ function executeBattleAction(choice){
         }
       }
     }
+    }
+    if(reserveXp>0)msgs.push(`Deine ${reserves.length} Begleiter erhalten jeweils +${reserveXp} EP.`);
 
     b.enemyQueue.shift();
     if (b.enemyQueue.length > 0) {
       b.enemy = b.enemyQueue[0];
+      b.enemyHealUsed=false;
       b.log = `${b.trainerName} schickt ${SPECIES[b.enemy.id - 1].name} in den Kampf!`;
       b.busy = false;
     } else {
@@ -1060,6 +1099,11 @@ function executeBattleAction(choice){
     }
   });
 
+  function bossMultipliers(group,chapter){
+    const late=group==='finale'||group==='postgame'||(group==='endgame'&&chapter>=11);
+    return {hp:late?.90:.78,attack:late?.95:.8};
+  }
+
   function interactFront() {
     if(gameState.scene==='OVERWORLD'&&gameState.currentMapId!=='legacy_wurzeldorf'){
       const region=window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
@@ -1110,9 +1154,14 @@ function executeBattleAction(choice){
           else if(onStill)gameState.battle.chapter5Fight=r.boss;
           else if(onRail)gameState.battle.chapter4Fight=r.boss;
           else gameState.battle.chapter3Boss=true;
-          gameState.battle.enemy.maxHp=Math.round(gameState.battle.enemy.maxHp*.78);
+          // Later bosses need a challenge, without punishing the first chapters.
+          // Tested across light, water and shadow teams at different levels.
+          const profile=bossMultipliers(onFinale?'finale':onPostgame?'postgame':
+            onEndgame?'endgame':'normal',storyChapter);
+          const hpScale=profile.hp,attackScale=profile.attack;
+          gameState.battle.enemy.maxHp=Math.round(gameState.battle.enemy.maxHp*hpScale);
           gameState.battle.enemy.hp=gameState.battle.enemy.maxHp;
-          gameState.battle.enemy.encounterScale=.8;
+          gameState.battle.enemy.encounterScale=attackScale;
         });
       }else if(r.rail){
         gameState.railCursor=0;gameState.mode='RAIL';sfx.confirm();
