@@ -1,6 +1,11 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
 ## Qualitaetspruefung 02.11.2026 - Echo-Archiv, noch nicht veroeffentlicht
+- Releasekandidat Android 0.26.0 / versionCode 27; stabile App-ID
+  de.echochroniken.game.stable und Signaturschluessel unveraendert.
+  PR #3: https://github.com/Graf-Git-Hub/Pok-mon_Klon/pull/3.
+  Der erste CI-Test fuer Commit 45c0a5a war 3/3 SUCCESS;
+  Versionsanhebung wird gesondert erneut geprueft.
 - Review-Fund behoben: Kampf-Labor verwendet eine tiefe Archivkopie.
   Labor-Tausch, HP-/Attackenaenderungen und Laborende veraendern die echte
   Sammlung nicht; Regression mit anschliessendem Save/Reload bestanden.

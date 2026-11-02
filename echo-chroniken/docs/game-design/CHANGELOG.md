@@ -1,6 +1,9 @@
 # Story-Roadmap Änderungsverlauf
 
 ## 2026-11-02 - Unreleased: Echo-Archiv und Regressionen (Browserabnahme bestanden)
+- Android-Releasekandidat 0.26.0 / versionCode 27 vorbereitet;
+  permanente App-ID und private Signaturkonfiguration unveraendert.
+  Noch keine signierte APK 0.26.0 veroeffentlicht.
 - Review-Fund behoben: Kampf-Labor verwendet eine tiefe Archivkopie.
   Labor-Tausch, HP-/Attackenaenderungen und Laborende veraendern die echte
   Sammlung nicht; Regression mit anschliessendem Save/Reload bestanden.
