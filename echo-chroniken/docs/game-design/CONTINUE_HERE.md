@@ -8,20 +8,23 @@
 - Direktdownload und SHA256 auf Laura verifiziert, Desktop-APK auf den neuen Release-Hash aktualisiert; vorherige Datei im TEMP gesichert.
 - Neue Release-Gate-Absicherung verhindert zukuenftige Neuveroeffentlichung ohne Erhoehung des Android versionCode. Echter Handy-/TV-Hardwaretest weiter offen.
 
-## QA 02.11.2026 - Android-Release-Schutz fuer Test-Merges (PR-Kandidat)
+## VERIFIZIERT 02.11.2026 - Android-Release-Schutz PR #5 in main
 - Android-Workflow wird bei Pushes mit project/tests-Dateien ebenfalls gestartet; ohne Gate wuerde auch ein reiner Test-Merge die bestehende v0.26.0-APK neu publizieren.
 - Neuer Gate-Schritt vergleicht versionCode zwischen github.event.before und aktuellem Commit; signieren/veroeffentlichen nur bei echtem Versionsanstieg.
 - Pull Requests bauen weiterhin nur die Debug-APK; Tests/Dokumentpruefungen bleiben aktiv. Workflow-Dispatch publiziert nicht blind.
-- Release v0.26.0 / versionCode 27 und App-ID/Signer unveraendert. Lokaler Git-Bash-Gate-Test bestanden: 27->27 ergibt release=false; simuliertes 27->28 ergibt release=true. CI fuer den neuen PR noch ausstehend.
+- Release v0.26.0 / versionCode 27 und App-ID/Signer unveraendert. Lokaler Git-Bash-Gate-Test bestanden: 27->27 ergibt release=false; simuliertes 27->28 ergibt release=true. PR #5 (Commit f4e5b5d) in main 940ebf479764e3dbbfb5abf7a16c28b022d2c5b6 gemergt.
+- PR-CI Tests 41475643458, Docs 41475643602, Android-Debug 41475643433: SUCCESS.
+- Main-CI Tests 41475844201, Docs 41475844379, Android 41475844213: SUCCESS. Android-Gate erfolgreich, Signieren/Release/Upload ausdruecklich SKIPPED.
+- GitHub-Release-Digest und Desktop-APK bleiben 92f1e61004385d5706458c46b37621e943be5b67fe25797945b2725578c40808.
 
 ## QA 02.11.2026 - PR #2: Spawn-/Portal-Regression, Integration
 - Neuer Regressionstest project/tests/map-spawn-reachability.cjs aus PR #2.
 - Urspruenglich im isolierten Zweig auf 28867fd: 60 Karten, 123 sichere Spawns, 310 Wege zu Ausgaengen und 117 Portal-Rueckreisen.
-- PR #2 wird auf aktuellen main-Stand f13ae6c2 integriert; Archiv v0.26.0 bleibt unveraendert.
+- PR #2 wurde auf main f13ae6c2 konfliktfrei integriert und als Commit 82663252c0ddd105e27dc703556fe1871983e4e8 gemergt; Archiv v0.26.0 bleibt erhalten.
 - Integrations-QA auf aktuellem main-Stand: 28/28 Node-Tests, Android-Plattformtest, Story-Dokumentvalidator und git diff --check bestanden.
 - Echte Chrome-156-Screenshots (Desktop und 412px Touch) visuell geprueft; Archiv-Tausch, Autosave/Reload und Alt-Save-Migration ohne JavaScript-Fehler.
-- GitHub-CI fuer den aktualisierten PR-Zweig nach Push gesondert pruefen.
-- Kein neues Android-Release fuer reine Test-/Dokumentationsaenderungen; APK v0.26.0 / versionCode 27 bleibt aktuell.
+- PR-CI: Tests 41474802965, Docs 41474802856, Android-Debug 41474802861 alle SUCCESS.
+- Der damals ungeschuetzte Android-Main-Workflow publizierte leider dieselbe v0.26.0 / versionCode 27 erneut; siehe verifizierten Wiederholungsbuild oben.
 - Originaler Hauptarbeitsbaum auf Laura und geschuetzte Assets bleiben unangetastet.
 
 ## VERIFIZIERT 02.11.2026 - Echo-Archiv v0.26.0 signiert veroeffentlicht
@@ -43,8 +46,7 @@
   Archiv-Save-Migration bestanden. Kein vollstaendiger manueller Spieldurchlauf.
 - Ausgangs-Worktree auf Laura enthaelt weiterhin fremde uncommittete Dateien
   und geschuetzte Nutzerbilder. Er wurde bei Integration nicht veraendert.
-- Als naechstes: PR #2 mit Routen-/Softlock-Regression konfliktfrei
-  einarbeiten, danach optische Qualitaet, Hardwaretest und Spielbalance.
+- PR #2 inzwischen integriert; naechste Prioritaet: Story-/Postgame-Quest-Softlocks und Save-Zustandskombinationen, danach 94 Nichtstarter-Grundarten, visuell gepruefte Pixelgrafik, Balance und echte Hardwaretests.
 
 ## Historischer QA-Stand vor der v0.26.0-Veroeffentlichung (02.11.2026)
 - Releasekandidat Android 0.26.0 / versionCode 27; stabile App-ID

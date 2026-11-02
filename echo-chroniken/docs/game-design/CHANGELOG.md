@@ -4,17 +4,17 @@
 - PR #2 / main 82663252: 60 Maps, 123 Spawns, 310 Wege, 117 Portal-Rueckreisen durch neuen Regressionstest.
 - Android-CI 41475017489 SUCCESS, publizierte v0.26.0 jedoch trotz unveraendertem versionCode 27 erneut.
 - Neues Asset SHA256 92f1e61004385d5706458c46b37621e943be5b67fe25797945b2725578c40808, 2.505.606 Bytes, identisches Signer-Zertifikat und Paket.
-- Direktdownload geprueft, Desktop-APK aktualisiert, altes Asset lokal gesichert. Workflow-Gate folgt.
+- Direktdownload geprueft, Desktop-APK aktualisiert, altes Asset lokal gesichert. Workflow-Gate ueber PR #5 in main nachgeruestet.
 
-## 2026-11-02 - Android-Release-Gate gegen unveraenderte Versionsnummern (PR-Kandidat)
+## 2026-11-02 - Android-Release-Gate PR #5 verifiziert in main
 - GitHub Actions prueft bei Pushes den Android-versionCode gegen den vorherigen main-Stand.
 - Ohne Erhoehung keine neue signierte APK und keine Ueberschreibung des android-latest-Assets; Tests laufen weiterhin.
-- Lokaler Git-Bash-Test: 27->27 unterdrueckt Release, 27->28 erlaubt es; Workflow-PR/CI ausstehend. Signatur, Paket-ID, SaveSchema und Spielcode unveraendert.
+- Lokaler Git-Bash-Test: 27->27 unterdrueckt Release, 27->28 erlaubt es; PR #5 main 940ebf479764e3dbbfb5abf7a16c28b022d2c5b6, PR-CI 3/3 SUCCESS, Main-CI 3/3 SUCCESS. Android-Run 41475844213 hat Signieren und Upload SKIPPED, Release-Digest 92f1e61004385d5706458c46b37621e943be5b67fe25797945b2725578c40808 blieb erhalten. Signatur, Paket-ID, SaveSchema und Spielcode unveraendert.
 
 ## 2026-11-02 - PR #2: Routen-/Spawn-Regression
 - Neuer automatischer Test map-spawn-reachability.cjs fuer alle Nichtlegacy-Spawns, begehbare Ausgaenge und reversible Portal-Rundreisen.
 - Integration auf dem aktuellen v0.26.0-Archivstand statt dem urspruenglichen Basiscommit 28867fd.
-- Lokal 28/28 Node-Tests, Android-Plattformtest, Dokumentvalidator, git diff --check und echte Chrome-156-Archiv-QA auf Desktop/Touch bestanden; Screenshots geprueft. GitHub-CI folgt.
+- Lokal 28/28 Node-Tests, Android-Plattformtest, Dokumentvalidator, git diff --check und echte Chrome-156-Archiv-QA auf Desktop/Touch bestanden; Screenshots geprueft. PR-CI 41474802965/41474802856/41474802861 alle SUCCESS.
 - Keine Aenderung an IDs, SaveSchema, App-ID, Android-Version oder Signatur; keine neue APK.
 
 ## 2026-11-02 - v0.26.0: Echo-Archiv und Regressionen
