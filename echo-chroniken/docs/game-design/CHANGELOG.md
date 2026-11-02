@@ -1,5 +1,16 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - PR #2 integriert, ungewollter Android-Wiederholungsbuild
+- PR #2 / main 82663252: 60 Maps, 123 Spawns, 310 Wege, 117 Portal-Rueckreisen durch neuen Regressionstest.
+- Android-CI 41475017489 SUCCESS, publizierte v0.26.0 jedoch trotz unveraendertem versionCode 27 erneut.
+- Neues Asset SHA256 92f1e61004385d5706458c46b37621e943be5b67fe25797945b2725578c40808, 2.505.606 Bytes, identisches Signer-Zertifikat und Paket.
+- Direktdownload geprueft, Desktop-APK aktualisiert, altes Asset lokal gesichert. Workflow-Gate folgt.
+
+## 2026-11-02 - Android-Release-Gate gegen unveraenderte Versionsnummern (PR-Kandidat)
+- GitHub Actions prueft bei Pushes den Android-versionCode gegen den vorherigen main-Stand.
+- Ohne Erhoehung keine neue signierte APK und keine Ueberschreibung des android-latest-Assets; Tests laufen weiterhin.
+- Lokaler Git-Bash-Test: 27->27 unterdrueckt Release, 27->28 erlaubt es; Workflow-PR/CI ausstehend. Signatur, Paket-ID, SaveSchema und Spielcode unveraendert.
+
 ## 2026-11-02 - PR #2: Routen-/Spawn-Regression
 - Neuer automatischer Test map-spawn-reachability.cjs fuer alle Nichtlegacy-Spawns, begehbare Ausgaenge und reversible Portal-Rundreisen.
 - Integration auf dem aktuellen v0.26.0-Archivstand statt dem urspruenglichen Basiscommit 28867fd.

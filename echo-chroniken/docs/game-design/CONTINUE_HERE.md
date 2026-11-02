@@ -1,5 +1,19 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## VERIFIZIERT 02.11.2026 - Android-Wiederholungsbuild nach PR #2
+- PR #2 wurde als Commit 82663252c0ddd105e27dc703556fe1871983e4e8 in main integriert; der alte Android-Workflow startete auch bei einem reinen Test-Merge.
+- Android-Run 41475017489 SUCCESS, aber unerwuenschte Wiederveroeffentlichung mit unveraendertem versionCode 27 / versionName 0.26.0.
+- Neu gebautes APK-Asset: 2.505.606 Bytes, SHA256 92f1e61004385d5706458c46b37621e943be5b67fe25797945b2725578c40808.
+- GitHub-Runner: apksigner v2 gueltig, Zertifikat-SHA256 84be81f8472b62b59527e4fcf67b19fa7d2e3ef4c0b05069c60139a45ec8ec87; Paket de.echochroniken.game.stable.
+- Direktdownload und SHA256 auf Laura verifiziert, Desktop-APK auf den neuen Release-Hash aktualisiert; vorherige Datei im TEMP gesichert.
+- Neue Release-Gate-Absicherung verhindert zukuenftige Neuveroeffentlichung ohne Erhoehung des Android versionCode. Echter Handy-/TV-Hardwaretest weiter offen.
+
+## QA 02.11.2026 - Android-Release-Schutz fuer Test-Merges (PR-Kandidat)
+- Android-Workflow wird bei Pushes mit project/tests-Dateien ebenfalls gestartet; ohne Gate wuerde auch ein reiner Test-Merge die bestehende v0.26.0-APK neu publizieren.
+- Neuer Gate-Schritt vergleicht versionCode zwischen github.event.before und aktuellem Commit; signieren/veroeffentlichen nur bei echtem Versionsanstieg.
+- Pull Requests bauen weiterhin nur die Debug-APK; Tests/Dokumentpruefungen bleiben aktiv. Workflow-Dispatch publiziert nicht blind.
+- Release v0.26.0 / versionCode 27 und App-ID/Signer unveraendert. Lokaler Git-Bash-Gate-Test bestanden: 27->27 ergibt release=false; simuliertes 27->28 ergibt release=true. CI fuer den neuen PR noch ausstehend.
+
 ## QA 02.11.2026 - PR #2: Spawn-/Portal-Regression, Integration
 - Neuer Regressionstest project/tests/map-spawn-reachability.cjs aus PR #2.
 - Urspruenglich im isolierten Zweig auf 28867fd: 60 Karten, 123 sichere Spawns, 310 Wege zu Ausgaengen und 117 Portal-Rueckreisen.
