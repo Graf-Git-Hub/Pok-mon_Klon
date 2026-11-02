@@ -1,5 +1,27 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - v0.23.0: Kapitel 9-11 spielbarer Erstaufbau
+- 12 begehbare neue Karten mit 24 bidirektionalen lokalen Portalen
+  und sicheren Spawns; alte Kapitel bleiben unveraendert.
+- Frostgrat: 3 Expeditionsteile, Phasenlaterne, sichere Lichtbruecke,
+  Vex als Storyboss, Vaterlogbuch, Signal und freier Bahnhof.
+- Unterstadt: zwei Gruppen, Miras Zeichnung, 3 Ringanker, Notstrom,
+  Ringhueter friedlich per Beweis oder Kampf, Evakuierung, Zentralring AUS.
+- Sternenobservatorium: 3 Projektionen, WURZEL-WASSER-STERN-Raetsel,
+  Varek-Kampf, 3 freiwillig geoeffnete Echo-Kapseln, Vaterbrief, Sender.
+- 5 neue Begegnungstabellen mit existierenden Basisarten und 100% Gewicht,
+  2 weitere Echo-Bahn-Verbindungen mit kostenloser Rueckfahrt.
+- Bahnmenue jetzt dynamisch fuer 5 sichtbare Ziele ohne abgeschnittene
+  Eintraege; Touch-Hitboxen folgen exakt derselben Zeilenhoehe.
+- Browserbilder auch fuer Phasenbruecke vor/nach Aktivierung und Bahnmenue.
+- SaveSchema v2 bleibt kompatibel; 3 neue Kapitelobjekte mit einmaligem
+  Loot, keine Aenderung an alten Orden, IDs oder App-Paketkennung.
+- Node-Tests inkl. tests/story-endgame.cjs; 12 Chrome-Screenshots,
+  3 echte Bosskaempfe, Kapitelportal und Touch-Bahnfahrt erfolgreich.
+- Android 0.23.0 / versionCode 24: signiertes CI nach Push pruefen.
+- Offen: reale Android-Hardware, Storydurchspielung, Sound/Portraits,
+  Langzeit-Balance und Kapitel 12-14/Postgame.
+
 ## 2026-11-02 - v0.22.0: Kapitel 6, 7 und 8 als spielbarer Erstaufbau
 - 13 neue begehbare Storykarten in src/maps/story-regions.js mit
   bidirektionalen, gated Portalen und sicheren Spawns.

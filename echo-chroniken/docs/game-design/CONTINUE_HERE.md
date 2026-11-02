@@ -9,6 +9,43 @@ SHA256 6DAB7CCB25C1D386B428FC6DFF9F6F40D4977FFE1E00AB159EEEC51BF41656A4.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
+## Entwicklungsstand 02.11.2026: Kapitel 9, 10 und 11 als spielbarer Erstaufbau (v0.23.0)
+- 12 neue begehbare Karten in project/src/maps/story-endgame.js:
+  Frostgrat-Pass, Forschungsstation, Eishoehlen, Bahnhof Frostgrat;
+  Bahnhof Unterstadt, alte Wohnstadt, Zentralring, Kontinuum-Archiv;
+  Sternenpfad, Sternenhalle, Fernrohr-Kuppel, Sternendach.
+- Kapitel 9: 3 Expeditionsteile, Phasenlaterne, sichere dauerhaft
+  reversible Lichtbruecke, Vex als separater Storykampf (kein Orden),
+  Vaters Streitaufnahme, Unterstadt-Signal und einmalige Belohnung.
+- Kapitel 10: beide Kontinuum-Positionen, Miras Schmetterlingszeichnung,
+  3 unabhaengige Ringanker, gesicherter Notstrom, Ringhueter wahlweise
+  durch Beweise friedlich oder im Kampf, 3 Notausgaenge, Zentralring
+  abgeschaltet und Observatorium-Koordinaten.
+- Kapitel 11: 3 historische Projektionen, WURZEL-WASSER-STERN-Fernrohr,
+  erster Varek-Kampf, 3 freiwillig geoeffnete Echo-Kapseln,
+  Vaters Nachricht an Oma Martha, Resonanzschacht-Signal.
+- Zwei neue kostenlose Bahnverbindungen Kronenstadt-Frostgrat und
+  Frostgrat-Unterstadt. 5 neue gewichtete Wildbegegnungstabellen.
+- Alte drei Arenaorden, Monster-IDs, saveSchemaVersion 2, Android-App-ID
+  und vorhandene Story-Flags unveraendert. Kapitel 9-11 in separaten
+  chapter9/10/11-Saveobjekten; Belohnungen atomar nur einmal.
+- tests/story-endgame.cjs: 40 registrierte Maps, 12 neue Storykarten,
+  3 Questablaeufe, 3 Story-Bosse inkl. friedlichem Weg, Phasenbruecke,
+  Save/Reload, 2 Bahnstrecken, alle Interaktionen und Ausgaenge BFS-geprueft.
+- Echter Chrome-Test: 12 Map-Screenshots, 3 echte Bosskaempfe,
+  Kapitel-8->9-Portal und Touch-Bahnreise ohne JavaScript-Fehler.
+  Bilder docs/visual-audit/endgame_00.png bis endgame_11.png sowie
+  endgame_boss_vex.png, endgame_boss_ring.png, endgame_boss_varek.png.
+- **APK v0.23.0 / versionCode 24 vorbereitet. Signiertes CI-Ergebnis
+  nach dem Quell-Push verifizieren; vorher ist v0.22.0 die letzte
+  bestaetigte Release-APK.**
+- **Naechster Auftrag:** Kapitel 12 Elena/Maternalis und Familiengespraeche,
+  danach Kapitel 13 Resonanzschacht, Kapitel 14 Finale und Postgame.
+  Prioritaet: spielbare Story, stabile Saves, echte Tests und Screenshots.
+- **Offen:** echte Handy/TV-Abnahme, vollständiger manueller Storydurchlauf,
+  Audio/Portraits/Feinanimation, tiefes Bossbalancing, Kapitel 12-14
+  und Postgame. Erstaufbau ist nicht gleich fertig poliertes Spiel.
+
 ## Entwicklungsstand 02.11.2026: Kapitel 6, 7 und 8 spielbarer Erstaufbau
 - **Quellcode v0.22.0 / versionCode 23:** 13 neue begehbare Karten in
   src/maps/story-regions.js. Kap. 6: Ascheweg, Aschenruh, Schmiede, Glutschacht.

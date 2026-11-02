@@ -1,6 +1,22 @@
 # Quest-Flags, Save-Schema und Migrationsvertrag
 
-> **Das folgende Kapitelmodell ist Design, nicht bereits in der APK.** Code-Flags aus dem Ist-Zustand behalten ihren Namen und ihre Bedeutung.
+> **Achtung:** Die tabellarischen story.chNN-Flags sind ein aelterer
+> Designvorschlag, nicht die tatsaechlichen Speicherfelder. Bestehende
+> Code-Flags aus dem Ist-Zustand behalten Namen und Bedeutung.
+
+### Tatsaechlich gespeicherte Kapitel-9-bis-11-Flags (seit v0.23.0)
+- `chapter9`: stage, parts[], scientist, phase_lantern, bridgeActive,
+  vexWon, fatherLog, caveSignal, completed, rewardClaimed, lostLetter, errors.
+- `chapter10`: stage, guide, memberViews[], miraDrawing, anchors[],
+  powerStable, testimony, guardianWon, peaceful, central_ring_offline,
+  evacuation, signal, completed, rewardClaimed.
+- `chapter11`: stage, projections[], dial[], telescope, varekMet,
+  varek_first_defeated, capsules[], fatherMessage, beacon, completed,
+  rewardClaimed, miraLetter, errors.
+- Alle drei Objekte sind additiv zu saveSchemaVersion 2. Fehlende Objekte
+  werden mit `EchoEndgame.ensure()` initialisiert; alte Werte bleiben.
+  Keine alten Orden, Arten-IDs oder Speicherstandschluessel umbenennen.
+
 
 ## Altbestand und neue Flags
 

@@ -90,7 +90,9 @@ function access(s,id){
 const route=[
  {a:'station_wurzelheim',b:'station_moorglas',flag:'railsReady'},
  {a:'station_moorglas',b:'station_stillwasser',flag:'chapter5.completed'},
- {a:'station_stillwasser',b:'station_kronenstadt',flag:'chapter8.completed'}
+ {a:'station_stillwasser',b:'station_kronenstadt',flag:'chapter8.completed'},
+ {a:'station_kronenstadt',b:'station_frost',flag:'chapter9.completed'},
+ {a:'station_frost',b:'under_city_station',flag:'chapter10.completed'}
 ];
 function unlocked(s,id){
  const c=ensure(s);
@@ -98,6 +100,8 @@ function unlocked(s,id){
  if(id==='station_moorglas')return !!(c.rail_moorglas||c.railsReady);
  if(id==='station_stillwasser')return !!s.chapter5?.completed;
  if(id==='station_kronenstadt')return !!s.chapter8?.completed;
+ if(id==='station_frost')return !!s.chapter9?.completed;
+ if(id==='under_city_station')return !!s.chapter10?.completed;
  return false;
 }
 function destinations(s,from=s.currentMapId){
@@ -107,7 +111,9 @@ function destinations(s,from=s.currentMapId){
   const here=queue.shift();
   for(const edge of route){
    const active=edge.flag==='chapter5.completed'?s.chapter5?.completed:
-     edge.flag==='chapter8.completed'?s.chapter8?.completed:ensure(s)[edge.flag];
+     edge.flag==='chapter8.completed'?s.chapter8?.completed:
+     edge.flag==='chapter9.completed'?s.chapter9?.completed:
+     edge.flag==='chapter10.completed'?s.chapter10?.completed:ensure(s)[edge.flag];
    if(!active)continue;
    const next=edge.a===here?edge.b:edge.b===here?edge.a:null;
    if(next&&!reachable.has(next)&&window.EchoMaps.get(next)?.spawns.platform){
@@ -116,7 +122,7 @@ function destinations(s,from=s.currentMapId){
   }
  }
  reachable.delete(from);
- return Array.from(reachable).filter(id=>unlocked(s,id)).map(id=>({id,name:names[id]||window.EchoChapter5?.names[id]||window.EchoStoryRegions?.names[id]||id}));
+ return Array.from(reachable).filter(id=>unlocked(s,id)).map(id=>({id,name:names[id]||window.EchoChapter5?.names[id]||window.EchoStoryRegions?.names[id]||window.EchoEndgame?.names[id]||id}));
 }
 function depart(s,targetId){
  const from=s.currentMapId,to=window.EchoMaps.get(targetId),src=window.EchoMaps.get(from);
@@ -285,14 +291,16 @@ function drawRailMenu(ctx,s,cursor){
  ctx.fillStyle='#142b38';ctx.fillRect(0,0,320,180);
  ctx.fillStyle='#f3e0ad';ctx.font='bold 17px monospace';ctx.fillText('ECHO-BAHN',23,30);
  ctx.font='10px monospace';ctx.fillText('KOSTENLOSE FAHRT / RUECKWEG GARANTIERT',19,49);
- const options=destinations(s);
+ const options=destinations(s),rowH=Math.min(25,Math.floor(90/Math.max(1,options.length)));
  for(let i=0;i<options.length;i++){
-  ctx.fillStyle=i===cursor?'#f0d79d':'#607d80';ctx.fillRect(18,63+i*31,285,26);
-  ctx.fillStyle=i===cursor?'#263d48':'#fff3cf';ctx.font='bold 13px monospace';
-  ctx.fillText((i===cursor?'> ':'  ')+options[i].name,28,81+i*31);
+  const top=59+i*rowH;
+  ctx.fillStyle=i===cursor?'#f0d79d':'#607d80';ctx.fillRect(18,top,285,rowH-2);
+  ctx.fillStyle=i===cursor?'#263d48':'#fff3cf';
+  ctx.font=options.length>=5?'bold 11px monospace':'bold 12px monospace';
+  ctx.fillText((i===cursor?'> ':'  ')+options[i].name,28,top+Math.min(17,rowH-3));
  }
  ctx.fillStyle='#e4d4ad';ctx.font='10px monospace';
- ctx.fillText('D-PAD: ZIEL    A: FAHREN    B: ZURUECK',13,163);
+ ctx.fillText('D-PAD: ZIEL    A: FAHREN    B: ZURUECK',13,168);
 }
 function drawRegionMap(ctx,s){
  const map=window.EchoMaps.get(s.currentMapId),w=map.width,h=map.height;

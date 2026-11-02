@@ -21,9 +21,9 @@ M04-01;M4;Chapter 5 Stillwasser and memory-loop investigation;M03-04;maps/stillw
 M04-02;M4;Chapter 6 Aschenruh, Glutklamm and forge;M04-01;maps/glut*, data/chapters/ch06.json;Workers rescued, resonance tool acquired, backtrack;L;IN_PROGRESS
 M04-03;M4;Chapter 7 Lichterhain and Echo-spur system;M04-02;maps/lichterhain*, src/echo-trails.js;Optional clues without forced full lexicon;L;IN_PROGRESS
 M05-01;M5;Chapter 8 Kronenstadt 4 compact districts;M04-03;maps/kronenstadt*, data/chapters/ch08.json;All gates, docs and station work on TV;XL;IN_PROGRESS
-M05-02;M5;Chapter 9 Frostgrat and phase lantern;M05-01;maps/frost*, src/phase-lantern.js;All bridges reversible, Vex and save safe;L;TODO
-M05-03;M5;Chapter 10 Unterstadt and central ring;M05-02;maps/under_city*, data/chapters/ch10.json;"No stuck underground player; city and rail still navigable";L;TODO
-M06-01;M6;Chapter 11 observatory, Varek confrontation;M05-03;maps/observatory*, data/chapters/ch11.json;Readable proof and fair battle, safe retreat;L;TODO
+M05-02;M5;Chapter 9 Frostgrat and phase lantern;M05-01;maps/frost*, src/phase-lantern.js;All bridges reversible, Vex and save safe;L;IN_PROGRESS
+M05-03;M5;Chapter 10 Unterstadt and central ring;M05-02;maps/under_city*, data/chapters/ch10.json;"No stuck underground player; city and rail still navigable";L;IN_PROGRESS
+M06-01;M6;Chapter 11 observatory, Varek confrontation;M05-03;maps/observatory*, data/chapters/ch11.json;Readable proof and fair battle, safe retreat;L;IN_PROGRESS
 M06-02;M6;Chapter 12 Elena/Maternalis family scenes;M06-01;data/chapters/ch12.json;Works for Miora, Seelara and Maternalis;M;TODO
 M06-03;M6;Chapter 13 resonance shaft and father confession;M06-02;maps/shaft*, data/chapters/ch13.json;All anchors reversible and final preparation safe;XL;TODO
 M06-04;M6;Chapter 14 final fight, epilogue and credits;M06-03;maps/core*, data/chapters/ch14.json;"Main story finished; not trapped in credits";XL;TODO

@@ -44,5 +44,26 @@ window.ECHO_ENCOUNTER_TABLES = Object.freeze([
     {id:45,weight:50,minLevel:8,maxLevel:35},
     {id:87,weight:25,minLevel:8,maxLevel:35},
     {id:71,weight:25,minLevel:8,maxLevel:35}
+  ]}),
+  ...['frost_approach','ice_caverns'].map(mapId=>Object.freeze({
+    mapId,mode:'weighted',entries:[
+      {id:4,weight:30,minLevel:8,maxLevel:39},
+      {id:5,weight:24,minLevel:8,maxLevel:39},
+      {id:10,weight:18,minLevel:8,maxLevel:39},
+      {id:11,weight:12,minLevel:8,maxLevel:39},
+      {id:13,weight:8,minLevel:8,maxLevel:39},
+      {id:15,weight:5,minLevel:8,maxLevel:39},
+      {id:16,weight:3,minLevel:8,maxLevel:39}
+    ]})),
+  ...['under_city_homes','resonance_mainring'].map(mapId=>Object.freeze({
+    mapId,mode:'weighted',entries:[
+      {id:7,weight:33,minLevel:8,maxLevel:43},
+      {id:82,weight:26,minLevel:8,maxLevel:43},
+      {id:89,weight:20,minLevel:8,maxLevel:43},
+      {id:115,weight:13,minLevel:8,maxLevel:43},
+      {id:118,weight:8,minLevel:8,maxLevel:43}
+    ]})),
+  Object.freeze({mapId:'star_ridge',mode:'weighted',entries:[
+    {id:62,weight:100,minLevel:8,maxLevel:47}
   ]})
 ]);

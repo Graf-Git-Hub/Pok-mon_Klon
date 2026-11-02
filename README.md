@@ -1,5 +1,18 @@
 # Echo-Chroniken 🎮👻
 
+**v0.23.0 - Kapitel 9-11: Frostgrat, Unterstadt und Sternenobservatorium (spielbarer Erstaufbau):**
+12 neue begehbare Karten, sichere Rueckwege, drei Kapitel-Quests und
+eigenstaendige Save-Flags. Frostgrat: Expeditionsfunde, Phasenlaterne,
+sichere Lichtbruecke, Vex und Vaters Logbuch. Unterstadt: zwei Gruppen,
+Miras Zeichnung, drei Ringanker, Notstrom, Ringhueter (friedlich oder
+Kampf) und Observatorium-Signal. Sternenobservatorium: drei Projektionen,
+Fernrohr-Kalibrierung, erster Varek-Kampf, drei frei geoeffnete Kapseln,
+Vaters Nachricht an Oma und Schachtkoordinaten. Zwei weitere kostenlose
+Bahnstrecken nach Frostgrat und Unterstadt, 5 neue Encounter-Tabellen.
+Node- und echte Chrome-Tests, 12 Screenshots, drei Bosskaempfe,
+Controller-Portal und Touch-Zugfahrt bestanden. Echter Android-Hardwaretest,
+Audio, Inszenierung und Kapitel 12-14 plus Postgame bleiben offen.
+
 **v0.22.0 - Kapitel 6-8: Aschenruh, Lichterhain und Kronenstadt (spielbarer Erstaufbau):**
 13 neue begehbare Karten, sichere Rueckwege, eigene Figuren und Umgebungen,
 fuenf Story-Kaempfe, drei Raetsel und Kapitel-Flags. Aschenruh bietet

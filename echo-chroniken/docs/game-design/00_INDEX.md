@@ -43,9 +43,9 @@ Kopieren: „Öffne Graf-Git-Hub/Pok-mon_Klon, lies echo-chroniken/docs/game-des
 | [Kapitel 06](CHAPTERS/CH06.md) | Glut unter der Asche | spielbarer Erstaufbau v0.22.0 (4 Karten, Schmiede, 2 Bosse) |
 | [Kapitel 07](CHAPTERS/CH07.md) | Der Garten der Namen | spielbarer Erstaufbau v0.22.0 (4 Karten, Echo-Spuren) |
 | [Kapitel 08](CHAPTERS/CH08.md) | Kronenstadt | spielbarer Erstaufbau v0.22.0 (5 Karten, Archiv, Bahnhof) |
-| [Kapitel 09](CHAPTERS/CH09.md) | Frostgrat | vollständig geplant, nicht programmiert |
-| [Kapitel 10](CHAPTERS/CH10.md) | Die Stadt unter der Stadt | vollständig geplant, nicht programmiert |
-| [Kapitel 11](CHAPTERS/CH11.md) | Das Sternenobservatorium | vollständig geplant, nicht programmiert |
+| [Kapitel 09](CHAPTERS/CH09.md) | Frostgrat | spielbarer Erstaufbau mit Phasenlaterne und Vex (v0.23.0) |
+| [Kapitel 10](CHAPTERS/CH10.md) | Die Stadt unter der Stadt | spielbarer Erstaufbau mit Zentralring und friedlichem Bossweg (v0.23.0) |
+| [Kapitel 11](CHAPTERS/CH11.md) | Das Sternenobservatorium | spielbarer Erstaufbau mit Varek, Sternenkuppel und Echos (v0.23.0) |
 | [Kapitel 12](CHAPTERS/CH12.md) | Maternalis | vollständig geplant, nicht programmiert |
 | [Kapitel 13](CHAPTERS/CH13.md) | Resonanzschacht | vollständig geplant, nicht programmiert |
 | [Kapitel 14](CHAPTERS/CH14.md) | Niemand gehört für immer | vollständig geplant, nicht programmiert |
