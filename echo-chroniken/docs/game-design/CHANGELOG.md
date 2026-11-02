@@ -1,5 +1,11 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - PR #2: Routen-/Spawn-Regression
+- Neuer automatischer Test map-spawn-reachability.cjs fuer alle Nichtlegacy-Spawns, begehbare Ausgaenge und reversible Portal-Rundreisen.
+- Integration auf dem aktuellen v0.26.0-Archivstand statt dem urspruenglichen Basiscommit 28867fd.
+- Lokal 28/28 Node-Tests, Android-Plattformtest, Dokumentvalidator, git diff --check und echte Chrome-156-Archiv-QA auf Desktop/Touch bestanden; Screenshots geprueft. GitHub-CI folgt.
+- Keine Aenderung an IDs, SaveSchema, App-ID, Android-Version oder Signatur; keine neue APK.
+
 ## 2026-11-02 - v0.26.0: Echo-Archiv und Regressionen
 - v0.26.0 / versionCode 27 signiert veroeffentlicht. GitHub Merge
   063d8d28ad99e01b2d9705352f963739e6c9d68f, Android Run 41472119030

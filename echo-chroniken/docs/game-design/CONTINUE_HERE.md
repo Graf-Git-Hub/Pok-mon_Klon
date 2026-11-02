@@ -1,5 +1,15 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## QA 02.11.2026 - PR #2: Spawn-/Portal-Regression, Integration
+- Neuer Regressionstest project/tests/map-spawn-reachability.cjs aus PR #2.
+- Urspruenglich im isolierten Zweig auf 28867fd: 60 Karten, 123 sichere Spawns, 310 Wege zu Ausgaengen und 117 Portal-Rueckreisen.
+- PR #2 wird auf aktuellen main-Stand f13ae6c2 integriert; Archiv v0.26.0 bleibt unveraendert.
+- Integrations-QA auf aktuellem main-Stand: 28/28 Node-Tests, Android-Plattformtest, Story-Dokumentvalidator und git diff --check bestanden.
+- Echte Chrome-156-Screenshots (Desktop und 412px Touch) visuell geprueft; Archiv-Tausch, Autosave/Reload und Alt-Save-Migration ohne JavaScript-Fehler.
+- GitHub-CI fuer den aktualisierten PR-Zweig nach Push gesondert pruefen.
+- Kein neues Android-Release fuer reine Test-/Dokumentationsaenderungen; APK v0.26.0 / versionCode 27 bleibt aktuell.
+- Originaler Hauptarbeitsbaum auf Laura und geschuetzte Assets bleiben unangetastet.
+
 ## VERIFIZIERT 02.11.2026 - Echo-Archiv v0.26.0 signiert veroeffentlicht
 - Merge in main: 063d8d28ad99e01b2d9705352f963739e6c9d68f (PR #3).
   Github Actions auf diesem Commit: Tests 41472119169 SUCCESS,
