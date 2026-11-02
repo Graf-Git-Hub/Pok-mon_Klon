@@ -17,7 +17,7 @@ M03-01;M3;Implement RailRegistry and bidirectional station UI;M02-05;src/rail/*;
 M03-02;M3;Build underground Wurzelheim and Moorglas station;M03-01;maps/station*, maps/moorglas*;First free round trip and safe save after travel;L;DONE
 M03-03;M3;Chapter 4 story, courier, switchyard and boss;M03-02;data/chapters/ch04.json;Rail unlock flag and optional sidetrack persist;M;IN_PROGRESS
 M03-04;M3;Rail regression on TV gamepad and phone;M03-03;tests/railway.cjs;No softlocks after app pause/kill/reload;M;IN_PROGRESS
-M04-01;M4;Chapter 5 Stillwasser and memory-loop investigation;M03-04;maps/stillwasser*, data/chapters/ch05.json;Three clues, Lyra arc, station, fresh NPC dialog;L;TODO
+M04-01;M4;Chapter 5 Stillwasser and memory-loop investigation;M03-04;maps/stillwasser*, data/chapters/ch05.json;Three clues, Lyra arc, station, fresh NPC dialog;L;IN_PROGRESS
 M04-02;M4;Chapter 6 Aschenruh, Glutklamm and forge;M04-01;maps/glut*, data/chapters/ch06.json;Workers rescued, resonance tool acquired, backtrack;L;TODO
 M04-03;M4;Chapter 7 Lichterhain and Echo-spur system;M04-02;maps/lichterhain*, src/echo-trails.js;Optional clues without forced full lexicon;L;TODO
 M05-01;M5;Chapter 8 Kronenstadt 4 compact districts;M04-03;maps/kronenstadt*, data/chapters/ch08.json;All gates, docs and station work on TV;XL;TODO

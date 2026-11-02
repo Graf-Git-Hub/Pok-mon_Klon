@@ -1,5 +1,15 @@
 # Echo-Chroniken 🎮👻
 
+**v0.21.0 - Kapitel 5: Stillwasser:**
+Der Nebelpfad fuehrt von Moorglas in das Dorf, das seine Erinnerungen jeden
+Tag erneut erlebt. Fuenf begehbare Karten inklusive Stillwasser, Archiv,
+Resonanzturm und Bahnhof; drei Bewohner mit wiederholten, widerspruechlichen
+Dialogen, drei Archivbeweise, Lyra, geheimer Bibliotheksgang, Stromkabel,
+Gedaechtnisspiegelkampf, optionale Lyra-Pruefung, Antennensender-Abschaltung
+und einmalige Belohnungen. Echo-Bahn wird nach Abschluss um die kostenlose
+Strecke Moorglas-Stillwasser erweitert. Spielstaende bleiben kompatibel.
+Noch offen: Kapitel 6-14, das vollstaendige Bahnnetz und Hardware-Endtests.
+
 **v0.20.0 - Neue Spielfiguren:** Der alte kantige Menschen-Renderer wurde gegen eine
 komplett neue originale Pixel-Sprite-Engine ausgetauscht. 16 individuelle
 Figurendesigns (Spieler, Junge, Maedchen, Oma, Edda, Kurier, Bahnwaerterin,

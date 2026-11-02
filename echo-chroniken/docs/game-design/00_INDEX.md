@@ -39,7 +39,7 @@ Kopieren: „Öffne Graf-Git-Hub/Pok-mon_Klon, lies echo-chroniken/docs/game-des
 | [Kapitel 02](CHAPTERS/CH02.md) | Das Flüstern im Wald | bereits teilweise implementiert |
 | [Kapitel 03](CHAPTERS/CH03.md) | Stimmen am Seelen-See | vollständig geplant, nicht programmiert |
 | [Kapitel 04](CHAPTERS/CH04.md) | Unter den Wurzeln | erster spielbarer Abschnitt mit zwei Bahnstationen und fünf Karten (v0.19.0) |
-| [Kapitel 05](CHAPTERS/CH05.md) | Das Dorf, das niemand verlässt | vollständig geplant, nicht programmiert |
+| [Kapitel 05](CHAPTERS/CH05.md) | Das Dorf, das niemand verlässt | erster spielbarer Ausbau mit 5 Karten und der zweiten Bahnstrecke (v0.21.0) |
 | [Kapitel 06](CHAPTERS/CH06.md) | Glut unter der Asche | vollständig geplant, nicht programmiert |
 | [Kapitel 07](CHAPTERS/CH07.md) | Der Garten der Namen | vollständig geplant, nicht programmiert |
 | [Kapitel 08](CHAPTERS/CH08.md) | Kronenstadt | vollständig geplant, nicht programmiert |

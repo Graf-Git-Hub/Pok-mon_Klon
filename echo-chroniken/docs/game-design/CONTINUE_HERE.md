@@ -9,6 +9,26 @@ SHA256 65EC72DF69FAAA0A9AD6CB87B0E414D95523E094AC32D58AD68CC3A9538E4D95.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
+## Stand 02.11.2026 - Kapitel 5 als spielbarer Ausbau
+- Android 0.21.0 / versionCode 22 vorbereitet, erst nach gruenem CI als
+  signierte APK bestaetigen. Bis dahin ist v0.20.0 die letzte verifizierte APK.
+- src/maps/chapter5.js: Moorglas-Nebelpfad, Dorf Stillwasser, Archiv,
+  Resonanzturm, Bahnhof Stillwasser, 5 Storykarten mit sicheren Rueckwegen.
+- Dorf: drei Bewohner je zweimal befragen, 3 Widersprueche; Archiv:
+  3 Hinweise, Lyra-Gespraech, Bibliotheksgang; Turm: Stromkabel, Spiegel-Boss,
+  optionale Lyra-Pruefung, Sender abschalten, einmalige Belohnung.
+- EchoRail verbindet nach Abschluss Kapitel 5 Moorglas und Stillwasser in beiden
+  Richtungen; bestehende Wurzelheim-Moorglas-Rueckfahrt erhalten.
+- tests/chapter5.cjs bestaetigt 15 Maps im Netz, alle Interaktionspunkte,
+  Portal-Sperren, Stories, optionale Kaempfe, Save/Reload und Bahn.
+- Echt Chrome: docs/visual-audit/chapter5_0.png bis chapter5_4.png und
+  chapter5_boss.png; 5 Maps, Uebergang, NPC-Dialog und Boss ohne JS-Fehler.
+- ECHTE Hardware auf Handy/TV nicht getestet. Kapitel 6-14 bleiben offen.
+- **Naechster Auftrag:** Kapitel 6 Aschenruh und Glutklamm (CH06.md)
+  mit neuen Karten, Schmiede und Arbeiter-Rettung umsetzen, dann Kapitel 7 und 8.
+  Nutzerwunsch: Entwicklung stündlich automatisch, Ziel >=3 Kapitel je
+  Durchlauf, aber nur abgeschlossene getestete Kapitel als fertig melden.
+
 ## Release bestaetigt: Android 0.20.0 / versionCode 21
 - Commit 2adaa9ea10c8c541a1b2ca8aab66780dbc6f5115, GitHub Actions Run 41377128195: SUCCESS.
 - Gleichbleibende App-ID de.echochroniken.game.stable und Signaturschluessel.

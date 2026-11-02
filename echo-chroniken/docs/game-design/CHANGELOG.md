@@ -1,5 +1,21 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - v0.21.0: Kapitel 5 „Das Dorf, das niemand verlaesst“
+- Fuenf neue vollstaendig begehbare Karten: moor_to_stillwater, stillwasser_town,
+  stillwater_archive, stillwater_tower und station_stillwasser.
+- Sicherer, storygesperrter Uebergang aus Moorglas und Rueckwege ueber MapRegistry.
+- Drei wiederholbare Dorfbewohner-Dialoge und drei einzigartige Archivbeweise.
+- Lyra-Abhaengigkeiten, hint-basierter Bibliotheks-Umweg, Antennenkabel, Erinnerungs-
+  spiegel als echter Kampf und optionale Lyra-Pruefung, ohne zweite Orden-Flags umzuschreiben.
+- Nach Senderabschaltung einmaliger Loot, eigener gespeicherter Storyzustand
+  und freigeschaltete zweite, kostenlose Echo-Bahn-Strecke Moorglas-Stillwasser.
+- Fuenf echte Chrome-Screenshots, Boss-Screenshot, echte Controllersteuerung
+  und eigener Kapitel-5-Test fuer Kollision, Aufloesung, Save/Reload und Rail.
+- Android Version 0.21.0 / versionCode 22; signiertes CI-Ergebnis nach Push pruefen.
+- Offen: reale Handy/TV-Abnahme, Kapitel 6-14 und Postgame, Audio, weitere
+  story-spezifische Animationen und Spielbalance.
+
+
 ## 2026-11-02 - v0.20.0: Menschenfiguren komplett neu gezeichnet
 - Neue lokale Sprite-Engine src/characters.js: 16 unterschiedliche Figurenrollen,
   alle mit 4 Richtungen und 3 Phasen, insgesamt 192 mögliche Sprite-Frames.

@@ -81,17 +81,21 @@ function register(){
  return r.validateNetwork();
 }
 function access(s,id){
+ if(id==='to_stillwater'&&!s.chapter4?.completed)
+  return ['Der Weg nach Stillwasser ist von Nebel verschlossen.','Beende erst Kapitel 4.'];
  if(id==='to_tunnel'&&!s.chapter3?.completed)
   return ['Das Wartungstor ist verschlossen.','Zuerst Vaters Aufnahme im Kontrollraum finden.'];
  return null;
 }
 const route=[
- {a:'station_wurzelheim',b:'station_moorglas',flag:'railsReady'}
+ {a:'station_wurzelheim',b:'station_moorglas',flag:'railsReady'},
+ {a:'station_moorglas',b:'station_stillwasser',flag:'chapter5.completed'}
 ];
 function unlocked(s,id){
  const c=ensure(s);
  if(id==='station_wurzelheim')return !!c.rail_wurzelheim;
  if(id==='station_moorglas')return !!(c.rail_moorglas||c.railsReady);
+ if(id==='station_stillwasser')return !!s.chapter5?.completed;
  return false;
 }
 function destinations(s,from=s.currentMapId){
@@ -100,7 +104,8 @@ function destinations(s,from=s.currentMapId){
  while(queue.length){
   const here=queue.shift();
   for(const edge of route){
-   if(!ensure(s)[edge.flag])continue;
+   const active=edge.flag==='chapter5.completed'?s.chapter5?.completed:ensure(s)[edge.flag];
+   if(!active)continue;
    const next=edge.a===here?edge.b:edge.b===here?edge.a:null;
    if(next&&!reachable.has(next)&&window.EchoMaps.get(next)?.spawns.platform){
     reachable.add(next);queue.push(next);
@@ -108,7 +113,7 @@ function destinations(s,from=s.currentMapId){
   }
  }
  reachable.delete(from);
- return Array.from(reachable).filter(id=>unlocked(s,id)).map(id=>({id,name:names[id]}));
+ return Array.from(reachable).filter(id=>unlocked(s,id)).map(id=>({id,name:names[id]||window.EchoChapter5?.names[id]||id}));
 }
 function depart(s,targetId){
  const from=s.currentMapId,to=window.EchoMaps.get(targetId),src=window.EchoMaps.get(from);
