@@ -1,5 +1,24 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## NEUER STAND 02.11.2026 - Kapitel 12-14 (v0.24.0 Kandidat)
+- Mehrfach-Arbeitspaket Durchlauf 1 von 2: (A) Story 12-14 spielbarer
+  Erstaufbau, (B) Kamera-Grenz-Clamping gegen leere Kartenraender,
+  (C) Tests, Browser-Screenshots und Android-Build.
+- 12 Karten, 3 Kapitelketten, zwei echte Trainerkaempfe und
+  saveSchemaVersion 2. Kapitel 14 setzt main_story_finished und
+  laesst freien Rueckweg aus dem Epilog; keine alten Flags/IDs geaendert.
+- tests/story-finale.cjs prueft 52 Maps, Tore, Dialoge, Bosse, Save,
+  Belohnungen und BFS-Erreichbarkeit. Chrome-Screenshots finale_00-11,
+  finale_boss_guard und finale_boss_varek, Portal 11->12 erfolgreich.
+- v0.24.0/versionCode 25 vorerst Release-Kandidat. Erst nach CI-SUCCESS,
+  Signatur- und SHA256-Pruefung diese Zeile als Release bestaetigen.
+- **Naechster Durchlauf:** Postgame mit Echo-Garten, Bahn-Museum,
+  Basisarten-Zugaenglichkeit (94 Nichtstarter), optionale Gebietspruefungen;
+  parallel Grafiken, Dialoge, Touch/Controller und Balance optimieren.
+- Offen: reale Android-Handy/TV-Abnahme, vollständiger Storydurchlauf,
+  Feinschliff der Erstfassungen und 150er-Lexikon-Pruefung.
+
+
 Stand 02.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
 **Letzte verifizierte signierte Android-APK: v0.23.0 / versionCode 24.**
 Quellcommit 05b23618de5f66697b0221656ee05260a07ae02b;

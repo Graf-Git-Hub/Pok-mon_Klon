@@ -49,9 +49,9 @@ Immer nur ein überschaubarer, lauffähiger Schritt, dazu zugehörige Tests, Scr
 | M05-02 | M5 | Chapter 9 Frostgrat and phase lantern | M05-01 | L | TODO |
 | M05-03 | M5 | Chapter 10 Unterstadt and central ring | M05-02 | L | TODO |
 | M06-01 | M6 | Chapter 11 observatory, Varek confrontation | M05-03 | L | TODO |
-| M06-02 | M6 | Chapter 12 Elena/Maternalis family scenes | M06-01 | M | TODO |
-| M06-03 | M6 | Chapter 13 resonance shaft and father confession | M06-02 | XL | TODO |
-| M06-04 | M6 | Chapter 14 final fight, epilogue and credits | M06-03 | XL | TODO |
+| M06-02 | M6 | Chapter 12 Elena/Maternalis family scenes | M06-01 | M | IN_PROGRESS |
+| M06-03 | M6 | Chapter 13 resonance shaft and father confession | M06-02 | XL | IN_PROGRESS |
+| M06-04 | M6 | Chapter 14 final fight, epilogue and credits | M06-03 | XL | IN_PROGRESS |
 | M07-01 | M7 | Postgame species accessibility and side content | M06-04 | L | TODO |
 | M07-02 | M7 | Rename 50 generic monsters after visual review | M00-03 | L | TODO |
 | M07-03 | M7 | Full balance pass with playthrough reports | M07-01 | L | TODO |

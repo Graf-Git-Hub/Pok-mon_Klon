@@ -21,6 +21,7 @@ jobs:
           node tests/chapter5.cjs
           node tests/story-regions.cjs
           node tests/story-endgame.cjs
+          node tests/story-finale.cjs
           node tests/characters.cjs
           node tests/save-compat.cjs
           node tests/story-registry.cjs

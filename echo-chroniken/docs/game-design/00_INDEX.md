@@ -46,9 +46,9 @@ Kopieren: „Öffne Graf-Git-Hub/Pok-mon_Klon, lies echo-chroniken/docs/game-des
 | [Kapitel 09](CHAPTERS/CH09.md) | Frostgrat | spielbarer Erstaufbau mit Phasenlaterne und Vex (v0.23.0) |
 | [Kapitel 10](CHAPTERS/CH10.md) | Die Stadt unter der Stadt | spielbarer Erstaufbau mit Zentralring und friedlichem Bossweg (v0.23.0) |
 | [Kapitel 11](CHAPTERS/CH11.md) | Das Sternenobservatorium | spielbarer Erstaufbau mit Varek, Sternenkuppel und Echos (v0.23.0) |
-| [Kapitel 12](CHAPTERS/CH12.md) | Maternalis | vollständig geplant, nicht programmiert |
-| [Kapitel 13](CHAPTERS/CH13.md) | Resonanzschacht | vollständig geplant, nicht programmiert |
-| [Kapitel 14](CHAPTERS/CH14.md) | Niemand gehört für immer | vollständig geplant, nicht programmiert |
+| [Kapitel 12](CHAPTERS/CH12.md) | Maternalis | spielbarer Erstaufbau mit Familiengeschichte und Schachtschluessel (v0.24.0) |
+| [Kapitel 13](CHAPTERS/CH13.md) | Resonanzschacht | spielbarer Erstaufbau mit Schacht, Vater und Schutzcode (v0.24.0) |
+| [Kapitel 14](CHAPTERS/CH14.md) | Niemand gehört für immer | spielbarer Erstaufbau mit Finale, Epilog und Credits (v0.24.0) |
 | [Postgame](CHAPTERS/POSTGAME.md) | Postgame: Die freien Linien | vollständig geplant, nicht programmiert |
 
 

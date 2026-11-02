@@ -1,5 +1,14 @@
 # Echo-Chroniken 🎮👻
 
+**v0.24.0 - Kapitel 12-14 (spielbarer Erstaufbau):**
+12 neue begehbare Karten: Familiengeschichte bei Oma Martha, Resonanzschacht
+mit Vater und Schachtwache sowie Varek-Finale mit Epilog. Drei Kapitelquests,
+Miora/Seelara/Maternalis-sichere Dialoge, freie Anker und Abschlussflag.
+Weltgrenzen-Kamera verbessert. Node-Tests und echte Chrome-Screenshots
+pruefen Karten, Bosse, Rueckwege und Saves. Android-Hardwaretest, Postgame,
+Audio und Grafikpolitur fehlen weiterhin.
+
+
 **v0.23.0 - Kapitel 9-11: Frostgrat, Unterstadt und Sternenobservatorium (spielbarer Erstaufbau):**
 12 neue begehbare Karten, sichere Rueckwege, drei Kapitel-Quests und
 eigenstaendige Save-Flags. Frostgrat: Expeditionsfunde, Phasenlaterne,

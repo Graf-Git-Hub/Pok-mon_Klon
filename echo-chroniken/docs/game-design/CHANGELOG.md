@@ -1,5 +1,36 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - v0.24.0: Kapitel 12-14 als spielbare Erstfassung
+- 12 neue begehbare Karten in src/maps/story-finale.js: Marthas Erinnerung,
+  Familienzimmer und Garten; fuenf Resonanzschacht-Ebenen; Kernzugang,
+  drei Erinnerungen, Resonanzkern und freies Epilog-Wurzelheim.
+- Kapitel 12: Marthas Erinnerung an Elena, 3 Bilder, freiwilliger Begleiter
+  mit korrekten Miora/Seelara/Maternalis-Dialogen, freier Kapselverschluss,
+  Schachtschluessel und optionale Spieluhr/Abendszene.
+- Kapitel 13: drei getrennte Zwangsanker, optionaler Phasenlaternenpfad,
+  Schachtwache als echter Kampf, freie Fluchtschleuse, Vaterbegegnung,
+  Schutzcode und sichere finale Vorbereitung.
+- Kapitel 14: Bindungsmaschine ohne Reflexzwang, 3 Erinnerungen, echter
+  Varek-Finalkampf, 3 freiwillige Freigaben, Abschied des Vaters,
+  main_story_finished, Epilog, Abspann und offene Rueckreise.
+- Kein alter Monster-/Orden-/Signatur-/Paket-ID-Wert geaendert. Separate
+  chapter12/13/14-Saves und genau einmalige Belohnungen; SaveSchema 2.
+- Qualitaetspaket: Kamera an Weltgrenzen geklemmt; keine grossen leeren
+  gruengrauen Randflaechen in Storykarten, Spielerposition korrekt.
+- tests/story-finale.cjs: 52 Karten im MapRegistry, 12 neue Karten,
+  alle Portal-/Interaktionspositionen BFS-erreichbar, 3 Storyketten,
+  2 Boss-Siegflags, 3 Begleiterformen, Save/Reload und einmaliger Loot.
+- Echter Chrome-Test: 12 Karten-Screenshots, Portal 11->12, zwei
+  echte Bosskaempfe und keine JavaScript-Ausnahmen. Screenshots
+  docs/visual-audit/finale_00.png bis finale_11.png und finale_boss_*.png.
+- Android 0.24.0 / versionCode 25 vorbereitet. SIGNIERUNG UND RELEASE
+  ERST NACH GRUENEM GITHUB-ACTIONS-BUILD ALS ERFOLG MELDEN.
+- Noch offen: Postgame, 150 Basisarten systematisch erreichbar machen,
+  echte Android-Handy/TV-Hardwaretests, komplette Langzeit-Durchspielung,
+  Story-/Dialog-Politur, Musik und Animationen. Erstfassung ist kein
+  fertig poliertes Vollspiel.
+
+
 ## 2026-11-02 - v0.23.0: Kapitel 9-11 spielbarer Erstaufbau
 - 12 begehbare neue Karten mit 24 bidirektionalen lokalen Portalen
   und sicheren Spawns; alte Kapitel bleiben unveraendert.
