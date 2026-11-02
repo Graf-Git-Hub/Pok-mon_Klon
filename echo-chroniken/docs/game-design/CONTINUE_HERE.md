@@ -1,11 +1,11 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
 Stand 02.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
-**Letzte verifizierte signierte Android-APK: v0.22.0 / versionCode 23.**
-Quellcommit 88f12891689f85288ed9102a8ddb709bf0a38acb;
-Android Actions Run 41385068540 SUCCESS, stabile App-ID de.echochroniken.game.stable.
-APK 2.476.555 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
-SHA256 6DAB7CCB25C1D386B428FC6DFF9F6F40D4977FFE1E00AB159EEEC51BF41656A4.
+**Letzte verifizierte signierte Android-APK: v0.23.0 / versionCode 24.**
+Quellcommit 05b23618de5f66697b0221656ee05260a07ae02b;
+Android Actions Run 41390071606 SUCCESS, stabile App-ID de.echochroniken.game.stable.
+APK 2.487.781 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
+SHA256 6A11CBE4476405E17E97E90E37780765D8A8E98E1A89BBEAE7126B124BB89B77.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
@@ -36,9 +36,11 @@ Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
   Kapitel-8->9-Portal und Touch-Bahnreise ohne JavaScript-Fehler.
   Bilder docs/visual-audit/endgame_00.png bis endgame_11.png sowie
   endgame_boss_vex.png, endgame_boss_ring.png, endgame_boss_varek.png.
-- **APK v0.23.0 / versionCode 24 vorbereitet. Signiertes CI-Ergebnis
-  nach dem Quell-Push verifizieren; vorher ist v0.22.0 die letzte
-  bestaetigte Release-APK.**
+- **APK v0.23.0 / versionCode 24 verifiziert und signiert publiziert.**
+  GitHub Actions 41390071606 SUCCESS, Quellcommit 05b2361,
+  2.487.781 Bytes, SHA256
+  6A11CBE4476405E17E97E90E37780765D8A8E98E1A89BBEAE7126B124BB89B77.
+  Direktdownload und Desktop Laura aktualisiert.
 - **Naechster Auftrag:** Kapitel 12 Elena/Maternalis und Familiengespraeche,
   danach Kapitel 13 Resonanzschacht, Kapitel 14 Finale und Postgame.
   Prioritaet: spielbare Story, stabile Saves, echte Tests und Screenshots.

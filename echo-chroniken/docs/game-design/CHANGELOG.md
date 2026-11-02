@@ -18,7 +18,11 @@
   Loot, keine Aenderung an alten Orden, IDs oder App-Paketkennung.
 - Node-Tests inkl. tests/story-endgame.cjs; 12 Chrome-Screenshots,
   3 echte Bosskaempfe, Kapitelportal und Touch-Bahnfahrt erfolgreich.
-- Android 0.23.0 / versionCode 24: signiertes CI nach Push pruefen.
+- Android 0.23.0 / versionCode 24 signiert und veroeffentlicht.
+  Commit 05b23618de5f66697b0221656ee05260a07ae02b,
+  GitHub Actions Run 41390071606 SUCCESS, APK 2.487.781 Bytes,
+  SHA256 6A11CBE4476405E17E97E90E37780765D8A8E98E1A89BBEAE7126B124BB89B77.
+  Direktdownload und Desktop Laura aktualisiert.
 - Offen: reale Android-Hardware, Storydurchspielung, Sound/Portraits,
   Langzeit-Balance und Kapitel 12-14/Postgame.
 
