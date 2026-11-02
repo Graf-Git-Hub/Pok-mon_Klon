@@ -1,5 +1,14 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## QA 02.11.2026 - Story-/Postgame-Checkpoint-Regression (isolierter Zweig)
+- Branch test/echo-story-postgame-softlock-20261102 auf origin/main 8a35ebe; Original-Worktree mit fremden Aenderungen unangetastet.
+- Neuer Test project/tests/quest-save-checkpoints.cjs: 100 JSON-Save-/Migrations-Roundtrips, 58 Interaktionen, 3 atomar gesperrte Portale, verkehrte Reihenfolgen von Erinnerungen/Wiesentafeln, Kapitel 12-14 und Postgame, alle Boss-Siegflags und einmalige Belohnungen, archivierte Maternalis.
+- Lokal 29/29 Node-Tests, Android-Plattformtest und Dokumentvalidator bestanden. Dies sind gezielte Regressionen, KEIN vollstaendiger manueller Spieldurchlauf.
+- Browser-QA project/qa/quest-checkpoint-browser.py: Chrome 156, 5 echte Karten-Screenshots (4 Desktop, 1 Touch), Neustart/Reload, keine JavaScript-Fehler. Bilder und report.json in docs/visual-audit/quest-checkpoints.
+- Visuelles Review: Karten funktionieren, aber insbesondere Erinnerungszimmer und Resonanzkern wirken noch sehr karg; Pixelgrafik/Lesbarkeit bleiben fuer spaetere Politur offen.
+- Android-Version 0.26.0 / versionCode 27 und App-ID unveraendert; kein neues APK-Release fuer reine Tests.
+
+
 ## VERIFIZIERT 02.11.2026 - Android-Wiederholungsbuild nach PR #2
 - PR #2 wurde als Commit 82663252c0ddd105e27dc703556fe1871983e4e8 in main integriert; der alte Android-Workflow startete auch bei einem reinen Test-Merge.
 - Android-Run 41475017489 SUCCESS, aber unerwuenschte Wiederveroeffentlichung mit unveraendertem versionCode 27 / versionName 0.26.0.

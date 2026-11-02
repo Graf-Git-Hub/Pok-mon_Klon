@@ -1,5 +1,12 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - Story-/Postgame-Checkpoint-QA
+- Regression fuer 100 Save/Reload-Checkpoints, 58 Story-/Postgame-Interaktionen, 3 gesperrte Portale ohne Seiteneffekte, umgekehrte Reihenfolgen und einmalige Belohnungen.
+- Archivierte Maternalis bleibt bei Storydialogen erhalten; 29/29 Node-Tests sowie Android-Plattform- und Dokumenttest lokal bestanden.
+- Wiederholbares Chrome-156-QA-Skript mit 5 echten Desktop-/Touch-Kartenscreenshots, Reload und JavaScript-Fehlerkontrolle hinzugefuegt.
+- Kein neuer Release; unveraenderte SaveSchemaVersion, Wesen-IDs, Android-Paket-ID, Signatur und versionCode 27.
+
+
 ## 2026-11-02 - PR #2 integriert, ungewollter Android-Wiederholungsbuild
 - PR #2 / main 82663252: 60 Maps, 123 Spawns, 310 Wege, 117 Portal-Rueckreisen durch neuen Regressionstest.
 - Android-CI 41475017489 SUCCESS, publizierte v0.26.0 jedoch trotz unveraendertem versionCode 27 erneut.
