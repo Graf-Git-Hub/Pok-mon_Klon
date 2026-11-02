@@ -1,5 +1,31 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## VERIFIZIERTER RELEASE 02.11.2026 - Echo-Chroniken 0.28.0
+- Gameplay-PR #10 gemergt in main mit Commit
+  9b3258860dc4262090e8bcb60f4b57ca9b672110.
+- Erfolgreiche Main-GitHub-Actions: Spieltests 41532799344 SUCCESS,
+  Dokumentvalidator 41532799280 SUCCESS, signierte Android-APK
+  41532799303 SUCCESS.
+- Android 0.28.0, versionCode 29; stabile App-ID
+  de.echochroniken.game.stable und gleicher Signaturzertifikat-SHA256
+  84be81f8472b62b59527e4fcf67b19fa7d2e3ef4c0b05069c60139a45ec8ec87
+  wie bei 0.27.0. GitHub-CI hat apksigner verify und aapt bestanden.
+- APK 2.508.038 Bytes; SHA256:
+  c7596f8049309cd229613e2e2574b456b677d68d74551306124d09a8963db34e.
+  Release-URL: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
+  Der GitHub-Asset-Digest, Direktdownload auf Laura und Hash der
+  aktualisierten Desktop-APK stimmen exakt ueberein.
+  Vorversion 0.27.0 als Backup im TEMP-Ordner gesichert.
+- 35/35 lokale Node-Tests, 2700 deterministische Einzelduelle,
+  elf Chrome-156-Screenshots (Story und Kampf, Desktop/Touch),
+  Android-Plattformtest, Dokumentvalidator und git diff --check
+  erfolgreich; kein echter kompletter Gameplay-Durchlauf.
+- Originaler Nutzer-Worktree mit uncommitteten Dateien blieb
+  unberuehrt; keine Installation auf Android-Handy oder TV.
+- Naechstes: Spielfluss/Bosskampf mit Items und Teamwechsel,
+  echter Voll-Durchlauf, Android-Hardware, Animationen, Audio,
+  Barrierefreiheit. Entwicklungswaechter bleibt ausgeschaltet.
+
 ## BALANCE-FORTSETZUNG 02.11.2026 - Reserveteam und Bossprofile
 - Branch feature/echo-balance-pass-20261102, isolierter Worktree auf Laura.
   Vorherige Heil- und Niederlagen-Reparaturen aus eb6104a beibehalten.

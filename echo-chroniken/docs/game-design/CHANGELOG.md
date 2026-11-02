@@ -1,6 +1,16 @@
 # Story-Roadmap Änderungsverlauf
 
-## 2026-11-02 - v0.28.0 Reserveteam-EP und spaete Bosse
+## 2026-11-02 - v0.28.0 veroeffentlicht: Reserveteam-EP und spaete Bosse
+- PR #10 in main 9b3258860dc4262090e8bcb60f4b57ca9b672110.
+  GitHub-Actions Tests 41532799344, Docs 41532799280 und
+  Android 41532799303 jeweils SUCCESS.
+- Signierte APK v0.28.0/versionCode 29, 2.508.038 Bytes,
+  SHA256 c7596f8049309cd229613e2e2574b456b677d68d74551306124d09a8963db34e.
+  Paket-ID de.echochroniken.game.stable unveraendert; Signer-SHA256
+  84be81f8472b62b59527e4fcf67b19fa7d2e3ef4c0b05069c60139a45ec8ec87
+  wie v0.27.0; apksigner/AAPT in CI erfolgreich. GitHub-Asset-Digest,
+  Direktdownload und Desktop-Datei auf Laura stimmen ueberein.
+  Desktop-Backup der vorigen Version im TEMP-Ordner vorhanden.
 - Nach jedem gegnerischen Sieg bleibt die originale volle EP-Belohnung
   fuer das aktive Wesen erhalten. Alle gesunden Reservemonster teilen
   einen zusaetzlichen 40%-Pool; KO-Monster und Archiv nehmen nicht teil.
@@ -15,8 +25,8 @@
   Chrome 156 mit vier Screenshots und Bericht. Insgesamt 35/35 Node-Tests,
   elf Browser-Screenshots inklusive Story-Reload, Android-Plattformtest,
   Dokumentvalidator und git diff --check lokal erfolgreich.
-- Signierte v0.28.0 wird erst nach CI-SUCCESS, Signatur-/Paketpruefung
-  und SHA256-Direktdownload veroeffentlicht.
+- Signierte v0.28.0 erst nach CI-SUCCESS, Signatur-/Paketpruefung
+  und SHA256-Direktdownload veroeffentlicht. Echter Handy-/TV-Test offen.
 
 ## 2026-11-02 - v0.28.0 Balancing: Heilung und sichere Niederlage
 - Gegnerische Heilfaehigkeiten verursachen keinen Schaden mehr; 30% Chance zur einmaligen Heilung unter 35% KP.
