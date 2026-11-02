@@ -1,5 +1,37 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## BALANCE-FORTSETZUNG 02.11.2026 - Reserveteam und Bossprofile
+- Branch feature/echo-balance-pass-20261102, isolierter Worktree auf Laura.
+  Vorherige Heil- und Niederlagen-Reparaturen aus eb6104a beibehalten.
+- EP nach besiegtem Gegner: aktives Wesen bekommt weiterhin 100% der
+  urspruenglichen Belohnung, andere kampffaehige Teammitglieder teilen
+  einen zusaetzlichen Pool von 40%; bewusst keine EP fuer besiegte
+  Begleiter oder Wesen im Archiv. Kein neues Save-Feld, keine ID-Aenderung.
+  Levelaufstiege, permanente Attacken und Entwicklungen funktionieren
+  nun auch bei passiven Teammitgliedern.
+- Spaete Schluesselbosse (Endgame Kapitel 11, Finale, Postgame) haben
+  jetzt 90% der normalen Monster-KP und 95% Angriffsskalierung;
+  fruehe Bosse behalten 78% KP und 80% Angriffsskalierung.
+- Real-Engine-Boss-Audit: 27 Team-/Level-Szenarien mal je 100 deterministische
+  Einzelduelle = 2700. Drei Teamtypen fuer Kapitel 14, bis zu 10 Level
+  Rueckstand. Alle neun Szenarien auf Zielniveau gewinnbar im Audit.
+  Simulation ist KEIN vollstaendiger Spieldurchlauf, nutzt stets die
+  staerkste verfuegbare Attacke, keine Item-/Tausch-Strategien.
+- Neue Tests: project/tests/reserve-experience.cjs und
+  project/tests/boss-balance.cjs. Reproduzierbarer Report:
+  docs/visual-audit/battle-balance/boss-balance-report.json.
+- Echte Chrome-156-Browser-QA: project/qa/battle-browser.py startet einen
+  Arenakampf auf Desktop (Tastatur) und Mobilansicht (Touch), prueft
+  Angriff, Gegenangriff und nimmt vier Screenshots auf.
+  Kein JavaScript-Fehler bei beiden Laeufen.
+- Abschluss dieser lokalen Runde: 35/35 Node-Tests, Android-Plattformtest,
+  Dokumentvalidator und git diff --check bestanden. Chrome 156 hat vier
+  Kampfaufnahmen und sieben Story-/Touch-Aufnahmen ohne JS-Fehler geprueft;
+  die Bilder wurden visuell kontrolliert.
+- Vollstaendiger manueller Storydurchlauf, Boss-Taktik mit Gegenstaenden,
+  Android-Geraete und individuelles Kunst-/Audiopolishing weiterhin offen.
+  Android v0.28.0/versionCode 29 noch nicht als signierter Release bestaetigt.
+
 ## BALANCE-QA 02.11.2026 - Heilzauber und sichere Niederlage
 - Getrennter Worktree Echo_Balance_Pass_20261102 auf origin/main 06bccc2;
   Original-Hauptarbeitsbaum und geschuetzte Dateien nicht bearbeitet.
@@ -17,9 +49,10 @@
 - 33/33 lokale Node-Tests, Android-Plattformtest, Story-Dokumentvalidator,
   git diff --check erfolgreich; Chrome 156 QA: 7 Screenshots mit
   Desktop/412px Touch und Reload, keine JS-Ausnahmen, Bilder betrachtet.
-- Kein kompletter Kampf-Schwierigkeitsgrad-Audit: Gruppen-EP,
-  14 Kapitel Boss-Balance, komplette Story und echtes Handy/TV
-  bleiben offen. M07-03 ist IN_PROGRESS, nicht DONE.
+- Stand dieser frueheren Runde: Gruppen-EP und Bossvergleich waren
+  noch offen. Spaeter im Abschnitt BALANCE-FORTSETZUNG nachgeruestet;
+  kompletter Storydurchlauf und echtes Handy/TV weiterhin offen.
+  M07-03 bleibt IN_PROGRESS, nicht DONE.
 - Fuer diese Gameplay-Aenderungen Android 0.28.0, versionCode 29
   vorbereitet. Release nur nach frischer GitHub-CI, apksigner,
   Paket-/Signaturvergleich und SHA256-Direktdownload.

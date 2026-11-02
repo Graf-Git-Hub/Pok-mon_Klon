@@ -896,13 +896,24 @@ function executeBattleAction(choice){
     const ally = getActiveAlly();
     const enemy = b.enemy;
     const xpGain = enemy.lv * 11 + (b.isTrainer ? 18 : 8);
-    ally.xp += xpGain;
     sfx.confirm();
 
     const msgs = [`${b.enemyDisplayName||SPECIES[enemy.id - 1].name} wurde besänftigt! (+${xpGain} EP)`];
 
-    // Level-Up & Entwicklungs-Check
-    while (ally.xp >= ally.nextXp) {
+    // The active fighter keeps 100% of its XP. Healthy reserves share one
+    // extra 40%-sized pool, never a full reward for every team slot.
+    const reserves=gameState.team.filter(member=>member!==ally&&member.hp>0);
+    const reserveXp=reserves.length?Math.floor(xpGain*.4/reserves.length):0;
+    const activeFighter=ally;
+    for(const member of [activeFighter,...reserves]){
+      const points=member===activeFighter?xpGain:reserveXp;
+      if(points<=0)continue;
+      const ally=member;
+      if(!Number.isFinite(ally.nextXp)||ally.nextXp<=0)
+        ally.nextXp=ally.lv*18;
+      ally.xp=Math.max(0,Number(ally.xp)||0)+points;
+      // Preserve original level-up, permanent skills and evolution rules.
+      while (ally.xp >= ally.nextXp) {
       ensureMonsterMoves(ally);
       ally.lv++;
       ally.xp -= ally.nextXp;
@@ -929,6 +940,8 @@ function executeBattleAction(choice){
         }
       }
     }
+    }
+    if(reserveXp>0)msgs.push(`Deine ${reserves.length} Begleiter erhalten jeweils +${reserveXp} EP.`);
 
     b.enemyQueue.shift();
     if (b.enemyQueue.length > 0) {
@@ -1086,6 +1099,11 @@ function executeBattleAction(choice){
     }
   });
 
+  function bossMultipliers(group,chapter){
+    const late=group==='finale'||group==='postgame'||(group==='endgame'&&chapter>=11);
+    return {hp:late?.90:.78,attack:late?.95:.8};
+  }
+
   function interactFront() {
     if(gameState.scene==='OVERWORLD'&&gameState.currentMapId!=='legacy_wurzeldorf'){
       const region=window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
@@ -1136,9 +1154,14 @@ function executeBattleAction(choice){
           else if(onStill)gameState.battle.chapter5Fight=r.boss;
           else if(onRail)gameState.battle.chapter4Fight=r.boss;
           else gameState.battle.chapter3Boss=true;
-          gameState.battle.enemy.maxHp=Math.round(gameState.battle.enemy.maxHp*.78);
+          // Later bosses need a challenge, without punishing the first chapters.
+          // Tested across light, water and shadow teams at different levels.
+          const profile=bossMultipliers(onFinale?'finale':onPostgame?'postgame':
+            onEndgame?'endgame':'normal',storyChapter);
+          const hpScale=profile.hp,attackScale=profile.attack;
+          gameState.battle.enemy.maxHp=Math.round(gameState.battle.enemy.maxHp*hpScale);
           gameState.battle.enemy.hp=gameState.battle.enemy.maxHp;
-          gameState.battle.enemy.encounterScale=.8;
+          gameState.battle.enemy.encounterScale=attackScale;
         });
       }else if(r.rail){
         gameState.railCursor=0;gameState.mode='RAIL';sfx.confirm();
