@@ -10,8 +10,10 @@
 - tests/story-finale.cjs prueft 52 Maps, Tore, Dialoge, Bosse, Save,
   Belohnungen und BFS-Erreichbarkeit. Chrome-Screenshots finale_00-11,
   finale_boss_guard und finale_boss_varek, Portal 11->12 erfolgreich.
-- v0.24.0/versionCode 25 vorerst Release-Kandidat. Erst nach CI-SUCCESS,
-  Signatur- und SHA256-Pruefung diese Zeile als Release bestaetigen.
+- **v0.24.0/versionCode 25 erfolgreich signiert veroeffentlicht.**
+  Actions 41395532582 SUCCESS, Quellcommit b6439cd2, 2.497.114 Bytes,
+  SHA256 0BB520C562FB1240FDA1936216668B898E996DC710D86F6653130C2D82444164.
+  Desktop-APK auf Laura aktualisiert; Touch-Dialog auf Handy-Viewport getestet.
 - **Naechster Durchlauf:** Postgame mit Echo-Garten, Bahn-Museum,
   Basisarten-Zugaenglichkeit (94 Nichtstarter), optionale Gebietspruefungen;
   parallel Grafiken, Dialoge, Touch/Controller und Balance optimieren.
@@ -20,11 +22,11 @@
 
 
 Stand 02.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
-**Letzte verifizierte signierte Android-APK: v0.23.0 / versionCode 24.**
-Quellcommit 05b23618de5f66697b0221656ee05260a07ae02b;
-Android Actions Run 41390071606 SUCCESS, stabile App-ID de.echochroniken.game.stable.
-APK 2.487.781 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
-SHA256 6A11CBE4476405E17E97E90E37780765D8A8E98E1A89BBEAE7126B124BB89B77.
+**Letzte verifizierte signierte Android-APK: v0.24.0 / versionCode 25.**
+Quellcommit b6439cd2a5103e5c1af434e3cc2728acc385bcdb;
+Android Actions Run 41395532582 SUCCESS, stabile App-ID de.echochroniken.game.stable.
+APK 2.497.114 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
+SHA256 0BB520C562FB1240FDA1936216668B898E996DC710D86F6653130C2D82444164.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 

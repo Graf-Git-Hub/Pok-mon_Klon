@@ -23,8 +23,10 @@
 - Echter Chrome-Test: 12 Karten-Screenshots, Portal 11->12, zwei
   echte Bosskaempfe und keine JavaScript-Ausnahmen. Screenshots
   docs/visual-audit/finale_00.png bis finale_11.png und finale_boss_*.png.
-- Android 0.24.0 / versionCode 25 vorbereitet. SIGNIERUNG UND RELEASE
-  ERST NACH GRUENEM GITHUB-ACTIONS-BUILD ALS ERFOLG MELDEN.
+- Android 0.24.0 / versionCode 25 signiert veroeffentlicht.
+  GitHub Actions 41395532582 SUCCESS, Commit b6439cd2a5103e5c1af434e3cc2728acc385bcdb,
+  APK 2.497.114 Bytes, SHA256 0BB520C562FB1240FDA1936216668B898E996DC710D86F6653130C2D82444164.
+  APK auf Lauras Desktop aktualisiert; echter Touch-Dialogtest im Handy-Viewport bestanden.
 - Noch offen: Postgame, 150 Basisarten systematisch erreichbar machen,
   echte Android-Handy/TV-Hardwaretests, komplette Langzeit-Durchspielung,
   Story-/Dialog-Politur, Musik und Animationen. Erstfassung ist kein
