@@ -17,7 +17,8 @@ for row,src in zip(sorted(records,key=lambda x:int(x['id'])),species):
     assert int(row['stufe'])==src['stage']
     assert str(row['entwicklung_zu_id'])==str(src['evolvesTo'] or '')
     assert row['primär_region_id']
-assert sum(row['name_status'].startswith('OFFEN') for row in records)==50
+assert sum(row['name_status'].startswith('OFFEN') for row in records)==0
+assert sum(row['name_status']=='VISUELL GEPRUEFT' for row in records)==50
 with (R/'PRODUCTION_TASKS.csv').open(encoding='utf-8-sig',newline='') as f:
     tasks=list(csv.DictReader(f,delimiter=';'))
 ids=[x['id'] for x in tasks]

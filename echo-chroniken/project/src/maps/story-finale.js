@@ -362,9 +362,76 @@ function drawTile(pix,tile,sx,sy,x,y,tick,id){
   if(theme==='core'&&n<5){pix(sx+7,sy+3,2,10,'#e6b5e4');}
  }
 }
+// Landmarks are visual overlays only: they never change tiles, collision, exits or save data.
+function drawLandmarks(pix,at,id,tick,c){
+ const pulse=(Math.floor(tick/24)%2)===0;
+ if(id==='memory_room'){
+  // Family tapestry: three portraits and a woven path towards the free-choice mirror.
+  const [rx,ry]=at(7,8);
+  pix(rx,ry,176,96,'#766f99');
+  pix(rx+3,ry+3,170,90,'#ada6c4');
+  for(let k=0;k<11;k++){
+   pix(rx+k*16+5,ry+5,2,86,k%2?'#84799f':'#d5bfd1');
+   pix(rx+k*16+10,ry+10,2,76,'#c7b9d5');
+  }
+  pix(rx+3,ry+3,170,3,'#e3cfa8');
+  pix(rx+3,ry+90,170,3,'#e3cfa8');
+  // Pixel-mosaic in the floor: the central echo stays open, not locked.
+  const [cx,cy]=at(12,10);
+  pix(cx-24,cy-19,64,42,'#5d628d');
+  pix(cx-19,cy-14,54,32,'#d7bad4');
+  pix(cx-14,cy-9,44,22,'#7784a4');
+  pix(cx-7,cy-5,30,14,'#eee0ba');
+  pix(cx+2,cy-9,12,22,'#c28eaa');
+  pix(cx-1,cy+2,18,3,pulse?'#fff0d6':'#dbcaee');
+  // Three family pictures have unique silhouettes; revealed memories glow.
+  for(let i=0;i<3;i++){
+   const [x,y]=at(6+i*6,7);
+   const learned=c.pictures.includes(i);
+   pix(x-7,y-13,30,31,'#564761');
+   pix(x-5,y-11,26,27,learned?'#e8cf96':'#ab8ba7');
+   pix(x-3,y-9,22,20,['#8cabb0','#7895ab','#b99f93'][i]);
+   pix(x+3,y-4,7,8,'#ead3b2');
+   pix(x+4,y-7,5,4,'#6b4f61');
+   if(i===0){pix(x+12,y+2,5,6,'#f4ddbb');pix(x+12,y+6,5,4,'#9e6c83');}
+   if(i===1){pix(x-2,y+6,22,3,'#d4bb87');}
+   if(i===2){pix(x+13,y-5,5,13,'#6e5065');}
+   if(learned)pix(x+1,y-14,14,2,pulse?'#fff5cc':'#eddeb5');
+  }
+ }else if(id==='resonance_core'){
+  // A stepped, pixel-perfect resonance ring with cables to the three release anchors.
+  const [cx,cy]=at(12,11);
+  pix(cx-84,cy-60,184,135,'#484467');
+  pix(cx-80,cy-56,176,127,'#665778');
+  for(let k=0;k<9;k++){
+   const x=cx-75+k*19;
+   pix(x,cy-54,2,123,'#876f92');
+  }
+  for(let k=0;k<6;k++)pix(cx-78,cy-50+k*22,172,2,'#8f759a');
+  pix(cx-57,cy-41,128,90,'#393a5c');
+  pix(cx-52,cy-36,118,80,'#9b7d9e');
+  pix(cx-43,cy-28,100,64,'#443d68');
+  pix(cx-34,cy-20,82,48,'#75618e');
+  pix(cx-24,cy-13,62,34,'#2f395c');
+  pix(cx-12,cy-11,38,30,c.varekWon?'#8bbbaa':'#bc829e');
+  pix(cx-5,cy-6,24,20,pulse?'#f8e2bd':'#d9b9e3');
+  pix(cx+2,cy-13,10,4,'#f2d7bd');
+  // Visible conduits; each capsule dims permanently after voluntary release.
+  for(let i=0;i<3;i++){
+   const [ax,ay]=at(6+i*6,11);
+   const freed=c.freed.includes(i);
+   pix(ax+7,cy+40,3,Math.max(3,ay-cy-35),'#c197b8');
+   pix(ax-5,ay+11,27,6,'#3a3c60');
+   pix(ax-1,ay+10,19,4,freed?'#719d95':'#df9ec3');
+   pix(ax+4,ay+2,9,10,freed?'#53676e':pulse?'#f4d7e2':'#ca9db8');
+   if(freed)pix(ax+6,ay+5,5,3,'#a7d7b3');
+  }
+ }
+}
 function draw(ctx,tick,s,camX,camY,pix,letter,drawChar){
  const id=s.currentMapId,m=window.EchoMaps.get(id),c=ensure(s,chapterOf[id]),theme=themes[id];
  const at=(x,y)=>[x*16-camX,y*16-camY];
+ drawLandmarks(pix,at,id,tick,c);
  if(theme==='home'||theme==='memory'){
   for(const [x,y] of [[4,3],[18,3]]){const [u,v]=at(x,y);
    pix(u-4,v-6,48,38,'#615b79');pix(u,v+2,40,29,'#bcaeab');
@@ -390,6 +457,21 @@ function draw(ctx,tick,s,camX,camY,pix,letter,drawChar){
   }else if(type.startsWith('anchor')||type.startsWith('free')){
    pix(u+3,v-4,10,21,'#394e68');pix(u+5,v-2,6,16,'#c6a8c8');
    pix(u+6,v+3,4,5,'#f7e3b7');
+  }else if(type==='memoryMirror'){
+   // A recognizable silver mirror, not a generic quest cube.
+   pix(u+1,v-6,14,25,'#584d6d');
+   pix(u+3,v-4,10,19,'#edd6bc');
+   pix(u+4,v-3,8,15,c.mirror?'#afd5cb':'#8ea8c2');
+   pix(u+6,v-1,2,9,'#f5e5d6');pix(u+3,v+15,10,3,'#785b83');
+  }else if(type==='safetyLatch'){
+   pix(u,v,16,18,'#4f536d');
+   pix(u+2,v+2,12,13,c.latchOpen?'#6caa93':'#c18b99');
+   pix(u+5,v+4,6,7,'#e9d7ac');
+   pix(u+7,v+6,2,5,c.latchOpen?'#4a6959':'#875c73');
+  }else if(type==='releaseSignal'){
+   pix(u,v,16,18,'#51436d');pix(u+2,v+3,12,12,'#9f7a9e');
+   pix(u+5,v+5,6,8,c.completed?'#a2dbbb':'#e9c4de');
+   pix(u+7,v+1,2,4,'#ffeaca');
   }else if(type==='healer'){
    pix(u+2,v+2,12,14,'#496c68');pix(u+5,v+4,6,7,'#b2e7c8');
   }else{

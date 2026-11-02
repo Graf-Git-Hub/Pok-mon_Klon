@@ -1,5 +1,23 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - v0.27.0 Releasekandidat: Figurenlexikon und finale Schauplaetze
+- Nach echtem visuellen Audit des 150er-Atlas alle 50 generischen
+  Spukwesen-Namen individuell ersetzt und Familienlabels harmonisiert.
+  Original-IDs, Typen, Stats, Evolutionsketten und Save-Schema unveraendert;
+  150 eindeutige Namen, 50 gepruefte Kunst-Zuordnungen.
+  Kontaktblaetter, Review-JSON und wiederholbare Browser-Bestiarium-QA.
+- Erinnerungszimmer und Resonanzkern mit eigenen gepixelten Umgebungen,
+  erkennbaren Spiegel-/Verschlussobjekten und auf Fortschritt reagierenden
+  Maschinenleuchten statt gleicher Standard-Kulisse ausgestattet.
+  Reine Renderaenderungen: keine Questlogik, Kollisionen oder Speicherwerte.
+- Zwei neue automatisierte Tests fuer Farben/Queststatus/Renderaufwand
+  sowie das 50-Namen-/Atlas-Mapping. Chrome 156 prueft 7 Story-/Touch-
+  Checkpoints und 3 Bestiarium-Eintraege ohne JS-Fehler.
+- MONSTER_DISTRIBUTION.csv und Dokumentvalidator aktualisiert;
+  Roadmap M07-02 auf DONE, 150er-Gesamtaudit noch IN_PROGRESS.
+- Android 0.27.0/versionCode 28 fuer echte Spielinhaltsaenderung geplant;
+  keine APK vor CI, Signatur- und SHA256-Pruefung.
+
 ## 2026-11-02 - Story-/Postgame-Checkpoint-QA
 - Regression fuer 100 Save/Reload-Checkpoints, 58 Story-/Postgame-Interaktionen, 3 gesperrte Portale ohne Seiteneffekte, umgekehrte Reihenfolgen und einmalige Belohnungen.
 - Archivierte Maternalis bleibt bei Storydialogen erhalten; 29/29 Node-Tests sowie Android-Plattform- und Dokumenttest lokal bestanden.
