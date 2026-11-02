@@ -14,7 +14,13 @@
   150er-Katalog und sichere Speicherung. Chrome: acht Maps, Portal,
   echter Bosskampf, Museum und Pixel-7-Touch-Dialog ohne JS-Fehler;
   zehn neue Screenshots.
-- Android 0.25.0 / versionCode 26. CI-Ergebnis vor Release pruefen.
+- Android 0.25.0 / versionCode 26 signiert und veroeffentlicht.
+  Actions Run 41402037515 SUCCESS, Commit 938b7e03f1e40f75b4b1a39971f6eadba062b6fa,
+  APK 2.504.107 Bytes, SHA256
+  C927D79203280060556D07278D3D7314E84B798F0B3AEB81E42A7CC0CD26FD25.
+  APK auf Lauras Desktop nach Download und Hashvergleich aktualisiert.
+  Automatischer Entwicklungswaechter wieder auf normale stündliche
+  Prioritaet gesetzt (Story/Postgame-Fehler, danach Grafik und Langzeittests).
 - Offen: reale Android-Handy/TV-Abnahme, kompletter manueller Durchlauf,
   Audio, 50 generische Wesen-Namen, Grafik- und Balancing-Feinschliff.
 

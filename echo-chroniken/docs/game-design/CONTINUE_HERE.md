@@ -1,6 +1,6 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
-## NEUER STAND 02.11.2026 - Postgame v0.25.0 (CI noch ausstehend)
+## NEUER STAND 02.11.2026 - Postgame v0.25.0 (signiert veroeffentlicht)
 - Zweiter und letzter erweiterter Durchlauf: Postgame als spielbare Erstfassung.
 - 8 Karten in project/src/maps/postgame.js: optional_echo_garden_annex,
   rail_heritage_museum und postgame_meadow_01 bis postgame_meadow_06.
@@ -19,7 +19,12 @@
   postgame_trial_boss.png und postgame_mobile_touch.png; 8 Karten,
   Portal, Boss, Museum und Pixel-7-Touch-Dialog ohne JS-Fehler.
   Garten, Wiesen und Museum erhielten neue Pixelgrafik und Zugausstellung.
-- **CI-Signatur und Android-Release erst nach erfolgreichem Build bestaetigen.**
+- **v0.25.0 / versionCode 26 erfolgreich signiert veroeffentlicht.**
+  Actions Run 41402037515 SUCCESS, Quellcommit 938b7e03f1e40f75b4b1a39971f6eadba062b6fa.
+  APK 2.504.107 Bytes, SHA256 C927D79203280060556D07278D3D7314E84B798F0B3AEB81E42A7CC0CD26FD25.
+  Download und SHA256 lokal auf Laura verifiziert, Desktop-APK aktualisiert.
+  Stündlicher Entwicklungswaechter nach zwei erweiterten Durchlaeufen
+  wieder auf NORMALPRIORITAET gestellt und aktiviert.
 - Offen: echter Handy/TV-Test, kompletter manueller Durchlauf, Audio,
   50 generische Spukwesen-Namen, weitere Grafikpolitur, Endgame-Balancing.
 - **Naechster NORMALER stündlicher Auftrag:** erst offene Story/Postgame-
@@ -49,11 +54,11 @@
 
 
 Stand 02.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
-**Letzte verifizierte signierte Android-APK: v0.24.0 / versionCode 25.**
-Quellcommit b6439cd2a5103e5c1af434e3cc2728acc385bcdb;
-Android Actions Run 41395532582 SUCCESS, stabile App-ID de.echochroniken.game.stable.
-APK 2.497.114 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
-SHA256 0BB520C562FB1240FDA1936216668B898E996DC710D86F6653130C2D82444164.
+**Letzte verifizierte signierte Android-APK: v0.25.0 / versionCode 26.**
+Quellcommit 938b7e03f1e40f75b4b1a39971f6eadba062b6fa;
+Android Actions Run 41402037515 SUCCESS, stabile App-ID de.echochroniken.game.stable.
+APK 2.504.107 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
+SHA256 C927D79203280060556D07278D3D7314E84B798F0B3AEB81E42A7CC0CD26FD25.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
