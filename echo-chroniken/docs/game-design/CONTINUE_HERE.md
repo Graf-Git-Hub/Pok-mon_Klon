@@ -1,13 +1,21 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
-Stand 01.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
-**Letzte verifizierte signierte Android-APK: v0.19.0 / versionCode 20.**
-Quellcommit 6019e1e0cf315a5840584f7efa07afaca73f5c60;
-Android Actions Run 41328383208 erfolgreich, stabile App-ID de.echochroniken.game.stable.
-APK 2.454.774 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
-SHA256 A1F4FA96CD74E3F682BBE42B978462BEE2340F1EBBD5FB3A1C918B5D70FF70E2.
+Stand 02.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
+**Letzte verifizierte signierte Android-APK: v0.20.0 / versionCode 21.**
+Quellcommit 2adaa9ea10c8c541a1b2ca8aab66780dbc6f5115;
+Android Actions Run 41377128195 erfolgreich, stabile App-ID de.echochroniken.game.stable.
+APK 2.456.984 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
+SHA256 65EC72DF69FAAA0A9AD6CB87B0E414D95523E094AC32D58AD68CC3A9538E4D95.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
+
+## Release bestaetigt: Android 0.20.0 / versionCode 21
+- Commit 2adaa9ea10c8c541a1b2ca8aab66780dbc6f5115, GitHub Actions Run 41377128195: SUCCESS.
+- Gleichbleibende App-ID de.echochroniken.game.stable und Signaturschluessel.
+- APK 2456984 Bytes, SHA256 65EC72DF69FAAA0A9AD6CB87B0E414D95523E094AC32D58AD68CC3A9538E4D95.
+- APK auf Desktop Laura unter Echo-Chroniken-Universal.apk ersetzt.
+- Link: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
+- Realer Test auf Android-Handy/TV steht aus. Browser- und Node-Tests erfolgreich.
 
 ## Neuste Aenderung 2026-11-02: Sprite-Neubau fuer Android 0.20.0
 
@@ -20,8 +28,8 @@ Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
   characters-home.png, characters-village.png und characters-world-*.png.
 - Bestehende 20 Node-Tests plus neuer Sprite-Test bestanden; Browser ohne
   JavaScript-Fehler in Dorf, Haus, Bahnhof und Moorglas.
-- Signierter Android 0.20.0 Release muss auf GitHub verifiziert werden,
-  danach Direct-APK und Laptop-Kopie aktualisieren; stabile App-ID behalten.
+- Signierter Android 0.20.0 Release auf GitHub erfolgreich, direkte APK
+  lokal aktualisiert. Echtes Handy und TV bleiben fuer Hardware-QA offen.
 
 ## Abgeschlossene technische Voraussetzungen
 

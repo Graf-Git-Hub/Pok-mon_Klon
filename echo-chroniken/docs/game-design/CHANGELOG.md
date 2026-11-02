@@ -13,7 +13,10 @@
   Caching und transparente Pixel-Sprites; Regression der Spieltests bestanden.
 - Echte Chrome-Bilder der Sprite-Uebersicht, Omas Haus, Wurzelheim,
   Moorglas und Bahnhoefe in docs/visual-audit gespeichert.
-- Android 0.20.0 / versionCode 21. Signierten Build nach GitHub CI pruefen.
+- Android 0.20.0 / versionCode 21 verifiziert und signiert veroeffentlicht:
+  Quellcommit 2adaa9ea, CI Run 41377128195 SUCCESS, 2456984 Bytes,
+  SHA256 65EC72DF69FAAA0A9AD6CB87B0E414D95523E094AC32D58AD68CC3A9538E4D95.
+  Datei auf Desktop Laura aktualisiert; reale Handy/TV-Tests stehen noch aus.
 
 
 ## 2026-11-01 - v0.19.0: Unter den Wurzeln / Echo-Bahn
