@@ -9,6 +9,37 @@ SHA256 611C0B7D24D733FEC5665C78B40EB10EE3BC4F134101F0D2AAFECC88C865AF05.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
+## Entwicklungsstand 02.11.2026: Kapitel 6, 7 und 8 spielbarer Erstaufbau
+- **Quellcode v0.22.0 / versionCode 23:** 13 neue begehbare Karten in
+  src/maps/story-regions.js. Kap. 6: Ascheweg, Aschenruh, Schmiede, Glutschacht.
+  Kap. 7: Lichterpfad, Lichterhain, Namensarchiv, Echo-Garten.
+  Kap. 8: Stadttor, Kronenstadt, Zentralarchiv, Bahnhof, Forschungshof.
+- Kapitel 6: Eddas Lieferbuecher, drei Arbeiter, Hitze-Regler 1/3, Druckablass,
+  Regler 2, Kapselgehaeuse, Eddas Gestandnis, Schmelzmeister, Ofenkern,
+  Resonanzwerkzeug, einmalige Belohnung.
+- Kapitel 7: Nalias drei Rituale, drei Namensgeschichten, Kontinuum-Jaeger,
+  vier Namenssteine, Namensschatten, Vaterkarte, Echo-Spuren. Seltene
+  Waldhirsch-Grundform gezielt in leuchtenden Grasfeldern suchbar.
+- Kapitel 8: drei Akten, Archivindex 14/30/21, Varek-Dialog, Archivarin,
+  fehlende Tonspur, Archivwaechter, zwei Marktstimmen, Frostgrat-Pass,
+  Bahnverbindung Stillwasser-Kronenstadt (hin und zurueck).
+- Story-Fortschritt in chapter6, chapter7, chapter8 mit SaveSchema v2 und
+  stabiler App-ID, alte Kapitel und Monster-IDs unveraendert.
+- tests/story-regions.cjs: 13 Karten, 5 Boss-Flags, 3 Raetsel, Portal- und
+  Bahn-Rueckwege, Save/Reload, Loot-einmalig, BFS fuer alle Storyobjekte.
+- Echter Chrome-Test: 13 Kartenscreenshots, 3 echte Bosskaempfe,
+  Uebergang 5->6 und Touch-Zugfahrt, keine JS-Fehler.
+  Dateien: docs/visual-audit/story678_00.png bis story678_12.png,
+  story678_boss_0.png bis _2.png und story678_rail.png.
+- **Freigabe-Status:** Diese Version ist ein spielbarer Erstaufbau, keine
+  abschliessend polierte Inszenierung. Echter Android-Handy/TV-Test, komplette
+  Langzeit-Durchspielung, Sound, Portraits, Kapitel 9-14 und Postgame fehlen.
+- **Naechster Schritt:** Kapitel 9 Frostgrat mit Phasenlaterne und
+  reversiblen Bruecken umsetzen, dann Kapitel 10 Unterstadt und Kapitel 11
+  Observatorium. Davor aktuelle GitHub Actions, APK und Screenshots pruefen.
+- **Release v0.22.0:** erst nach signiertem GitHub-Actions-SUCCESS,
+  Pruefsumme und APK-Download als verifiziert bezeichnen.
+
 ## Stand 02.11.2026 - Kapitel 5 als spielbarer Ausbau
 - Android 0.21.0 / versionCode 22 erfolgreich signiert und veroeffentlicht:
   CI 41379112904 SUCCESS, commit 72967b5, Desktop-APK aktualisiert.

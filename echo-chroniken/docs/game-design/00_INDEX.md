@@ -40,9 +40,9 @@ Kopieren: „Öffne Graf-Git-Hub/Pok-mon_Klon, lies echo-chroniken/docs/game-des
 | [Kapitel 03](CHAPTERS/CH03.md) | Stimmen am Seelen-See | vollständig geplant, nicht programmiert |
 | [Kapitel 04](CHAPTERS/CH04.md) | Unter den Wurzeln | erster spielbarer Abschnitt mit zwei Bahnstationen und fünf Karten (v0.19.0) |
 | [Kapitel 05](CHAPTERS/CH05.md) | Das Dorf, das niemand verlässt | erster spielbarer Ausbau mit 5 Karten und der zweiten Bahnstrecke (v0.21.0) |
-| [Kapitel 06](CHAPTERS/CH06.md) | Glut unter der Asche | vollständig geplant, nicht programmiert |
-| [Kapitel 07](CHAPTERS/CH07.md) | Der Garten der Namen | vollständig geplant, nicht programmiert |
-| [Kapitel 08](CHAPTERS/CH08.md) | Kronenstadt | vollständig geplant, nicht programmiert |
+| [Kapitel 06](CHAPTERS/CH06.md) | Glut unter der Asche | spielbarer Erstaufbau v0.22.0 (4 Karten, Schmiede, 2 Bosse) |
+| [Kapitel 07](CHAPTERS/CH07.md) | Der Garten der Namen | spielbarer Erstaufbau v0.22.0 (4 Karten, Echo-Spuren) |
+| [Kapitel 08](CHAPTERS/CH08.md) | Kronenstadt | spielbarer Erstaufbau v0.22.0 (5 Karten, Archiv, Bahnhof) |
 | [Kapitel 09](CHAPTERS/CH09.md) | Frostgrat | vollständig geplant, nicht programmiert |
 | [Kapitel 10](CHAPTERS/CH10.md) | Die Stadt unter der Stadt | vollständig geplant, nicht programmiert |
 | [Kapitel 11](CHAPTERS/CH11.md) | Das Sternenobservatorium | vollständig geplant, nicht programmiert |

@@ -57,6 +57,7 @@ jobs:
           node tests/chapter3.cjs
           node tests/chapter4.cjs
           node tests/chapter5.cjs
+          node tests/story-regions.cjs
           node tests/characters.cjs
           node tests/save-compat.cjs
           node tests/story-registry.cjs
@@ -77,6 +78,7 @@ jobs:
           node --check app/src/main/assets/src/maps/chapter3.js
           node --check app/src/main/assets/src/maps/chapter4.js
           node --check app/src/main/assets/src/maps/chapter5.js
+          node --check app/src/main/assets/src/maps/story-regions.js
           node --check app/src/main/assets/src/characters.js
           node --check app/src/main/assets/src/encounters/registry.js
           node --check app/src/main/assets/data/encounters.js

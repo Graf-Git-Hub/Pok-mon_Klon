@@ -89,13 +89,15 @@ function access(s,id){
 }
 const route=[
  {a:'station_wurzelheim',b:'station_moorglas',flag:'railsReady'},
- {a:'station_moorglas',b:'station_stillwasser',flag:'chapter5.completed'}
+ {a:'station_moorglas',b:'station_stillwasser',flag:'chapter5.completed'},
+ {a:'station_stillwasser',b:'station_kronenstadt',flag:'chapter8.completed'}
 ];
 function unlocked(s,id){
  const c=ensure(s);
  if(id==='station_wurzelheim')return !!c.rail_wurzelheim;
  if(id==='station_moorglas')return !!(c.rail_moorglas||c.railsReady);
  if(id==='station_stillwasser')return !!s.chapter5?.completed;
+ if(id==='station_kronenstadt')return !!s.chapter8?.completed;
  return false;
 }
 function destinations(s,from=s.currentMapId){
@@ -104,7 +106,8 @@ function destinations(s,from=s.currentMapId){
  while(queue.length){
   const here=queue.shift();
   for(const edge of route){
-   const active=edge.flag==='chapter5.completed'?s.chapter5?.completed:ensure(s)[edge.flag];
+   const active=edge.flag==='chapter5.completed'?s.chapter5?.completed:
+     edge.flag==='chapter8.completed'?s.chapter8?.completed:ensure(s)[edge.flag];
    if(!active)continue;
    const next=edge.a===here?edge.b:edge.b===here?edge.a:null;
    if(next&&!reachable.has(next)&&window.EchoMaps.get(next)?.spawns.platform){
@@ -113,7 +116,7 @@ function destinations(s,from=s.currentMapId){
   }
  }
  reachable.delete(from);
- return Array.from(reachable).filter(id=>unlocked(s,id)).map(id=>({id,name:names[id]||window.EchoChapter5?.names[id]||id}));
+ return Array.from(reachable).filter(id=>unlocked(s,id)).map(id=>({id,name:names[id]||window.EchoChapter5?.names[id]||window.EchoStoryRegions?.names[id]||id}));
 }
 function depart(s,targetId){
  const from=s.currentMapId,to=window.EchoMaps.get(targetId),src=window.EchoMaps.get(from);

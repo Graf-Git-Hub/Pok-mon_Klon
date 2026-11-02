@@ -455,6 +455,7 @@
     window.EchoChapter3?.register(worldMap);
     window.EchoChapter4?.register();
      window.EchoChapter5?.register();
+    window.EchoStoryRegions?.register();
 
     const gameState = {
     mode: 'OVERWORLD', // OVERWORLD, DIALOG, BATTLE, LEXICON, MENU
@@ -485,6 +486,9 @@
     chapter3: null,
     chapter4: null,
     chapter5: null,
+    chapter6: null,
+    chapter7: null,
+    chapter8: null,
     railCursor: 0,
     ruinsReturn: null,
     roomId: null,
@@ -530,6 +534,9 @@
         chapter3: gameState.chapter3,
         chapter4: gameState.chapter4,
         chapter5: gameState.chapter5,
+        chapter6: gameState.chapter6,
+        chapter7: gameState.chapter7,
+        chapter8: gameState.chapter8,
         ruinsReturn: gameState.ruinsReturn,
         roomId: gameState.roomId,
         returnToVillage: gameState.returnToVillage,
@@ -567,6 +574,7 @@
       window.EchoChapter3?.ensure(gameState);
       window.EchoChapter4?.ensure(gameState);
        window.EchoChapter5?.ensure(gameState);
+      window.EchoStoryRegions?.ensure(gameState);
       if(gameState.scene==='BUILDING'&&!window.EchoInteriors?.ROOMS[gameState.roomId]){
         gameState.scene='OVERWORLD';gameState.player={x:5,y:6,dir:'down',stepPhase:0};
       }
@@ -633,13 +641,17 @@
       newcomer:earned===0 && (Number(gameState.battleWins)||0)<3
     };
   }
-  function startWildBattle(){
+  function startWildBattle(rareEchoTrace=false){
     let limits=wildEncounterLimits();
     if(gameState.currentMapId!=='legacy_wurzeldorf'){
       const strongest=Math.max(5,...gameState.team.map(m=>m.lv||1));
       const late=gameState.currentMapId==='moorglas_bog';
-      const cap=late?Math.max(7,Math.min(17,strongest+1)):Math.min(12,strongest+1);
-      const low=late?Math.max(7,Math.min(cap,strongest-2)):Math.min(10,Math.max(3,strongest-2));
+      const storyChapter=window.EchoStoryRegions?.chapterOf[gameState.currentMapId]||0;
+      const chapterCap=storyChapter===6?26:storyChapter===7?30:35;
+      const cap=storyChapter?Math.max(8,Math.min(chapterCap,strongest+1)):
+        late?Math.max(7,Math.min(17,strongest+1)):Math.min(12,strongest+1);
+      const low=storyChapter?Math.max(8,Math.min(cap,strongest-2)):
+        late?Math.max(7,Math.min(cap,strongest-2)):Math.min(10,Math.max(3,strongest-2));
       limits={...limits,low,cap,poolCap:150,stageCap:1,
         starterZone:strongest<(late?11:9),newcomer:false};
     }
@@ -651,6 +663,7 @@
       wildId=window.EchoEncounters.choose(gameState.currentMapId||'legacy_wurzeldorf',
         {...limits,badges:gameState.badges},wildLv);
       if(wildId===null)return false;
+      if(rareEchoTrace&&storyChapter===7)wildId=57; // Trace points to the rare Waldhirsch base form.
     }else{
       // Standalone legacy unit harnesses still run without new modules.
       const choices=SPECIES.filter(sp=>sp.id!==1 && sp.id<=limits.poolCap
@@ -865,6 +878,10 @@ function executeBattleAction(choice){
       b.busy = false;
     } else {
       gameState.mode = 'OVERWORLD';
+      if(b.storyRegionFight&&window.EchoStoryRegions){
+        msgs.push(...window.EchoStoryRegions.victory(gameState,b.storyRegionFight));
+        saveGame(true);
+      }
       if(b.chapter5Fight&&window.EchoChapter5){
         msgs.push(...window.EchoChapter5.victory(gameState,b.chapter5Fight));
         saveGame(true);
@@ -922,7 +939,8 @@ function executeBattleAction(choice){
       return;
     }
     if(gameState.currentMapId!=='legacy_wurzeldorf'){
-       const region=window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
+       const region=window.EchoStoryRegions?.names[gameState.currentMapId] ? window.EchoStoryRegions :
+         window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
          window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3;
        const r=region.regionMove(gameState,dx,dy);
        if(r.travel){sfx.confirm();saveGame(true);showDialog(r.lines);}
@@ -932,7 +950,7 @@ function executeBattleAction(choice){
          gameState.stepsSinceSave=(gameState.stepsSinceSave||0)+1;
          if(gameState.stepsSinceSave>=24){gameState.stepsSinceSave=0;saveGame(true);}
          if(gameState.encounterGrace>0)gameState.encounterGrace--;
-         else if(r.grass&&gameState.hasStarter&&Math.random()<.07)startWildBattle();
+         else if(r.grass&&gameState.hasStarter&&Math.random()<(r.rare?.18:.07))startWildBattle(!!r.rare);
        }
        return;
      }
@@ -995,7 +1013,8 @@ function executeBattleAction(choice){
 
   function interactFront() {
     if(gameState.scene==='OVERWORLD'&&gameState.currentMapId!=='legacy_wurzeldorf'){
-      const region=window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
+      const region=window.EchoStoryRegions?.names[gameState.currentMapId] ? window.EchoStoryRegions :
+         window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
          window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3;
       const dirs={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
       const [dx,dy]=dirs[gameState.player.dir]||[0,1];
@@ -1006,14 +1025,20 @@ function executeBattleAction(choice){
           const strongest=Math.max(5,...gameState.team.map(m=>m.lv||1));
           const onRail=region===window.EchoChapter4;
           const onStill=region===window.EchoChapter5;
-          const level=onStill?Math.max(17,Math.min(r.boss==='lyra'?22:20,strongest+2)):
+          const onStory=region===window.EchoStoryRegions;
+          const storyChapter=window.EchoStoryRegions?.chapterOf[gameState.currentMapId]||0;
+          const level=onStory?Math.max(12,Math.min(storyChapter===6?26:storyChapter===7?30:35,strongest+2)):
+            onStill?Math.max(17,Math.min(r.boss==='lyra'?22:20,strongest+2)):
             onRail?Math.max(9,Math.min(r.boss==='root'?17:15,strongest+(r.boss==='root'?2:1))):
             Math.max(7,Math.min(10,strongest+1));
-          const species=onStill?(r.boss==='mirror'?81:40):onRail?(r.boss==='root'?67:29):65;
-          const title=onStill?(r.boss==='mirror'?'Gedaechtnisspiegel':'Lyra'):
+          const species=onStory?({smelter:23,core:124,hunter:57,shadow:81,guard:45}[r.boss]||23):
+            onStill?(r.boss==='mirror'?81:40):onRail?(r.boss==='root'?67:29):65;
+          const title=onStory?({smelter:'Schmelzmeister',core:'Instabiler Ofenkern',hunter:'Kontinuum-Jaeger',shadow:'Namensschatten',guard:'Archivwaechter'}[r.boss]||'Echo-Waechter'):
+            onStill?(r.boss==='mirror'?'Gedaechtnisspiegel':'Lyra'):
             onRail?(r.boss==='root'?'Schattenwurzel':'Kontinuum-Kurier'):'Pumpenwaechter';
           startTrainerBattle(null,title,[{id:species,lv:level}]);
-          if(onStill)gameState.battle.chapter5Fight=r.boss;
+          if(onStory)gameState.battle.storyRegionFight=r.boss;
+          else if(onStill)gameState.battle.chapter5Fight=r.boss;
           else if(onRail)gameState.battle.chapter4Fight=r.boss;
           else gameState.battle.chapter3Boss=true;
           gameState.battle.enemy.maxHp=Math.round(gameState.battle.enemy.maxHp*.78);
@@ -1965,6 +1990,10 @@ function executeBattleAction(choice){
        const sx=x*16-camX,sy=y*16-camY;
        if(sx<-17||sy<-17||sx>PW||sy>PH)continue;
        const tile=map.tiles[y][x];
+       if(window.EchoStoryRegions?.names[gameState.currentMapId]){
+         window.EchoStoryRegions.drawTile(pix,tile,sx,sy,x,y,tick,gameState.currentMapId);
+         continue;
+       }
        if(window.EchoChapter5?.names[gameState.currentMapId]){
          window.EchoChapter5.drawTile(pix,tile,sx,sy,x,y,tick,gameState.currentMapId);
          continue;
@@ -2012,7 +2041,8 @@ function executeBattleAction(choice){
          pix(sx+3,sy+13,2,2,'#5a6f74');
        }
      }
-     const painter=window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
+     const painter=window.EchoStoryRegions?.names[gameState.currentMapId] ? window.EchoStoryRegions :
+        window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
         window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3;
      painter.draw(ctx,tick,gameState,camX,camY,pix,fText,drawChar16);
      if(gameState.hasStarter&&gameState.team.length){
@@ -2413,7 +2443,7 @@ function executeBattleAction(choice){
     window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,chapter6:gameState.chapter6,chapter7:gameState.chapter7,chapter8:gameState.chapter8,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
@@ -2451,7 +2481,8 @@ function executeBattleAction(choice){
       if(gameState.mode==='ATTACKS')renderAttackBook(tick);
     } else if (gameState.mode === 'MAP') {
       if(gameState.currentMapId==='legacy_wurzeldorf')window.EchoExplore.drawMap(ctx,worldMap,gameState);
-       else (window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
+       else (window.EchoStoryRegions?.names[gameState.currentMapId] ? window.EchoStoryRegions :
+         window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
          window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3).drawRegionMap(ctx,gameState);
     } else if (gameState.mode === 'RAIL') {
       window.EchoChapter4.drawRailMenu(ctx,gameState,gameState.railCursor);

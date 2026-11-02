@@ -18,9 +18,9 @@ M03-02;M3;Build underground Wurzelheim and Moorglas station;M03-01;maps/station*
 M03-03;M3;Chapter 4 story, courier, switchyard and boss;M03-02;data/chapters/ch04.json;Rail unlock flag and optional sidetrack persist;M;IN_PROGRESS
 M03-04;M3;Rail regression on TV gamepad and phone;M03-03;tests/railway.cjs;No softlocks after app pause/kill/reload;M;IN_PROGRESS
 M04-01;M4;Chapter 5 Stillwasser and memory-loop investigation;M03-04;maps/stillwasser*, data/chapters/ch05.json;Three clues, Lyra arc, station, fresh NPC dialog;L;IN_PROGRESS
-M04-02;M4;Chapter 6 Aschenruh, Glutklamm and forge;M04-01;maps/glut*, data/chapters/ch06.json;Workers rescued, resonance tool acquired, backtrack;L;TODO
-M04-03;M4;Chapter 7 Lichterhain and Echo-spur system;M04-02;maps/lichterhain*, src/echo-trails.js;Optional clues without forced full lexicon;L;TODO
-M05-01;M5;Chapter 8 Kronenstadt 4 compact districts;M04-03;maps/kronenstadt*, data/chapters/ch08.json;All gates, docs and station work on TV;XL;TODO
+M04-02;M4;Chapter 6 Aschenruh, Glutklamm and forge;M04-01;maps/glut*, data/chapters/ch06.json;Workers rescued, resonance tool acquired, backtrack;L;IN_PROGRESS
+M04-03;M4;Chapter 7 Lichterhain and Echo-spur system;M04-02;maps/lichterhain*, src/echo-trails.js;Optional clues without forced full lexicon;L;IN_PROGRESS
+M05-01;M5;Chapter 8 Kronenstadt 4 compact districts;M04-03;maps/kronenstadt*, data/chapters/ch08.json;All gates, docs and station work on TV;XL;IN_PROGRESS
 M05-02;M5;Chapter 9 Frostgrat and phase lantern;M05-01;maps/frost*, src/phase-lantern.js;All bridges reversible, Vex and save safe;L;TODO
 M05-03;M5;Chapter 10 Unterstadt and central ring;M05-02;maps/under_city*, data/chapters/ch10.json;"No stuck underground player; city and rail still navigable";L;TODO
 M06-01;M6;Chapter 11 observatory, Varek confrontation;M05-03;maps/observatory*, data/chapters/ch11.json;Readable proof and fair battle, safe retreat;L;TODO

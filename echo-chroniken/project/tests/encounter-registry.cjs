@@ -6,10 +6,16 @@ for(const file of ['data/species.js','data/encounters.js','src/encounters/regist
  vm.runInNewContext(fs.readFileSync(file,'utf8'),context);
 const species=context.window.ECHO_SPECIES,defs=context.window.ECHO_ENCOUNTER_TABLES,q=context.window.EchoEncounters;
 assert.equal(species.length,150);
-assert.equal(defs.length,4,'Only implemented playable maps may have wild tables');
-assert.equal(q.initialize(species,defs),4);
-assert.deepEqual(Array.from(q.list()),['legacy_wurzeldorf','lake_north_path','nebelhafen_town','moorglas_bog']);
+assert.equal(defs.length,10,'Only implemented playable maps may have wild tables');
+assert.equal(q.initialize(species,defs),10);
+assert.deepEqual(Array.from(q.list()),['legacy_wurzeldorf','lake_north_path','nebelhafen_town','moorglas_bog',
+ 'ashrail_approach','glut_chasm','garden_road','lichterhain_grove','echo_garden','capital_outer_gate']);
 assert.equal(q.has('nebelhafen_town'),true);
+const late={low:8,cap:35,poolCap:150,stageCap:1,badges:0};
+assert.deepEqual(Array.from(q.preview('glut_chasm',late,20),x=>x.id),[18,23,51,121,124]);
+assert.deepEqual(Array.from(q.preview('echo_garden',late,28),x=>x.id),[57,27,77,60]);
+assert.deepEqual(Array.from(q.preview('capital_outer_gate',late,32),x=>x.id),[45,87,71]);
+assert.equal(q.choose('echo_garden',late,28,()=>0),57);
 const moor={low:7,cap:17,poolCap:150,stageCap:1,badges:0};
 assert.deepEqual(Array.from(q.preview('moorglas_bog',moor,12),x=>x.id),[29,40,67,79,84,101,106]);
 assert.equal(q.choose('moorglas_bog',moor,12,()=>0),29);

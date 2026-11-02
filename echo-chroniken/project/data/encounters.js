@@ -24,5 +24,25 @@ window.ECHO_ENCOUNTER_TABLES = Object.freeze([
     {id:84,weight:8,minLevel:7,maxLevel:17},
     {id:101,weight:5,minLevel:7,maxLevel:17},
     {id:106,weight:3,minLevel:7,maxLevel:17}
+  ]}),
+  ...['ashrail_approach','glut_chasm'].map(mapId=>Object.freeze({
+    mapId,mode:'weighted',entries:[
+      {id:18,weight:33,minLevel:8,maxLevel:26},
+      {id:23,weight:26,minLevel:8,maxLevel:26},
+      {id:51,weight:20,minLevel:8,maxLevel:26},
+      {id:121,weight:13,minLevel:8,maxLevel:26},
+      {id:124,weight:8,minLevel:8,maxLevel:26}
+    ]})),
+  ...['garden_road','lichterhain_grove','echo_garden'].map(mapId=>Object.freeze({
+    mapId,mode:'weighted',entries:[
+      {id:57,weight:20,minLevel:8,maxLevel:30},
+      {id:27,weight:35,minLevel:8,maxLevel:30},
+      {id:77,weight:25,minLevel:8,maxLevel:30},
+      {id:60,weight:20,minLevel:8,maxLevel:30}
+    ]})),
+  Object.freeze({mapId:'capital_outer_gate',mode:'weighted',entries:[
+    {id:45,weight:50,minLevel:8,maxLevel:35},
+    {id:87,weight:25,minLevel:8,maxLevel:35},
+    {id:71,weight:25,minLevel:8,maxLevel:35}
   ]})
 ]);

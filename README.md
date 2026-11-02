@@ -1,5 +1,18 @@
 # Echo-Chroniken 🎮👻
 
+**v0.22.0 - Kapitel 6-8: Aschenruh, Lichterhain und Kronenstadt (spielbarer Erstaufbau):**
+13 neue begehbare Karten, sichere Rueckwege, eigene Figuren und Umgebungen,
+fuenf Story-Kaempfe, drei Raetsel und Kapitel-Flags. Aschenruh bietet
+Arbeiterrettung, Ofenraetsel, Eddas Gestandnis und Resonanzwerkzeug.
+Lichterhain enthaelt Namensrituale, Archiv, vier Namenssteine und echte
+Echo-Spuren fuer den seltenen Waldhirsch. In Kronenstadt warten Varek,
+Archivakten, eine verlorene Tonspur, ein Waechter und der Frostgrat-Pass.
+Die kostenlose Echo-Bahn faehrt nach Kapitel 8 auch nach Kronenstadt.
+Alle alten Spielstaende und die stabile Android-App-ID bleiben erhalten.
+Node- und Chrome-Tests einschliesslich 13 Screenshots, drei Bosskaempfen
+und Touch-Bahnreise bestanden. Android-Hardware und grafischer Feinschliff
+stehen aus. Kapitel 9-14 und Postgame sind noch nicht implementiert.
+
 **v0.21.0 - Kapitel 5: Stillwasser:**
 Der Nebelpfad fuehrt von Moorglas in das Dorf, das seine Erinnerungen jeden
 Tag erneut erlebt. Fuenf begehbare Karten inklusive Stillwasser, Archiv,

@@ -1,5 +1,32 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - v0.22.0: Kapitel 6, 7 und 8 als spielbarer Erstaufbau
+- 13 neue begehbare Storykarten in src/maps/story-regions.js mit
+  bidirektionalen, gated Portalen und sicheren Spawns.
+- Kapitel 6: Eddas Werkstatt, drei Seriennummern, drei Arbeiter, vierteilige
+  Ofen-Sicherheitssequenz, zwei echte Bosskaempfe, Resonanzwerkzeug und
+  einmalige Belohnung.
+- Kapitel 7: Nalias drei Rituale, drei Namensgeschichten, Jaeger, vier
+  Namenssteine, Namensschatten, Vaterkarte, Echo-Spuren und gezielter
+  Waldhirsch-Fund in leuchtenden Grasfeldern.
+- Kapitel 8: Zentralarchiv, drei Akten, Archivindex 14/30/21, Varek,
+  Archivarin, vollstaendige Vater-Tonspur, Archivwaechter, Marktgespraeche,
+  Frostgrat-Pass und Bahnhof Kronenstadt.
+- Dritte kostenlose Bahnverbindung Stillwasser-Kronenstadt mit vollstaendiger
+  Rueckfahrt ueber alle freigeschalteten Bahnhoefe.
+- 6 neue gewichtete Begegnungstabellen; alte Monster-IDs, alte drei Orden,
+  saveSchemaVersion 2 und Android-App-ID unveraendert.
+- tests/story-regions.cjs: 28 MapRegistry-Maps, 13 neue Storykarten,
+  5 Boss-Flags, 3 Raetsel, Save/Reload, einmalige Loot-Belohnungen,
+  alle Ausgaenge und Interaktionspunkte erreichbar.
+- Echter Chrome-Test: 13 Karten, 3 echte Story-Bosskaempfe,
+  Controller-Portal und Touch-Bahnreise, keine JS-Fehler.
+- Android v0.22.0 / versionCode 23 vorbereitet; CI-Signatur, Release,
+  SHA256 und Desktop-APK erst nach erfolgreichem Build bestaetigen.
+- Weiter offen: reale Handy/TV-Abnahme, komplette Story-Durchspielung,
+  Animation/Audio/Portraits, grafischer Feinschliff, Kapitel 9-14 und Postgame.
+
+
 ## 2026-11-02 - v0.21.0: Kapitel 5 „Das Dorf, das niemand verlaesst“
 - Fuenf neue vollstaendig begehbare Karten: moor_to_stillwater, stillwasser_town,
   stillwater_archive, stillwater_tower und station_stillwasser.

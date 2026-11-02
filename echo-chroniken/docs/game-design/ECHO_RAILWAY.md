@@ -1,6 +1,6 @@
 # Echo-Bahn – Streckenbuch und Anti-Softlock-Vertrag
 
-> **Stand 01.11.2026: Erste Strecke Wurzelheim-Moorglas seit v0.19.0 als spielbarer Abschnitt implementiert. Die zweite Teilstrecke Moorglas-Stillwasser ist ab v0.21.0 nach Abschluss von Kapitel 5 spielbar. Fuenf weitere geplante Linien und die vollstaendige Bahninszenierung sind noch nicht gebaut.** Die Bahn ist zugleich Schnellreise und Welt-Lore. Das erste nutzbare Teilstück kommt mit Kapitel 4.
+> **Stand 01.11.2026: Erste Strecke Wurzelheim-Moorglas seit v0.19.0 als spielbarer Abschnitt implementiert. Die zweite Teilstrecke Moorglas-Stillwasser ist ab v0.21.0 nach Abschluss von Kapitel 5 spielbar. Die dritte Strecke Stillwasser-Kronenstadt ist ab v0.22.0 nach Kapitel 8 spielbar. Vier weitere geplante Linien und die vollstaendige Bahninszenierung sind noch nicht gebaut.** Die Bahn ist zugleich Schnellreise und Welt-Lore. Das erste nutzbare Teilstück kommt mit Kapitel 4.
 
 ## Historischer Zweck und Story-Funktion
 
