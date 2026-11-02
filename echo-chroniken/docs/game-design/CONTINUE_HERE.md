@@ -1,6 +1,28 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
-## Qualitaetspruefung 02.11.2026 - Echo-Archiv, noch nicht veroeffentlicht
+## VERIFIZIERT 02.11.2026 - Echo-Archiv v0.26.0 signiert veroeffentlicht
+- Merge in main: 063d8d28ad99e01b2d9705352f963739e6c9d68f (PR #3).
+  Github Actions auf diesem Commit: Tests 41472119169 SUCCESS,
+  Dokumentation 41472119062 SUCCESS, Android 41472119030 SUCCESS.
+- Direkt installierbare APK v0.26.0 / versionCode 27, 2.505.606 Bytes,
+  SHA256 dfa29f84abb9efcc61040cfbbf94facd8dca8c06d7cb594362784d349fb6c875.
+  Android-Paket de.echochroniken.game.stable unveraendert.
+  Release: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
+- GitHub CI hat apksigner verify und aapt dump badging bestanden.
+  Signer-1-Zertifikat-SHA256 identisch zu v0.25.0:
+  84be81f8472b62b59527e4fcf67b19fa7d2e3ef4c0b05069c60139a45ec8ec87.
+- Neue APK direkt auf Laptop Laura heruntergeladen, Groesse/Hash mit GitHub
+  Release-Digest verglichen und Desktop-Datei sicher ersetzt;
+  Backup von v0.25.0 im lokalen TEMP-Ordner. Kein Android-Handy/TV installiert.
+- Gameplay-QA: 27/27 Node-Tests, Android-Plattformtest,
+  Story-Dokumentvalidator, Chrome-156-Desktop-/Touch-Screenshots und
+  Archiv-Save-Migration bestanden. Kein vollstaendiger manueller Spieldurchlauf.
+- Ausgangs-Worktree auf Laura enthaelt weiterhin fremde uncommittete Dateien
+  und geschuetzte Nutzerbilder. Er wurde bei Integration nicht veraendert.
+- Als naechstes: PR #2 mit Routen-/Softlock-Regression konfliktfrei
+  einarbeiten, danach optische Qualitaet, Hardwaretest und Spielbalance.
+
+## Historischer QA-Stand vor der v0.26.0-Veroeffentlichung (02.11.2026)
 - Releasekandidat Android 0.26.0 / versionCode 27; stabile App-ID
   de.echochroniken.game.stable und Signaturschluessel unveraendert.
   PR #3: https://github.com/Graf-Git-Hub/Pok-mon_Klon/pull/3.

@@ -1,9 +1,15 @@
 # Story-Roadmap Änderungsverlauf
 
-## 2026-11-02 - Unreleased: Echo-Archiv und Regressionen (Browserabnahme bestanden)
-- Android-Releasekandidat 0.26.0 / versionCode 27 vorbereitet;
-  permanente App-ID und private Signaturkonfiguration unveraendert.
-  Noch keine signierte APK 0.26.0 veroeffentlicht.
+## 2026-11-02 - v0.26.0: Echo-Archiv und Regressionen
+- v0.26.0 / versionCode 27 signiert veroeffentlicht. GitHub Merge
+  063d8d28ad99e01b2d9705352f963739e6c9d68f, Android Run 41472119030
+  SUCCESS, Tests 41472119169 SUCCESS, Docs 41472119062 SUCCESS.
+  Gleichbleibende Paket-ID de.echochroniken.game.stable; Zertifikat-SHA256
+  84be81f8472b62b59527e4fcf67b19fa7d2e3ef4c0b05069c60139a45ec8ec87
+  identisch zu 0.25.0 laut apksigner-Logs beider erfolgreichen CI-Runs.
+  APK: 2.505.606 Bytes, SHA256
+  dfa29f84abb9efcc61040cfbbf94facd8dca8c06d7cb594362784d349fb6c875.
+  Direktdownload auf Laura mit Hashvergleich bestaetigt, Desktop-APK ersetzt.
 - Review-Fund behoben: Kampf-Labor verwendet eine tiefe Archivkopie.
   Labor-Tausch, HP-/Attackenaenderungen und Laborende veraendern die echte
   Sammlung nicht; Regression mit anschliessendem Save/Reload bestanden.
@@ -24,8 +30,9 @@
   docs/visual-audit/archive-qa/, reproduzierbar mit
   project/qa/archive-browser.py (Python Playwright).
 - Originaler uncommitteter Nutzerstand und Bilder auf Laura geschuetzt;
-  separater Zweig fix/echo-archive-safe-20261102 fuer die Integration.
-  APK und Release erst nach gruenen neuen CI-Runs und Signatur/Hash-Abgleich.
+  Integration ueber isolierten Zweig fix/echo-archive-safe-20261102,
+  PR #3 erfolgreich in main gemergt. Neuer Release erst nach drei gruenen
+  Checks, erfolgreichem apksigner/AAPT und SHA256-Abgleich veroeffentlicht.
 
 ## 2026-11-02 - v0.25.0: Postgame „Die freien Linien“
 - Acht neue Karten: Echo-Garten, sechs Fangwiesen, begehbares Bahn-Museum.
