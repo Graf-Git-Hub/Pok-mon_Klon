@@ -1,17 +1,17 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
 Stand 02.11.2026, Repo Graf-Git-Hub/Pok-mon_Klon, main.
-**Letzte verifizierte signierte Android-APK: v0.20.0 / versionCode 21.**
-Quellcommit 2adaa9ea10c8c541a1b2ca8aab66780dbc6f5115;
-Android Actions Run 41377128195 erfolgreich, stabile App-ID de.echochroniken.game.stable.
-APK 2.456.984 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
-SHA256 65EC72DF69FAAA0A9AD6CB87B0E414D95523E094AC32D58AD68CC3A9538E4D95.
+**Letzte verifizierte signierte Android-APK: v0.21.0 / versionCode 22.**
+Quellcommit 72967b541cbed280dcbd3af52e8659fc0b46d760;
+Android Actions Run 41379112904 erfolgreich, stabile App-ID de.echochroniken.game.stable.
+APK 2.464.065 Bytes; heruntergeladen und auf Laptop-Desktop ersetzt.
+SHA256 611C0B7D24D733FEC5665C78B40EB10EE3BC4F134101F0D2AAFECC88C865AF05.
 Direktlink: https://github.com/Graf-Git-Hub/Pok-mon_Klon/releases/download/android-latest/Echo-Chroniken-Universal.apk
 Aktuellen Git-HEAD vor weiteren Aenderungen pruefen.
 
 ## Stand 02.11.2026 - Kapitel 5 als spielbarer Ausbau
-- Android 0.21.0 / versionCode 22 vorbereitet, erst nach gruenem CI als
-  signierte APK bestaetigen. Bis dahin ist v0.20.0 die letzte verifizierte APK.
+- Android 0.21.0 / versionCode 22 erfolgreich signiert und veroeffentlicht:
+  CI 41379112904 SUCCESS, commit 72967b5, Desktop-APK aktualisiert.
 - src/maps/chapter5.js: Moorglas-Nebelpfad, Dorf Stillwasser, Archiv,
   Resonanzturm, Bahnhof Stillwasser, 5 Storykarten mit sicheren Rueckwegen.
 - Dorf: drei Bewohner je zweimal befragen, 3 Widersprueche; Archiv:

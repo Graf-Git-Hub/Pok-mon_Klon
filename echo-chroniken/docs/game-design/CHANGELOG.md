@@ -11,7 +11,11 @@
   und freigeschaltete zweite, kostenlose Echo-Bahn-Strecke Moorglas-Stillwasser.
 - Fuenf echte Chrome-Screenshots, Boss-Screenshot, echte Controllersteuerung
   und eigener Kapitel-5-Test fuer Kollision, Aufloesung, Save/Reload und Rail.
-- Android Version 0.21.0 / versionCode 22; signiertes CI-Ergebnis nach Push pruefen.
+- Android Version 0.21.0 / versionCode 22 verifiziert und signiert publiziert.
+  Commit 72967b541cbed280dcbd3af52e8659fc0b46d760,
+  CI Run 41379112904 SUCCESS, APK 2.464.065 Bytes,
+  SHA256 611C0B7D24D733FEC5665C78B40EB10EE3BC4F134101F0D2AAFECC88C865AF05.
+  APK auf Lauras Desktop aktualisiert.
 - Offen: reale Handy/TV-Abnahme, Kapitel 6-14 und Postgame, Audio, weitere
   story-spezifische Animationen und Spielbalance.
 
