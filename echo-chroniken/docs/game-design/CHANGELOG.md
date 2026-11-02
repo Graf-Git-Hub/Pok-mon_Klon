@@ -1,5 +1,11 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-02 - v0.28.0 Balancing: Heilung und sichere Niederlage
+- Gegnerische Heilfaehigkeiten verursachen keinen Schaden mehr; 30% Chance zur einmaligen Heilung unter 35% KP.
+- Spaete Niederlagen fuehren zum sicheren lokalen Karten-Einstieg, im Startgebiet weiterhin zu Oma.
+- Zwei neue Spielcode-Tests; 33/33 Node-Tests und sieben Chrome-156-QA-Screenshots erfolgreich.
+- Android v0.28.0 mit versionCode 29 vorbereitet; Freigabe erst nach CI, Signatur und SHA256.
+
 ## 2026-11-02 - v0.27.0 veroeffentlicht: Figurenlexikon und finale Schauplaetze
 - PR #8 in main integriert (ad3293ffb8ce11bcb3a8812af9820be359bd8b0e).
   Actions Tests 41490437926, Docs 41490438433, Android 41490437649

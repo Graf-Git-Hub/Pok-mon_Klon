@@ -828,7 +828,21 @@ function executeBattleAction(choice){
     const enemySp = SPECIES[enemy.id - 1];
 
     ensureMonsterMoves(enemy);
-    const move=ATTACKS[enemy.moves[Math.floor(Math.random()*Math.min(2,enemy.moves.length))]]||ATTACKS.seelenstups;
+    const offensive=enemy.moves.filter(id=>ATTACKS[id]&&ATTACKS[id].power>0).slice(0,2);
+    const healing=enemy.moves.find(id=>ATTACKS[id]?.heal);
+    // Healing spells must never deal phantom damage. Bosses may recover only once.
+    if(healing&&!b.enemyHealUsed&&enemy.hp>0&&enemy.hp<=enemy.maxHp*.35&&Math.random()<.30){
+      const move=ATTACKS[healing];
+      const healed=Math.min(move.heal,enemy.maxHp-enemy.hp);
+      enemy.hp+=healed;
+      b.enemyHealUsed=true;
+      b.animTimer=18;b.fxTarget='enemy';
+      b.log=`${b.enemyDisplayName||enemySp.name} nutzt ${move.name}! (+${healed} KP)`;
+      sfx.heal();
+      battleTimeout(()=>{b.busy=false;},700);
+      return;
+    }
+    const move=ATTACKS[offensive[Math.floor(Math.random()*offensive.length)]]||ATTACKS.seelenstups;
     const dmg=Math.max(2,Math.round(skillDamage(enemy,ally,move)*(enemy.encounterScale||1)));
     b.lastAttackColor=move.fx||'#afbcce';
     ally.hp = Math.max(0, ally.hp - dmg);
@@ -843,17 +857,28 @@ function executeBattleAction(choice){
           b.log = `${allySp.name} zieht sich zurück! ${SPECIES[nextAlive.id - 1].name} springt ein!`;
           b.busy = false;
         } else {
-          // Ohnmacht -> Zurück zu Oma Martha
+          // Losing a late-game battle must not erase hours of return travel.
           gameState.team.forEach(m => { m.hp = m.maxHp; });
-          // After a wipe the player really wakes up in Grandma's house.
-          gameState.scene='HOUSE';
-          gameState.currentMapId='legacy_wurzeldorf';
-          gameState.safeSpawnId='legacy_current_position';
-          gameState.player={x:7,y:9,dir:'up',stepPhase:0};
+          const map=window.EchoMaps?.get(gameState.currentMapId);
+          const safe=map?.spawns?.[gameState.safeSpawnId]||
+            (map?.spawns?Object.values(map.spawns)[0]:null);
+          const localRespawn=gameState.scene==='OVERWORLD'&&
+            gameState.currentMapId!=='legacy_wurzeldorf'&&safe;
+          if(localRespawn){
+            gameState.player={x:safe.x,y:safe.y,dir:'down',stepPhase:0};
+          }else{
+            gameState.scene='HOUSE';
+            gameState.currentMapId='legacy_wurzeldorf';
+            gameState.safeSpawnId='legacy_current_position';
+            gameState.player={x:7,y:9,dir:'up',stepPhase:0};
+          }
           gameState.encounterGrace=16;
           gameState.mode = 'OVERWORLD';
           saveGame(true);
-          showDialog([
+          showDialog(localRespawn?[
+            'Deine Geister-Wesen waren erschoepft...',
+            'Du bist am letzten sicheren Wegpunkt wieder aufgewacht.'
+          ]:[
             'Deine Geister-Wesen waren erschöpft...',
             'Oma Martha hat euch zu Hause wieder gesund gepflegt!'
           ]);
@@ -908,6 +933,7 @@ function executeBattleAction(choice){
     b.enemyQueue.shift();
     if (b.enemyQueue.length > 0) {
       b.enemy = b.enemyQueue[0];
+      b.enemyHealUsed=false;
       b.log = `${b.trainerName} schickt ${SPECIES[b.enemy.id - 1].name} in den Kampf!`;
       b.busy = false;
     } else {

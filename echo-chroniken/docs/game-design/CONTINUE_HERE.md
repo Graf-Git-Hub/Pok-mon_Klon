@@ -1,5 +1,29 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## BALANCE-QA 02.11.2026 - Heilzauber und sichere Niederlage
+- Getrennter Worktree Echo_Balance_Pass_20261102 auf origin/main 06bccc2;
+  Original-Hauptarbeitsbaum und geschuetzte Dateien nicht bearbeitet.
+- Kampf-Fehler in project/src/game.js behoben: Heilzauber des Gegners
+  verursachen keinen Phantomschaden mehr. Feinde heilen unter 35% KP
+  nur mit 30% Chance und hoechstens einmal pro Gegner, danach
+  nutzen sie wieder echte Schadensattacken.
+- Nach einer Team-Niederlage in spaeten Karten: Heilung und Rueckkehr
+  zum sicheren Gebietseinstieg statt Zwangsrueckreise zu Oma.
+  Anfangsgebiet behaelt die bekannte Oma-Rettung; 16 Schritte
+  Begegnungsschutz, Questflags und Spielstand bleiben erhalten.
+- Neue Engine-Regressionen: project/tests/battle-healing.cjs und
+  project/tests/battle-defeat.cjs mit Heilung, Folgerunde,
+  Local-Respawn und Legacy-Rettung.
+- 33/33 lokale Node-Tests, Android-Plattformtest, Story-Dokumentvalidator,
+  git diff --check erfolgreich; Chrome 156 QA: 7 Screenshots mit
+  Desktop/412px Touch und Reload, keine JS-Ausnahmen, Bilder betrachtet.
+- Kein kompletter Kampf-Schwierigkeitsgrad-Audit: Gruppen-EP,
+  14 Kapitel Boss-Balance, komplette Story und echtes Handy/TV
+  bleiben offen. M07-03 ist IN_PROGRESS, nicht DONE.
+- Fuer diese Gameplay-Aenderungen Android 0.28.0, versionCode 29
+  vorbereitet. Release nur nach frischer GitHub-CI, apksigner,
+  Paket-/Signaturvergleich und SHA256-Direktdownload.
+
 ## VERIFIZIERT 02.11.2026 - v0.27.0 signiert veroeffentlicht
 - PR #8 merged, main-Commit ad3293ffb8ce11bcb3a8812af9820be359bd8b0e.
   GitHub-Actions auf diesem Merge: Tests 41490437926 SUCCESS,
