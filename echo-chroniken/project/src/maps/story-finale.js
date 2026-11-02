@@ -153,7 +153,7 @@ function interact(s,tx,ty){
  const stage=v=>set('stage',Math.max(c.stage,v));
  const reward=(orbs,potions)=>{if(!c.rewardClaimed){set('rewardClaimed',true);s.orbs=(s.orbs||0)+orbs;s.potions=(s.potions||0)+potions;}};
  const tally=(k,total)=>c[k].length+'/'+total;
- const form=(()=>{const id=(s.team||[]).find(m=>[1,2,3].includes(m.id))?.id;
+ const form=(()=>{const id=[...(s.team||[]),...(s.archive||[])].find(m=>[1,2,3].includes(m.id))?.id;
   return id===3?'Maternalis':id===2?'Seelara':id===1?'Miora':'dein freiwilliger Echo-Begleiter';})();
  if(id==='healer'){
   for(const m of s.team||[])m.hp=m.maxHp;
@@ -182,7 +182,7 @@ function interact(s,tx,ty){
   }else if(id==='safetyLatch'){
    if(!c.mirror)out.lines=['Der Verschluss reagiert erst auf die freie Stimme.'];
    else{set('latchOpen',true);stage(4);out.lines=['Du deaktivierst den Zwangsverschluss.',
-    form+' bleibt aus eigener Entscheidung in deinem Team.'];}
+    form+' bleibt aus eigener Entscheidung bei dir.'];}
   }else if(id==='mioraChoice'){
    if(!c.latchOpen)out.lines=['Der Garten wartet auf eine freie Entscheidung.','Oeffne zuerst den Verschluss im Erinnerungszimmer.'];
    else{set('choice',true);stage(5);out.lines=[form+': Ich bleibe bei dir, solange ich es will.',

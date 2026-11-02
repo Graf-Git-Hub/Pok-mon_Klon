@@ -1,5 +1,53 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## Qualitaetspruefung 02.11.2026 - Echo-Archiv, noch nicht veroeffentlicht
+- Review-Fund behoben: Kampf-Labor verwendet eine tiefe Archivkopie.
+  Labor-Tausch, HP-/Attackenaenderungen und Laborende veraendern die echte
+  Sammlung nicht; Regression mit anschliessendem Save/Reload bestanden.
+- Ausgangs-HEAD 28867fde70eca1c88d1ff03cd3d008d67bcc6f57. Vorhandene
+  uncommittete Archiv-Reparatur geprueft und weiterverwendet, nicht ersetzt.
+- Fang bei vollem Sechserteam speichert individuelle Wesen im additiven
+  archive-Feld; Tausch per Controller und Canvas-Touch, Autosave/Reload.
+  SaveSchema 2, Arten-IDs, Miora-Entwicklung und Android-App-ID unveraendert.
+- Weitere reproduzierte Fehler korrigiert: unterster Touch-Pixel der fuenften
+  Archivzeile; Familien-/Finaldialoge erkennen die Mutterform auch im Archiv.
+  Story verschiebt oder dupliziert dabei keine Wesen.
+- Lokal 27/27 project/tests/*.cjs erfolgreich (aus project ausfuehren),
+  dazu android/tests/check-platform.cjs (aus android), VALIDATE_DOCS.py,
+  Syntaxpruefungen und git diff --check. Neue Verhaltenspruefungen:
+  144 volle-Team-Faenge durch echten Spielcode mit Autosave und Reload,
+  Controller-Wrap und Touch-Tausch; 3000 individuelle Wesen, 10000 Tausche,
+  100 JSON-Roundtrips ohne Verlust/Duplikation. Acht alte Save-Fixtures
+  und beschaedigte Datei weiterhin geprueft.
+- Beide Test-/Android-Workflows fuehren jetzt alle tests/*.cjs aus, damit
+  Archiv und kuenftige Tests automatisch enthalten sind. Android prueft
+  zudem die Syntax des gebuendelten archive.js. Noch kein neuer CI-Lauf.
+- Bestehende Kapitel-/Postgame-Tests bestaetigen ihre Quest-, Bossflag-,
+  Rueckweg- und BFS-Pruefungen sowie 150 Arten und 94 Nichtstarter-Grundarten.
+  Dies ist KEIN vollstaendiger manueller Durchlauf und kein Beweis fuer
+  Softlockfreiheit in allen Spielzustandskombinationen.
+- GitHub live geprueft: Tests 41402240370 und Docs 41402240465 SUCCESS
+  auf Ausgangs-HEAD; Android 41402037515 SUCCESS auf 938b7e03.
+  Bestehendes Release-Asset: 2504107 Bytes, SHA256 laut GitHub
+  c927d79203280060556d07278d3d7314e84b798f0b3aeb81e42a7cc0cd26fd25.
+  Keine neue APK erstellt oder veroeffentlicht; Signatur nicht neu geprueft.
+- Nachtraegliche Browserabnahme am 02.11.2026 in isoliertem Git-Worktree:
+  ECHTER Chrome 156 mit 1280x800 Desktop und 412x915 Touch-Viewport,
+  Teamtausch via Tastatur und Canvas-Touch, Seitenumbruch, Autosave/Reload,
+  Migration eines alten Saves ohne Archiv; keine JavaScript-Ausnahmen.
+  Sieben Screenshots und report.json unter docs/visual-audit/archive-qa/.
+  Wiederholbarer Playwright-Test: project/qa/archive-browser.py.
+- Isolierter Zweig fix/echo-archive-safe-20261102 kopiert ausschliesslich
+  Archiv-/Test-/Workflow-/Story-/Doku-Aenderungen aus dem uncommitteten
+  Stand. Original-Worktree auf Laura und geschuetzte Nutzerbilder sowie
+  Android-Assets/__pycache__/characters-world-*.png blieben unangetastet.
+- Vollstaendige lokale Neupruefung in diesem Zweig: 27/27 Node-Tests,
+  Android-Plattformtest, VALIDATE_DOCS.py und git diff --check bestanden.
+- Naechste Schritte: CI des Archivzweigs pruefen, anschliessend sauber
+  integrieren; Signatur und SHA256 vor einer neuen APK kontrollieren.
+  Echter Android-Handy-/TV-Hardwaretest und vollstaendiger Storydurchlauf
+  bleiben offen.
+
 ## NEUER STAND 02.11.2026 - Postgame v0.25.0 (signiert veroeffentlicht)
 - Zweiter und letzter erweiterter Durchlauf: Postgame als spielbare Erstfassung.
 - 8 Karten in project/src/maps/postgame.js: optional_echo_garden_annex,

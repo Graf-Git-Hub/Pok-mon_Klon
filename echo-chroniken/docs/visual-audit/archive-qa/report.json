@@ -1,0 +1,8 @@
+{
+  "browser": "156.0.8078.48",
+  "checks": [
+    "desktop keyboard: swap, autosave, reload, legacy save",
+    "mobile touch: swap, autosave, reload, legacy save"
+  ],
+  "errors": []
+}

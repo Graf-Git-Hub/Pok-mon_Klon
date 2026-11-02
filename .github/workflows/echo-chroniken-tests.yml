@@ -15,29 +15,6 @@ jobs:
       - name: Test quests, routes, rewards, scenes and controller navigation
         working-directory: echo-chroniken/project
         run: |
-          node tests/map-registry.cjs
-          node tests/chapter3.cjs
-          node tests/chapter4.cjs
-          node tests/chapter5.cjs
-          node tests/story-regions.cjs
-          node tests/story-endgame.cjs
-          node tests/story-finale.cjs
-          node tests/postgame.cjs
-          node tests/characters.cjs
-          node tests/save-compat.cjs
-          node tests/story-registry.cjs
-          node tests/back-art.cjs
-          node tests/smoke.cjs
-          node tests/house.cjs
-          node tests/package.cjs
-          node tests/village.cjs
-          node tests/encounters.cjs
-          node tests/encounter-registry.cjs
-          node tests/first-route.cjs
-          node tests/exploration.cjs
-          node tests/interiors.cjs
-          node tests/interiors-integration.cjs
-          node tests/platformer.cjs
-          node tests/platformer-integration.cjs
-          node tests/ruins.cjs
-          node tests/ruins-integration.cjs
+          for test in tests/*.cjs; do
+            node "$test" || exit 1
+          done
