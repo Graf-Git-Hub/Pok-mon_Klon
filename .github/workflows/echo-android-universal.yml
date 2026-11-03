@@ -4,12 +4,20 @@ on:
   push:
     branches: [main]
     paths:
-      - 'echo-chroniken/project/**'
+      - 'echo-chroniken/project/src/**'
+      - 'echo-chroniken/project/styles/**'
+      - 'echo-chroniken/project/data/**'
+      - 'echo-chroniken/project/assets/**'
+      - 'echo-chroniken/project/index.html'
       - 'echo-chroniken/android/**'
       - '.github/workflows/echo-android-universal.yml'
   pull_request:
     paths:
-      - 'echo-chroniken/project/**'
+      - 'echo-chroniken/project/src/**'
+      - 'echo-chroniken/project/styles/**'
+      - 'echo-chroniken/project/data/**'
+      - 'echo-chroniken/project/assets/**'
+      - 'echo-chroniken/project/index.html'
       - 'echo-chroniken/android/**'
       - '.github/workflows/echo-android-universal.yml'
   workflow_dispatch:
