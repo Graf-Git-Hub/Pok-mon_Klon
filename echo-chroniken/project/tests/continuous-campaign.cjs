@@ -154,7 +154,7 @@ go('to_mainring','resonance_mainring');
 for(const t of ['anchorB','anchorA','anchorC','power'])talk(end,t);
 go('to_vault','continuum_vault');
 a.equal(talk(end,'guardian').boss,'ringGuardian');
-talk(end,'testimony');a.equal(s.chapter10.peaceful,true);
+talk(end,'testimony');talk(end,'guardian');a.equal(s.chapter10.peaceful,true);
 for(const t of ['evacuation','signal'])talk(end,t);
 checkpoint(10,'continuum_vault');
 // Chapter 11: telescope, Varek and the message from the father.
