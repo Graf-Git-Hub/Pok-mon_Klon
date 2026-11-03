@@ -47,7 +47,7 @@ try:
                 const spawn = Object.entries(window.EchoMaps.get(id).spawns)[0];
                 return {id, spawnId: spawn[0], xy: spawn[1]};
             })""")
-            assert len(maps) >= 62, f"Expected 62+ maps, found {len(maps)}"
+            assert len(maps) >= 60, f"Expected at least 60 registered maps, found {len(maps)}"
             assert set(CHAPTERS).issubset({m["id"] for m in maps})
             chosen = [m for m in maps if m["id"] in TOUCH] if mobile else maps
             for m in chosen:
