@@ -1,5 +1,19 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-03 - Cloud-QA: Durchgehender Story-Spielstand
+- Neuer integrierter Test `project/tests/continuous-campaign.cjs` verbindet
+  die bestehenden Kapitel 3-14 und das Postgame mit EINEM persistenten
+  Spielstand statt getrennten Kapitel-Fixtures.
+- 91 Kartenuebergaenge, 177 Quest-Interaktionen, 17 ueber echte
+  Victory-Callbacks simulierte Boss-Siege und 12 Save-Roundtrips mit
+  erhaltenen Archiv-/Lexikon-Daten; Hauptgeschichte und Postgame
+  schliessen ab. GitHub Node-CI erfolgreich.
+- Kapitel 1-2 und echte Laufwege/Kampfsteuerung sind separat zu pruefen;
+  dies ist kein kompletter Mensch-Spiel-Durchlauf. Der Test lieferte
+  einen konkreten Hinweis auf die friedliche Waechterloesung (Kap. 10:
+  nach dem Zeugnis erneut ansprechen), der im Ablauf beruecksichtigt wird.
+- Nur Test/Dokumentation; keine APK-, VersionCode-, ID- oder Save-Aenderung.
+
 ## 2026-11-02 - v0.28.0 veroeffentlicht: Reserveteam-EP und spaete Bosse
 - PR #10 in main 9b3258860dc4262090e8bcb60f4b57ca9b672110.
   GitHub-Actions Tests 41532799344, Docs 41532799280 und
