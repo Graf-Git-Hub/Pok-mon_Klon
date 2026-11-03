@@ -35,6 +35,8 @@ jobs:
         run: python echo-chroniken/project/qa/cloud-map-coverage.py
       - name: Walk the first chapter portal with keyboard and touch
         run: python echo-chroniken/project/qa/first-lake-walk.py
+      - name: Play Chapter 3 quests, boss and Chapter 4 entry via real controls
+        run: python echo-chroniken/project/qa/real-chapter3.py
       - name: Check chapter and postgame checkpoints
         run: python echo-chroniken/project/qa/quest-checkpoint-browser.py
       - name: Check archive and save migration
@@ -52,5 +54,6 @@ jobs:
             echo-chroniken/docs/visual-audit/battle-balance/
             echo-chroniken/docs/visual-audit/cloud-map-coverage/
             echo-chroniken/docs/visual-audit/cloud-walk/
+            echo-chroniken/docs/visual-audit/real-chapter3/
           retention-days: 7
           if-no-files-found: warn
