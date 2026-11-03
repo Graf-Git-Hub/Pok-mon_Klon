@@ -1,5 +1,17 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-03 - Durchgespielte Kapitel-3-Steuerung in der Cloud
+- Neu: project/qa/real-chapter3.py, echte Tastatur-/Touch-Steuerung
+  vom gesperrten Pumpwerk ueber drei Zeugen, Pumpwerksraetsel und
+  den real gespielten Bosskampf bis zum Kapitel-4-Wurzeltunnel.
+- GitHub-Run 41725799619 SUCCESS: 142 Schritte, 14 Dialoge und
+  2 Boss-Attacken pro Viewport (Desktop + Handy), insgesamt
+  284/28/4, ohne JavaScript-Fehler. Save/Reload und einmalige
+  Belohnung bestaetigt; 8 Kapitelbilder im Workflow-Artefakt.
+- Die Testfigur ist absichtlich ueberlevelt (Lv55); normaler
+  Levelverlauf und Kapitel 1-2 nicht durch diesen Test bewertet.
+  Reine QA-/Doku-Erweiterung: keine neue APK und keine ID-Aenderung.
+
 ## 2026-11-03 - Cloud-QA: Durchgehender Story-Spielstand
 - Neuer integrierter Test `project/tests/continuous-campaign.cjs` verbindet
   die bestehenden Kapitel 3-14 und das Postgame mit EINEM persistenten

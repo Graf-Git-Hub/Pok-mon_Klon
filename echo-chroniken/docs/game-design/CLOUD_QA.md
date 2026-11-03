@@ -1,5 +1,20 @@
 # Cloud-Browserprüfung ohne eingeschalteten PC
 
+## Praxisdurchlauf im Kapitel 3 (GitHub PR #16)
+`project/qa/real-chapter3.py` bedient das echte Spiel mit
+Tastatur- und Touch-Kommandos. Die Skript-Pfadplanung liest nur
+Weltkollision und Marker; Spielbewegungen und Dialoge selbst
+laufen per A-Taste und Richtungstasten. Der Ablauf testet
+drei Zeugen, zwei verschlossene Tore, Pumpwerksraetsel, den
+realen Pumpenwaechter-Kampf, Questbelohnung, Reload und den
+Wurzeltunnel als naechsten Kapiteleinstieg. Es werden je
+Viewport vier Screenshots in `real-chapter3/` erzeugt.
+
+**Nicht abgedeckt:** Spielstart, normaler Schwierigkeitgrad
+(Testteam bewusst Lv55), restliche Kapitel 4-14 mit echtem Laufen
+und Android-Hardware. Der Test ist ein Nachweis fuer die Route,
+kein Beleg fuer ein vollstaendig fehlerfreies Spiel.
+
 GitHub Actions kann die vorhandenen Playwright-Browserprüfungen auf einem Linux-Runner starten. Laura, Codex und der stündliche Entwicklungswächter sind dafür nicht nötig.
 
 ## Auslöser

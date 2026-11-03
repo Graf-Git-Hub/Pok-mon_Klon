@@ -1,5 +1,31 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## ECHTER KAPITEL-3-DURCHLAUF OHNE LOKALEN PC - 03.11.2026
+- PR #16: project/qa/real-chapter3.py nutzt im echten Chrome-Browser
+  Desktop-Tastatur und Handy-Touch. Alle Spielaktionen laufen ueber
+  die offiziellen Eingabebefehle. Die Map-Tiles dienen ausschliesslich
+  zur pfadfindenden Wegplanung, NICHT zum Teleportieren.
+- GitHub-Run 41725799619: SUCCESS. In jedem Viewport 142 tatsaechliche
+  Schritte, 14 Dialoginteraktionen, 2 echte Kampfattacken;
+  zusammen 284 Schritte, 28 Dialoge und 4 Angriffe.
+- Gepruefter Ablauf: verschlossenes Pumpwerk, Lotsin Sera und drei
+  Zeugen, Pumpwerk freischalten, Kontrollraum vor dem Raetsel gesperrt,
+  Strom/2 Ventile/Rotor aktivieren, Kontrollraum betreten, Archiv vor
+  dem Boss gesperrt, Pumpenwaechter in echtem Kampf besiegen, Aufnahme
+  lesen, einmalige Belohnung, speichern/neuladen und den Zugang zum
+  Kapitel-4-Wurzeltunnel tatsaechlich durchqueren.
+- Zusatzauswertung: Chrome 156, keine page errors, 8 neue
+  Kapitel-3-Bilder (Hafen, Pumpwerk, Kampf, Kapitel-4-Einstieg
+  je Desktop und Touch), Artefakt echo-browser-checkpoints.
+- Grenzen: Start aus einem synthetischen **freigeschalteten Hafen-Save**,
+  NICHT aus dem Spielstart (Kapitel 1-2). Fuer reproduzierbare Quest-QA
+  ist das Test-Team absichtlich stark (Level 55): keine Aussage ueber
+  die Schwierigkeit des Bosskampfs mit einem normalen Level-9-Team.
+  Restliche Story Kapitel 4-14 noch nicht Schritt fuer Schritt gespielt.
+- Nur Cloud-Test/Workflow/Dokumentation; keine Aenderungen am
+  Spielcode, Android versionCode 29, Save-Schema, IDs oder Signatur.
+  Laura aus, kein Codex, keine stündlichen Jobs.
+
 ## DURCHGAENGIGER QUEST-REGRESSIONSTEST 03.11.2026
 - GitHub-only, isolierter PR #14, ohne Laptop Laura, Codex oder Hintergrundwaechter.
 - Neuer project/tests/continuous-campaign.cjs verwendet EINEN Spielstand von
