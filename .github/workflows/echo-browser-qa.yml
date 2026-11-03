@@ -1,0 +1,50 @@
+name: Echo-Chroniken Browser Screenshots (Cloud)
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/**'
+      - '.github/workflows/echo-browser-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: echo-browser-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-checkpoints:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare empty output folders (never upload stale pictures)
+        run: |
+          rm -rf echo-chroniken/docs/visual-audit/quest-checkpoints
+          rm -rf echo-chroniken/docs/visual-audit/archive-qa
+          rm -rf echo-chroniken/docs/visual-audit/battle-balance
+      - name: Use preinstalled Chrome and Python Playwright
+        run: |
+          python -m pip install playwright==1.56.0
+          google-chrome --version
+      - name: Check chapter and postgame checkpoints
+        run: python echo-chroniken/project/qa/quest-checkpoint-browser.py
+      - name: Check archive and save migration
+        run: python echo-chroniken/project/qa/archive-browser.py
+      - name: Check desktop and touch battles
+        run: python echo-chroniken/project/qa/battle-browser.py
+      - name: Upload browser reports and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-browser-checkpoints
+          path: |
+            echo-chroniken/docs/visual-audit/quest-checkpoints/
+            echo-chroniken/docs/visual-audit/archive-qa/
+            echo-chroniken/docs/visual-audit/battle-balance/
+          retention-days: 7
+          if-no-files-found: warn
