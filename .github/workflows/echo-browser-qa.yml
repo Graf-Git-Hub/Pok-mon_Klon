@@ -33,6 +33,8 @@ jobs:
           google-chrome --version
       - name: Check all 62 maps and chapter screenshots
         run: python echo-chroniken/project/qa/cloud-map-coverage.py
+      - name: Walk the first chapter portal with keyboard and touch
+        run: python echo-chroniken/project/qa/first-lake-walk.py
       - name: Check chapter and postgame checkpoints
         run: python echo-chroniken/project/qa/quest-checkpoint-browser.py
       - name: Check archive and save migration
@@ -49,5 +51,6 @@ jobs:
             echo-chroniken/docs/visual-audit/archive-qa/
             echo-chroniken/docs/visual-audit/battle-balance/
             echo-chroniken/docs/visual-audit/cloud-map-coverage/
+            echo-chroniken/docs/visual-audit/cloud-walk/
           retention-days: 7
           if-no-files-found: warn
