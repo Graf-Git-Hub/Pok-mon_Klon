@@ -16,3 +16,7 @@ Diese Prüfungen starten vorbereitete Spielstände. Sie beweisen **nicht**, dass
 Der separate Workflow wird nur bei einschlägigen Pull Requests oder auf ausdrücklichen manuellen Start ausgeführt. Bei einer neueren Version desselben Pull Requests wird ein veralteter Browserlauf abgebrochen. GitHub Actions kann je nach Konto und Kontingent Kosten verursachen.
 
 **Nächste Entwicklungsaufgabe:** echte, zusammenhängende Story-Interaktionen von Kapitel 1 bis 14 testbar machen, Softlocks erfassen und gefundene Bugs im Spielcode korrigieren. Bestehende Kapitel-Tests in `project/tests/` bleiben die Grundlage.
+
+## Android-Builds und Kosten
+
+Die Android-Actions werden nur bei Änderungen an tatsächlich gebündelten Web-Spielquellen (`project/src`, `styles`, `data`, `assets`, `index.html`), den nativen Android-Dateien oder der Android-Workflowdatei gestartet. Reine Änderungen an `project/tests` und `project/qa` lösen weiterhin Node- und Browserprüfungen aus, aber **keinen Android-Debug-Build**. Das entspricht der Auswahllogik von `android/build_assets.py`. Bei einer tatsächlichen Gameplay-/Android-Änderung bleibt die vollständige Android-Build- und Signaturprüfung bestehen.
