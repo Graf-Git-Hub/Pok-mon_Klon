@@ -4,8 +4,10 @@
 - Neuer integrierter Test `project/tests/continuous-campaign.cjs` verbindet
   die bestehenden Kapitel 3-14 und das Postgame mit EINEM persistenten
   Spielstand statt getrennten Kapitel-Fixtures.
-- 91 Kartenuebergaenge, 177 Quest-Interaktionen, 17 ueber echte
-  Victory-Callbacks simulierte Boss-Siege und 12 Save-Roundtrips mit
+- 91 Kartenuebergaenge, 189 Quest-Interaktionen, 17 ueber echte
+  Victory-Callbacks simulierte Boss-Siege, 12 Kapitel-Reloads,
+  9 Zwischenquest-Reloads und 12 Wiederholungspruefungen auf
+  doppelte Quest-Belohnungen mit
   erhaltenen Archiv-/Lexikon-Daten; Hauptgeschichte und Postgame
   schliessen ab. GitHub Node-CI erfolgreich.
 - Kapitel 1-2 und echte Laufwege/Kampfsteuerung sind separat zu pruefen;
