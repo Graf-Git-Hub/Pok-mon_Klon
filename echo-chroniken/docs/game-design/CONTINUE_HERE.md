@@ -6,9 +6,10 @@
   Kapitel 3 ueber Kapitel 14, Abspann und das vollendete Postgame.
   CI nach erstem gefundenem fehlenden Dialogschritt (Kapitel 10:
   Zeugnis vorzeigen UND den Waechter nochmals ansprechen) erfolgreich.
-- Gemessene Abdeckung: 91 echte Registry-Portalreisen, 177 Quest-/Dialog-
-  Interaktionen, 17 simulierte Boss-Siegereignisse, 12 Save-/Reload-
-  Migrationen mit stabilen Party-, Archiv- und Fang-IDs, alle 12
+- Gemessene Abdeckung: 91 echte Registry-Portalreisen, 189 Quest-/Dialog-
+  Interaktionen, 17 simulierte Boss-Siegereignisse, 12 Kapitel-Save-
+  Roundtrips, 9 Zwischenquest-Save-Migrationen und 12 Pruefungen
+  gegen mehrfach vergebene Quest-Belohnungen mit stabilen Party-, Archiv- und Fang-IDs, alle 12
   Kapitelabzuege und Postgame-Abschluss. Der Test nutzt bestehende
   Kapitelmodule, Gates und Quest-Callbacks, keine direkt gesetzten
   Kapitelabschluss-Flags.
