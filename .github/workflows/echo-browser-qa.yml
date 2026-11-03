@@ -15,17 +15,22 @@ concurrency:
 
 jobs:
   browser-checkpoints:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install isolated browser test dependencies
+      - name: Prepare empty output folders (never upload stale pictures)
+        run: |
+          rm -rf echo-chroniken/docs/visual-audit/quest-checkpoints
+          rm -rf echo-chroniken/docs/visual-audit/archive-qa
+          rm -rf echo-chroniken/docs/visual-audit/battle-balance
+      - name: Use preinstalled Chrome and Python Playwright
         run: |
           python -m pip install playwright==1.56.0
-          python -m playwright install --with-deps chrome
+          google-chrome --version
       - name: Check chapter and postgame checkpoints
         run: python echo-chroniken/project/qa/quest-checkpoint-browser.py
       - name: Check archive and save migration
