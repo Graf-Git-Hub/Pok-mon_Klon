@@ -22,7 +22,7 @@ let s={scene:'OVERWORLD',currentMapId:'legacy_wurzeldorf',
  archive:[{uid:'archived',id:7,lv:8,hp:36,maxHp:36}],
  orbs:6,potions:3,main_story_finished:false,
  caughtIds:{1:true,2:true,7:true},seenIds:{1:true,2:true,7:true}};
-let portals=0,interactions=0,simulatedVictories=0;
+let portals=0,interactions=0,simulatedVictories=0,midQuestReloads=0,rewardRechecks=0;
 const stages=[];
 function go(exit,to){
  const from=s.currentMapId;
@@ -48,6 +48,20 @@ function talk(api,type){
 function win(api,id){
  api.victory(s,id);simulatedVictories++;
 }
+function midQuestReload(label){
+ const before=JSON.parse(JSON.stringify(s));
+ const copy=r.migrateSave(JSON.parse(JSON.stringify(s)));
+ a.deepEqual(JSON.parse(JSON.stringify(copy)),{...before,saveSchemaVersion:2},
+   'Mid-quest save lost state at '+label);
+ s=copy;midQuestReloads++;
+}
+function repeatReward(api,type){
+ const before={orbs:s.orbs,potions:s.potions};
+ talk(api,type);
+ a.deepEqual({orbs:s.orbs,potions:s.potions},before,
+   'Reward duplicated after repeating '+type);
+ rewardRechecks++;
+}
 function checkpoint(n,map){
  a.equal(s.currentMapId,map,'chapter '+n+' last map');
  a.equal(s['chapter'+n]?.completed,true,'chapter '+n+' incomplete');
@@ -56,6 +70,7 @@ function checkpoint(n,map){
  a.equal(reloaded.saveSchemaVersion,2);
  for(const k of ['currentMapId','safeSpawnId','orbs','potions'])
   a.equal(reloaded[k],before[k],'save roundtrip '+n+': '+k);
+ for(const prior of stages)a.equal(before['chapter'+prior]?.completed,true,'chapter '+prior+' regressed after '+n);
  for(const k of ['team','archive','caughtIds','seenIds','chapter'+n])
   a.deepEqual(JSON.parse(JSON.stringify(reloaded[k])),before[k],
    'save roundtrip '+n+': '+k);
@@ -66,14 +81,14 @@ go('to_lake','lake_north_path');go('to_harbor','nebelhafen_town');
 locked('to_pumpworks');
 for(const t of ['sera','witness0','witness1','witness2'])talk(c3,t);
 go('to_pumpworks','pumpworks_floor1');locked('to_control');
-for(const t of ['power','valve0','valve1','rotor'])talk(c3,t);
+talk(c3,'power');talk(c3,'valve0');midQuestReload('chapter3-valve');talk(c3,'valve1');talk(c3,'rotor');
 go('to_control','pumpworks_controlroom');
 a.equal(talk(c3,'boss').boss,true);win(c3);
-talk(c3,'recording');checkpoint(3,'pumpworks_controlroom');
+talk(c3,'recording');repeatReward(c3,'recording');checkpoint(3,'pumpworks_controlroom');
 // Chapter 4: the exact return rail trip grants completion.
 go('to_tunnel','root_tunnel');go('to_station','station_wurzelheim');
 go('to_yard','rail_switchyard');
-for(const t of ['switchA','switchC','switchB'])talk(c4,t);
+talk(c4,'switchA');talk(c4,'switchC');midQuestReload('chapter4-rail');talk(c4,'switchB');
 go('to_station','station_wurzelheim');
 a.equal(rail.depart(s,'station_moorglas'),true);
 go('to_bog','moorglas_bog');
@@ -91,7 +106,7 @@ for(const t of ['libraryRoute','ledger','portrait','diary','lyra','libraryRoute'
 go('to_town','stillwasser_town');go('to_tower','stillwater_tower');
 talk(c5,'cable');a.equal(talk(c5,'mirror').boss,'mirror');win(c5,'mirror');
 a.equal(talk(c5,'lyraDuel').boss,'lyra');win(c5,'lyra');
-talk(c5,'antenna');go('to_town','stillwasser_town');
+talk(c5,'antenna');repeatReward(c5,'antenna');go('to_town','stillwasser_town');
 go('to_station','station_stillwasser');checkpoint(5,'station_stillwasser');
 // Chapter 6: three workers, valve ordering, two late forge fights.
 go('to_ashroad','ashrail_approach');go('to_ash_town','aschenruh_town');
@@ -105,10 +120,10 @@ go('to_ash_town','aschenruh_town');talk(mid,'edda');
 go('to_glut_forge','glut_forge');go('to_glut_chasm','glut_chasm');
 a.equal(talk(mid,'smelter').boss,'smelter');win(mid,'smelter');
 a.equal(talk(mid,'core').boss,'core');win(mid,'core');
-talk(mid,'tool');checkpoint(6,'glut_chasm');
+talk(mid,'tool');repeatReward(mid,'tool');checkpoint(6,'glut_chasm');
 // Chapter 7: ritual, hunter, stones, shadow and father evidence.
 go('to_garden_road','garden_road');go('to_grove','lichterhain_grove');
-for(const t of ['ritual0','ritual1','ritual2','nalia'])talk(mid,t);
+talk(mid,'ritual0');talk(mid,'ritual1');midQuestReload('chapter7-ritual');talk(mid,'ritual2');talk(mid,'nalia');
 go('to_name_library','name_library');
 for(const t of ['story0','story1','story2'])talk(mid,t);
 go('to_grove','lichterhain_grove');go('to_echo_garden','echo_garden');
@@ -118,7 +133,7 @@ for(const t of ['stoneWASSER','stoneWURZEL','stoneFLAMME','stoneLICHT'])talk(mid
 a.equal(talk(mid,'nameShadow').boss,'shadow');win(mid,'shadow');
 go('to_grove','lichterhain_grove');go('to_name_library','name_library');
 talk(mid,'fatherMap');go('to_grove','lichterhain_grove');
-go('to_echo_garden','echo_garden');talk(mid,'trace');checkpoint(7,'echo_garden');
+go('to_echo_garden','echo_garden');talk(mid,'trace');repeatReward(mid,'trace');checkpoint(7,'echo_garden');
 // Chapter 8: research, city archive, sentry and long rail journey.
 go('to_capital','capital_outer_gate');go('to_upper','kronenstadt_upper');
 for(const t of ['citizen0','citizen1'])talk(mid,t);
@@ -130,7 +145,7 @@ go('to_upper','kronenstadt_upper');go('to_archive','central_archive');
 talk(mid,'recording');go('to_upper','kronenstadt_upper');
 go('to_research','research_hall');
 a.equal(talk(mid,'guard').boss,'guard');win(mid,'guard');
-talk(mid,'pass');go('to_upper','kronenstadt_upper');go('to_station','station_kronenstadt');
+talk(mid,'pass');repeatReward(mid,'pass');go('to_upper','kronenstadt_upper');go('to_station','station_kronenstadt');
 a.equal(rail.depart(s,'station_stillwasser'),true);
 a.equal(rail.depart(s,'station_kronenstadt'),true);
 go('to_upper','kronenstadt_upper');go('to_gate','capital_outer_gate');
@@ -138,13 +153,13 @@ checkpoint(8,'capital_outer_gate');
 // Chapter 9: phase lantern and bridge, Vex boss.
 go('to_frost','frost_approach');
 talk(end,'mapPart');talk(end,'lostLetter');go('to_frost_station','frost_station');
-for(const t of ['scientist','lensPart','batteryPart','assembler'])talk(end,t);
+talk(end,'scientist');talk(end,'lensPart');midQuestReload('chapter9-lantern');talk(end,'batteryPart');talk(end,'assembler');
 a.equal(s.chapter9.phase_lantern,true);
 go('to_ice_caverns','ice_caverns');
 s.player={x:8,y:7,dir:'up',stepPhase:0};
 talk(end,'bridgeLeft');a.equal(s.chapter9.bridgeActive,true);
 a.equal(talk(end,'vex').boss,'vexFrost');win(end,'vexFrost');
-for(const t of ['fatherLog','caveSignal'])talk(end,t);
+talk(end,'fatherLog');talk(end,'caveSignal');repeatReward(end,'caveSignal');
 checkpoint(9,'ice_caverns');
 // Chapter 10: the peaceful alternative is a real branch.
 go('to_under_city','under_city_station');talk(end,'guide');talk(end,'map');
@@ -154,8 +169,8 @@ go('to_mainring','resonance_mainring');
 for(const t of ['anchorB','anchorA','anchorC','power'])talk(end,t);
 go('to_vault','continuum_vault');
 a.equal(talk(end,'guardian').boss,'ringGuardian');
-talk(end,'testimony');talk(end,'guardian');a.equal(s.chapter10.peaceful,true);
-for(const t of ['evacuation','signal'])talk(end,t);
+talk(end,'testimony');midQuestReload('chapter10-testimony');talk(end,'guardian');a.equal(s.chapter10.peaceful,true);
+talk(end,'evacuation');talk(end,'signal');repeatReward(end,'signal');
 checkpoint(10,'continuum_vault');
 // Chapter 11: telescope, Varek and the message from the father.
 go('to_star_ridge','star_ridge');talk(end,'stargazer');
@@ -167,37 +182,36 @@ go('to_hall','observatory_hall');go('to_roof','observatory_roof');
 a.equal(talk(end,'varek').boss,'varekFirst');win(end,'varekFirst');
 for(const t of ['capsule0','capsule1','capsule2','miraLetter'])talk(end,t);
 go('to_hall','observatory_hall');talk(end,'fatherMessage');
-go('to_roof','observatory_roof');talk(end,'beacon');
+go('to_roof','observatory_roof');talk(end,'beacon');repeatReward(end,'beacon');
 checkpoint(11,'observatory_roof');
 // Chapter 12: family memories and shaft key.
 go('to_family','martha_house');
 for(const t of ['letter','musicBox','martha'])talk(fin,t);
 go('to_memory','memory_room');
-for(const t of ['picture0','picture1','picture2','memoryMirror','safetyLatch'])
- talk(fin,t);
+talk(fin,'picture0');talk(fin,'picture1');midQuestReload('chapter12-photos');talk(fin,'picture2');talk(fin,'memoryMirror');talk(fin,'safetyLatch');
 go('to_martha','martha_house');go('to_garden','old_family_garden');
 locked('to_shaft');
-for(const t of ['mioraChoice','shaftKey'])talk(fin,t);
+talk(fin,'mioraChoice');talk(fin,'shaftKey');repeatReward(fin,'shaftKey');
 checkpoint(12,'old_family_garden');
 // Chapter 13: three anchors, father and preparation.
 go('to_shaft','shaft_entry');talk(fin,'shaftGuide');talk(fin,'elevator');
 go('to_level1','shaft_level1');
-for(const t of ['anchorW','rootMemo','lanternShortcut'])talk(fin,t);
+talk(fin,'anchorW');midQuestReload('chapter13-anchor');talk(fin,'rootMemo');talk(fin,'lanternShortcut');
 go('to_level2','shaft_level2');talk(fin,'anchorA');
 a.equal(talk(fin,'shaftGuard').boss,'shaftGuardian');win(fin,'shaftGuardian');
 go('to_anchors','shaft_anchors');locked('to_father');
 for(const t of ['anchorS','escapeSwitch'])talk(fin,t);
 go('to_father','father_chamber');
-for(const t of ['father','protectionCode','finalPreparation'])talk(fin,t);
+for(const t of ['father','protectionCode','finalPreparation'])talk(fin,t);repeatReward(fin,'finalPreparation');
 checkpoint(13,'father_chamber');
 // Chapter 14: final choice, release, credits and epilogue.
 go('to_core','core_access');talk(fin,'warning');talk(fin,'machinePhase');
 go('to_reflections','memory_reflections');locked('to_core');
-for(const t of ['flash2','flash0','flash1','miraLetter'])talk(fin,t);
+talk(fin,'flash2');midQuestReload('chapter14-reflections');for(const t of ['flash0','flash1','miraLetter'])talk(fin,t);
 go('to_core','resonance_core');
 a.equal(talk(fin,'varekFinal').boss,'varekFinal');win(fin,'varekFinal');
-for(const t of ['free0','free1','free2','farewell','releaseSignal'])
- talk(fin,t);
+for(const t of ['free0','free1','free2','farewell','releaseSignal'])talk(fin,t);
+repeatReward(fin,'releaseSignal');
 a.equal(s.main_story_finished,true);
 go('to_epilogue','epilogue_wurzelheim');
 for(const t of ['marthaEpilogue','friends','credits','journal'])talk(fin,t);
@@ -209,6 +223,7 @@ for(let i=0;i<6;i++){
  go('to_meadow_'+(i+1),post.meadowIds[i]);
  talk(post,'meadowSign');talk(post,'clue'+i);
  go('to_garden',post.HUB);
+ if(i===2)midQuestReload('postgame-three-meadows');
  if(i%2===1){
   const boss='postgameTrial'+Math.floor(i/2);
   a.equal(talk(post,'trial'+Math.floor(i/2)).boss,boss);
@@ -218,7 +233,7 @@ for(let i=0;i<6;i++){
 go('to_museum',post.MUSEUM);
 for(const t of ['curator','museumLedger','station0','station1','station2','trainLacquer'])
  talk(post,t);
-go('to_garden',post.HUB);talk(post,'gardenFest');
+go('to_garden',post.HUB);talk(post,'gardenFest');repeatReward(post,'gardenFest');
 a.equal(s.postgame.completed,true);a.equal(s.optional_postgame_completed,true);
 a.equal(s.postgame.clues.length,6);a.equal(s.postgame.trials.length,3);
 go('to_epilogue','epilogue_wurzelheim');
@@ -230,4 +245,4 @@ a.deepEqual(stages,[3,4,5,6,7,8,9,10,11,12,13,14]);
 console.log('PASS continuous campaign from Chapter 3 to postgame: '+portals+
  ' real registry portals, '+interactions+' quest interactions, '+
  simulatedVictories+' simulated victory callbacks, '+stages.length+
- ' chapter save/restore checks, archive preserved, credits and postgame completed');
+ ' chapter save/restore checks, '+midQuestReloads+' midquest reloads, '+rewardRechecks+' duplicate-reward checks, archive preserved, credits and postgame completed');
