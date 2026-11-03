@@ -1,5 +1,28 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## DURCHGAENGIGER QUEST-REGRESSIONSTEST 03.11.2026
+- GitHub-only, isolierter PR #14, ohne Laptop Laura, Codex oder Hintergrundwaechter.
+- Neuer project/tests/continuous-campaign.cjs verwendet EINEN Spielstand von
+  Kapitel 3 ueber Kapitel 14, Abspann und das vollendete Postgame.
+  CI nach erstem gefundenem fehlenden Dialogschritt (Kapitel 10:
+  Zeugnis vorzeigen UND den Waechter nochmals ansprechen) erfolgreich.
+- Gemessene Abdeckung: 91 echte Registry-Portalreisen, 189 Quest-/Dialog-
+  Interaktionen, 17 simulierte Boss-Siegereignisse, 12 Kapitel-Save-
+  Roundtrips, 9 Zwischenquest-Save-Migrationen und 12 Pruefungen
+  gegen mehrfach vergebene Quest-Belohnungen mit stabilen Party-, Archiv- und Fang-IDs, alle 12
+  Kapitelabzuege und Postgame-Abschluss. Der Test nutzt bestehende
+  Kapitelmodule, Gates und Quest-Callbacks, keine direkt gesetzten
+  Kapitelabschluss-Flags.
+- GRENZEN: Kapitel 1-2/Intro/Ruine sind als bereits erledigte
+  Startvoraussetzung gesetzt, werden separat durch bisherige Tests
+  prueft. Wege werden ueber MapRegistry.travel statt echte Schritte
+  durchlaufen; Boss-Siege ueber victory-Callbacks statt echter
+  Kampfauswahl. Daher KEIN vollstaendiger menschlicher Spieldurchlauf
+  und keine Android-Hardwareabnahme.
+- Naechste Etappen: diese Luecken gezielt als Browser-End-to-End-Szenarien
+  schliessen; Aufmerksamkeits-Prioritaet fruehes Spiel und Verstaendlichkeit
+  der Quest-Hinweise. Release v0.28.0 unveraendert.
+
 ## VERIFIZIERTER RELEASE 02.11.2026 - Echo-Chroniken 0.28.0
 - Gameplay-PR #10 gemergt in main mit Commit
   9b3258860dc4262090e8bcb60f4b57ca9b672110.
