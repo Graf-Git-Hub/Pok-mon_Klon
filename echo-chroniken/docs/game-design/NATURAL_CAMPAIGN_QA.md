@@ -1,4 +1,6 @@
-# Echo-Chroniken: natürlicher Spieltest ab Omas Haus bis Kapitel 5
+# Echo-Chroniken: natürlicher Teiltest ab Omas Haus bis Kapitel 5
+
+**Aktueller, weitergeführter Gesamtstand:** [NATURAL_FULL_CAMPAIGN_QA.md](NATURAL_FULL_CAMPAIGN_QA.md). Dieser Text dokumentiert den **früheren Zwischenstand bis Kapitel 5**, nicht die heutigen Grenzen des Gesamtprojekts.
 
 **Stand:** 04.11.2026. **Werkzeuge:** `project/qa/natural-opening.py` und `project/qa/natural-chapter5.py` (Playwright auf Laura und GitHub).
 
@@ -33,11 +35,11 @@
 
 ## Was dieser Test **nicht** beweist
 
-- **Keine vollständige 1–14-Kampagne:** Ein natürlicher Spielstand ist bis zum Ende von Kapitel **5** abgesichert; Kapitel **6–14 und Postgame** müssen mit demselben Team/Inventar sukzessive fortgesetzt werden. Die früheren Abschnittstests dort nutzten jeweils starke QA-Teams.
+- **Abgrenzung dieses früheren Teiltests:** Hier wurde die Kampagne nur bis Kapitel **5** geprüft. Die inzwischen erfolgreich weitergeführte natürliche Testkette ist unter [NATURAL_FULL_CAMPAIGN_QA.md](NATURAL_FULL_CAMPAIGN_QA.md) dokumentiert.
 - Kein über Stunden vermessener menschlicher Durchlauf, keine echten Controller-/Android-TV-Gerätetests, kein Nachweis, dass jede optionale Nebenquest mit normalen Ressourcen gelingt.
 - **Grafik bleibt bewusst unverändert.**
 
-## Priorität
+## Historische Prioritäten nach Abschluss dieses Teiltests
 
 1. Den natürlich erspielten **Kapitel-5-Spielstand** ohne Anpassungen in Kapitel 6 übernehmen; bei nur 5 übrigen Tränken die Heil- und Bossökonomie untersuchen.
 2. Die weitere Route bis Kapitel 14 mit **echten Kämpfen und gespeicherten Fortschritten** fortsetzen; kapitelweise Softlocks und zu starke Gegner beheben und als Regression testen.

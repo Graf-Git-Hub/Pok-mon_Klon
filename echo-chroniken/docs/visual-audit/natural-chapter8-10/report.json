@@ -1,0 +1,363 @@
+{
+  "scope": "Natural Chapter 7 save, original team, potions and levels into Chapters 8-10 (real controls)",
+  "cases": [
+    {
+      "viewport": "desktop",
+      "steps": 675,
+      "dialogs": 45,
+      "bosses": [
+        "guard",
+        "vex"
+      ],
+      "attacks": 13,
+      "portals": [
+        "capital_outer_gate -> kronenstadt_upper",
+        "kronenstadt_upper -> central_archive",
+        "central_archive -> kronenstadt_upper",
+        "kronenstadt_upper -> research_hall",
+        "research_hall -> kronenstadt_upper",
+        "kronenstadt_upper -> central_archive",
+        "central_archive -> kronenstadt_upper",
+        "kronenstadt_upper -> research_hall",
+        "research_hall -> kronenstadt_upper",
+        "kronenstadt_upper -> capital_outer_gate",
+        "capital_outer_gate -> frost_approach",
+        "frost_approach -> frost_station",
+        "frost_station -> ice_caverns",
+        "ice_caverns -> under_city_station",
+        "under_city_station -> under_city_homes",
+        "under_city_homes -> resonance_mainring",
+        "resonance_mainring -> continuum_vault",
+        "continuum_vault -> star_ridge"
+      ],
+      "reloads": [
+        "8.documents",
+        "8.completed",
+        "9.parts",
+        "9.completed",
+        "10.miraDrawing",
+        "10.completed"
+      ],
+      "wild_fled": 0,
+      "potions_spent": 1,
+      "initial": {
+        "team": [
+          {
+            "id": 2,
+            "lv": 14
+          },
+          {
+            "id": 7,
+            "lv": 9
+          }
+        ],
+        "potions": 6,
+        "orbs": 42
+      },
+      "combat_details": [
+        {
+          "boss": "guard",
+          "chapter": 8,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 14,
+                "hp": 124
+              },
+              {
+                "id": 7,
+                "lv": 9,
+                "hp": 72
+              }
+            ],
+            "potions": 6
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 15,
+                "hp": 144
+              },
+              {
+                "id": 7,
+                "lv": 10,
+                "hp": 78
+              }
+            ],
+            "potions": 5
+          }
+        },
+        {
+          "boss": "vex",
+          "chapter": 9,
+          "before": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 15,
+                "hp": 144
+              },
+              {
+                "id": 7,
+                "lv": 10,
+                "hp": 78
+              }
+            ],
+            "potions": 7
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 16,
+                "hp": 150
+              },
+              {
+                "id": 7,
+                "lv": 10,
+                "hp": 78
+              }
+            ],
+            "potions": 7
+          }
+        }
+      ],
+      "chapter8_finish": {
+        "team": [
+          {
+            "id": 3,
+            "lv": 15
+          },
+          {
+            "id": 7,
+            "lv": 10
+          }
+        ],
+        "potions": 7,
+        "orbs": 46
+      },
+      "chapter9_finish": {
+        "team": [
+          {
+            "id": 3,
+            "lv": 16
+          },
+          {
+            "id": 7,
+            "lv": 10
+          }
+        ],
+        "potions": 9,
+        "orbs": 50
+      },
+      "final": {
+        "map": "star_ridge",
+        "team": [
+          {
+            "id": 3,
+            "lv": 16,
+            "xp": 55,
+            "maxHp": 150,
+            "hp": 150
+          },
+          {
+            "id": 7,
+            "lv": 10,
+            "xp": 107,
+            "maxHp": 78,
+            "hp": 78
+          }
+        ],
+        "potions": 11,
+        "orbs": 54,
+        "chapters": [
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "viewport": "touch",
+      "steps": 675,
+      "dialogs": 45,
+      "bosses": [
+        "guard",
+        "vex"
+      ],
+      "attacks": 13,
+      "portals": [
+        "capital_outer_gate -> kronenstadt_upper",
+        "kronenstadt_upper -> central_archive",
+        "central_archive -> kronenstadt_upper",
+        "kronenstadt_upper -> research_hall",
+        "research_hall -> kronenstadt_upper",
+        "kronenstadt_upper -> central_archive",
+        "central_archive -> kronenstadt_upper",
+        "kronenstadt_upper -> research_hall",
+        "research_hall -> kronenstadt_upper",
+        "kronenstadt_upper -> capital_outer_gate",
+        "capital_outer_gate -> frost_approach",
+        "frost_approach -> frost_station",
+        "frost_station -> ice_caverns",
+        "ice_caverns -> under_city_station",
+        "under_city_station -> under_city_homes",
+        "under_city_homes -> resonance_mainring",
+        "resonance_mainring -> continuum_vault",
+        "continuum_vault -> star_ridge"
+      ],
+      "reloads": [
+        "8.documents",
+        "8.completed",
+        "9.parts",
+        "9.completed",
+        "10.miraDrawing",
+        "10.completed"
+      ],
+      "wild_fled": 0,
+      "potions_spent": 2,
+      "initial": {
+        "team": [
+          {
+            "id": 2,
+            "lv": 14
+          },
+          {
+            "id": 23,
+            "lv": 10
+          }
+        ],
+        "potions": 7,
+        "orbs": 40
+      },
+      "combat_details": [
+        {
+          "boss": "guard",
+          "chapter": 8,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 14,
+                "hp": 124
+              },
+              {
+                "id": 23,
+                "lv": 10,
+                "hp": 73
+              }
+            ],
+            "potions": 6
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 15,
+                "hp": 144
+              },
+              {
+                "id": 23,
+                "lv": 10,
+                "hp": 73
+              }
+            ],
+            "potions": 5
+          }
+        },
+        {
+          "boss": "vex",
+          "chapter": 9,
+          "before": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 15,
+                "hp": 144
+              },
+              {
+                "id": 23,
+                "lv": 10,
+                "hp": 73
+              }
+            ],
+            "potions": 7
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 16,
+                "hp": 150
+              },
+              {
+                "id": 23,
+                "lv": 10,
+                "hp": 73
+              }
+            ],
+            "potions": 7
+          }
+        }
+      ],
+      "chapter8_finish": {
+        "team": [
+          {
+            "id": 3,
+            "lv": 15
+          },
+          {
+            "id": 23,
+            "lv": 10
+          }
+        ],
+        "potions": 7,
+        "orbs": 44
+      },
+      "chapter9_finish": {
+        "team": [
+          {
+            "id": 3,
+            "lv": 16
+          },
+          {
+            "id": 23,
+            "lv": 10
+          }
+        ],
+        "potions": 9,
+        "orbs": 48
+      },
+      "final": {
+        "map": "star_ridge",
+        "team": [
+          {
+            "id": 3,
+            "lv": 16,
+            "xp": 118,
+            "maxHp": 150,
+            "hp": 150
+          },
+          {
+            "id": 23,
+            "lv": 10,
+            "xp": 171,
+            "maxHp": 73,
+            "hp": 73
+          }
+        ],
+        "potions": 11,
+        "orbs": 52,
+        "chapters": [
+          true,
+          true,
+          true
+        ]
+      }
+    }
+  ],
+  "page_errors": [],
+  "browser": "157.0.8103.39"
+}

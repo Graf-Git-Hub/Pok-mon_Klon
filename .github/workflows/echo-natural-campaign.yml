@@ -5,6 +5,9 @@ on:
     paths:
       - 'echo-chroniken/project/qa/natural-opening.py'
       - 'echo-chroniken/project/qa/natural-chapter5.py'
+      - 'echo-chroniken/project/qa/natural-chapter6-7.py'
+      - 'echo-chroniken/project/qa/natural-chapter8-10.py'
+      - 'echo-chroniken/project/qa/natural-chapter11-14.py'
       - 'echo-chroniken/project/src/**'
       - 'echo-chroniken/project/data/**'
       - 'echo-chroniken/project/index.html'
@@ -22,7 +25,7 @@ concurrency:
 jobs:
   clean-save-playthrough:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -36,6 +39,12 @@ jobs:
         run: python echo-chroniken/project/qa/natural-opening.py --both --seeded
       - name: Continue unmodified naturally earned saves into chapter 5
         run: python echo-chroniken/project/qa/natural-chapter5.py --both
+      - name: Continue natural saved teams into chapters 6-7
+        run: python echo-chroniken/project/qa/natural-chapter6-7.py --both
+      - name: Continue same natural campaign into chapters 8-10
+        run: python echo-chroniken/project/qa/natural-chapter8-10.py --both
+      - name: Play real finale, credits and postgame with unchanged natural team
+        run: python echo-chroniken/project/qa/natural-chapter11-14.py --both
       - name: Keep actual input report and checkpoints (even on failure)
         if: always()
         uses: actions/upload-artifact@v4
@@ -44,5 +53,8 @@ jobs:
           path: |
             echo-chroniken/docs/visual-audit/natural-opening/
             echo-chroniken/docs/visual-audit/natural-chapter5/
+            echo-chroniken/docs/visual-audit/natural-chapter6-7/
+            echo-chroniken/docs/visual-audit/natural-chapter8-10/
+            echo-chroniken/docs/visual-audit/natural-chapter11-14/
           retention-days: 7
           if-no-files-found: warn

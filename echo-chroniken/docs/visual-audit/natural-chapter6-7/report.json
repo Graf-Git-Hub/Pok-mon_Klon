@@ -1,0 +1,469 @@
+{
+  "scope": "Natural earned save from Grandma/parcel after chapter 5; keyboard/touch chapter 6 and 7 with original XP/items",
+  "cases": [
+    {
+      "viewport": "desktop",
+      "steps": 591,
+      "dialogs": 38,
+      "bosses": [
+        "smelter",
+        "core",
+        "hunter",
+        "nameShadow"
+      ],
+      "attacks": 26,
+      "portals": [
+        "station_stillwasser -> ashrail_approach",
+        "ashrail_approach -> aschenruh_town",
+        "aschenruh_town -> glut_forge",
+        "glut_forge -> glut_chasm",
+        "glut_chasm -> glut_forge",
+        "glut_forge -> aschenruh_town",
+        "aschenruh_town -> glut_forge",
+        "glut_forge -> glut_chasm",
+        "glut_chasm -> garden_road",
+        "garden_road -> lichterhain_grove",
+        "lichterhain_grove -> name_library",
+        "name_library -> lichterhain_grove",
+        "lichterhain_grove -> echo_garden",
+        "echo_garden -> lichterhain_grove",
+        "lichterhain_grove -> name_library",
+        "name_library -> lichterhain_grove",
+        "lichterhain_grove -> echo_garden",
+        "echo_garden -> capital_outer_gate"
+      ],
+      "reloads": [
+        "6.ledgers",
+        "6.completed",
+        "7.rituals",
+        "7.completed"
+      ],
+      "potions_spent": 1,
+      "wild_fled": 1,
+      "initial": {
+        "team": [
+          {
+            "id": 2,
+            "lv": 11
+          },
+          {
+            "id": 7,
+            "lv": 7
+          }
+        ],
+        "potions": 5,
+        "orbs": 36
+      },
+      "combat_details": [
+        {
+          "boss": "smelter",
+          "chapter": 6,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 11,
+                "hp": 106
+              },
+              {
+                "id": 7,
+                "lv": 7,
+                "hp": 60
+              }
+            ],
+            "potions": 5
+          },
+          "after": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 12,
+                "hp": 112
+              },
+              {
+                "id": 7,
+                "lv": 8,
+                "hp": 66
+              }
+            ],
+            "potions": 5
+          }
+        },
+        {
+          "boss": "core",
+          "chapter": 6,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 12,
+                "hp": 112
+              },
+              {
+                "id": 7,
+                "lv": 8,
+                "hp": 66
+              }
+            ],
+            "potions": 5
+          },
+          "after": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 13,
+                "hp": 118
+              },
+              {
+                "id": 7,
+                "lv": 8,
+                "hp": 66
+              }
+            ],
+            "potions": 5
+          }
+        },
+        {
+          "boss": "hunter",
+          "chapter": 7,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 13,
+                "hp": 118
+              },
+              {
+                "id": 7,
+                "lv": 8,
+                "hp": 66
+              }
+            ],
+            "potions": 7
+          },
+          "after": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 13,
+                "hp": 65
+              },
+              {
+                "id": 7,
+                "lv": 9,
+                "hp": 72
+              }
+            ],
+            "potions": 7
+          }
+        },
+        {
+          "boss": "nameShadow",
+          "chapter": 7,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 13,
+                "hp": 118
+              },
+              {
+                "id": 7,
+                "lv": 9,
+                "hp": 72
+              }
+            ],
+            "potions": 6
+          },
+          "after": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 14,
+                "hp": 124
+              },
+              {
+                "id": 7,
+                "lv": 9,
+                "hp": 72
+              }
+            ],
+            "potions": 6
+          }
+        }
+      ],
+      "chapter6_finish": {
+        "team": [
+          {
+            "id": 2,
+            "lv": 13,
+            "hp": 118
+          },
+          {
+            "id": 7,
+            "lv": 8,
+            "hp": 66
+          }
+        ],
+        "potions": 7,
+        "orbs": 39
+      },
+      "final": {
+        "map": "capital_outer_gate",
+        "team": [
+          {
+            "id": 2,
+            "lv": 14,
+            "xp": 167,
+            "maxHp": 124,
+            "hp": 124
+          },
+          {
+            "id": 7,
+            "lv": 9,
+            "xp": 106,
+            "maxHp": 72,
+            "hp": 72
+          }
+        ],
+        "potions": 6,
+        "orbs": 42,
+        "ch6": true,
+        "ch7": true
+      }
+    },
+    {
+      "viewport": "touch",
+      "steps": 591,
+      "dialogs": 38,
+      "bosses": [
+        "smelter",
+        "core",
+        "hunter",
+        "nameShadow"
+      ],
+      "attacks": 24,
+      "portals": [
+        "station_stillwasser -> ashrail_approach",
+        "ashrail_approach -> aschenruh_town",
+        "aschenruh_town -> glut_forge",
+        "glut_forge -> glut_chasm",
+        "glut_chasm -> glut_forge",
+        "glut_forge -> aschenruh_town",
+        "aschenruh_town -> glut_forge",
+        "glut_forge -> glut_chasm",
+        "glut_chasm -> garden_road",
+        "garden_road -> lichterhain_grove",
+        "lichterhain_grove -> name_library",
+        "name_library -> lichterhain_grove",
+        "lichterhain_grove -> echo_garden",
+        "echo_garden -> lichterhain_grove",
+        "lichterhain_grove -> name_library",
+        "name_library -> lichterhain_grove",
+        "lichterhain_grove -> echo_garden",
+        "echo_garden -> capital_outer_gate"
+      ],
+      "reloads": [
+        "6.ledgers",
+        "6.completed",
+        "7.rituals",
+        "7.completed"
+      ],
+      "potions_spent": 0,
+      "wild_fled": 0,
+      "initial": {
+        "team": [
+          {
+            "id": 2,
+            "lv": 11
+          },
+          {
+            "id": 23,
+            "lv": 8
+          }
+        ],
+        "potions": 5,
+        "orbs": 34
+      },
+      "combat_details": [
+        {
+          "boss": "smelter",
+          "chapter": 6,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 11,
+                "hp": 106
+              },
+              {
+                "id": 23,
+                "lv": 8,
+                "hp": 61
+              }
+            ],
+            "potions": 5
+          },
+          "after": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 12,
+                "hp": 112
+              },
+              {
+                "id": 23,
+                "lv": 8,
+                "hp": 61
+              }
+            ],
+            "potions": 5
+          }
+        },
+        {
+          "boss": "core",
+          "chapter": 6,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 12,
+                "hp": 112
+              },
+              {
+                "id": 23,
+                "lv": 8,
+                "hp": 61
+              }
+            ],
+            "potions": 5
+          },
+          "after": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 13,
+                "hp": 118
+              },
+              {
+                "id": 23,
+                "lv": 9,
+                "hp": 67
+              }
+            ],
+            "potions": 5
+          }
+        },
+        {
+          "boss": "hunter",
+          "chapter": 7,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 13,
+                "hp": 118
+              },
+              {
+                "id": 23,
+                "lv": 9,
+                "hp": 67
+              }
+            ],
+            "potions": 7
+          },
+          "after": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 14,
+                "hp": 124
+              },
+              {
+                "id": 23,
+                "lv": 9,
+                "hp": 67
+              }
+            ],
+            "potions": 7
+          }
+        },
+        {
+          "boss": "nameShadow",
+          "chapter": 7,
+          "before": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 14,
+                "hp": 124
+              },
+              {
+                "id": 23,
+                "lv": 9,
+                "hp": 67
+              }
+            ],
+            "potions": 7
+          },
+          "after": {
+            "team": [
+              {
+                "id": 2,
+                "lv": 14,
+                "hp": 50
+              },
+              {
+                "id": 23,
+                "lv": 10,
+                "hp": 73
+              }
+            ],
+            "potions": 7
+          }
+        }
+      ],
+      "chapter6_finish": {
+        "team": [
+          {
+            "id": 2,
+            "lv": 13,
+            "hp": 118
+          },
+          {
+            "id": 23,
+            "lv": 9,
+            "hp": 67
+          }
+        ],
+        "potions": 7,
+        "orbs": 37
+      },
+      "final": {
+        "map": "capital_outer_gate",
+        "team": [
+          {
+            "id": 2,
+            "lv": 14,
+            "xp": 230,
+            "maxHp": 124,
+            "hp": 50
+          },
+          {
+            "id": 23,
+            "lv": 10,
+            "xp": 8,
+            "maxHp": 73,
+            "hp": 73
+          }
+        ],
+        "potions": 7,
+        "orbs": 40,
+        "ch6": true,
+        "ch7": true
+      }
+    }
+  ],
+  "page_errors": [],
+  "browser": "157.0.8103.39"
+}

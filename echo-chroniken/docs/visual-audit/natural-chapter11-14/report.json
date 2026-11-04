@@ -1,0 +1,449 @@
+{
+  "scope": "Natural campaign save from Grandma through Chapter 10; Chapters 11-14 and postgame with normal team and real boss fights",
+  "cases": [
+    {
+      "viewport": "desktop",
+      "steps": 1473,
+      "dialogs": 88,
+      "bosses": [
+        "varek",
+        "shaftGuard",
+        "varekFinal",
+        "postgameTrial0",
+        "postgameTrial1",
+        "postgameTrial2"
+      ],
+      "attacks": 47,
+      "portals": [
+        "star_ridge -> observatory_hall",
+        "observatory_hall -> observatory_telescope",
+        "observatory_telescope -> observatory_hall",
+        "observatory_hall -> observatory_roof",
+        "observatory_roof -> observatory_hall",
+        "observatory_hall -> observatory_roof",
+        "observatory_roof -> martha_house",
+        "martha_house -> memory_room",
+        "memory_room -> martha_house",
+        "martha_house -> old_family_garden",
+        "old_family_garden -> shaft_entry",
+        "shaft_entry -> shaft_level1",
+        "shaft_level1 -> shaft_level2",
+        "shaft_level2 -> shaft_anchors",
+        "shaft_anchors -> father_chamber",
+        "father_chamber -> core_access",
+        "core_access -> memory_reflections",
+        "memory_reflections -> resonance_core",
+        "resonance_core -> epilogue_wurzelheim",
+        "epilogue_wurzelheim -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_01",
+        "postgame_meadow_01 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_02",
+        "postgame_meadow_02 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_03",
+        "postgame_meadow_03 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_04",
+        "postgame_meadow_04 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_05",
+        "postgame_meadow_05 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_06",
+        "postgame_meadow_06 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> rail_heritage_museum",
+        "rail_heritage_museum -> optional_echo_garden_annex"
+      ],
+      "reloads": [
+        "11.projections",
+        "11.completed",
+        "12.latchOpen",
+        "12.completed",
+        "13.guardianWon",
+        "13.completed",
+        "14.varekWon",
+        "14.completed",
+        "14.credits",
+        "14.completed"
+      ],
+      "wild_fled": 5,
+      "potions_spent": 2,
+      "initial": {
+        "team": [
+          {
+            "id": 3,
+            "lv": 16
+          },
+          {
+            "id": 7,
+            "lv": 10
+          }
+        ],
+        "potions": 11,
+        "orbs": 54
+      },
+      "combat_details": [
+        {
+          "boss": "varek",
+          "chapter": 11,
+          "before": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 16,
+                "hp": 150
+              },
+              {
+                "id": 7,
+                "lv": 10,
+                "hp": 78
+              }
+            ],
+            "potions": 11
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 17,
+                "hp": 156
+              },
+              {
+                "id": 7,
+                "lv": 11,
+                "hp": 84
+              }
+            ],
+            "potions": 10
+          }
+        },
+        {
+          "boss": "shaftGuard",
+          "chapter": 13,
+          "before": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 17,
+                "hp": 156
+              },
+              {
+                "id": 7,
+                "lv": 11,
+                "hp": 84
+              }
+            ],
+            "potions": 16
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 18,
+                "hp": 65
+              },
+              {
+                "id": 8,
+                "lv": 12,
+                "hp": 104
+              }
+            ],
+            "potions": 16
+          }
+        },
+        {
+          "boss": "varekFinal",
+          "chapter": 14,
+          "before": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 18,
+                "hp": 162
+              },
+              {
+                "id": 8,
+                "lv": 12,
+                "hp": 104
+              }
+            ],
+            "potions": 19
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 20,
+                "hp": 174
+              },
+              {
+                "id": 8,
+                "lv": 13,
+                "hp": 110
+              }
+            ],
+            "potions": 19
+          }
+        }
+      ],
+      "mainStory": {
+        "map": "epilogue_wurzelheim",
+        "team": [
+          {
+            "id": 3,
+            "lv": 20,
+            "hp": 174
+          },
+          {
+            "id": 8,
+            "lv": 13,
+            "hp": 110
+          }
+        ],
+        "potions": 23,
+        "orbs": 74,
+        "credits": true
+      },
+      "postgameFinal": {
+        "map": "optional_echo_garden_annex",
+        "team": [
+          {
+            "id": 3,
+            "lv": 22,
+            "maxHp": 186,
+            "hp": 186
+          },
+          {
+            "id": 8,
+            "lv": 14,
+            "maxHp": 116,
+            "hp": 116
+          }
+        ],
+        "potions": 26,
+        "orbs": 79,
+        "mainStory": true,
+        "postgame": true
+      }
+    },
+    {
+      "viewport": "touch",
+      "steps": 1473,
+      "dialogs": 88,
+      "bosses": [
+        "varek",
+        "shaftGuard",
+        "varekFinal",
+        "postgameTrial0",
+        "postgameTrial1",
+        "postgameTrial2"
+      ],
+      "attacks": 46,
+      "portals": [
+        "star_ridge -> observatory_hall",
+        "observatory_hall -> observatory_telescope",
+        "observatory_telescope -> observatory_hall",
+        "observatory_hall -> observatory_roof",
+        "observatory_roof -> observatory_hall",
+        "observatory_hall -> observatory_roof",
+        "observatory_roof -> martha_house",
+        "martha_house -> memory_room",
+        "memory_room -> martha_house",
+        "martha_house -> old_family_garden",
+        "old_family_garden -> shaft_entry",
+        "shaft_entry -> shaft_level1",
+        "shaft_level1 -> shaft_level2",
+        "shaft_level2 -> shaft_anchors",
+        "shaft_anchors -> father_chamber",
+        "father_chamber -> core_access",
+        "core_access -> memory_reflections",
+        "memory_reflections -> resonance_core",
+        "resonance_core -> epilogue_wurzelheim",
+        "epilogue_wurzelheim -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_01",
+        "postgame_meadow_01 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_02",
+        "postgame_meadow_02 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_03",
+        "postgame_meadow_03 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_04",
+        "postgame_meadow_04 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_05",
+        "postgame_meadow_05 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> postgame_meadow_06",
+        "postgame_meadow_06 -> optional_echo_garden_annex",
+        "optional_echo_garden_annex -> rail_heritage_museum",
+        "rail_heritage_museum -> optional_echo_garden_annex"
+      ],
+      "reloads": [
+        "11.projections",
+        "11.completed",
+        "12.latchOpen",
+        "12.completed",
+        "13.guardianWon",
+        "13.completed",
+        "14.varekWon",
+        "14.completed",
+        "14.credits",
+        "14.completed"
+      ],
+      "wild_fled": 6,
+      "potions_spent": 2,
+      "initial": {
+        "team": [
+          {
+            "id": 3,
+            "lv": 16
+          },
+          {
+            "id": 23,
+            "lv": 10
+          }
+        ],
+        "potions": 11,
+        "orbs": 52
+      },
+      "combat_details": [
+        {
+          "boss": "varek",
+          "chapter": 11,
+          "before": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 16,
+                "hp": 150
+              },
+              {
+                "id": 23,
+                "lv": 10,
+                "hp": 73
+              }
+            ],
+            "potions": 11
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 17,
+                "hp": 68
+              },
+              {
+                "id": 23,
+                "lv": 11,
+                "hp": 79
+              }
+            ],
+            "potions": 11
+          }
+        },
+        {
+          "boss": "shaftGuard",
+          "chapter": 13,
+          "before": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 17,
+                "hp": 156
+              },
+              {
+                "id": 23,
+                "lv": 11,
+                "hp": 79
+              }
+            ],
+            "potions": 16
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 19,
+                "hp": 168
+              },
+              {
+                "id": 24,
+                "lv": 12,
+                "hp": 99
+              }
+            ],
+            "potions": 16
+          }
+        },
+        {
+          "boss": "varekFinal",
+          "chapter": 14,
+          "before": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 19,
+                "hp": 168
+              },
+              {
+                "id": 24,
+                "lv": 12,
+                "hp": 99
+              }
+            ],
+            "potions": 20
+          },
+          "after": {
+            "team": [
+              {
+                "id": 3,
+                "lv": 20,
+                "hp": 174
+              },
+              {
+                "id": 24,
+                "lv": 13,
+                "hp": 105
+              }
+            ],
+            "potions": 19
+          }
+        }
+      ],
+      "mainStory": {
+        "map": "epilogue_wurzelheim",
+        "team": [
+          {
+            "id": 3,
+            "lv": 20,
+            "hp": 174
+          },
+          {
+            "id": 24,
+            "lv": 13,
+            "hp": 105
+          }
+        ],
+        "potions": 23,
+        "orbs": 72,
+        "credits": true
+      },
+      "postgameFinal": {
+        "map": "optional_echo_garden_annex",
+        "team": [
+          {
+            "id": 3,
+            "lv": 22,
+            "maxHp": 186,
+            "hp": 186
+          },
+          {
+            "id": 24,
+            "lv": 14,
+            "maxHp": 111,
+            "hp": 111
+          }
+        ],
+        "potions": 26,
+        "orbs": 77,
+        "mainStory": true,
+        "postgame": true
+      }
+    }
+  ],
+  "page_errors": [],
+  "browser": "157.0.8103.39"
+}
