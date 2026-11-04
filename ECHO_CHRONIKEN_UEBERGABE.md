@@ -6,6 +6,20 @@
 **Hauptzweig nach PR #21:** `45c3921e1182ac63f6122a78c1d081b730e721fb`  
 **Wichtig für jeden neuen Chat:** **NICHT bei Kapitel 7 aufhören oder dort wieder anfangen!** Kapitel 8–10 sind bereits in `main` integriert, Kapitel 11–14 inklusive Finale/Postgame existieren ebenfalls und haben automatisierte Storytests. Die Testtiefe unterscheidet sich; siehe Tabelle.
 
+## Nachtrag 04.11.2026: Kapitel 11–14 und Postgame real gespielt (Entwicklungszweig)
+
+**Isolierter Branch:** `feature/echo-ch11-14-balance-20261104`. **Basis:** `main` bei `4f5a5d3`. Der Originalordner mit 25 fremden, nicht committeten Änderungen wurde nicht verändert.
+
+- Neuer echter Chrome-157-Browser-Test `echo-chroniken/project/qa/real-chapter11-14.py` vollständig erfolgreich: **Desktop und Handy-Touch**, jeweils **1473 tatsächliche Schritte, 88 Dialogaktionen, sechs echte Boss-Siege, zehn Save-/Reload-Checks**. Zusammen **2946 Schritte, 176 Dialogaktionen, 12 echte Boss-Siege, 97 Attacken, 20 Reloads, null JavaScript-Fehler**. Der durchgehende Testabschnitt beginnt **nach abgeschlossenem Kapitel 10** mit Lv.55/480-KP-QA-Team, führt über Kapitel 11–14, Finale, Abspann, alle sechs Postgame-Wiesen, drei optionale echte Garten-Bosskämpfe, Museum und Gartenfest. Er beweist **nicht** normales Startspiel-Balancing oder mehrstündige natürliche Spielbarkeit. Details: `echo-chroniken/docs/game-design/CHAPTER11_14_REAL_QA.md`; Report unter `echo-chroniken/docs/visual-audit/real-chapter11-14/report.json`.
+- **Getesteter Trank-Fix:** Der WIP-Commit `a2ce09c` wurde im isolierten Branch übernommen: Kampftränke heilen mindestens 36 KP oder 30 % Max-KP, keine Verschwendung bei vollen KP, geheilte Team-/Trankstände im Reisemenü werden gespeichert. Neuer Engine-Test `project/tests/battle-potions.cjs` erfolgreich.
+- **400** echte, deterministische Frühgebiets-Einzelduelle (Lv.3/5) und **600** späte Dreierteam-Duelle über Kapitel 11/13/14 und Postgame durchgespielt. In den späten Szenarien: 600/600 Siege und 0 Tränke, deutlicher Hinweis auf **sehr leichte späte Einzelbosse bei gut besetztem Team**; natürliche Teamstärke/XP-Kurve noch nicht erwiesen. Siehe `echo-chroniken/docs/game-design/BALANCE_PASS_20261104.md`.
+- Vor vollständiger Freigabe: **Einen** natürlichen Spielstand ab Oma/Paket über Kapitel 14/Postgame ohne synthetische Kapitel-Startflags, natürliche Ressourcen/EP/Ermüdung/Begegnungen/Spielstunden und reale Android-Geräte prüfen. Die bestehende Quest-Testroute und die neuen Segmenttests können dafür verbunden werden. Grafik bleibt zurückgestellt.
+- **Release-Abfrage:** GitHub `android-latest` führt inzwischen ein am 04.11.2026, 17:01 UTC hochgeladenes APK-Asset (SHA256 `8fed4055d161fc5176db62a85a9c5cf52317b29ef76a5833b2dc97666eba77c4`), Release-Text nennt Build-Commit `45c3921`. Aus dieser API-Metadatenprüfung allein folgt **keine unabhängig verifizierte 0.29.0-Update-Installation oder Signaturprüfung**. Release-Tags, App-ID, Signatur und Hardware vor Installationsfreigabe nochmals prüfen.
+- Für diese Gameplay-Korrektur ist im Entwicklungszweig die **Android-Releasekandidaten-Version 0.30.0 / versionCode 31** vorbereitet (Paket-ID bleibt `de.echochroniken.game.stable`). Noch keine 0.30.0-APK auf GitHub veröffentlicht und kein Handy-/TV-Update bestätigt; signierte Veröffentlichung nur nach erfolgreicher PR-CI und Merge über die bestehenden privaten Schlüssel.
+- Stündlicher Entwicklungswächter bleibt **deaktiviert**. Neue Arbeit nur über eigene Branches/PRs, keine privaten Signaturschlüssel veröffentlichen.
+
+**Die folgende Tabelle dokumentiert den damaligen Hauptstand bei Projektübergabe; der Nachtrag oben enthält die neuere QA.**
+
 ## 1. Tatsächlicher Story- und Teststand
 
 | Abschnitt | Im Spiel vorhanden? | Nachgewiesene Testtiefe | Wichtigste Einschränkung |
@@ -16,7 +30,7 @@
 | Kapitel 5, Stillwasser | Ja | Echter Desktop-/Touch-Tastenlauf, Gedächtnisarchiv, Spiegel- und Lyra-Kampf, Bahnrückfahrt; PR #18 | Vorbereiteter Save, bewusst starkes Testteam |
 | Kapitel 6 und 7, Schmiede bis Kronenstadt | Ja | **Ein** durchgehender Spielstand, echte Schritte, vier Bosse je Viewport; PR #19 | Start nach Kapitel 5 mit Lv.55-QA-Team |
 | Kapitel 8–10, Kronenstadt/Frostgrat/Unterstadt | Ja, **in main** | **Ein** durchgehender Spielstand, echte Schritte, Archivwächter/Vex und friedlicher Ringhüter-Abschluss; PR #21 | Start nach Kapitel 7 mit Lv.55-QA-Team |
-| Kapitel 11–14, Finale und Postgame | Ja, Story-/Questmodule liegen im Repository | Zusammenhängender **Quest- und Save-Regressionstest** ab Kapitel 3 bis Postgame in PR #14, einschließlich simulierter Sieg-Callbacks | Noch **kein** vollständiger, real gesteuerter Boss-/Laufweg-Durchlauf für Kapitel 11–14 |
+| Kapitel 11–14, Finale und Postgame | Ja | **Neuer real gesteuerter Browser-Durchlauf** mit Desktop und Touch, einschließlich sechs echten Bosskämpfen pro Ansicht, Credits und vollständig gelöstem Postgame; zusätzlich Quest-/Save-Regressionskette ab Kapitel 3 | Beginn nach Kapitel 10 mit **starkem Lv.55-QA-Team**; noch kein natürlicher Gesamtdurchlauf ab Spielstart |
 
 **Keine falschen Behauptungen:** Die Story reicht weiter als Kapitel 7; das Spiel ist deshalb aber **nicht** als vollständig ausbalanciertes, mehrere Stunden zuverlässig spielbares Endprodukt bestätigt. Die realen Kapiteltests starten mit vorbereiteten Spielständen. Die Gesamtspielzeit wurde noch nicht durch einen Spieler von Anfang bis Ende gemessen.
 

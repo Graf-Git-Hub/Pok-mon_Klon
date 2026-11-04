@@ -745,6 +745,12 @@
     return gameState.team.find(m => m.hp > 0) || gameState.team[0];
   }
 
+  // A flat 36 KP potion stops being useful against late-story enemies.
+  // Scale its in-battle healing with max KP; it still costs one full turn.
+  function potionHealAmount(ally) {
+    return Math.max(36, Math.ceil(ally.maxHp * .30));
+  }
+
   function battleTimeout(fn,delay){
     const activeBattle=gameState.battle;
     return setTimeout(()=>{if(activeBattle && gameState.battle===activeBattle)fn();},delay);
@@ -763,7 +769,9 @@ function executeBattleAction(choice){
     }else if(choice===2){
       if(b.isTrainer){
         if(gameState.potions<=0){b.log='Keine Seelen-Tränke mehr!';sfx.cancel();return;}
-        gameState.potions--;ally.hp=Math.min(ally.maxHp,ally.hp+36);b.log=`${SPECIES[ally.id-1].name} erhält heilende Kraft!`;
+        if(ally.hp>=ally.maxHp){b.log='Dein Geist hat bereits volle KP!';sfx.cancel();return;}
+        const healed=Math.min(ally.maxHp-ally.hp,potionHealAmount(ally));
+        gameState.potions--;ally.hp+=healed;b.log=`${SPECIES[ally.id-1].name} erhält +${healed} KP durch den Seelen-Trank!`;
         b.busy=true;sfx.heal();battleTimeout(enemyCounterAttack,600);
       }else{
         if(gameState.orbs<=0){b.log='Keine Seelen-Sphären mehr!';sfx.cancel();return;}
@@ -1437,13 +1445,18 @@ function executeBattleAction(choice){
       else if (cmd === 'A') {
         if (gameState.menuCursor === 0) { gameState.mode = 'LEXICON'; sfx.confirm(); }
         else if (gameState.menuCursor === 1) {
-          if (gameState.potions > 0 && gameState.team.length > 0) {
+          if (gameState.team.length === 0 || gameState.potions <= 0) {
+            sfx.cancel();
+            showDialog(['Keine Seelen-Traenke verfuegbar.']);
+          } else if (gameState.team.every(m => m.hp >= m.maxHp)) {
+            sfx.cancel();
+            showDialog(['Dein Team ist bereits vollstaendig gesund!']);
+          } else {
             gameState.potions--;
             gameState.team.forEach(m => { m.hp = m.maxHp; });
+            saveGame(true); // A paid rest must persist before a reload.
             sfx.heal();
             showDialog(['✨ Dein gesamtes Team wurde mit einem Seelen-Trank geheilt!']);
-          } else {
-            sfx.cancel();
           }
         }
         else if (gameState.menuCursor === 2) { saveGame(); }

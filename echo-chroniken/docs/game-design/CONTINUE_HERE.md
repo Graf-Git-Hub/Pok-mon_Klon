@@ -1,6 +1,12 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
-**Verbindlicher aktueller Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../ECHO_CHRONIKEN_UEBERGABE.md) (04.11.2026). **Kapitel 8–10 sind nach PR #21 in main; Kapitel 11–14 und Postgame existieren, sind aber noch nicht durchgehend mit echten Eingaben gespielt.** Bitte ab jetzt zuerst das zentrale Protokoll lesen; Balance und Gesamtspieldauer haben Vorrang vor Grafik.
+**Verbindlicher aktueller Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../../ECHO_CHRONIKEN_UEBERGABE.md) (04.11.2026). **Kapitel 8–10 sind nach PR #21 in main; Kapitel 11–14 und Postgame sind auf dem Entwicklungszweig durchgehend mit echten Desktop-/Touch-Eingaben geprüft.** Ein vollständiger natürlicher Durchlauf vom Spielstart bleibt offen. Bitte zuerst das zentrale Protokoll lesen; Balance und Gesamtspieldauer haben Vorrang vor Grafik.
+
+## 04.11.2026: KAPITEL 11–14, FINALE, POSTGAME UND BALANCE
+- **Neuer Entwicklungszweig:** `feature/echo-ch11-14-balance-20261104`, isolierter Worktree. Kapitel 11–14, Abspann und volles Postgame wurden in Chrome 157 mit echten Tastatur-/Touch-Eingaben erfolgreich gespielt: **2946 Schritte, 176 Dialoge, zwölf Boss-Siege, 20 Reloads, keine JavaScript-Ausnahme**. Bericht: `CHAPTER11_14_REAL_QA.md`, Test: `project/qa/real-chapter11-14.py`.
+- Übernommene, durch `battle-potions.cjs` abgesicherte Trankkorrektur: 36 KP oder 30 % Max-KP, keine Verschwendung bei vollen KP, Reisemenüheilung wird gespeichert.
+- Reale Kampf-Engine geprüft: 400 frühe Wildduelle und 600 späte 3er-Team-Duelle, letztere sämtlich gewonnen ohne Trank, daher möglicherweise zu leicht. Diagnose: `BALANCE_PASS_20261104.md`.
+- **Grenze:** Vorbereiteter Kapitel-10-Spielstand und Lv.55-Quest-QA-Team statt natürlichem Spiel ab Oma. Original-Worktree mit Nutzeränderungen und signierte APK bleiben unangetastet; keine Grafikarbeit, kein stündlicher Wächter.
 
 ## 04.11.2026: KAPITEL 8-10 UND MOBILES UI
 - Ein fortlaufender Testspielstand ab Kapitel 7 wurde mit echten
