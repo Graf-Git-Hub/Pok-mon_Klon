@@ -42,6 +42,12 @@ Speicherprüfungen**. Keine JavaScript-Ausnahmen. Zwei zufallsabhängige
 Boss-Kampfserien verbrauchten lokal 10/11 Attacken. Die friedliche
 Ringhüter-Lösung ist eine echte Questentscheidung, kein Sieg-Callback.
 
+Im automatisierten Kapiteltest sind ungeplante Wildbegegnungen
+während der Laufwege deaktiviert, damit sie die Questabnahme
+nicht zufällig unterbrechen. Echte Bosskämpfe behalten ihren
+zufälligen Schaden. **Das Spiel selbst bleibt unverändert**:
+Wildbegegnungen funktionieren dort weiterhin ganz normal.
+
 Die noch separat laufende GitHub-CI muss diese Prüfung erneut
 bestätigen, bevor die Änderung in den Hauptzweig übernommen wird.
 

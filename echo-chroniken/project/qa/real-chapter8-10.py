@@ -37,6 +37,9 @@ try:
    ctx=browser.new_context(viewport={"width":412,"height":915} if mobile else {"width":1280,"height":800},has_touch=mobile,is_mobile=mobile)
    page=ctx.new_page()
    page.on("pageerror",lambda e:RESULT["page_errors"].append(str(e)))
+   # Random wild encounters are out of scope for the scripted chapter route.
+   # Keep battle RNG real, so damage and win callbacks remain meaningful.
+   ctx.add_init_script("const __qaOriginalRandom=Math.random.bind(Math);Math.random=()=>window.echoQASnapshot?.().mode==='OVERWORLD'?0.999999:__qaOriginalRandom();")
    ctx.add_init_script("if(!sessionStorage.getItem('test-chapter67')){"+
      "localStorage.setItem('echo_chroniken_tv_save',JSON.stringify("+json.dumps(s)+"));" +
      "sessionStorage.setItem('test-chapter67','1');}")
