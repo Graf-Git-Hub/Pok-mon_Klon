@@ -39,6 +39,8 @@ jobs:
         run: python echo-chroniken/project/qa/real-chapter3.py
       - name: Play Chapter 4 rail puzzle, courier and root with real controls
         run: python echo-chroniken/project/qa/real-chapter4.py
+      - name: Play Chapter 5 memories, mirror and Lyra with real controls
+        run: python echo-chroniken/project/qa/real-chapter5.py
       - name: Check chapter and postgame checkpoints
         run: python echo-chroniken/project/qa/quest-checkpoint-browser.py
       - name: Check archive and save migration
@@ -58,5 +60,6 @@ jobs:
             echo-chroniken/docs/visual-audit/cloud-walk/
             echo-chroniken/docs/visual-audit/real-chapter3/
             echo-chroniken/docs/visual-audit/real-chapter4/
+            echo-chroniken/docs/visual-audit/real-chapter5/
           retention-days: 7
           if-no-files-found: warn
