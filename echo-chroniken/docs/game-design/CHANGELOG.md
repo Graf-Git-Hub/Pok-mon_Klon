@@ -1,5 +1,18 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-04 - Kapitel 6+7: echter Tastatur-/Touch-Durchlauf
+- Ein zusammenhaengender Chrome-Test ab dem Kapitel-5-Endstand
+  absolviert Schmiede, Arbeitersuche, Ventile, Schmelzmeister,
+  Ofenkern, Namensrituale, Bibliothek, Jaeger, vier Namenssteine,
+  Namensschatten und den Zugang nach Kapitel 8.
+- Lokale Gegenprobe Chrome 157 bestanden: 1164 echte Schritte,
+  76 Dialogaktionen, 8 Boss-Siege auf Desktop+Touch, vier
+  Speicher-Reloads je Viewport ohne JavaScript-Fehler.
+- Neuer CI-Browser-Test `project/qa/real-chapter6-7.py`, separate
+  QA-Dokumentation `CHAPTER6_7_REAL_QA.md`.
+- Level-55-Testteam, daher keine Aussage ueber reguläre Schwierigkeit;
+  reine QA-/Doku-Aenderung, keine neue APK oder Save-Migration.
+
 ## 2026-11-04 - Kapitel 5: reale Steuerung und Bosskaempfe geprueft
 - Neuer Cloud-/Laptop-Browsertest: project/qa/real-chapter5.py,
   mit echten Tastatur-/Touch-Schritten durch Stillwasser,
