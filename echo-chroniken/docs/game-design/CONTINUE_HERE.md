@@ -13,6 +13,9 @@
 - Details und Testgrenzen in `CHAPTER6_7_REAL_QA.md`. QA-Level 55,
   daher kein Test fuer normales Anfaenger-Balancing, keine Android-
   Hardware und kein vollstaendiger Spielstart ab Kapitel 1.
+- PR #19 erfolgreich in main (Commit cf78d1e). GitHub-Cloud-Run
+  41849768150 auf Chrome 156 SUCCESS, zusaetzlich alle Node- und
+  Doku-CI-Checks SUCCESS. 18 Bilder und JSON-Bericht im Cloud-Artefakt.
 - GitHub-CI-Ausloeser im Browser-Workflow erweitert. Android 0.28.0,
   App-ID, Signatur, SaveSchema und 150 Wesen unveraendert.
 
