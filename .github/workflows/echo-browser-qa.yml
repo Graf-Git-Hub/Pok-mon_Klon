@@ -27,6 +27,8 @@ jobs:
           rm -rf echo-chroniken/docs/visual-audit/quest-checkpoints
           rm -rf echo-chroniken/docs/visual-audit/archive-qa
           rm -rf echo-chroniken/docs/visual-audit/battle-balance
+          rm -rf echo-chroniken/docs/visual-audit/real-chapter8-10
+          rm -rf echo-chroniken/docs/visual-audit/mobile-layout
       - name: Use preinstalled Chrome and Python Playwright
         run: |
           python -m pip install playwright==1.56.0
@@ -43,6 +45,10 @@ jobs:
         run: python echo-chroniken/project/qa/real-chapter5.py
       - name: Play Chapters 6 and 7 through real controls
         run: python echo-chroniken/project/qa/real-chapter6-7.py
+      - name: Play Chapters 8-10 with real controls and peaceful guardian choice
+        run: python echo-chroniken/project/qa/real-chapter8-10.py
+      - name: Validate portrait touch layout at three phone sizes
+        run: python echo-chroniken/project/qa/mobile-layout-check.py
       - name: Check chapter and postgame checkpoints
         run: python echo-chroniken/project/qa/quest-checkpoint-browser.py
       - name: Check archive and save migration
@@ -64,5 +70,7 @@ jobs:
             echo-chroniken/docs/visual-audit/real-chapter4/
             echo-chroniken/docs/visual-audit/real-chapter5/
             echo-chroniken/docs/visual-audit/real-chapter6-7/
+            echo-chroniken/docs/visual-audit/real-chapter8-10/
+            echo-chroniken/docs/visual-audit/mobile-layout/
           retention-days: 7
           if-no-files-found: warn

@@ -1,5 +1,26 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## 04.11.2026: KAPITEL 8-10 UND MOBILES UI
+- Ein fortlaufender Testspielstand ab Kapitel 7 wurde mit echten
+  Desktop- und Touch-Eingaben durch Kronenstadt, Frostgrat und die
+  Unterstadt bis zum Sternenpfad (Kapitel 11) gespielt.
+- Unabhaengige lokale Chrome-157-Abnahme: 675 Schritte,
+  45 Dialoge, 2 echte Bosssiege und 6 Speicher-Reloads pro Ansicht;
+  zusammen 1350/90/4/12, ohne JavaScript-Fehler.
+- Die friedliche Ringhueter-Loesung in Kapitel 10 wurde ohne
+  simulierten Sieg durch tatsächliche Dialogentscheidungen erreicht.
+- Sichtbarer mobiler UI-Fix: Buttons auf 360-390px schmalen
+  Handybildschirmen werden nicht mehr abgeschnitten, sondern
+  zweizeilig dargestellt. Spielbild harmonischer positioniert.
+  Drei Viewporttests (360x640, 390x844, 412x915) erfolgreich.
+- Neuer GitHub-CI-Test real-chapter8-10.py sowie mobile-layout-check.py.
+  Details, Grenzen und Screenshots: CHAPTER8_10_REAL_QA.md.
+- Neue Android-Buildnummer 0.29.0/versionCode 30 fuer die
+  sichtbare UI-Korrektur vorbereitet. APK erst nach erfolgreichem
+  Main-CI und Signaturpruefung als veroeffentlicht melden.
+- Keine Aenderung an App-ID, Save-Schema oder Monster-IDs.
+  Entwicklungswaechter bleibt deaktiviert.
+
 ## KAPITEL 6 UND 7: ECHTE SPIELEINGABEN (04.11.2026)
 - Der neue Test `project/qa/real-chapter6-7.py` steuert einen einzigen
   Spielstand ab abgeschlossenem Kapitel 5 mit Tastatur und Touch
