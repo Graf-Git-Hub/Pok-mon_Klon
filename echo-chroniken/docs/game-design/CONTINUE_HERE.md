@@ -1,6 +1,14 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
-**Verbindlicher aktueller Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../../ECHO_CHRONIKEN_UEBERGABE.md) (04.11.2026). **Kapitel 8–10 sind nach PR #21 in main; Kapitel 11–14 und Postgame sind auf dem Entwicklungszweig durchgehend mit echten Desktop-/Touch-Eingaben geprüft.** Ein vollständiger natürlicher Durchlauf vom Spielstart bleibt offen. Bitte zuerst das zentrale Protokoll lesen; Balance und Gesamtspieldauer haben Vorrang vor Grafik.
+**Verbindlicher Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../../ECHO_CHRONIKEN_UEBERGABE.md) (04.11.2026). **PR #24 ist in main** (`5864d79`). In `feature/echo-full-natural-campaign-20261104` wurde erstmals die gesamte Spielgeschichte ab Oma/Paket **ohne künstliche Team- oder Quest-Upgrades** durchgehend bis zum Abspann und vollständigen Postgame mit **Tastatur und Touch** gespielt. **Desktop 3.602 / Touch 3.642 Schritte, je 19 reale Trainer-/Boss-Siege, 33 Reloads, Postgame fertig, 0 JavaScript-Fehler**. Diese neuen Tests müssen erst nach grüner GitHub-CI gemergt werden. Die menschliche Gesamtspielzeit und echte Android-Geräte sind noch ungetestet. Bitte zuerst das Hauptprotokoll lesen; Balance und Spielzeit haben Vorrang vor Grafik.
+
+## 04.11.2026: NEUER DURCHGEHENDER NATÜRLICHER KAMPAGNENTEST
+
+- **Neuer Zweig:** `feature/echo-full-natural-campaign-20261104` auf Basis von PR #24 in `main` (`5864d79`). Keine Änderungen am ursprünglichen Benutzer-Worktree.
+- **Neue Playwright-Tests:** `project/qa/natural-chapter6-7.py`, `natural-chapter8-10.py`, `natural-chapter11-14.py` erweitern die tatsächlich erspielten Saves der bereits in `main` liegenden Kapitel-1–5-Testkette. Die realen Level, EP, Fangwesen, Tränke und Questflags werden ohne Änderungen an den nächsten Browser übergeben.
+- **Lokal Chrome 157 vollständig durchgespielt, Desktop und Touch:** Kapitel 6–7 (4 echte Pflichtbosse je Ansicht), Kapitel 8–10 (2 Bosse und friedlicher Ringhüter), Kapitel 11–14 (3 zweistufige Pflichtbosse), Abspann, alle sechs Postgame-Gebiete, drei optionale Bosse, Museum, Gartenfest. Zusammen mit dem in `main` liegenden Anfangstest ergibt das je einen vollständig **natürlich erspielten** Save von Oma bis zum Postgame (Desktop **3.602**, Touch **3.642** Schritte; jeweils 19 echte Trainer-/Boss-Siege, 33 Reloads, null JS-Ausnahmen). Die Tests verwenden gelernte starke **offensive** Attacken statt den ab Level 11 in Slot 0 liegenden Heilzauber dauerhaft auszulösen; Heiltränke werden über normale Menüs verbraucht.
+- **Dokumentation:** `NATURAL_FULL_CAMPAIGN_QA.md` mit vollständiger Methodik, Ergebnisbericht, Balancingkurve und Restarbeiten. Browser-Screenshots und tatsächliche Save-Dateien bleiben QA-Artefakte; GitHub-Workflow `.github/workflows/echo-natural-campaign.yml` führt jetzt **alle fünf** Teiltests hintereinander aus.
+- **Offen:** GitHub-CI/PR-Abnahme, physische Android-/TV-/Switch-Controller-Tests sowie Messung der menschlichen Spielzeit und Schwierigkeitskurve. Keine Grafikarbeit, keine neue APK in diesem Zweig.
 
 ## 04.11.2026: NATÜRLICHER SPIELSTART BIS KAPITEL 4
 
