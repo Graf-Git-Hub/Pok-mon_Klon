@@ -1,5 +1,26 @@
 # Cloud-Browserprüfung ohne eingeschalteten PC
 
+## Praxisdurchlauf Kapitel 5: Stillwasser (PR #18)
+`project/qa/real-chapter5.py` steuert im echten Chrome-Browser
+auf Desktop und Handy die gesamte Stillwasser-Questkette ab einem
+erledigten Kapitel-4-Save: Bewohner zweimal befragen, Archivhinweise,
+Lyra-Berechtigung, Turm freischalten, Stromkabel trennen, Spiegel-
+und Lyra-Kampf, Antenne abschalten, Bahnfahrt und Rueckfahrt.
+Echte Eingaben statt direkter Travel-/Victory-Callbacks; Tiles
+werden ausschliesslich zur Wegplanung gelesen.
+
+GitHub-Cloud-Lauf 41846368280: PASS (Chrome 156).
+Unabhaengige lokale Gegenprobe auf Laura: PASS (Chrome 157).
+Zusammen ueber beide Ansichten 560 Schritte, 52 Dialogaktionen,
+vier echte Boss-Siege, 14 Attacken, vier Bahnfahrten und acht
+Speicherpruefungen. Im Cloud-Artefakt liegen 16 Screenshots
+und ein JSON-Bericht im Ordner `real-chapter5/`.
+
+Nicht verifiziert: Level-Balance (absichtlich Lv55), Einstieg
+ab Kapitel 1, Bewegung ueber alle 14 Kapitel am Stueck,
+APK-Ausfuehrung auf einem echten Handy oder TV. Optische
+Qualitaet und mobiler freier Leerraum brauchen Feinschliff.
+
 ## Praxisdurchlauf Kapitel 4 (PR #17)
 `project/qa/real-chapter4.py` kontrolliert den echten Ablauf mit
 Tastatur und Touch. Es gibt KEINEN direkten `travel()`- oder

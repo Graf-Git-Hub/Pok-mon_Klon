@@ -1,5 +1,20 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-04 - Kapitel 5: reale Steuerung und Bosskaempfe geprueft
+- Neuer Cloud-/Laptop-Browsertest: project/qa/real-chapter5.py,
+  mit echten Tastatur-/Touch-Schritten durch Stillwasser,
+  die Widerspruchszeugen, das Archiv, die Spiegelsicherung und
+  zwei echte Kaempfe bis zur Bahnhofsrueckfahrt.
+- GitHub-Actions 41846368280 SUCCESS (Chrome 156); unabhaengige
+  Gegenprobe in isoliertem Worktree auf Laura mit Chrome 157 PASS.
+  Pro Ansicht 280 Laufbewegungen, 26 Interaktionen, zwei Bosssiege,
+  sieben Angriffe und zwei Zugfahrten. Vier Save-Checks je Ansicht.
+- Archiv-Zwischenspeicherung, Lyra-Freigabe, einmalige Belohnung,
+  Rueckreise und ohne JS-Ausnahmen kontrolliert. 16 neue Bilder;
+  Pixelgrafik und Touch-Leerraum bleiben als Polishing-Aufgaben.
+- Reines QA-/Dokumentationspaket: keine neue signierte APK,
+  kein Gameplay-Code, App-ID, Monster-IDs oder Save-Schema geaendert.
+
 ## 2026-11-04 - Cloud-QA: Kapitel 4 real durchgespielt
 - Neuer Test project/qa/real-chapter4.py: Tastatur/Touch bedient
   beide Bahnhofskarten, Weichen A-C-B, Moorglas, echte Zugmenues
