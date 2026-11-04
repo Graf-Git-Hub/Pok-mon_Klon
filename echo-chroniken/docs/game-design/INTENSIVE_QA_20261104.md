@@ -24,13 +24,20 @@
 - Insbesondere wurden **alle getesteten zweiköpfigen Teams auch ohne Heiltränke erfolgreich** durch diese späten Bossduelle geführt. Einzelwesen mit ausschließlich schwächsten Attacken scheiterten in den Szenarien Kapitel 11, 13 und 14 jeweils 40/40-mal ohne Tränke. Das zeigt: Im Zweierteam sind die Pflichtbosse bei diesen getesteten Leveln wahrscheinlich **zu leicht**, solo mit schwachen Attacken können sie aber frustrierend sein.
 - **Empfehlung:** Nicht einfach global die KP aller Gegner erhöhen. Stattdessen optional unterschiedliche Schwierigkeitsprofile, mehr gezielte Bossmechaniken/telegraphierte Angriffsmuster und Tests mit mehreren Erstspieler-Taktiken. Die jetzige Fassung bleibt in diesem PR unverändert, bis neue Regeln gegen den kompletten natürlichen Spieldurchlauf geprüft sind.
 
-## 4. Nicht abgedeckt
+## 4. Switch-Gamepad-Eingaben im Browser emuliert
+
+- Zusätzlich wurde `project/qa/gamepad-mapping-stress.py` mit dem tatsächlichen Gamepad-Abfragepfad im Chrome-Browser ausgeführt. Ein künstliches `navigator.getGamepads()`-Objekt bildet ein übliches Switch-kompatibles Tastenlayout nach.
+- **6/6 Verhaltensprüfungen bestanden:** **A (Button 1)** startet von Titelbildschirm, **Plus (Button 9)** öffnet Menü, **B (Button 0)** schließt Menü, Steuerkreuz **unten (13)** und **oben (12)** bewegt die Figur richtig und auf TV-/Desktop-Modus werden die Handy-Touch-Buttons nicht eingeblendet.
+- Das Steuerkreuz wiederholt Bewegung bei längerem Tastendruck absichtlich. Deshalb prüft der Test die Bewegungsrichtung statt fälschlich genau einen Schritt zu verlangen.
+- **Nicht** mit realem Switch-Pro-Controller oder Android TV verwechselt: Hardware, Kopplung, Treiber und tatsächliche Controller-Latenz sind damit noch nicht geprüft.
+
+## 5. Nicht abgedeckt
 
 - Keine verlässlich gemessene menschliche Mehrstunden-Spielzeit, keine physische Android-/TV-APK-Installation. ADB ist auf Laura nicht im PATH. Ein Xbox Wireless Controller erscheint in Windows als Gerät, aber es ist kein echter Controller-Tastentest durchgeführt worden.
 - Die geprüften Bildschirmgrößen verwenden Chrome-Touch-Emulation, nicht elf echte Handymodelle. Automatisierte Zielpfade ersetzen weder Erkundung noch alle möglichen Entscheidungen.
 
-## 5. Reproduktion / Schutz
+## 6. Reproduktion / Schutz
 
-- Lokal: `node echo-chroniken/project/tests/human-battle-stress.cjs`; `python echo-chroniken/project/qa/responsive-stress.py`.
+- Lokal: `node echo-chroniken/project/tests/human-battle-stress.cjs`; `python echo-chroniken/project/qa/responsive-stress.py`; `python echo-chroniken/project/qa/gamepad-mapping-stress.py`.
 - GitHub-Workflow `.github/workflows/echo-stress-tests.yml` wiederholt beide Tests auf Ubuntu/Google Chrome und archiviert Berichte sowie Screenshots als CI-Artefakte.
 - Die Berichte sind unter `echo-chroniken/docs/visual-audit/stress-testing/human-battle-report.json` und `responsive-report.json` abgelegt. Keine reale Spielsicherung wird angefasst; die Tests verwenden isolierte Browserkontexte bzw. In-Memory-Spielzustände.

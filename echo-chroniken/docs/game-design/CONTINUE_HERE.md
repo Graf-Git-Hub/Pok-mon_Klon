@@ -8,7 +8,7 @@
 - 41/41 Node-Regressionsprüfungen, 60 Karten mit 123 sicheren Spawns, 310 Wegen, 117 Rückreisen, 144 echten Archiv-Fängen, 11 Smartphone- und Querformatgrößen erfolgreich.
 - **Gefundener und behobener Bug:** virtuelle Touch-Buttons überlappten das Spielfeld bei 320×480 und mehreren Querformatgrößen. CSS-Media-Queries sichern nun Seitenabstand und oberen Portrait-Abstand. Testskript `project/qa/responsive-stress.py` prüft auch Orientierung während des Spiels. Kein grafischer Stilwechsel.
 - **Kampfdiagnose:** `project/tests/human-battle-stress.cjs` absolvierte 4.800 echte Engine-Duelle mit Anfänger-/Experten-Eingaben. Alle geprüften Zweier-Teams gewannen die späten Bosse sogar ohne Heiltränke; schwache Soloteams scheiterten teils. Noch **keine pauschale Boss-Verstärkung**, erst diverse menschliche Spielertypen vergleichen.
-- Neuer GitHub-Workflow `echo-stress-tests.yml` führt die Tests zusätzlich in der Cloud aus; Ergebnisse und Limits stehen in `INTENSIVE_QA_20261104.md`. Echte Android-/TV-/Controller-Geräte und menschliche Spielzeit bleiben ungeprüft.
+- Zusätzlich testet `project/qa/gamepad-mapping-stress.py` den Chrome-Gamepad-Eingabepfad mit simuliertem Switch-Layout (A, B, Plus, D-Pad): **6/6 bestanden**, keine reale Hardwareprüfung. Neuer GitHub-Workflow `echo-stress-tests.yml` führt die Tests zusätzlich in der Cloud aus; Ergebnisse und Limits stehen in `INTENSIVE_QA_20261104.md`. Echte Android-/TV-/Controller-Geräte und menschliche Spielzeit bleiben ungeprüft.
 
 ## Historisch: 04.11.2026, durchgehender natürlicher Kampagnentest
 

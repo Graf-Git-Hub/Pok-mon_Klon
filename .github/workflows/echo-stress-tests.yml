@@ -7,6 +7,7 @@ on:
       - 'echo-chroniken/project/styles/**'
       - 'echo-chroniken/project/tests/human-battle-stress.cjs'
       - 'echo-chroniken/project/qa/responsive-stress.py'
+      - 'echo-chroniken/project/qa/gamepad-mapping-stress.py'
       - '.github/workflows/echo-stress-tests.yml'
   workflow_dispatch:
 
@@ -34,6 +35,8 @@ jobs:
         run: node echo-chroniken/project/tests/human-battle-stress.cjs
       - name: 11 sizes, touch buttons, portrait-landscape rotation
         run: python echo-chroniken/project/qa/responsive-stress.py
+      - name: Emulate Switch gamepad A/B/Plus and D-pad in actual browser
+        run: python echo-chroniken/project/qa/gamepad-mapping-stress.py
       - name: Upload stress reports and screenshots
         if: always()
         uses: actions/upload-artifact@v4
