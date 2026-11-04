@@ -4,11 +4,12 @@
 - PR #17: project/qa/real-chapter4.py bedient Desktop-Tastatur und
   Handy-Touch direkt im realen Spiel, ohne Laura oder Codex.
   GitHub Browser-Lauf 41743136449 SUCCESS; Node-Tests SUCCESS.
-- Pro Viewport: 188 echte Lauf-Schritte, 17 Dialogaktionen, 6 Attacken
-  in zwei echten Bosskaempfen (Kontinuum-Kurier und Schattenwurzel),
-  vier Bahnfahrten (erste Fahrt, Heimkehr und erneute Hin-/Rueckfahrt).
-  Gesamt Desktop + Touch: 376 Schritte, 34 Dialoge, 12 Attacken,
-  acht Bahnfahrten; keine JavaScript-Ausnahmen.
+- Pro Viewport: 188 echte Lauf-Schritte, 17 Dialogaktionen, zwei echte
+  Bosskaempfe (Kontinuum-Kurier und Schattenwurzel) und vier Bahnfahrten.
+  Gesamt Desktop + Touch: 376 Schritte, 34 Dialoge, vier Boss-Siege,
+  acht Bahnfahrten; keine JavaScript-Ausnahmen. Die Anzahl der
+  notwendigen Attacken schwankt durch zufaelligen Kampfschaden:
+  im ersten CI-Lauf 6/6, im zweiten 5/6 pro Viewport.
 - Geprueft: Zugang aus Wurzeltunnel in Bahnhof Wurzelheim,
   Zug vor Weichenraetsel gesperrt, falsche Weiche B abgewiesen,
   Weichen A-C-B via echten Spieltasten aktiviert, zweimalige C-Wahl
