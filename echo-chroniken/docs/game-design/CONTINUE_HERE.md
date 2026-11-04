@@ -1,5 +1,37 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## ECHTER KAPITEL-5-DURCHLAUF IN CLOUD UND AUF LAURA - 04.11.2026
+- PR #18: project/qa/real-chapter5.py fuehrt das komplette Kapitel 5
+  ab einem erledigten Kapitel-4-Spielstand ueber echte
+  Tastatur- und Touch-Eingaben aus. Kartenkollisionen dienen
+  nur der Wegplanung, nicht der direkten Teleportation.
+- GitHub-Run 41846368280: Browser-Cloud-Workflow SUCCESS auf Chrome 156.
+  Zweiter unabhängiger Lauf im isolierten Laura-Worktree:
+  Chrome 157 PASS, Python-Syntaxpruefung ebenfalls erfolgreich.
+  Urspruenglicher, dirty Git-Arbeitsordner nicht angefasst.
+- Pro Viewport 280 echte Laufschritte, 26 Interaktionen, zwei
+  tatsaechlich besiegte Bosse (Gedaechtnisspiegel, Lyra),
+  sieben Attacken, zwei Zugfahrten und vier Save-/Reload-Checks.
+  Desktop+Touch: 560 Schritte, 52 Dialogaktionen, vier Boss-Siege,
+  14 Attacken, vier Zugfahrten, 8 Save-/Reload-Checks.
+- Geprueft: Moorglas -> Nebelpfad -> Stillwasser; versiegelter Turm;
+  drei Dorfbewohner jeweils zweimal befragen; Bibliotheksgang vor
+  Lyra gesperrt; drei Archivbelege, Reload mitten im Archivraetsel,
+  Lyra-Einwilligung, Turm, Spiegel erst nach Stromtrennung besiegbar,
+  freiwilliges Duell mit Lyra, Antenne deaktivieren, Kapitelabschluss,
+  einmalige Auszahlung 5 Sphaeren/3 Traenke, Bahn nach Moorglas und
+  zurueck. Kein JS-Fehler. 16 neue Screenshots mit JSON-Bericht.
+- Visuelle Sichtung auf Laura: Welt und Kampf darstellen korrekt,
+  aber grobe Pixelart und grosse freie Flaechen im Touchlayout
+  gehoeren zum spaeteren Artwork-/UX-Feinschliff.
+- Grenzen: Test beginnt nach Kapitel 4 mit bewusst starkem
+  Level-55-Team. KEIN Balance-Test fuer Neulinge und kein
+  lueckenloser Gesamtdurchlauf ab Kapitel 1. Echte Android-Hardware
+  nicht getestet; Browser-Pruefung ist keine APK-Verifikation.
+- Nur Test und Dokumentation, kein geaenderter Spielcode.
+  Android v0.28.0/versionCode 29, App-ID, Signatur und SaveSchema
+  bleiben unveraendert. Stunden-Waechter bleibt ausgeschaltet.
+
 ## ECHTER KAPITEL-4-DURCHLAUF MIT CLOUD-BROWSER - 04.11.2026
 - PR #17: project/qa/real-chapter4.py bedient Desktop-Tastatur und
   Handy-Touch direkt im realen Spiel, ohne Laura oder Codex.
