@@ -31,12 +31,14 @@ jobs:
         run: |
           python -m pip install playwright==1.56.0
           google-chrome --version
-      - name: Check all 62 maps and chapter screenshots
+      - name: Check 60 registered maps and chapter screenshots
         run: python echo-chroniken/project/qa/cloud-map-coverage.py
       - name: Walk the first chapter portal with keyboard and touch
         run: python echo-chroniken/project/qa/first-lake-walk.py
       - name: Play Chapter 3 quests, boss and Chapter 4 entry via real controls
         run: python echo-chroniken/project/qa/real-chapter3.py
+      - name: Play Chapter 4 rail puzzle, courier and root with real controls
+        run: python echo-chroniken/project/qa/real-chapter4.py
       - name: Check chapter and postgame checkpoints
         run: python echo-chroniken/project/qa/quest-checkpoint-browser.py
       - name: Check archive and save migration
@@ -55,5 +57,6 @@ jobs:
             echo-chroniken/docs/visual-audit/cloud-map-coverage/
             echo-chroniken/docs/visual-audit/cloud-walk/
             echo-chroniken/docs/visual-audit/real-chapter3/
+            echo-chroniken/docs/visual-audit/real-chapter4/
           retention-days: 7
           if-no-files-found: warn
