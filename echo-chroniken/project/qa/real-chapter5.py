@@ -82,7 +82,7 @@ try:
           const id=window.echoQASnapshot().mapId;
           const m=window.EchoMaps.get(id);
           const mod=window.EchoChapter5;
-          return {id,tiles:m.tiles,exits:m.exits,markers:mod.markers[id]||[]};
+          return {id,tiles:m.tiles,exits:m.exits,markers:mod.markers[id]||window.EchoChapter4.markers[id]||[]};
         }""")
       def route(goal,exit_ok=False):
         m=mapdata()
