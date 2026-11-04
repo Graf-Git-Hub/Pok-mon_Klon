@@ -216,7 +216,6 @@ try:
       assert not snap()["chapter5"]["lyraTrusted"]
       talk("ledger");talk("portrait")
       assert len(snap()["chapter5"]["evidence"])==2
-      reload_check("stillwater_archive","truthEvidence3") if False else None
       # Reload *during* an unfinished archive puzzle.
       evidence_before=save()["chapter5"]["evidence"]
       page.reload();page.wait_for_function("typeof window.echoQASnapshot==='function'")
