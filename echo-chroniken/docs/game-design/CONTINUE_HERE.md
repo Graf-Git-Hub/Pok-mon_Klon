@@ -1,8 +1,16 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
-**Verbindlicher Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../../ECHO_CHRONIKEN_UEBERGABE.md) (04.11.2026). **PR #24 ist in main** (`5864d79`). In `feature/echo-full-natural-campaign-20261104` wurde erstmals die gesamte Spielgeschichte ab Oma/Paket **ohne künstliche Team- oder Quest-Upgrades** durchgehend bis zum Abspann und vollständigen Postgame mit **Tastatur und Touch** gespielt. **Desktop 3.602 / Touch 3.642 Schritte, je 19 reale Trainer-/Boss-Siege, 33 Reloads, Postgame fertig, 0 JavaScript-Fehler**. Diese neuen Tests müssen erst nach grüner GitHub-CI gemergt werden. Die menschliche Gesamtspielzeit und echte Android-Geräte sind noch ungetestet. Bitte zuerst das Hauptprotokoll lesen; Balance und Spielzeit haben Vorrang vor Grafik.
+**Verbindlicher Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../../ECHO_CHRONIKEN_UEBERGABE.md) (04.11.2026). **PR #25 ist nach grüner GitHub-CI in `main`** (`895ad35`): Alle 14 Kapitel samt Abspann und Postgame wurden mit natürlichen Spielständen, Tastatur und Touch vollständig geprüft (Desktop 3.602 / Touch 3.642 Schritte, jeweils 19 reale Trainer-/Boss-Siege, 33 Reloads, 0 JS-Fehler). **Neu:** Der isolierte Branch `feature/echo-stress-20261104` enthält einen CSS-Fix für überlagerte Touch-Controls, 11/11 erfolgreiche Portrait-/Landscape-Tests und 4.800 echte Engine-Kampfduelle mit unterschiedlichen Taktiken; Details in `INTENSIVE_QA_20261104.md`. Der neue Stress-PR muss noch durch GitHub-CI. Menschliche Spielzeit und echte Android-/TV-Geräte bleiben offen. Grafik weiterhin später.
 
-## 04.11.2026: NEUER DURCHGEHENDER NATÜRLICHER KAMPAGNENTEST
+## 04.11.2026: INTENSIVTEST NACH PR #25
+
+- Grundlage: vollständige natürliche Spielkampagne bis Postgame in `main` (`895ad35`); keine Rücksetzung auf frühere Kapitel.
+- 41/41 Node-Regressionsprüfungen, 60 Karten mit 123 sicheren Spawns, 310 Wegen, 117 Rückreisen, 144 echten Archiv-Fängen, 11 Smartphone- und Querformatgrößen erfolgreich.
+- **Gefundener und behobener Bug:** virtuelle Touch-Buttons überlappten das Spielfeld bei 320×480 und mehreren Querformatgrößen. CSS-Media-Queries sichern nun Seitenabstand und oberen Portrait-Abstand. Testskript `project/qa/responsive-stress.py` prüft auch Orientierung während des Spiels. Kein grafischer Stilwechsel.
+- **Kampfdiagnose:** `project/tests/human-battle-stress.cjs` absolvierte 4.800 echte Engine-Duelle mit Anfänger-/Experten-Eingaben. Alle geprüften Zweier-Teams gewannen die späten Bosse sogar ohne Heiltränke; schwache Soloteams scheiterten teils. Noch **keine pauschale Boss-Verstärkung**, erst diverse menschliche Spielertypen vergleichen.
+- Neuer GitHub-Workflow `echo-stress-tests.yml` führt die Tests zusätzlich in der Cloud aus; Ergebnisse und Limits stehen in `INTENSIVE_QA_20261104.md`. Echte Android-/TV-/Controller-Geräte und menschliche Spielzeit bleiben ungeprüft.
+
+## Historisch: 04.11.2026, durchgehender natürlicher Kampagnentest
 
 - **Neuer Zweig:** `feature/echo-full-natural-campaign-20261104` auf Basis von PR #24 in `main` (`5864d79`). Keine Änderungen am ursprünglichen Benutzer-Worktree.
 - **Neue Playwright-Tests:** `project/qa/natural-chapter6-7.py`, `natural-chapter8-10.py`, `natural-chapter11-14.py` erweitern die tatsächlich erspielten Saves der bereits in `main` liegenden Kapitel-1–5-Testkette. Die realen Level, EP, Fangwesen, Tränke und Questflags werden ohne Änderungen an den nächsten Browser übergeben.
