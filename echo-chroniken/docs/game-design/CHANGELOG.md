@@ -1,5 +1,21 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-04 - Kapitel 8-10 und mobiles Portraitlayout
+- Echter Tastatur-/Touch-Durchlauf ab Kapitel 7 bis Kapitel 11:
+  Kronenstadt, Archivindex und Waechter; Frostgrat mit montierter
+  Phasenlaterne, Bruecke und Vex; Unterstadt mit drei Ankern
+  und friedlicher Ringhueter-Loesung.
+- Lokal Chrome 157 PASS: 1.350 Bewegungsschritte, 90 Dialoge,
+  4 reale Bosssiege, 12 Save-Reload-Tests, 0 JS-Ausnahmen.
+- Mobile Toolbar bei 360-450px wird in zwei Zeilen aufgeteilt,
+  Canvas im Hochformat besser vertikal ausgerichtet. Drei
+  Handy-Groessen mit echten Layout- und Screenshottests bestanden.
+- Neue Browser-Tests real-chapter8-10.py und mobile-layout-check.py
+  laufen auch im GitHub-Cloud-Workflow.
+- Android 0.29.0/versionCode 30 fuer den UI-Fix vorbereitet.
+  Alte App-ID, Signatur und Spielstandschema bleiben erhalten.
+  Freigabe nur nach gruener GitHub- und Android-Abnahme.
+
 ## 2026-11-04 - Kapitel 6+7: echter Tastatur-/Touch-Durchlauf
 - Ein zusammenhaengender Chrome-Test ab dem Kapitel-5-Endstand
   absolviert Schmiede, Arbeitersuche, Ventile, Schmelzmeister,

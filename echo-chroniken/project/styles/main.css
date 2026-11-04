@@ -189,7 +189,9 @@
   html.force-touch #hud-bar { display: none; }
   html.tv-app #touch-controls { display: none !important; }
   @media (orientation: portrait) and (pointer: coarse) and (max-width: 1100px) {
-    html:not(.no-touch-layout) #tv-frame { align-items: flex-start; padding-top: clamp(68px, 11dvh, 115px); }
+    /* Balance the horizontal game screen between the top toolbar and bottom controls.
+       The dynamic offset also protects compact phones from a canvas/D-pad overlap. */
+    html:not(.no-touch-layout) #tv-frame { --echo-game-top: clamp(68px, calc((100dvh - 300px) * .3), 240px); align-items: flex-start; padding-top: var(--echo-game-top); }
     html:not(.no-touch-layout) canvas {
       width: 100vw;
       height: auto;
@@ -200,13 +202,29 @@
     #touch-hint {
       display: block;
       position: absolute;
-      top: calc(clamp(68px, 11dvh, 115px) + min(56.25vw, 100dvh - 345px) + 15px);
+      top: calc(var(--echo-game-top, 68px) + min(56.25vw, 100dvh - 345px) + 15px);
       left: 5%;
       width: 90%;
       text-align: center;
       font-size: 12px;
       color: #c5d4be;
       letter-spacing: .2px;
+    }
+  }
+  /* On narrow phones six full-width toolbar buttons otherwise clip off-screen. */
+  @media (orientation: portrait) and (pointer: coarse) and (max-width: 450px) {
+    #touch-toolbar {
+      width: calc(100vw - 12px);
+      max-width: none;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .touch-tool {
+      flex: 1 1 calc(33.333% - 4px);
+      min-width: 0;
+      min-height: 34px;
+      padding: 0 3px;
+      font-size: 11px !important;
     }
   }
   @media (orientation: landscape) and (pointer: coarse) and (max-width: 1100px) {
