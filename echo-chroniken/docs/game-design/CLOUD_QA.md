@@ -1,5 +1,21 @@
 # Cloud-Browserprüfung ohne eingeschalteten PC
 
+## Praxisdurchlauf Kapitel 4 (PR #17)
+`project/qa/real-chapter4.py` kontrolliert den echten Ablauf mit
+Tastatur und Touch. Es gibt KEINEN direkten `travel()`- oder
+`victory()`-Aufruf durch den Test. Stattdessen werden nur Karten-
+kollisionen zur Wegplanung gelesen und alle Aktionen ueber die
+echte Spielsteuerung durchgefuehrt. Nach Weichenloesung, zwei
+Kaempfen und der Bahn-Rueckfahrt prueft er Save/Reload und das
+Ausbleiben doppelter Belohnungen. Je Ansicht entstehen neun
+Screenshots (18 insgesamt), hochgeladen im Ordner `real-chapter4/`.
+GitHub-Run 41743136449 war SUCCESS.
+
+**Grenzen:** Start nach bestandenem Kapitel 3 mit absichtlich
+starkem Test-Team (Level 55). Es ist ein funktionaler Kapiteltest,
+keine Pruefung der Anfaengerbalance, der Spielhandlung ab Kapitel 1
+oder eines echten Android-Geraets.
+
 ## Praxisdurchlauf im Kapitel 3 (GitHub PR #16)
 `project/qa/real-chapter3.py` bedient das echte Spiel mit
 Tastatur- und Touch-Kommandos. Die Skript-Pfadplanung liest nur
