@@ -1,5 +1,33 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## ECHTER KAPITEL-4-DURCHLAUF MIT CLOUD-BROWSER - 04.11.2026
+- PR #17: project/qa/real-chapter4.py bedient Desktop-Tastatur und
+  Handy-Touch direkt im realen Spiel, ohne Laura oder Codex.
+  GitHub Browser-Lauf 41743136449 SUCCESS; Node-Tests SUCCESS.
+- Pro Viewport: 188 echte Lauf-Schritte, 17 Dialogaktionen, 6 Attacken
+  in zwei echten Bosskaempfen (Kontinuum-Kurier und Schattenwurzel),
+  vier Bahnfahrten (erste Fahrt, Heimkehr und erneute Hin-/Rueckfahrt).
+  Gesamt Desktop + Touch: 376 Schritte, 34 Dialoge, 12 Attacken,
+  acht Bahnfahrten; keine JavaScript-Ausnahmen.
+- Geprueft: Zugang aus Wurzeltunnel in Bahnhof Wurzelheim,
+  Zug vor Weichenraetsel gesperrt, falsche Weiche B abgewiesen,
+  Weichen A-C-B via echten Spieltasten aktiviert, zweimalige C-Wahl
+  fuehrt nicht zu doppeltem Fortschritt, Speichern/Neuladen mitten
+  im Raetsel, Zugfahrt nach Moorglas per echtem Bahnmenue,
+  Schattenwurzel vor Kurier gesperrt, beide Bosse real besiegt,
+  Zugrueckfahrt, korrekt abgeschlossene Quest, 6 Kugeln und
+  3 Traenke genau einmal als Belohnung, zweiter Zug-Rundtrip ohne
+  Belohnungsduplikation. Save/Reload an drei Checkpoints.
+- Browserbericht und 18 Bildschirmbilder als GitHub-Artefakt
+  echo-browser-checkpoints verfuegbar (7 Tage).
+- Startzustand: Kapitel 3 ist bewusst schon abgeschlossen, Team ist
+  fuer reproduzierbare Quest-Tests auf Level 55. Keine Aussage
+  zur normalen Kampf-Schwierigkeit; kein lueckenloser Gesamtspiel-
+  durchlauf und keine echte Android-Hardwareabnahme.
+- Nur QA und Dokumentation; Android bleibt 0.28.0/versionCode 29,
+  keine Aenderung von App-ID, IDs, SaveSchema oder Signaturschluessel.
+  Naechste Stufe: Kapitel 5 mit echtem Laufen, Dialograetsel und Boss.
+
 ## ECHTER KAPITEL-3-DURCHLAUF OHNE LOKALEN PC - 03.11.2026
 - PR #16: project/qa/real-chapter3.py nutzt im echten Chrome-Browser
   Desktop-Tastatur und Handy-Touch. Alle Spielaktionen laufen ueber
