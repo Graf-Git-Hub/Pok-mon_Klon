@@ -1,5 +1,21 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+## KAPITEL 6 UND 7: ECHTE SPIELEINGABEN (04.11.2026)
+- Der neue Test `project/qa/real-chapter6-7.py` steuert einen einzigen
+  Spielstand ab abgeschlossenem Kapitel 5 mit Tastatur und Touch
+  durch beide Kapitel bis Kronenstadt (Kapitel 8).
+- Unabhaengig lokal in isoliertem Worktree mit Chrome 157 geprueft:
+  582 Schritte, 38 Dialoge, 4 Bosssiege je Viewport, zusammen
+  1164 Schritte und 8 Bosssiege ohne JavaScript-Fehler.
+- Arbeiterrettung, Reihenfolge der Druckregler, Edda, Schmelzmeister,
+  Ofenkern, drei Namensrituale, Archiv, Jaeger, Steinraetsel,
+  Namensschatten, Belohnungsschutz und Save-Reload erfolgreich.
+- Details und Testgrenzen in `CHAPTER6_7_REAL_QA.md`. QA-Level 55,
+  daher kein Test fuer normales Anfaenger-Balancing, keine Android-
+  Hardware und kein vollstaendiger Spielstart ab Kapitel 1.
+- GitHub-CI-Ausloeser im Browser-Workflow erweitert. Android 0.28.0,
+  App-ID, Signatur, SaveSchema und 150 Wesen unveraendert.
+
 ## ECHTER KAPITEL-5-DURCHLAUF IN CLOUD UND AUF LAURA - 04.11.2026
 - PR #18: project/qa/real-chapter5.py fuehrt das komplette Kapitel 5
   ab einem erledigten Kapitel-4-Spielstand ueber echte
