@@ -14,7 +14,7 @@ for(const file of ['data/species.js','data/encounters.js','src/encounters/regist
 const src=fs.readFileSync('src/game.js','utf8'),marker='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 assert(src.includes(marker),'Game engine injection point');
 vm.runInNewContext(src.replace(marker,
- 'window.phaseProbe={state:gameState,createMonsterInstance,startTrainerBattle,handleEnemyDefeated,bossMultipliers,storyBossRoster,scaleBossRoster};\n'+marker),env);
+ 'window.phaseProbe={state:gameState,createMonsterInstance,startTrainerBattle,handleEnemyDefeated,enemyCounterAttack,bossMultipliers,storyBossRoster,scaleBossRoster};\n'+marker),env);
 const p=window.phaseProbe,s=p.state,events=[];
 window.EchoEndgame={victory:(_s,boss)=>{events.push(boss);return ['Endgame victory'];}};
 window.EchoFinale={victory:(_s,boss)=>{events.push(boss);return ['Finale victory'];}};
@@ -56,4 +56,23 @@ for(const boss of ['vexFrost','ringGuardian','postgameTrial0','smelter','guard']
  const roster=p.storyBossRoster(boss,89,25);
  assert.equal(roster.length,1,'Unrelated boss remains single stage');
 }
-console.log('PASS late boss phases: Varek 11, shaft 13, finale 14; no early reward, unchanged other bosses');
+// A defeat in the *second* wave must not accidentally complete the story.
+const last=cases[2],beforeLoss=events.length;
+s.team=[p.createMonsterInstance(1,3)];s.mode='OVERWORLD';s.scene='OVERWORLD';
+s.currentMapId='legacy_wurzeldorf';
+p.startTrainerBattle(null,'Finale retry',p.storyBossRoster(last.key,last.bossId,last.level));
+s.battle.finaleFight=last.key;
+p.handleEnemyDefeated(); // Opener vanquished, boss still active.
+assert.equal(s.battle.enemy.id,last.bossId);
+s.team[0].hp=1;
+p.enemyCounterAttack();
+let guard=0;while(timers.length&&guard++<40)timers.shift()();
+assert(guard<40,'Defeat queue stalled');
+assert.equal(s.mode,'DIALOG','Defeat should show rescue dialogue');
+assert.equal(s.scene,'HOUSE','Defeat returns to the safe house in legacy harness');
+assert.equal(events.length,beforeLoss,'No story victory on failed final wave');
+// A replay must start from the opener again, never from a half-completed boss.
+s.mode='OVERWORLD';p.startTrainerBattle(null,'Finale retry',p.storyBossRoster(last.key,last.bossId,last.level));
+assert.equal(s.battle.enemyQueue.length,2);
+assert.equal(s.battle.enemy.id,last.openerId);
+console.log('PASS late boss phases: Varek 11, shaft 13, finale 14; retry after loss, no early reward');
