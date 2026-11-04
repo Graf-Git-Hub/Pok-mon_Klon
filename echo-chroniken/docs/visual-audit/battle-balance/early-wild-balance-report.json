@@ -1,0 +1,41 @@
+{
+  "method": "Real wild-battle engine; 400 fixed-seed fights, starter only, full HP every trial, strongest attack, no potions, no grinding; protection at 0 wins vs after 3 wins.",
+  "results": [
+    {
+      "case": "Home meadow, Lv3 protected",
+      "starterLv": 3,
+      "duels": 100,
+      "wins": 100,
+      "losses": 0,
+      "maxEnemyLv": 4,
+      "avgRounds": 6.3
+    },
+    {
+      "case": "Early road, Lv3 protected",
+      "starterLv": 3,
+      "duels": 100,
+      "wins": 100,
+      "losses": 0,
+      "maxEnemyLv": 4,
+      "avgRounds": 6.3
+    },
+    {
+      "case": "North edge, Lv5 post-protection",
+      "starterLv": 5,
+      "duels": 100,
+      "wins": 100,
+      "losses": 0,
+      "maxEnemyLv": 4,
+      "avgRounds": 6.5
+    },
+    {
+      "case": "Far field, Lv5 post-protection",
+      "starterLv": 5,
+      "duels": 100,
+      "wins": 100,
+      "losses": 0,
+      "maxEnemyLv": 5,
+      "avgRounds": 7
+    }
+  ]
+}
