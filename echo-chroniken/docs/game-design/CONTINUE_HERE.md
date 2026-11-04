@@ -2,6 +2,15 @@
 
 **Verbindlicher aktueller Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../../ECHO_CHRONIKEN_UEBERGABE.md) (04.11.2026). **Kapitel 8–10 sind nach PR #21 in main; Kapitel 11–14 und Postgame sind auf dem Entwicklungszweig durchgehend mit echten Desktop-/Touch-Eingaben geprüft.** Ein vollständiger natürlicher Durchlauf vom Spielstart bleibt offen. Bitte zuerst das zentrale Protokoll lesen; Balance und Gesamtspieldauer haben Vorrang vor Grafik.
 
+## 04.11.2026: NATÜRLICHER SPIELSTART BIS KAPITEL 4
+
+- PR #23 mit den zweistufigen Kapitel-11/13/14-Bossen ist in `main` integriert (Merge `6da8783`). **Jetzt keine weitere unbegründete Bosserhöhung**.
+- Neuer echter, durchgehender Browser-Test von **leerem Speicherstand**: Oma, Paket/Miora Level 5, Liora, 3 Lichter, echte Wildkämpfe und Wildfang mit Sphäre, Piko, Ruine, Kapitel 3 mit Pumpwerk/Boss und Kapitel 4 mit A-C-B-Weichen, Zug, Kurier, Schattenwurzel. Keine Test-Flags, keine geschenkten Monster, keine simulierten Siege.
+- Seeded Desktop/Touch mit unveränderten Fang-/Schadensregeln: 553 / 593 Schritte, je 5 reale Trainer-/Bosskämpfe, je 1 Wildfang, 9 Save-Reloads, 0 Niederlagen. Beide Spielstände erreichen Kapitel 4 abgeschlossen mit Miora auf Level 9 und einem zweiten Wesen auf Level 6.
+- `project/qa/natural-opening.py` liefert `docs/visual-audit/natural-opening/report.json` und natürliche Kapitel-4-Saves als Testartefakte. Neuer Cloud-Workflow `.github/workflows/echo-natural-campaign.yml`. Siehe `NATURAL_CAMPAIGN_QA.md`.
+- **Auch Kapitel 5 mit natürlich erspielten, unveränderten Kapitel-4-Saves geschafft:** `project/qa/natural-chapter5.py` fährt per Zug von Wurzelheim über Moorglas nach Stillwasser, löst Archiv, Turm, Spiegel- und Lyra-Boss. Desktop und Touch jeweils 310 Schritte, 27 Interaktionen, 16 Attacken, 4 Reloads; Kapitel 5 abgeschlossen, Miora Level 11, je 5 Heiltränke übrig nach Verbrauch von 8 Tränken. Bericht `../visual-audit/natural-chapter5/report.json`; natürliche Kapitel-5-Saves zur weiteren Fortsetzung.
+- **Noch nicht geschafft:** Echter natürlicher Spielstand von Kapitel **6 bis 14/Postgame**, reale Gesamtspielzeit und Gerätetests. Priorität: diesen gespeicherten Fortschritt weiterverwenden und wirkliche Level-/Heilökonomie und mögliche Softlocks untersuchen. Keine Grafikarbeit.
+
 ## 04.11.2026: ECHTE BOSS-PHASEN IM BALANCE-ZWEIG
 - PR #22 ist in `main` integriert. Neuer isolierter Zweig `feature/echo-natural-balance-20261104`: die Bosskämpfe Varek (Kapitel 11), Schachtwache (Kapitel 13) und Varek-Finale (Kapitel 14) enthalten einen abgeschwächten Vorboten, bevor der eigentliche Hauptboss erscheint. Sieg-/Story-/Save-Flags bleiben bis zum letzten Gegner gesperrt. Bestehende Einphasen-Bosse unverändert.
 - 960 deterministische Vergleiche mit echter Kampf-Engine für ein/drei Teammitglieder und Normallevel/acht Level tiefer, dokumentiert in `../visual-audit/battle-balance/late-roster-balance-report.json`. Keine Behauptung über den natürlichen Fortschritt vom Spielstart.
