@@ -212,7 +212,7 @@
     }
   }
   /* On narrow phones six full-width toolbar buttons otherwise clip off-screen. */
-  @media (orientation: portrait) and (pointer: coarse) and (max-width: 390px) {
+  @media (orientation: portrait) and (pointer: coarse) and (max-width: 450px) {
     #touch-toolbar {
       width: calc(100vw - 12px);
       max-width: none;

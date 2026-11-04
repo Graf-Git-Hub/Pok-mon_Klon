@@ -55,11 +55,11 @@ bestätigen, bevor die Änderung in den Hauptzweig übernommen wird.
 
 `project/styles/main.css` positioniert die 16:9-Spielansicht
 im Portrait-Modus mittiger zwischen Toolbar und Steuerkreuz.
-Bei 360 bis 390 Pixel Breite wird die zuvor seitlich abgeschnittene
+Bei 360 bis 450 Pixel Breite wird die zuvor seitlich abgeschnittene
 Leiste in **zwei gut bedienbare Zeilen** aufgeteilt.
 
 `project/qa/mobile-layout-check.py` prüft echte Chrome-Mobile-
-Viewports 360 × 640, 390 × 844 und 412 × 915 sowie die
+Viewports 360 × 640, 390 × 844, 412 × 915 und 440 × 956 sowie die
 ausgeblendeten Touchbuttons auf Desktop. Die Prüfungen
 kontrollieren alle Toolbar-Buttons, Canvas-Grenzen und Abstände
 zu Hinweis und D-Pad. Lokaler Test mit Chrome 157 PASS.

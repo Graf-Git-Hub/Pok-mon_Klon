@@ -7,7 +7,7 @@
   und friedlicher Ringhueter-Loesung.
 - Lokal Chrome 157 PASS: 1.350 Bewegungsschritte, 90 Dialoge,
   4 reale Bosssiege, 12 Save-Reload-Tests, 0 JS-Ausnahmen.
-- Mobile Toolbar bei 360-390px wird in zwei Zeilen aufgeteilt,
+- Mobile Toolbar bei 360-450px wird in zwei Zeilen aufgeteilt,
   Canvas im Hochformat besser vertikal ausgerichtet. Drei
   Handy-Groessen mit echten Layout- und Screenshottests bestanden.
 - Neue Browser-Tests real-chapter8-10.py und mobile-layout-check.py

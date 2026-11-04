@@ -9,7 +9,7 @@
   zusammen 1350/90/4/12, ohne JavaScript-Fehler.
 - Die friedliche Ringhueter-Loesung in Kapitel 10 wurde ohne
   simulierten Sieg durch tatsächliche Dialogentscheidungen erreicht.
-- Sichtbarer mobiler UI-Fix: Buttons auf 360-390px schmalen
+- Sichtbarer mobiler UI-Fix: Buttons auf 360-450px schmalen
   Handybildschirmen werden nicht mehr abgeschnitten, sondern
   zweizeilig dargestellt. Spielbild harmonischer positioniert.
   Drei Viewporttests (360x640, 390x844, 412x915) erfolgreich.

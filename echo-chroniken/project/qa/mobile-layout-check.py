@@ -12,7 +12,7 @@ report={"screens":[],"errors":[]}
 try:
  with sync_playwright() as pw:
   browser=pw.chromium.launch(channel="chrome",headless=True)
-  for w,h in [(360,640),(390,844),(412,915)]:
+  for w,h in [(360,640),(390,844),(412,915),(440,956)]:
    context=browser.new_context(viewport={"width":w,"height":h},is_mobile=True,has_touch=True,device_scale_factor=1)
    page=context.new_page()
    page.on("pageerror",lambda e:report["errors"].append(str(e)))
@@ -25,7 +25,7 @@ try:
       "(nodes)=>nodes.map(n=>n.getBoundingClientRect()).filter(r=>r.width>0&&r.height>0).map(r=>({x:r.x,y:r.y,right:r.right}))")
    assert len(buttons)==6,(w,h,"toolbar count",buttons)
    assert all(b["x"]>=-0.5 and b["right"]<=w+0.5 for b in buttons),(w,h,"offscreen toolbar",buttons)
-   if w<=390:
+   if w<=450:
     assert len({round(b["y"]) for b in buttons})==2,(w,h,"toolbar should wrap",buttons)
    assert game["y"]>bar["y"]+bar["height"]+10,(w,h,"top toolbar overlap",boxes)
    assert game["y"]+game["height"]+15<=hint["y"]+4,(w,h,"hint overlap",boxes)
