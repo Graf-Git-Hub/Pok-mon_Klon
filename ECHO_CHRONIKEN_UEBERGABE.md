@@ -3,8 +3,16 @@
 **Stand: 04.11.2026, ca. 18:00 Uhr (Europe/Berlin)**  
 **Repository:** `Graf-Git-Hub/Pok-mon_Klon`  
 **Spielordner:** `echo-chroniken/`  
-**Hauptzweig nach PR #21:** `45c3921e1182ac63f6122a78c1d081b730e721fb`  
-**Wichtig für jeden neuen Chat:** **NICHT bei Kapitel 7 aufhören oder dort wieder anfangen!** Kapitel 8–10 sind bereits in `main` integriert, Kapitel 11–14 inklusive Finale/Postgame existieren ebenfalls und haben automatisierte Storytests. Die Testtiefe unterscheidet sich; siehe Tabelle.
+**Hauptzweig nach PR #22:** `74243018376328c1062fe247c1f4f8425d40340f`
+**Wichtig für jeden neuen Chat:** **NICHT bei Kapitel 7 neu anfangen!** Kapitel 3–14 und Postgame existieren, Kapitel 11–14 inklusive Bossen und Abspann wurden real per Desktop/Touch geprüft und sind seit PR #22 in `main`. Ein echter durchgehender Spielstand ab Oma/Paket mit natürlichen XP und Ressourcen fehlt weiterhin. Der neue Zweig `feature/echo-natural-balance-20261104` testet zwei Phasen für drei späte Bosse.
+
+## Nachtrag: Prüfungen bestanden, neue Balance-Verbesserung in separatem Zweig
+
+- **PR #22 wurde in `main` übernommen** (Merge `7424301`). GitHub-CI (Node, Dokumentation, Android-Debug und Browser) war vor dem Merge vollständig grün; Lauras unabhängiger Desktop-/Touch-Volltest ebenfalls: **44/44 lokale Prüfungen erfolgreich**.
+- Neuer isolierter Arbeitszweig `feature/echo-natural-balance-20261104` arbeitet nach `main` an den drei großen Pflichtbossen: Kapitel 11 **Varek**, Kapitel 13 **Schachtwache** und Kapitel 14 **Varek-Finale** erhalten je ein schwächeres Einstiegs-Echo vor dem Hauptgegner. Das ist **keine** kosmetische Änderung. Die bisherigen Boss- und Quest-IDs sowie der Speicherstand bleiben kompatibel. Ein Sieg wird erst vergeben, wenn beide Kampfphasen gewonnen sind.
+- **960 echte Engine-Duelle** mit festen Zufallsseeds vergleichen eine gegen zwei Kampfphasen, Teams mit einem oder drei Wesen sowie Normallevel / acht Level darunter. In dieser definierten Konfiguration (sechs Heiltränke) gab es keine verlorenen Duelle; durchschnittliche Kampfzeit stieg von etwa 7–8 auf 10–13 Runden und benötigte ca. 1–2 Heiltränke. Noch **kein natürlicher Vollspieldurchlauf**. Regressionscode: `project/tests/late-boss-phases.cjs`, `project/tests/late-roster-balance.cjs`; Report: `docs/visual-audit/battle-balance/late-roster-balance-report.json`.
+- Die erneute reale Chrome-157-Gegenprobe mit **neuen zwei-Phasen-Bossen** bestand vollständig: Desktop plus Touch, 2.946 Schritte, 176 Dialogaktionen, **121 Angriffe**, zwölf Boss-Begegnungen (davon drei pro Ansicht mit zwei Phasen), 20 Reloads und **null JavaScript-Fehler**. Außerdem wurde eine **Niederlage im zweiten Kampfabschnitt mit Neustart** als Regression getestet: kein vorzeitiger Storyabschluss oder Belohnungs-Callback. Report aktualisiert: `docs/visual-audit/real-chapter11-14/report.json`.
+- Die bisherige Balancemessung für **Einzelbosse** bleibt als historischer Vergleich erhalten. Release-Build und Android-Signatur bitte erst nach Tests des neuen PR und Build-Prüfung als aktuell bezeichnen. Die Runner anderer Projekte werden nicht verändert.
 
 ## Nachtrag 04.11.2026: Kapitel 11–14 und Postgame real gespielt (Entwicklungszweig)
 

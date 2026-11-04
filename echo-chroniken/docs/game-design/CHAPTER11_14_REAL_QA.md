@@ -11,11 +11,11 @@ Ein vorbereiteter Spielstand unmittelbar nach abgeschlossenem Kapitel 10 wurde d
 | Gelaufene Schritte | 1473 | 1473 | 2946 |
 | Dialoginteraktionen | 88 | 88 | 176 |
 | Boss-Siege | 6 | 6 | 12 |
-| Tatsächliche Angriffe | 49 | 48 | 97 |
+| Tatsächliche Angriffe | 61 | 60 | 121 |
 | Speicher-/Neulade-Checkpoints | 10 | 10 | 20 |
 | JavaScript-Ausnahmen | 0 | 0 | 0 |
 
-Die sechs Bosskämpfe pro Ansicht sind Varek (Kapitel 11), Schachtwache (13), Varek-Finale (14) sowie drei optionale Postgame-Gartenprüfungen. Alle Quest-/Dialog-Gates der Kapitel 11–14, Kapitelbelohnungen ohne Duplikation, Mutter-Erinnerung, drei Zwangsanker, Schutzcode, drei Erinnerungen, Freigabe, **Abspann und vollständiges Postgame (sechs Wiesen, Museum, drei Prüfungen, Gartenfest)** wurden geprüft. Der Abschlussspielstand enthält `main_story_finished`, `chapter14.credits` und `optional_postgame_completed`. Im Postgame wurden Ruhestationen mit den **normalen Spiel-Eingaben** genutzt.
+Die sechs Bosskämpfe pro Ansicht sind Varek (Kapitel 11), Schachtwache (13), Varek-Finale (14) sowie drei optionale Postgame-Gartenprüfungen. **Nach der Balance-Korrektur PR #23** enthalten die ersten drei Kämpfe jeweils ein schwächeres Einstiegs-Echo und den eigentlichen Hauptboss. Der vollständige Browserlauf wurde mit diesen zwei Phasen auf Desktop und Touch erneut erfolgreich abgeschlossen; die 121 tatsächlichen Angriffe stammen aus diesem neuen Lauf. Alle Quest-/Dialog-Gates der Kapitel 11–14, Kapitelbelohnungen ohne Duplikation, Mutter-Erinnerung, drei Zwangsanker, Schutzcode, drei Erinnerungen, Freigabe, **Abspann und vollständiges Postgame (sechs Wiesen, Museum, drei Prüfungen, Gartenfest)** wurden geprüft. Der Abschlussspielstand enthält `main_story_finished`, `chapter14.credits` und `optional_postgame_completed`. Im Postgame wurden Ruhestationen mit den **normalen Spiel-Eingaben** genutzt.
 
 **Nachweise:** `docs/visual-audit/real-chapter11-14/report.json`, je neun Desktop- und Touch-Screenshots im Cloud-Artefakt `echo-browser-checkpoints` nach erfolgreicher CI. Testaufruf im isolierten Worktree: `python echo-chroniken/project/qa/real-chapter11-14.py`.
 

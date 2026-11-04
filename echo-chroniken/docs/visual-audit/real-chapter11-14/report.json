@@ -13,7 +13,7 @@
         "postgameTrial1",
         "postgameTrial2"
       ],
-      "attacks": 49,
+      "attacks": 61,
       "portals": [
         "star_ridge -> observatory_hall",
         "observatory_hall -> observatory_telescope",
@@ -75,7 +75,7 @@
         "postgameTrial1",
         "postgameTrial2"
       ],
-      "attacks": 48,
+      "attacks": 60,
       "portals": [
         "star_ridge -> observatory_hall",
         "observatory_hall -> observatory_telescope",
