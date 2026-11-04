@@ -4,9 +4,12 @@
 - Neuer Test project/qa/real-chapter4.py: Tastatur/Touch bedient
   beide Bahnhofskarten, Weichen A-C-B, Moorglas, echte Zugmenues
   und die Kaempfe gegen Kurier und Schattenwurzel.
-- GitHub-Lauf 41743136449 SUCCESS: pro Ansicht 188 Bewegungsschritte,
-  17 Interaktionen, 6 Kampfattacken und 4 Bahnfahrten. Insgesamt
-  376/34/12/8, keine JavaScript-Fehler. Drei Save-Checkpoints und
+- GitHub-Lauf 41743136449 und Wiederholung 41743525794 SUCCESS:
+  pro Ansicht 188 Bewegungsschritte, 17 Interaktionen und
+  vier Bahnfahrten. 376 Schritte, 34 Dialoge, vier Boss-Siege
+  und acht Fahrten gesamt. Benutzte Angriffe variieren wegen
+  zufaelligem Schaden (erste Runde 6/6, Wiederholung 5/6).
+  Keine JavaScript-Fehler. Drei Save-Checkpoints und
   erneute Bahnreise ohne doppelte Questbelohnung bestanden.
 - Screenshots und JSON-Bericht als GitHub-Artefakt, 18 Kapitelbilder
   fuer diesen Test. Testteam Level 55, Kapitel 3 als erledigt gesetzt.
