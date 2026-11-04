@@ -2,6 +2,11 @@
 
 **Verbindlicher aktueller Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../../ECHO_CHRONIKEN_UEBERGABE.md) (04.11.2026). **Kapitel 8–10 sind nach PR #21 in main; Kapitel 11–14 und Postgame sind auf dem Entwicklungszweig durchgehend mit echten Desktop-/Touch-Eingaben geprüft.** Ein vollständiger natürlicher Durchlauf vom Spielstart bleibt offen. Bitte zuerst das zentrale Protokoll lesen; Balance und Gesamtspieldauer haben Vorrang vor Grafik.
 
+## 04.11.2026: ECHTE BOSS-PHASEN IM BALANCE-ZWEIG
+- PR #22 ist in `main` integriert. Neuer isolierter Zweig `feature/echo-natural-balance-20261104`: die Bosskämpfe Varek (Kapitel 11), Schachtwache (Kapitel 13) und Varek-Finale (Kapitel 14) enthalten einen abgeschwächten Vorboten, bevor der eigentliche Hauptboss erscheint. Sieg-/Story-/Save-Flags bleiben bis zum letzten Gegner gesperrt. Bestehende Einphasen-Bosse unverändert.
+- 960 deterministische Vergleiche mit echter Kampf-Engine für ein/drei Teammitglieder und Normallevel/acht Level tiefer, dokumentiert in `../visual-audit/battle-balance/late-roster-balance-report.json`. Keine Behauptung über den natürlichen Fortschritt vom Spielstart.
+- Neuer Regressionstest `project/tests/late-boss-phases.cjs` validiert korrekte Gegnerreihenfolge, Skalierung und einmalige Finalbelohnung. Auf Laura wurden 41/41 Node-Tests und die Story-Dokumentation grün geprüft.
+
 ## 04.11.2026: KAPITEL 11–14, FINALE, POSTGAME UND BALANCE
 - **Neuer Entwicklungszweig:** `feature/echo-ch11-14-balance-20261104`, isolierter Worktree. Kapitel 11–14, Abspann und volles Postgame wurden in Chrome 157 mit echten Tastatur-/Touch-Eingaben erfolgreich gespielt: **2946 Schritte, 176 Dialoge, zwölf Boss-Siege, 20 Reloads, keine JavaScript-Ausnahme**. Bericht: `CHAPTER11_14_REAL_QA.md`, Test: `project/qa/real-chapter11-14.py`.
 - Übernommene, durch `battle-potions.cjs` abgesicherte Trankkorrektur: 36 KP oder 30 % Max-KP, keine Verschwendung bei vollen KP, Reisemenüheilung wird gespeichert.

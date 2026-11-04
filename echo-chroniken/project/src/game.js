@@ -1112,6 +1112,23 @@ function executeBattleAction(choice){
     return {hp:late?.90:.78,attack:late?.95:.8};
   }
 
+  // Major late-story bosses have a brief binding-echo opener, then the main
+  // confrontation. The opener is deliberately weaker so solo teams can win.
+  // Keep the final opponent last: chapter victory is awarded only after it falls.
+  function storyBossRoster(boss,species,level){
+    const openerId={varekFirst:89,shaftGuardian:89,varekFinal:62}[boss];
+    return openerId?[{id:openerId,lv:Math.max(3,level-4)},{id:species,lv:level}]:
+      [{id:species,lv:level}];
+  }
+  function scaleBossRoster(queue,profile){
+    queue.forEach((enemy,index)=>{
+      const opener=queue.length>1 && index<queue.length-1;
+      enemy.maxHp=Math.max(1,Math.round(enemy.maxHp*profile.hp*(opener?.65:1)));
+      enemy.hp=enemy.maxHp;
+      enemy.encounterScale=profile.attack*(opener?.77:1);
+    });
+  }
+
   function interactFront() {
     if(gameState.scene==='OVERWORLD'&&gameState.currentMapId!=='legacy_wurzeldorf'){
       const region=window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
@@ -1154,7 +1171,7 @@ function executeBattleAction(choice){
             onStory?({smelter:'Schmelzmeister',core:'Instabiler Ofenkern',hunter:'Kontinuum-Jaeger',shadow:'Namensschatten',guard:'Archivwaechter'}[r.boss]||'Echo-Waechter'):
             onStill?(r.boss==='mirror'?'Gedaechtnisspiegel':'Lyra'):
             onRail?(r.boss==='root'?'Schattenwurzel':'Kontinuum-Kurier'):'Pumpenwaechter';
-          startTrainerBattle(null,title,[{id:species,lv:level}]);
+          startTrainerBattle(null,title,storyBossRoster(r.boss,species,level));
           if(onPostgame)gameState.battle.postgameFight=r.boss;
           else if(onFinale)gameState.battle.finaleFight=r.boss;
            else if(onEndgame)gameState.battle.endgameFight=r.boss;
@@ -1166,10 +1183,7 @@ function executeBattleAction(choice){
           // Tested across light, water and shadow teams at different levels.
           const profile=bossMultipliers(onFinale?'finale':onPostgame?'postgame':
             onEndgame?'endgame':'normal',storyChapter);
-          const hpScale=profile.hp,attackScale=profile.attack;
-          gameState.battle.enemy.maxHp=Math.round(gameState.battle.enemy.maxHp*hpScale);
-          gameState.battle.enemy.hp=gameState.battle.enemy.maxHp;
-          gameState.battle.enemy.encounterScale=attackScale;
+          scaleBossRoster(gameState.battle.enemyQueue,profile);
         });
       }else if(r.rail){
         gameState.railCursor=0;gameState.mode='RAIL';sfx.confirm();
