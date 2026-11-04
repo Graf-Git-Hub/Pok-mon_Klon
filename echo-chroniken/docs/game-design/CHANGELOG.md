@@ -1,5 +1,19 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-04 - Cloud-QA: Kapitel 4 real durchgespielt
+- Neuer Test project/qa/real-chapter4.py: Tastatur/Touch bedient
+  beide Bahnhofskarten, Weichen A-C-B, Moorglas, echte Zugmenues
+  und die Kaempfe gegen Kurier und Schattenwurzel.
+- GitHub-Lauf 41743136449 SUCCESS: pro Ansicht 188 Bewegungsschritte,
+  17 Interaktionen, 6 Kampfattacken und 4 Bahnfahrten. Insgesamt
+  376/34/12/8, keine JavaScript-Fehler. Drei Save-Checkpoints und
+  erneute Bahnreise ohne doppelte Questbelohnung bestanden.
+- Screenshots und JSON-Bericht als GitHub-Artefakt, 18 Kapitelbilder
+  fuer diesen Test. Testteam Level 55, Kapitel 3 als erledigt gesetzt.
+  Kein vollstaendiger echter Spieldurchlauf, keine Balance-Aussage.
+- Reine Test-/Doku-Aenderung; keine neue APK und keine Spielstand-
+  oder App-ID-Migration.
+
 ## 2026-11-03 - Durchgespielte Kapitel-3-Steuerung in der Cloud
 - Neu: project/qa/real-chapter3.py, echte Tastatur-/Touch-Steuerung
   vom gesperrten Pumpwerk ueber drei Zeugen, Pumpwerksraetsel und
