@@ -1,0 +1,223 @@
+{
+  "scope": "Chapter 5 starting from an actual unmodified save earned from fresh Grandma/package; natural Lv9 team and potions",
+  "cases": [
+    {
+      "viewport": "desktop",
+      "steps": 310,
+      "interactions": 27,
+      "boss_attacks": 16,
+      "potions_spent": 8,
+      "bosses": [
+        "mirror",
+        "lyraDuel"
+      ],
+      "rail_trips": [
+        "station_moorglas",
+        "station_stillwasser"
+      ],
+      "portals": [
+        "station_moorglas -> moorglas_bog",
+        "moorglas_bog -> moor_to_stillwater",
+        "moor_to_stillwater -> stillwasser_town",
+        "stillwasser_town -> stillwater_archive",
+        "stillwater_archive -> stillwasser_town",
+        "stillwasser_town -> stillwater_tower",
+        "stillwater_tower -> stillwasser_town",
+        "stillwasser_town -> station_stillwasser"
+      ],
+      "reloads": [
+        "two-archive-clues",
+        "libraryBypass",
+        "completed",
+        "completed"
+      ],
+      "combat_start": [
+        {
+          "boss": "mirror",
+          "team": [
+            {
+              "id": 2,
+              "lv": 9,
+              "hp": 94,
+              "moves": [
+                "sternenstaub",
+                "mondschein",
+                "seelenstups",
+                "lichtfunke"
+              ]
+            },
+            {
+              "id": 7,
+              "lv": 6,
+              "hp": 54,
+              "moves": [
+                "seelenstups",
+                "schattentipp"
+              ]
+            }
+          ],
+          "potions": 10
+        },
+        {
+          "boss": "lyraDuel",
+          "team": [
+            {
+              "id": 2,
+              "lv": 10,
+              "hp": 100,
+              "moves": [
+                "sternenstaub",
+                "mondschein",
+                "seelenstups",
+                "lichtfunke"
+              ]
+            },
+            {
+              "id": 7,
+              "lv": 7,
+              "hp": 60,
+              "moves": [
+                "nebelbiss",
+                "seelenstups",
+                "schattentipp"
+              ]
+            }
+          ],
+          "potions": 7
+        }
+      ],
+      "final": {
+        "map": "station_stillwasser",
+        "team": [
+          {
+            "id": 2,
+            "lv": 11,
+            "xp": 116,
+            "hp": 106,
+            "maxHp": 106
+          },
+          {
+            "id": 7,
+            "lv": 7,
+            "xp": 98,
+            "hp": 60,
+            "maxHp": 60
+          }
+        ],
+        "potions": 5,
+        "orbs": 36,
+        "chapter5Completed": true
+      }
+    },
+    {
+      "viewport": "touch",
+      "steps": 310,
+      "interactions": 27,
+      "boss_attacks": 16,
+      "potions_spent": 8,
+      "bosses": [
+        "mirror",
+        "lyraDuel"
+      ],
+      "rail_trips": [
+        "station_moorglas",
+        "station_stillwasser"
+      ],
+      "portals": [
+        "station_moorglas -> moorglas_bog",
+        "moorglas_bog -> moor_to_stillwater",
+        "moor_to_stillwater -> stillwasser_town",
+        "stillwasser_town -> stillwater_archive",
+        "stillwater_archive -> stillwasser_town",
+        "stillwasser_town -> stillwater_tower",
+        "stillwater_tower -> stillwasser_town",
+        "stillwasser_town -> station_stillwasser"
+      ],
+      "reloads": [
+        "two-archive-clues",
+        "libraryBypass",
+        "completed",
+        "completed"
+      ],
+      "combat_start": [
+        {
+          "boss": "mirror",
+          "team": [
+            {
+              "id": 2,
+              "lv": 9,
+              "hp": 94,
+              "moves": [
+                "sternenstaub",
+                "mondschein",
+                "seelenstups",
+                "lichtfunke"
+              ]
+            },
+            {
+              "id": 23,
+              "lv": 6,
+              "hp": 49,
+              "moves": [
+                "seelenstups",
+                "glutfunken"
+              ]
+            }
+          ],
+          "potions": 10
+        },
+        {
+          "boss": "lyraDuel",
+          "team": [
+            {
+              "id": 2,
+              "lv": 10,
+              "hp": 100,
+              "moves": [
+                "sternenstaub",
+                "mondschein",
+                "seelenstups",
+                "lichtfunke"
+              ]
+            },
+            {
+              "id": 23,
+              "lv": 7,
+              "hp": 55,
+              "moves": [
+                "funkenflug",
+                "seelenstups",
+                "glutfunken"
+              ]
+            }
+          ],
+          "potions": 7
+        }
+      ],
+      "final": {
+        "map": "station_stillwasser",
+        "team": [
+          {
+            "id": 2,
+            "lv": 11,
+            "xp": 168,
+            "hp": 106,
+            "maxHp": 106
+          },
+          {
+            "id": 23,
+            "lv": 8,
+            "xp": 32,
+            "hp": 61,
+            "maxHp": 61
+          }
+        ],
+        "potions": 5,
+        "orbs": 34,
+        "chapter5Completed": true
+      }
+    }
+  ],
+  "page_errors": [],
+  "chrome": "157.0.8103.39"
+}

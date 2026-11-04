@@ -1,0 +1,975 @@
+{
+  "scope": "Cold empty browser storage through Chapters 1-4 and a wild capture, ordinary Lv5 starter, natural inventory and actual keyboard/touch inputs",
+  "cases": [
+    {
+      "viewport": "desktop",
+      "steps": 553,
+      "dialogActions": 135,
+      "wildBattles": 2,
+      "caught": [
+        "7"
+      ],
+      "wildWins": 1,
+      "trainerWins": 5,
+      "losses": 0,
+      "attacks": 40,
+      "potionsSpent": 4,
+      "orbsSpent": 1,
+      "checkpoints": [
+        "intro",
+        "lights",
+        "captured teammate",
+        "chapter2",
+        "chapter3 entry",
+        "chapter3 completed",
+        "chapter4 entry",
+        "switches",
+        "chapter4 complete"
+      ],
+      "stage": "chapter4 completed",
+      "milestones": [
+        {
+          "stage": "intro/parcel",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 5,
+              "xp": 0,
+              "hp": 56,
+              "maxHp": 56
+            }
+          ],
+          "potions": 5,
+          "orbs": 12,
+          "battleWins": 0,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "forest lights",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 5,
+              "xp": 0,
+              "hp": 56,
+              "maxHp": 56
+            }
+          ],
+          "potions": 7,
+          "orbs": 17,
+          "battleWins": 0,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "wild catch and XP",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 5,
+              "xp": 41,
+              "hp": 56,
+              "maxHp": 56
+            },
+            {
+              "id": 7,
+              "lv": 4,
+              "xp": 16,
+              "hp": 42,
+              "maxHp": 42
+            }
+          ],
+          "potions": 6,
+          "orbs": 16,
+          "battleWins": 1,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "optional Piko",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 13,
+              "hp": 62,
+              "maxHp": 62
+            },
+            {
+              "id": 7,
+              "lv": 4,
+              "xp": 40,
+              "hp": 42,
+              "maxHp": 42
+            }
+          ],
+          "potions": 7,
+          "orbs": 19,
+          "battleWins": 2,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "ruins seals",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 13,
+              "hp": 62,
+              "maxHp": 62
+            },
+            {
+              "id": 7,
+              "lv": 4,
+              "xp": 40,
+              "hp": 42,
+              "maxHp": 42
+            }
+          ],
+          "potions": 7,
+          "orbs": 19,
+          "battleWins": 2,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "ruins guardian",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 86,
+              "hp": 53,
+              "maxHp": 62
+            },
+            {
+              "id": 7,
+              "lv": 4,
+              "xp": 69,
+              "hp": 42,
+              "maxHp": 42
+            }
+          ],
+          "potions": 8,
+          "orbs": 22,
+          "battleWins": 3,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter 2 reported",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 86,
+              "hp": 62,
+              "maxHp": 62
+            },
+            {
+              "id": 7,
+              "lv": 4,
+              "xp": 69,
+              "hp": 42,
+              "maxHp": 42
+            }
+          ],
+          "potions": 8,
+          "orbs": 22,
+          "battleWins": 3,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "north lake path",
+          "map": "lake_north_path",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 86,
+              "hp": 62,
+              "maxHp": 62
+            },
+            {
+              "id": 7,
+              "lv": 4,
+              "xp": 69,
+              "hp": 42,
+              "maxHp": 42
+            }
+          ],
+          "potions": 8,
+          "orbs": 22,
+          "battleWins": 3,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter 3 reached",
+          "map": "nebelhafen_town",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 86,
+              "hp": 62,
+              "maxHp": 62
+            },
+            {
+              "id": 7,
+              "lv": 4,
+              "xp": 69,
+              "hp": 42,
+              "maxHp": 42
+            }
+          ],
+          "potions": 8,
+          "orbs": 22,
+          "battleWins": 3,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter3 witnesses",
+          "map": "nebelhafen_town",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 86,
+              "hp": 62,
+              "maxHp": 62
+            },
+            {
+              "id": 7,
+              "lv": 4,
+              "xp": 69,
+              "hp": 42,
+              "maxHp": 42
+            }
+          ],
+          "potions": 8,
+          "orbs": 22,
+          "battleWins": 3,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "pumpworks puzzle",
+          "map": "pumpworks_floor1",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 86,
+              "hp": 62,
+              "maxHp": 62
+            },
+            {
+              "id": 7,
+              "lv": 4,
+              "xp": 69,
+              "hp": 42,
+              "maxHp": 42
+            }
+          ],
+          "potions": 8,
+          "orbs": 22,
+          "battleWins": 3,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter 3 complete",
+          "map": "pumpworks_controlroom",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 73,
+              "hp": 68,
+              "maxHp": 68
+            },
+            {
+              "id": 7,
+              "lv": 5,
+              "xp": 35,
+              "hp": 48,
+              "maxHp": 48
+            }
+          ],
+          "potions": 8,
+          "orbs": 25,
+          "battleWins": 4,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter 4 reached",
+          "map": "root_tunnel",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 73,
+              "hp": 68,
+              "maxHp": 68
+            },
+            {
+              "id": 7,
+              "lv": 5,
+              "xp": 35,
+              "hp": 48,
+              "maxHp": 48
+            }
+          ],
+          "potions": 8,
+          "orbs": 25,
+          "battleWins": 4,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "rail switch puzzle",
+          "map": "rail_switchyard",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 73,
+              "hp": 68,
+              "maxHp": 68
+            },
+            {
+              "id": 7,
+              "lv": 5,
+              "xp": 35,
+              "hp": 48,
+              "maxHp": 48
+            }
+          ],
+          "potions": 8,
+          "orbs": 25,
+          "battleWins": 4,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "courier beaten",
+          "map": "moorglas_bog",
+          "team": [
+            {
+              "id": 2,
+              "lv": 8,
+              "xp": 64,
+              "hp": 88,
+              "maxHp": 88
+            },
+            {
+              "id": 7,
+              "lv": 5,
+              "xp": 81,
+              "hp": 48,
+              "maxHp": 48
+            }
+          ],
+          "potions": 7,
+          "orbs": 25,
+          "battleWins": 5,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "root defeated",
+          "map": "moorglas_bog",
+          "team": [
+            {
+              "id": 2,
+              "lv": 9,
+              "xp": 48,
+              "hp": 94,
+              "maxHp": 94
+            },
+            {
+              "id": 7,
+              "lv": 6,
+              "xp": 42,
+              "hp": 54,
+              "maxHp": 54
+            }
+          ],
+          "potions": 7,
+          "orbs": 25,
+          "battleWins": 6,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter4 completed",
+          "map": "station_wurzelheim",
+          "team": [
+            {
+              "id": 2,
+              "lv": 9,
+              "xp": 48,
+              "hp": 94,
+              "maxHp": 94
+            },
+            {
+              "id": 7,
+              "lv": 6,
+              "xp": 42,
+              "hp": 54,
+              "maxHp": 54
+            }
+          ],
+          "potions": 10,
+          "orbs": 31,
+          "battleWins": 6,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": true
+          }
+        }
+      ],
+      "success": true,
+      "summary": {
+        "map": "station_wurzelheim",
+        "lv": [
+          9,
+          6
+        ],
+        "potions": 10,
+        "orbs": 31
+      }
+    },
+    {
+      "viewport": "touch",
+      "steps": 593,
+      "dialogActions": 135,
+      "wildBattles": 3,
+      "caught": [
+        "23"
+      ],
+      "wildWins": 2,
+      "trainerWins": 5,
+      "losses": 0,
+      "attacks": 44,
+      "potionsSpent": 5,
+      "orbsSpent": 3,
+      "checkpoints": [
+        "intro",
+        "lights",
+        "captured teammate",
+        "chapter2",
+        "chapter3 entry",
+        "chapter3 completed",
+        "chapter4 entry",
+        "switches",
+        "chapter4 complete"
+      ],
+      "stage": "chapter4 completed",
+      "milestones": [
+        {
+          "stage": "intro/parcel",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 5,
+              "xp": 0,
+              "hp": 56,
+              "maxHp": 56
+            }
+          ],
+          "potions": 5,
+          "orbs": 12,
+          "battleWins": 0,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "forest lights",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 5,
+              "xp": 0,
+              "hp": 56,
+              "maxHp": 56
+            }
+          ],
+          "potions": 7,
+          "orbs": 17,
+          "battleWins": 0,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "wild catch and XP",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 5,
+              "xp": 82,
+              "hp": 56,
+              "maxHp": 56
+            },
+            {
+              "id": 23,
+              "lv": 5,
+              "xp": 0,
+              "hp": 43,
+              "maxHp": 43
+            }
+          ],
+          "potions": 5,
+          "orbs": 14,
+          "battleWins": 2,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "optional Piko",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 54,
+              "hp": 62,
+              "maxHp": 62
+            },
+            {
+              "id": 23,
+              "lv": 5,
+              "xp": 24,
+              "hp": 43,
+              "maxHp": 43
+            }
+          ],
+          "potions": 6,
+          "orbs": 17,
+          "battleWins": 3,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "ruins seals",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 6,
+              "xp": 54,
+              "hp": 62,
+              "maxHp": 62
+            },
+            {
+              "id": 23,
+              "lv": 5,
+              "xp": 24,
+              "hp": 43,
+              "maxHp": 43
+            }
+          ],
+          "potions": 6,
+          "orbs": 17,
+          "battleWins": 3,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "ruins guardian",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 19,
+              "hp": 68,
+              "maxHp": 68
+            },
+            {
+              "id": 23,
+              "lv": 5,
+              "xp": 53,
+              "hp": 43,
+              "maxHp": 43
+            }
+          ],
+          "potions": 8,
+          "orbs": 20,
+          "battleWins": 4,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter 2 reported",
+          "map": "legacy_wurzeldorf",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 19,
+              "hp": 68,
+              "maxHp": 68
+            },
+            {
+              "id": 23,
+              "lv": 5,
+              "xp": 53,
+              "hp": 43,
+              "maxHp": 43
+            }
+          ],
+          "potions": 8,
+          "orbs": 20,
+          "battleWins": 4,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "north lake path",
+          "map": "lake_north_path",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 19,
+              "hp": 68,
+              "maxHp": 68
+            },
+            {
+              "id": 23,
+              "lv": 5,
+              "xp": 53,
+              "hp": 43,
+              "maxHp": 43
+            }
+          ],
+          "potions": 8,
+          "orbs": 20,
+          "battleWins": 4,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter 3 reached",
+          "map": "nebelhafen_town",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 19,
+              "hp": 68,
+              "maxHp": 68
+            },
+            {
+              "id": 23,
+              "lv": 5,
+              "xp": 53,
+              "hp": 43,
+              "maxHp": 43
+            }
+          ],
+          "potions": 8,
+          "orbs": 20,
+          "battleWins": 4,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter3 witnesses",
+          "map": "nebelhafen_town",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 19,
+              "hp": 68,
+              "maxHp": 68
+            },
+            {
+              "id": 23,
+              "lv": 5,
+              "xp": 53,
+              "hp": 43,
+              "maxHp": 43
+            }
+          ],
+          "potions": 8,
+          "orbs": 20,
+          "battleWins": 4,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "pumpworks puzzle",
+          "map": "pumpworks_floor1",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 19,
+              "hp": 68,
+              "maxHp": 68
+            },
+            {
+              "id": 23,
+              "lv": 5,
+              "xp": 53,
+              "hp": 43,
+              "maxHp": 43
+            }
+          ],
+          "potions": 8,
+          "orbs": 20,
+          "battleWins": 4,
+          "storyComplete": {
+            "chapter3": false,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter 3 complete",
+          "map": "pumpworks_controlroom",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 125,
+              "hp": 44,
+              "maxHp": 68
+            },
+            {
+              "id": 23,
+              "lv": 6,
+              "xp": 5,
+              "hp": 49,
+              "maxHp": 49
+            }
+          ],
+          "potions": 9,
+          "orbs": 23,
+          "battleWins": 5,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter 4 reached",
+          "map": "root_tunnel",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 125,
+              "hp": 44,
+              "maxHp": 68
+            },
+            {
+              "id": 23,
+              "lv": 6,
+              "xp": 5,
+              "hp": 49,
+              "maxHp": 49
+            }
+          ],
+          "potions": 9,
+          "orbs": 23,
+          "battleWins": 5,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "rail switch puzzle",
+          "map": "rail_switchyard",
+          "team": [
+            {
+              "id": 1,
+              "lv": 7,
+              "xp": 125,
+              "hp": 44,
+              "maxHp": 68
+            },
+            {
+              "id": 23,
+              "lv": 6,
+              "xp": 5,
+              "hp": 49,
+              "maxHp": 49
+            }
+          ],
+          "potions": 9,
+          "orbs": 23,
+          "battleWins": 5,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "courier beaten",
+          "map": "moorglas_bog",
+          "team": [
+            {
+              "id": 2,
+              "lv": 8,
+              "xp": 116,
+              "hp": 88,
+              "maxHp": 88
+            },
+            {
+              "id": 23,
+              "lv": 6,
+              "xp": 51,
+              "hp": 49,
+              "maxHp": 49
+            }
+          ],
+          "potions": 7,
+          "orbs": 23,
+          "battleWins": 6,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "root defeated",
+          "map": "moorglas_bog",
+          "team": [
+            {
+              "id": 2,
+              "lv": 9,
+              "xp": 100,
+              "hp": 94,
+              "maxHp": 94
+            },
+            {
+              "id": 23,
+              "lv": 6,
+              "xp": 102,
+              "hp": 49,
+              "maxHp": 49
+            }
+          ],
+          "potions": 7,
+          "orbs": 23,
+          "battleWins": 7,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": false
+          }
+        },
+        {
+          "stage": "chapter4 completed",
+          "map": "station_wurzelheim",
+          "team": [
+            {
+              "id": 2,
+              "lv": 9,
+              "xp": 100,
+              "hp": 94,
+              "maxHp": 94
+            },
+            {
+              "id": 23,
+              "lv": 6,
+              "xp": 102,
+              "hp": 49,
+              "maxHp": 49
+            }
+          ],
+          "potions": 10,
+          "orbs": 29,
+          "battleWins": 7,
+          "storyComplete": {
+            "chapter3": true,
+            "chapter4": true
+          }
+        }
+      ],
+      "success": true,
+      "summary": {
+        "map": "station_wurzelheim",
+        "lv": [
+          9,
+          6
+        ],
+        "potions": 10,
+        "orbs": 29
+      }
+    }
+  ],
+  "errors": [],
+  "browser": "157.0.8103.39"
+}

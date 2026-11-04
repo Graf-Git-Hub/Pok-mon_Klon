@@ -1,0 +1,48 @@
+name: Echo-Chroniken Natural Campaign (Clean Save)
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/qa/natural-opening.py'
+      - 'echo-chroniken/project/qa/natural-chapter5.py'
+      - 'echo-chroniken/project/src/**'
+      - 'echo-chroniken/project/data/**'
+      - 'echo-chroniken/project/index.html'
+      - 'echo-chroniken/project/styles/**'
+      - '.github/workflows/echo-natural-campaign.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: echo-natural-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  clean-save-playthrough:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Playwright using preinstalled Google Chrome
+        run: |
+          python -m pip install playwright==1.56.0
+          google-chrome --version
+      - name: Full early campaign from empty storage on keyboard and mobile touch
+        run: python echo-chroniken/project/qa/natural-opening.py --both --seeded
+      - name: Continue unmodified naturally earned saves into chapter 5
+        run: python echo-chroniken/project/qa/natural-chapter5.py --both
+      - name: Keep actual input report and checkpoints (even on failure)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-natural-early-campaign
+          path: |
+            echo-chroniken/docs/visual-audit/natural-opening/
+            echo-chroniken/docs/visual-audit/natural-chapter5/
+          retention-days: 7
+          if-no-files-found: warn
