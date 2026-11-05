@@ -1,0 +1,38 @@
+name: Echo-Chroniken Tactical Choice and Status Audit
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/tests/tactical-elements-and-status.cjs'
+      - 'echo-chroniken/project/qa/paired-tactical-duels.cjs'
+      - 'echo-chroniken/docs/visual-audit/tactical-audit/paired-decisions.json'
+      - 'echo-chroniken/project/data/skills.js'
+      - 'echo-chroniken/project/data/affinities.js'
+      - 'echo-chroniken/project/src/game.js'
+      - '.github/workflows/echo-tactical-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  tactical-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Exhaustive type combinations and rare status effects
+        run: node echo-chroniken/project/tests/tactical-elements-and-status.cjs
+      - name: Compare 15000 matched fights under three real choices
+        run: node echo-chroniken/project/qa/paired-tactical-duels.cjs
+      - name: Compare complete paired outcome report with PC evidence
+        run: git diff --exit-code -- echo-chroniken/docs/visual-audit/tactical-audit/paired-decisions.json
+      - name: Attach paired decisions evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-tactical-audit-result
+          path: echo-chroniken/docs/visual-audit/tactical-audit/paired-decisions.json
+          retention-days: 14
+          if-no-files-found: error
