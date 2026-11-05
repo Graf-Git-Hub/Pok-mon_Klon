@@ -1,5 +1,8 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+> **AKTUELL 05.11.2026: Adaptive 20x100k auf Laura ERFOLGREICH** im separaten Worktree `Echo_20x100k_Adaptive_20261105` (Basis PR #33). 2.000.000 zufällige Engine-Duelle, 20/20 abgeschlossene Kalibrierrunden, 0 Timeouts, 141 begrenzte Stat-Änderungen, 42 Arten final geändert. Vorher/Nachher mit neuer gleicher 100k-Stichprobe: mittlere absolute Abweichung vom Stufenmedian **6,953 → 6,346 Prozentpunkte** (4 → 3 große Ausreißer). Details und Einschränkungen in `ADAPTIVE_20X100K_20261105.md`. Wichtig: noch nicht als Hauptversion/APK freigeben; weitere Browser-/Story-/Android-Checks und GitHub-PR erforderlich. Keine 100 Millionen Kämpfe auf Verdacht starten.
+
+
 > **NEUE BALANCING-RUNDE & 100K ZUFALLSKÄMPFE (05.11.2026):** Branch `feature/echo-balanced-random100k-20261105` auf Basis der gemergten PR #32. 10 schwächere Wesen durch kleine HP/ATK/DEF-Änderungen verbessert, Robbengeist II leicht reduziert. 135.000-Kämpfe-Kalibrierung: 0 Timeouts, Hasengeist II jetzt 42,80 %, Katzengeist II 40,53 % gegen gleiche Stufe, Robbengeist II 73,86 %. Danach 100.000 zufällige Doppelwesen-Kämpfe auf Laura: 50.191 Siege, 49.809 Niederlagen, 0 Timeouts; Gegenprobe auf GitHub folgt. Detailliert in `BALANCE_RANDOM100K_20261105.md`. Originalarbeitskopie nicht ändern; PR erst nach vollständiger CI mergen. Weitere Balanceausreißer kontrolliert und separat prüfen.
 
 
