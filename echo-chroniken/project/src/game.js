@@ -1109,7 +1109,13 @@ function executeBattleAction(choice){
 
   function bossMultipliers(group,chapter){
     const late=group==='finale'||group==='postgame'||(group==='endgame'&&chapter>=11);
-    return {hp:late?.90:.78,attack:late?.95:.8};
+    // A second healthy companion doubles available turns/HP. Late bosses
+    // should demand some strategy, not collapse even when no potions remain.
+    // Keep solo teams and early chapters at their tested difficulty.
+    const supported=late && gameState.team.filter(member=>
+      member.hp>=Math.max(2,member.maxHp*.25)).length>=2;
+    return {hp:late?(supported?1.26:.90):.78,
+      attack:late?(supported?1.33:.95):.8};
   }
 
   // Major late-story bosses have a brief binding-echo opener, then the main

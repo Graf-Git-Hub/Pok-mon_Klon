@@ -1,8 +1,15 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
-**Verbindlicher Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../../ECHO_CHRONIKEN_UEBERGABE.md) (04.11.2026). **PR #25 ist nach grüner GitHub-CI in `main`** (`895ad35`): Alle 14 Kapitel samt Abspann und Postgame wurden mit natürlichen Spielständen, Tastatur und Touch vollständig geprüft (Desktop 3.602 / Touch 3.642 Schritte, jeweils 19 reale Trainer-/Boss-Siege, 33 Reloads, 0 JS-Fehler). **Neu:** Der isolierte Branch `feature/echo-stress-20261104` enthält einen CSS-Fix für überlagerte Touch-Controls, 11/11 erfolgreiche Portrait-/Landscape-Tests und 4.800 echte Engine-Kampfduelle mit unterschiedlichen Taktiken; Details in `INTENSIVE_QA_20261104.md`. Der neue Stress-PR muss noch durch GitHub-CI. Menschliche Spielzeit und echte Android-/TV-Geräte bleiben offen. Grafik weiterhin später.
+**Verbindlicher Projektstand:** [ECHO_CHRONIKEN_UEBERGABE.md](../../../ECHO_CHRONIKEN_UEBERGABE.md) (05.11.2026). **PR #25 (natürliche Vollkampagne) und PR #26 (Touch-Fix + Stress) sind mit grüner GitHub-CI in `main`**, aktuell `9bb1d94`. **Neu:** Der isolierte Branch `feature/echo-combat-balance-20261105` korrigiert vier frühe Wesen, macht späte Bosse nur bei zwei gesunden Begleitern stärker und testet zwei vollständige 150-gegen-150-Kampfmatrizen mit insgesamt **270.000 Engine-Kämpfen** plus zwölf Kalibrierungen und den kompletten natürlichen Storylauf. Details in `BALANCE_MATRIX_20261105.md`. **Noch nicht gemergt!** Erst nach grünem Cloud-Test und natürlichem Desktop-/Touch-Abschluss integrieren. Menschliche Spielzeit und echte Android-/TV-Geräte bleiben offen. Grafik später.
 
-## 04.11.2026: INTENSIVTEST NACH PR #25
+## 05.11.2026: VOLLSTÄNDIGE KAMPFMATRIX UND BALANCE-RUNDE
+
+- `feature/echo-combat-balance-20261105` auf `main` nach PR #26; ursprüngliche Nutzerdateien nicht verändert.
+- 150 Arten × 150 Arten × 3 Level × 2 RNG-Folgen **zweimal** mit anderen Leveln und Seeds durchgespielt: 135.000 + 135.000 echte Kampf-Engine-Ausgänge, keine Hänger. Miora gegen Gleichstufige von 49,29 % auf 82,98 % (Standard) / 71,10 % (zweite Matrix), Seelara von 57,2 % auf 82,2 % / 85,23 %. Flammenfuchs I und Flammenhase I vorsichtig verstärkt. Alle Werte in `BALANCE_MATRIX_20261105.md`.
+- Späte Zweierteam-Bosse gezielt auf HP 1,26 und Angriff 1,33 angepasst, **nur mit zwei ausreichend gesunden Wesen**, frühe Bosse und Solo-Teams bleiben unverändert. 12 × 4.800 Parameter-Sweep-Duelle: mit guter Taktik ohne Tränke 87/160 Siege nach Balance statt 160/160 zuvor; mit zwei Heiltränken 160/160. Neuer Guardrail-Test `boss-adaptive-balance.cjs`.
+- Neuer Cloud-Workflow `echo-balance-matrix.yml` wiederholt beide 150-gegen-150-Matrizen. Zusätzlich muss `echo-natural-campaign.yml` die komplette Story einschließlich Postgame erneut bestehen. Gameplay-Fix erst nach grüner CI mergen.
+
+## Historisch: 04.11.2026, INTENSIVTEST NACH PR #25
 
 - Grundlage: vollständige natürliche Spielkampagne bis Postgame in `main` (`895ad35`); keine Rücksetzung auf frühere Kapitel.
 - 41/41 Node-Regressionsprüfungen, 60 Karten mit 123 sicheren Spawns, 310 Wegen, 117 Rückreisen, 144 echten Archiv-Fängen, 11 Smartphone- und Querformatgrößen erfolgreich.

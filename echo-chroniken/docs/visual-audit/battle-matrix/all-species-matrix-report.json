@@ -1,0 +1,4025 @@
+{
+  "test": "Complete real-engine ordered species battle matrix: 150x150; player-controlled attacker always attacks first, opponent uses real engine AI; three levels and two seeded combats for each ordered pairing.",
+  "count": 135000,
+  "levels": [
+    10,
+    20,
+    30
+  ],
+  "seedsPerMatch": 2,
+  "losses": 27347,
+  "timeouts": 0,
+  "avgTurns": 7.71,
+  "fairness": {
+    "sameStageAll": [
+      {
+        "id": 1,
+        "name": "Miora",
+        "type": "LICHT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 82.98,
+        "opponentFirstWinPct": 99.47
+      },
+      {
+        "id": 2,
+        "name": "Seelara",
+        "type": "LICHT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 82.2,
+        "opponentFirstWinPct": 94.32
+      },
+      {
+        "id": 3,
+        "name": "Maternalis",
+        "type": "LICHT",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 100,
+        "opponentFirstWinPct": 75.93
+      },
+      {
+        "id": 4,
+        "name": "Glimmerpfote",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.45,
+        "opponentFirstWinPct": 96.1
+      },
+      {
+        "id": 5,
+        "name": "Hasengeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.23,
+        "opponentFirstWinPct": 91.49
+      },
+      {
+        "id": 6,
+        "name": "Hasengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 91.67,
+        "opponentFirstWinPct": 98.48
+      },
+      {
+        "id": 7,
+        "name": "Schattenkatze I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 93.79,
+        "opponentFirstWinPct": 96.45
+      },
+      {
+        "id": 8,
+        "name": "Schattenkatze II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 97.73,
+        "opponentFirstWinPct": 88.26
+      },
+      {
+        "id": 9,
+        "name": "Schattenkatze III",
+        "type": "SCHATTEN",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 98.15,
+        "opponentFirstWinPct": 83.33
+      },
+      {
+        "id": 10,
+        "name": "Nachtpfote",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.05,
+        "opponentFirstWinPct": 99.65
+      },
+      {
+        "id": 11,
+        "name": "Katzengeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 87.77,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 12,
+        "name": "Katzengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 89.77,
+        "opponentFirstWinPct": 97.73
+      },
+      {
+        "id": 13,
+        "name": "Engelsgeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 94.86,
+        "opponentFirstWinPct": 99.11
+      },
+      {
+        "id": 14,
+        "name": "Engelsgeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 96.59,
+        "opponentFirstWinPct": 96.21
+      },
+      {
+        "id": 15,
+        "name": "Lichtflämmchen",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.65,
+        "opponentFirstWinPct": 85.99
+      },
+      {
+        "id": 16,
+        "name": "Fuchsgeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 88.83,
+        "opponentFirstWinPct": 98.94
+      },
+      {
+        "id": 17,
+        "name": "Fuchsgeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 96.21,
+        "opponentFirstWinPct": 92.42
+      },
+      {
+        "id": 18,
+        "name": "Kürbisgeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.76,
+        "opponentFirstWinPct": 83.51
+      },
+      {
+        "id": 19,
+        "name": "Kürbisgeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 96.21,
+        "opponentFirstWinPct": 97.35
+      },
+      {
+        "id": 20,
+        "name": "Nebelflöckchen",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.4,
+        "opponentFirstWinPct": 98.4
+      },
+      {
+        "id": 21,
+        "name": "Wolfsgeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 85.64,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 22,
+        "name": "Wolfsgeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 90.53,
+        "opponentFirstWinPct": 98.11
+      },
+      {
+        "id": 23,
+        "name": "Feuerfuchs I",
+        "type": "FLAMME",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 88.3,
+        "opponentFirstWinPct": 99.29
+      },
+      {
+        "id": 24,
+        "name": "Feuerfuchs II",
+        "type": "FLAMME",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 89.77,
+        "opponentFirstWinPct": 94.32
+      },
+      {
+        "id": 25,
+        "name": "Feuerfuchs III",
+        "type": "FLAMME",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 96.3,
+        "opponentFirstWinPct": 92.59
+      },
+      {
+        "id": 26,
+        "name": "Gischtflöckchen",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 90.07,
+        "opponentFirstWinPct": 96.81
+      },
+      {
+        "id": 27,
+        "name": "Hirschgeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 97.34,
+        "opponentFirstWinPct": 88.65
+      },
+      {
+        "id": 28,
+        "name": "Hirschgeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 93.94,
+        "opponentFirstWinPct": 97.73
+      },
+      {
+        "id": 29,
+        "name": "Skelett-Hund I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 95.39,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 30,
+        "name": "Skelett-Hund II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 98.86,
+        "opponentFirstWinPct": 97.35
+      },
+      {
+        "id": 31,
+        "name": "Skelett-Hund III",
+        "type": "SCHATTEN",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 83.33,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 32,
+        "name": "Schattenwuschel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 90.43,
+        "opponentFirstWinPct": 99.65
+      },
+      {
+        "id": 33,
+        "name": "Eulengeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 95.57,
+        "opponentFirstWinPct": 95.57
+      },
+      {
+        "id": 34,
+        "name": "Eulengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 98.11,
+        "opponentFirstWinPct": 87.12
+      },
+      {
+        "id": 35,
+        "name": "Eiskauz I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 100,
+        "opponentFirstWinPct": 77.48
+      },
+      {
+        "id": 36,
+        "name": "Eiskauz II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 92.8,
+        "opponentFirstWinPct": 94.7
+      },
+      {
+        "id": 37,
+        "name": "Rosahoppel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 89.89,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 38,
+        "name": "Fledermausgeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 92.02,
+        "opponentFirstWinPct": 99.65
+      },
+      {
+        "id": 39,
+        "name": "Fledermausgeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 97.73,
+        "opponentFirstWinPct": 96.97
+      },
+      {
+        "id": 40,
+        "name": "Knochenrabe I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.05,
+        "opponentFirstWinPct": 93.26
+      },
+      {
+        "id": 41,
+        "name": "Knochenrabe II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 88.64,
+        "opponentFirstWinPct": 99.62
+      },
+      {
+        "id": 42,
+        "name": "Flammenlöffel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 92.02,
+        "opponentFirstWinPct": 98.76
+      },
+      {
+        "id": 43,
+        "name": "Mäusegeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 97.52,
+        "opponentFirstWinPct": 92.2
+      },
+      {
+        "id": 44,
+        "name": "Mäusegeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 98.11,
+        "opponentFirstWinPct": 84.85
+      },
+      {
+        "id": 45,
+        "name": "Nebelhund I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.82,
+        "opponentFirstWinPct": 71.1
+      },
+      {
+        "id": 46,
+        "name": "Nebelhund II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 84.85,
+        "opponentFirstWinPct": 99.24
+      },
+      {
+        "id": 47,
+        "name": "Nebelhund III",
+        "type": "FLUT",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 92.59,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 48,
+        "name": "Dunkelhoppel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 93.26,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 49,
+        "name": "Bärengeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.99,
+        "opponentFirstWinPct": 96.28
+      },
+      {
+        "id": 50,
+        "name": "Bärengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 99.62,
+        "opponentFirstWinPct": 90.91
+      },
+      {
+        "id": 51,
+        "name": "Flammenfuchs I",
+        "type": "FLAMME",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 95.57,
+        "opponentFirstWinPct": 94.86
+      },
+      {
+        "id": 52,
+        "name": "Flammenfuchs II",
+        "type": "FLAMME",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 84.09,
+        "opponentFirstWinPct": 97.73
+      },
+      {
+        "id": 53,
+        "name": "Flammenfuchs III",
+        "type": "FLAMME",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 92.59,
+        "opponentFirstWinPct": 94.44
+      },
+      {
+        "id": 54,
+        "name": "Tauhorn",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 100,
+        "opponentFirstWinPct": 78.19
+      },
+      {
+        "id": 55,
+        "name": "Waschbärgeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.05,
+        "opponentFirstWinPct": 98.94
+      },
+      {
+        "id": 56,
+        "name": "Waschbärgeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 86.36,
+        "opponentFirstWinPct": 98.86
+      },
+      {
+        "id": 57,
+        "name": "Waldhirsch I",
+        "type": "WURZEL",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 94.86,
+        "opponentFirstWinPct": 87.23
+      },
+      {
+        "id": 58,
+        "name": "Waldhirsch II",
+        "type": "WURZEL",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 88.26,
+        "opponentFirstWinPct": 89.77
+      },
+      {
+        "id": 59,
+        "name": "Mondkitz",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 97.52,
+        "opponentFirstWinPct": 95.04
+      },
+      {
+        "id": 60,
+        "name": "Rotpandageist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.11,
+        "opponentFirstWinPct": 86.52
+      },
+      {
+        "id": 61,
+        "name": "Rotpandageist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 89.77,
+        "opponentFirstWinPct": 97.35
+      },
+      {
+        "id": 62,
+        "name": "Nebelwyrm I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 95.04,
+        "opponentFirstWinPct": 93.09
+      },
+      {
+        "id": 63,
+        "name": "Nebelwyrm II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 96.97,
+        "opponentFirstWinPct": 84.47
+      },
+      {
+        "id": 64,
+        "name": "Nachtgeweih",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.63,
+        "opponentFirstWinPct": 99.29
+      },
+      {
+        "id": 65,
+        "name": "Robbengeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.76,
+        "opponentFirstWinPct": 98.94
+      },
+      {
+        "id": 66,
+        "name": "Robbengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 87.5,
+        "opponentFirstWinPct": 98.48
+      },
+      {
+        "id": 67,
+        "name": "Zombiehase I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 91.31,
+        "opponentFirstWinPct": 99.47
+      },
+      {
+        "id": 68,
+        "name": "Zombiehase II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 95.83,
+        "opponentFirstWinPct": 96.97
+      },
+      {
+        "id": 69,
+        "name": "Zombiehase III",
+        "type": "SCHATTEN",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 98.15,
+        "opponentFirstWinPct": 96.3
+      },
+      {
+        "id": 70,
+        "name": "Funkenfähe",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.82,
+        "opponentFirstWinPct": 80.5
+      },
+      {
+        "id": 71,
+        "name": "Rabengeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 91.67,
+        "opponentFirstWinPct": 95.92
+      },
+      {
+        "id": 72,
+        "name": "Rabengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 97.35,
+        "opponentFirstWinPct": 91.29
+      },
+      {
+        "id": 73,
+        "name": "Eiswolf I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 92.91,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 74,
+        "name": "Eiswolf II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 96.21,
+        "opponentFirstWinPct": 95.45
+      },
+      {
+        "id": 75,
+        "name": "Eiswolf III",
+        "type": "FLUT",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 96.3,
+        "opponentFirstWinPct": 94.44
+      },
+      {
+        "id": 76,
+        "name": "Sonnenwedel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 86.35,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 77,
+        "name": "Eichhörnchengeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 90.43,
+        "opponentFirstWinPct": 99.29
+      },
+      {
+        "id": 78,
+        "name": "Eichhörnchengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 95.45,
+        "opponentFirstWinPct": 95.08
+      },
+      {
+        "id": 79,
+        "name": "Knochenkatze I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.05,
+        "opponentFirstWinPct": 87.94
+      },
+      {
+        "id": 80,
+        "name": "Knochenkatze II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 100,
+        "opponentFirstWinPct": 76.52
+      },
+      {
+        "id": 81,
+        "name": "Kohlenschweif",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 93.26,
+        "opponentFirstWinPct": 92.91
+      },
+      {
+        "id": 82,
+        "name": "Schattenhase I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 88.48,
+        "opponentFirstWinPct": 99.65
+      },
+      {
+        "id": 83,
+        "name": "Schattenhase II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 93.94,
+        "opponentFirstWinPct": 99.24
+      },
+      {
+        "id": 84,
+        "name": "Knochenhase I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.1,
+        "opponentFirstWinPct": 99.11
+      },
+      {
+        "id": 85,
+        "name": "Knochenhase II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 99.24,
+        "opponentFirstWinPct": 90.91
+      },
+      {
+        "id": 86,
+        "name": "Wolkeneulchen",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 87.59,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 87,
+        "name": "Einhorngeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 92.2,
+        "opponentFirstWinPct": 99.47
+      },
+      {
+        "id": 88,
+        "name": "Einhorngeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 98.11,
+        "opponentFirstWinPct": 92.05
+      },
+      {
+        "id": 89,
+        "name": "Schattenfledermaus I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.65,
+        "opponentFirstWinPct": 83.16
+      },
+      {
+        "id": 90,
+        "name": "Schattenfledermaus II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 100,
+        "opponentFirstWinPct": 71.59
+      },
+      {
+        "id": 91,
+        "name": "Schattenfledermaus III",
+        "type": "SCHATTEN",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 83.33,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 92,
+        "name": "Lavendelflaum",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 90.43,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 93,
+        "name": "Stiergeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 93.97,
+        "opponentFirstWinPct": 99.65
+      },
+      {
+        "id": 94,
+        "name": "Stiergeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 98.11,
+        "opponentFirstWinPct": 96.21
+      },
+      {
+        "id": 95,
+        "name": "Geisterqualle I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.58,
+        "opponentFirstWinPct": 90.6
+      },
+      {
+        "id": 96,
+        "name": "Geisterqualle II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 89.39,
+        "opponentFirstWinPct": 98.86
+      },
+      {
+        "id": 97,
+        "name": "Geisterqualle III",
+        "type": "FLUT",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 92.59,
+        "opponentFirstWinPct": 96.3
+      },
+      {
+        "id": 98,
+        "name": "Schattenfeder",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 97.34,
+        "opponentFirstWinPct": 88.48
+      },
+      {
+        "id": 99,
+        "name": "Widdergeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.65,
+        "opponentFirstWinPct": 78.55
+      },
+      {
+        "id": 100,
+        "name": "Widdergeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 98.11,
+        "opponentFirstWinPct": 96.97
+      },
+      {
+        "id": 101,
+        "name": "Knocheneule I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 83.87,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 102,
+        "name": "Knocheneule II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 91.67,
+        "opponentFirstWinPct": 99.62
+      },
+      {
+        "id": 103,
+        "name": "Mondflatter",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 94.33,
+        "opponentFirstWinPct": 99.11
+      },
+      {
+        "id": 104,
+        "name": "Drachengeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.28,
+        "opponentFirstWinPct": 95.04
+      },
+      {
+        "id": 105,
+        "name": "Drachengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 100,
+        "opponentFirstWinPct": 85.98
+      },
+      {
+        "id": 106,
+        "name": "Knochenhirsch I",
+        "type": "WURZEL",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 95.04,
+        "opponentFirstWinPct": 84.57
+      },
+      {
+        "id": 107,
+        "name": "Knochenhirsch II",
+        "type": "WURZEL",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 89.02,
+        "opponentFirstWinPct": 84.09
+      },
+      {
+        "id": 108,
+        "name": "Nachtflatter",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.11,
+        "opponentFirstWinPct": 84.93
+      },
+      {
+        "id": 109,
+        "name": "Fischgeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.28,
+        "opponentFirstWinPct": 99.47
+      },
+      {
+        "id": 110,
+        "name": "Fischgeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 98.86,
+        "opponentFirstWinPct": 96.21
+      },
+      {
+        "id": 111,
+        "name": "Quellflosse",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 84.4,
+        "opponentFirstWinPct": 99.65
+      },
+      {
+        "id": 112,
+        "name": "Schildkrötengeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 90.96,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 113,
+        "name": "Schildkrötengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 96.97,
+        "opponentFirstWinPct": 95.45
+      },
+      {
+        "id": 114,
+        "name": "Flutwirbel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.23,
+        "opponentFirstWinPct": 92.55
+      },
+      {
+        "id": 115,
+        "name": "Dämonenfuchs I",
+        "type": "FLAMME",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.99,
+        "opponentFirstWinPct": 95.57
+      },
+      {
+        "id": 116,
+        "name": "Dämonenfuchs II",
+        "type": "FLAMME",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 80.3,
+        "opponentFirstWinPct": 97.73
+      },
+      {
+        "id": 117,
+        "name": "Tiefenwyrm",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.63,
+        "opponentFirstWinPct": 89.54
+      },
+      {
+        "id": 118,
+        "name": "Schattenhund I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 93.09,
+        "opponentFirstWinPct": 99.65
+      },
+      {
+        "id": 119,
+        "name": "Schattenhund II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 98.11,
+        "opponentFirstWinPct": 97.73
+      },
+      {
+        "id": 120,
+        "name": "Schimmerpanzer",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.23,
+        "opponentFirstWinPct": 96.28
+      },
+      {
+        "id": 121,
+        "name": "Flammenhase I",
+        "type": "FLAMME",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 94.33,
+        "opponentFirstWinPct": 96.28
+      },
+      {
+        "id": 122,
+        "name": "Flammenhase II",
+        "type": "FLAMME",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 79.92,
+        "opponentFirstWinPct": 98.86
+      },
+      {
+        "id": 123,
+        "name": "Moorschild",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.1,
+        "opponentFirstWinPct": 97.16
+      },
+      {
+        "id": 124,
+        "name": "Phönixeule I",
+        "type": "LICHT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 94.15,
+        "opponentFirstWinPct": 89.18
+      },
+      {
+        "id": 125,
+        "name": "Phönixeule II",
+        "type": "LICHT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 92.42,
+        "opponentFirstWinPct": 76.14
+      },
+      {
+        "id": 126,
+        "name": "Gruftpanzer",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 92.91,
+        "opponentFirstWinPct": 92.73
+      },
+      {
+        "id": 127,
+        "name": "Himmelsmiez",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 89.36,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 128,
+        "name": "Engelschnurr",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 93.79,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 129,
+        "name": "Dunkelhalo",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.45,
+        "opponentFirstWinPct": 99.11
+      },
+      {
+        "id": 130,
+        "name": "Glockenkalb",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.4,
+        "opponentFirstWinPct": 93.44
+      },
+      {
+        "id": 131,
+        "name": "Wiesenbimmel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 84.4,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 132,
+        "name": "Knochenstier",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 91.13,
+        "opponentFirstWinPct": 99.11
+      },
+      {
+        "id": 133,
+        "name": "Wolkenpiep",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 96.63,
+        "opponentFirstWinPct": 92.38
+      },
+      {
+        "id": 134,
+        "name": "Gischtpiep",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.94,
+        "opponentFirstWinPct": 81.74
+      },
+      {
+        "id": 135,
+        "name": "Sturmschnabel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 100,
+        "opponentFirstWinPct": 70.39
+      },
+      {
+        "id": 136,
+        "name": "Rosagrunzer",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 82.62,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 137,
+        "name": "Knochenschnüff",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 89.54,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 138,
+        "name": "Schattenborste",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 94.5,
+        "opponentFirstWinPct": 99.47
+      },
+      {
+        "id": 139,
+        "name": "Ringelgeist",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 97.34,
+        "opponentFirstWinPct": 97.16
+      },
+      {
+        "id": 140,
+        "name": "Dämmerstreif",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.23,
+        "opponentFirstWinPct": 90.78
+      },
+      {
+        "id": 141,
+        "name": "Nachtringel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 86.52,
+        "opponentFirstWinPct": 99.47
+      },
+      {
+        "id": 142,
+        "name": "Rosenlöffel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 91.84,
+        "opponentFirstWinPct": 96.28
+      },
+      {
+        "id": 143,
+        "name": "Flimmerhase",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.58,
+        "opponentFirstWinPct": 89.36
+      },
+      {
+        "id": 144,
+        "name": "Glutohren",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.65,
+        "opponentFirstWinPct": 76.95
+      },
+      {
+        "id": 145,
+        "name": "Froststachel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.4,
+        "opponentFirstWinPct": 99.11
+      },
+      {
+        "id": 146,
+        "name": "Eisschauer",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 85.46,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 147,
+        "name": "Dornschatten",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 89.54,
+        "opponentFirstWinPct": 99.65
+      },
+      {
+        "id": 148,
+        "name": "Funkennuss",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 95.74,
+        "opponentFirstWinPct": 99.47
+      },
+      {
+        "id": 149,
+        "name": "Wolkennuss",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 98.4,
+        "opponentFirstWinPct": 95.57
+      },
+      {
+        "id": 150,
+        "name": "Nachtsammler",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.47,
+        "opponentFirstWinPct": 85.28
+      }
+    ],
+    "sameStageBottom": [
+      {
+        "id": 122,
+        "name": "Flammenhase II",
+        "type": "FLAMME",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 79.92,
+        "opponentFirstWinPct": 98.86
+      },
+      {
+        "id": 116,
+        "name": "Dämonenfuchs II",
+        "type": "FLAMME",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 80.3,
+        "opponentFirstWinPct": 97.73
+      },
+      {
+        "id": 2,
+        "name": "Seelara",
+        "type": "LICHT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 82.2,
+        "opponentFirstWinPct": 94.32
+      },
+      {
+        "id": 136,
+        "name": "Rosagrunzer",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 82.62,
+        "opponentFirstWinPct": 99.82
+      },
+      {
+        "id": 1,
+        "name": "Miora",
+        "type": "LICHT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 82.98,
+        "opponentFirstWinPct": 99.47
+      },
+      {
+        "id": 31,
+        "name": "Skelett-Hund III",
+        "type": "SCHATTEN",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 83.33,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 91,
+        "name": "Schattenfledermaus III",
+        "type": "SCHATTEN",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 83.33,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 101,
+        "name": "Knocheneule I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 83.87,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 52,
+        "name": "Flammenfuchs II",
+        "type": "FLAMME",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 84.09,
+        "opponentFirstWinPct": 97.73
+      },
+      {
+        "id": 111,
+        "name": "Quellflosse",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 84.4,
+        "opponentFirstWinPct": 99.65
+      },
+      {
+        "id": 131,
+        "name": "Wiesenbimmel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 84.4,
+        "opponentFirstWinPct": 100
+      },
+      {
+        "id": 46,
+        "name": "Nebelhund II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 84.85,
+        "opponentFirstWinPct": 99.24
+      }
+    ],
+    "sameStageTop": [
+      {
+        "id": 3,
+        "name": "Maternalis",
+        "type": "LICHT",
+        "stage": 3,
+        "equalStageOpponents": 9,
+        "winPct": 100,
+        "opponentFirstWinPct": 75.93
+      },
+      {
+        "id": 35,
+        "name": "Eiskauz I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 100,
+        "opponentFirstWinPct": 77.48
+      },
+      {
+        "id": 54,
+        "name": "Tauhorn",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 100,
+        "opponentFirstWinPct": 78.19
+      },
+      {
+        "id": 80,
+        "name": "Knochenkatze II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 100,
+        "opponentFirstWinPct": 76.52
+      },
+      {
+        "id": 90,
+        "name": "Schattenfledermaus II",
+        "type": "SCHATTEN",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 100,
+        "opponentFirstWinPct": 71.59
+      },
+      {
+        "id": 105,
+        "name": "Drachengeist II",
+        "type": "FLUT",
+        "stage": 2,
+        "equalStageOpponents": 44,
+        "winPct": 100,
+        "opponentFirstWinPct": 85.98
+      },
+      {
+        "id": 135,
+        "name": "Sturmschnabel",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 100,
+        "opponentFirstWinPct": 70.39
+      },
+      {
+        "id": 45,
+        "name": "Nebelhund I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.82,
+        "opponentFirstWinPct": 71.1
+      },
+      {
+        "id": 70,
+        "name": "Funkenfähe",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.82,
+        "opponentFirstWinPct": 80.5
+      },
+      {
+        "id": 15,
+        "name": "Lichtflämmchen",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.65,
+        "opponentFirstWinPct": 85.99
+      },
+      {
+        "id": 89,
+        "name": "Schattenfledermaus I",
+        "type": "SCHATTEN",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.65,
+        "opponentFirstWinPct": 83.16
+      },
+      {
+        "id": 99,
+        "name": "Widdergeist I",
+        "type": "FLUT",
+        "stage": 1,
+        "equalStageOpponents": 94,
+        "winPct": 99.65,
+        "opponentFirstWinPct": 78.55
+      }
+    ],
+    "starter": {
+      "id": 1,
+      "name": "Miora",
+      "type": "LICHT",
+      "stage": 1,
+      "equalStageOpponents": 94,
+      "winPct": 82.98,
+      "opponentFirstWinPct": 99.47
+    },
+    "speciesWithUnder35": [],
+    "speciesWithOver85": [
+      {
+        "id": 2,
+        "name": "Seelara",
+        "stage": 2,
+        "type": "LICHT",
+        "pct": 90.78
+      },
+      {
+        "id": 3,
+        "name": "Maternalis",
+        "stage": 3,
+        "type": "LICHT",
+        "pct": 99.89
+      },
+      {
+        "id": 6,
+        "name": "Hasengeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 92.89
+      },
+      {
+        "id": 8,
+        "name": "Schattenkatze II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 95.78
+      },
+      {
+        "id": 9,
+        "name": "Schattenkatze III",
+        "stage": 3,
+        "type": "SCHATTEN",
+        "pct": 99.89
+      },
+      {
+        "id": 12,
+        "name": "Katzengeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 93.11
+      },
+      {
+        "id": 14,
+        "name": "Engelsgeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 95.89
+      },
+      {
+        "id": 17,
+        "name": "Fuchsgeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 94.89
+      },
+      {
+        "id": 19,
+        "name": "Kürbisgeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 95.56
+      },
+      {
+        "id": 22,
+        "name": "Wolfsgeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 93.33
+      },
+      {
+        "id": 24,
+        "name": "Feuerfuchs II",
+        "stage": 2,
+        "type": "FLAMME",
+        "pct": 93.67
+      },
+      {
+        "id": 25,
+        "name": "Feuerfuchs III",
+        "stage": 3,
+        "type": "FLAMME",
+        "pct": 99.78
+      },
+      {
+        "id": 28,
+        "name": "Hirschgeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 94.22
+      },
+      {
+        "id": 30,
+        "name": "Skelett-Hund II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 96.44
+      },
+      {
+        "id": 31,
+        "name": "Skelett-Hund III",
+        "stage": 3,
+        "type": "SCHATTEN",
+        "pct": 99
+      },
+      {
+        "id": 34,
+        "name": "Eulengeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 96.67
+      },
+      {
+        "id": 36,
+        "name": "Eiskauz II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 94
+      },
+      {
+        "id": 39,
+        "name": "Fledermausgeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 96.33
+      },
+      {
+        "id": 41,
+        "name": "Knochenrabe II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 92.56
+      },
+      {
+        "id": 44,
+        "name": "Mäusegeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 96.89
+      },
+      {
+        "id": 46,
+        "name": "Nebelhund II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 90.89
+      },
+      {
+        "id": 47,
+        "name": "Nebelhund III",
+        "stage": 3,
+        "type": "FLUT",
+        "pct": 99.56
+      },
+      {
+        "id": 50,
+        "name": "Bärengeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 96.89
+      },
+      {
+        "id": 52,
+        "name": "Flammenfuchs II",
+        "stage": 2,
+        "type": "FLAMME",
+        "pct": 91.22
+      },
+      {
+        "id": 53,
+        "name": "Flammenfuchs III",
+        "stage": 3,
+        "type": "FLAMME",
+        "pct": 99.56
+      },
+      {
+        "id": 56,
+        "name": "Waschbärgeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 91.22
+      },
+      {
+        "id": 58,
+        "name": "Waldhirsch II",
+        "stage": 2,
+        "type": "WURZEL",
+        "pct": 92.78
+      },
+      {
+        "id": 61,
+        "name": "Rotpandageist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 93.11
+      },
+      {
+        "id": 63,
+        "name": "Nebelwyrm II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 95.89
+      },
+      {
+        "id": 66,
+        "name": "Robbengeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 91.67
+      },
+      {
+        "id": 68,
+        "name": "Zombiehase II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 95.22
+      },
+      {
+        "id": 69,
+        "name": "Zombiehase III",
+        "stage": 3,
+        "type": "SCHATTEN",
+        "pct": 99.89
+      },
+      {
+        "id": 72,
+        "name": "Rabengeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 95.78
+      },
+      {
+        "id": 74,
+        "name": "Eiswolf II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 95
+      },
+      {
+        "id": 75,
+        "name": "Eiswolf III",
+        "stage": 3,
+        "type": "FLUT",
+        "pct": 99.78
+      },
+      {
+        "id": 78,
+        "name": "Eichhörnchengeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 95
+      },
+      {
+        "id": 80,
+        "name": "Knochenkatze II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 96.56
+      },
+      {
+        "id": 83,
+        "name": "Schattenhase II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 94
+      },
+      {
+        "id": 85,
+        "name": "Knochenhase II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 95.89
+      },
+      {
+        "id": 88,
+        "name": "Einhorngeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 96.11
+      },
+      {
+        "id": 90,
+        "name": "Schattenfledermaus II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 97.44
+      },
+      {
+        "id": 91,
+        "name": "Schattenfledermaus III",
+        "stage": 3,
+        "type": "SCHATTEN",
+        "pct": 99
+      },
+      {
+        "id": 94,
+        "name": "Stiergeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 96.22
+      },
+      {
+        "id": 96,
+        "name": "Geisterqualle II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 92.89
+      },
+      {
+        "id": 97,
+        "name": "Geisterqualle III",
+        "stage": 3,
+        "type": "FLUT",
+        "pct": 99.56
+      },
+      {
+        "id": 100,
+        "name": "Widdergeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 95.89
+      },
+      {
+        "id": 102,
+        "name": "Knocheneule II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 93
+      },
+      {
+        "id": 105,
+        "name": "Drachengeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 97.22
+      },
+      {
+        "id": 107,
+        "name": "Knochenhirsch II",
+        "stage": 2,
+        "type": "WURZEL",
+        "pct": 93.22
+      },
+      {
+        "id": 110,
+        "name": "Fischgeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 96.56
+      },
+      {
+        "id": 113,
+        "name": "Schildkrötengeist II",
+        "stage": 2,
+        "type": "FLUT",
+        "pct": 95.56
+      },
+      {
+        "id": 116,
+        "name": "Dämonenfuchs II",
+        "stage": 2,
+        "type": "FLAMME",
+        "pct": 90
+      },
+      {
+        "id": 119,
+        "name": "Schattenhund II",
+        "stage": 2,
+        "type": "SCHATTEN",
+        "pct": 95.67
+      },
+      {
+        "id": 122,
+        "name": "Flammenhase II",
+        "stage": 2,
+        "type": "FLAMME",
+        "pct": 89.67
+      },
+      {
+        "id": 125,
+        "name": "Phönixeule II",
+        "stage": 2,
+        "type": "LICHT",
+        "pct": 93.89
+      }
+    ],
+    "bottom10": [
+      {
+        "id": 136,
+        "name": "Rosagrunzer",
+        "stage": 1,
+        "pct": 57.78
+      },
+      {
+        "id": 101,
+        "name": "Knocheneule I",
+        "stage": 1,
+        "pct": 58.33
+      },
+      {
+        "id": 111,
+        "name": "Quellflosse",
+        "stage": 1,
+        "pct": 59.56
+      },
+      {
+        "id": 1,
+        "name": "Miora",
+        "stage": 1,
+        "pct": 59.78
+      },
+      {
+        "id": 146,
+        "name": "Eisschauer",
+        "stage": 1,
+        "pct": 60.78
+      },
+      {
+        "id": 21,
+        "name": "Wolfsgeist I",
+        "stage": 1,
+        "pct": 61.11
+      },
+      {
+        "id": 131,
+        "name": "Wiesenbimmel",
+        "stage": 1,
+        "pct": 61.11
+      },
+      {
+        "id": 11,
+        "name": "Katzengeist I",
+        "stage": 1,
+        "pct": 61.33
+      },
+      {
+        "id": 82,
+        "name": "Schattenhase I",
+        "stage": 1,
+        "pct": 61.56
+      },
+      {
+        "id": 76,
+        "name": "Sonnenwedel",
+        "stage": 1,
+        "pct": 62.22
+      }
+    ],
+    "top10": [
+      {
+        "id": 3,
+        "name": "Maternalis",
+        "stage": 3,
+        "pct": 99.89
+      },
+      {
+        "id": 9,
+        "name": "Schattenkatze III",
+        "stage": 3,
+        "pct": 99.89
+      },
+      {
+        "id": 69,
+        "name": "Zombiehase III",
+        "stage": 3,
+        "pct": 99.89
+      },
+      {
+        "id": 25,
+        "name": "Feuerfuchs III",
+        "stage": 3,
+        "pct": 99.78
+      },
+      {
+        "id": 75,
+        "name": "Eiswolf III",
+        "stage": 3,
+        "pct": 99.78
+      },
+      {
+        "id": 47,
+        "name": "Nebelhund III",
+        "stage": 3,
+        "pct": 99.56
+      },
+      {
+        "id": 53,
+        "name": "Flammenfuchs III",
+        "stage": 3,
+        "pct": 99.56
+      },
+      {
+        "id": 97,
+        "name": "Geisterqualle III",
+        "stage": 3,
+        "pct": 99.56
+      },
+      {
+        "id": 31,
+        "name": "Skelett-Hund III",
+        "stage": 3,
+        "pct": 99
+      },
+      {
+        "id": 91,
+        "name": "Schattenfledermaus III",
+        "stage": 3,
+        "pct": 99
+      }
+    ],
+    "level": [
+      {
+        "level": 10,
+        "overallWinPct": 68.47
+      },
+      {
+        "level": 20,
+        "overallWinPct": 84.05
+      },
+      {
+        "level": 30,
+        "overallWinPct": 86.7
+      }
+    ]
+  },
+  "groups": [
+    {
+      "group": "1-FLAMME",
+      "species": 4,
+      "wins": 2514,
+      "fights": 3600,
+      "winPct": 69.8
+    },
+    {
+      "group": "1-FLUT",
+      "species": 77,
+      "wins": 49275,
+      "fights": 69300,
+      "winPct": 71.1
+    },
+    {
+      "group": "1-LICHT",
+      "species": 2,
+      "wins": 1173,
+      "fights": 1800,
+      "winPct": 65.2
+    },
+    {
+      "group": "1-SCHATTEN",
+      "species": 10,
+      "wins": 6204,
+      "fights": 9000,
+      "winPct": 68.9
+    },
+    {
+      "group": "1-WURZEL",
+      "species": 2,
+      "wins": 1297,
+      "fights": 1800,
+      "winPct": 72.1
+    },
+    {
+      "group": "2-FLAMME",
+      "species": 4,
+      "wins": 3281,
+      "fights": 3600,
+      "winPct": 91.1
+    },
+    {
+      "group": "2-FLUT",
+      "species": 27,
+      "wins": 23037,
+      "fights": 24300,
+      "winPct": 94.8
+    },
+    {
+      "group": "2-LICHT",
+      "species": 2,
+      "wins": 1662,
+      "fights": 1800,
+      "winPct": 92.3
+    },
+    {
+      "group": "2-SCHATTEN",
+      "species": 10,
+      "wins": 8573,
+      "fights": 9000,
+      "winPct": 95.3
+    },
+    {
+      "group": "2-WURZEL",
+      "species": 2,
+      "wins": 1674,
+      "fights": 1800,
+      "winPct": 93
+    },
+    {
+      "group": "3-FLAMME",
+      "species": 2,
+      "wins": 1794,
+      "fights": 1800,
+      "winPct": 99.7
+    },
+    {
+      "group": "3-FLUT",
+      "species": 3,
+      "wins": 2690,
+      "fights": 2700,
+      "winPct": 99.6
+    },
+    {
+      "group": "3-LICHT",
+      "species": 1,
+      "wins": 899,
+      "fights": 900,
+      "winPct": 99.9
+    },
+    {
+      "group": "3-SCHATTEN",
+      "species": 4,
+      "wins": 3580,
+      "fights": 3600,
+      "winPct": 99.4
+    }
+  ],
+  "species": [
+    {
+      "id": 1,
+      "name": "Miora",
+      "type": "LICHT",
+      "stage": 1,
+      "wins": 538,
+      "fights": 900,
+      "rounds": 6981,
+      "losses": 362,
+      "winPct": 59.78,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 2,
+      "name": "Seelara",
+      "type": "LICHT",
+      "stage": 2,
+      "wins": 817,
+      "fights": 900,
+      "rounds": 7248,
+      "losses": 83,
+      "winPct": 90.78,
+      "avgTurns": 8.05
+    },
+    {
+      "id": 3,
+      "name": "Maternalis",
+      "type": "LICHT",
+      "stage": 3,
+      "wins": 899,
+      "fights": 900,
+      "rounds": 6820,
+      "losses": 1,
+      "winPct": 99.89,
+      "avgTurns": 7.58
+    },
+    {
+      "id": 4,
+      "name": "Glimmerpfote",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 649,
+      "fights": 900,
+      "rounds": 6911,
+      "losses": 251,
+      "winPct": 72.11,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 5,
+      "name": "Hasengeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 688,
+      "fights": 900,
+      "rounds": 6927,
+      "losses": 212,
+      "winPct": 76.44,
+      "avgTurns": 7.7
+    },
+    {
+      "id": 6,
+      "name": "Hasengeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 836,
+      "fights": 900,
+      "rounds": 7102,
+      "losses": 64,
+      "winPct": 92.89,
+      "avgTurns": 7.89
+    },
+    {
+      "id": 7,
+      "name": "Schattenkatze I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 615,
+      "fights": 900,
+      "rounds": 6966,
+      "losses": 285,
+      "winPct": 68.33,
+      "avgTurns": 7.74
+    },
+    {
+      "id": 8,
+      "name": "Schattenkatze II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 862,
+      "fights": 900,
+      "rounds": 7068,
+      "losses": 38,
+      "winPct": 95.78,
+      "avgTurns": 7.85
+    },
+    {
+      "id": 9,
+      "name": "Schattenkatze III",
+      "type": "SCHATTEN",
+      "stage": 3,
+      "wins": 899,
+      "fights": 900,
+      "rounds": 6724,
+      "losses": 1,
+      "winPct": 99.89,
+      "avgTurns": 7.47
+    },
+    {
+      "id": 10,
+      "name": "Nachtpfote",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 662,
+      "fights": 900,
+      "rounds": 6874,
+      "losses": 238,
+      "winPct": 73.56,
+      "avgTurns": 7.64
+    },
+    {
+      "id": 11,
+      "name": "Katzengeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 552,
+      "fights": 900,
+      "rounds": 6853,
+      "losses": 348,
+      "winPct": 61.33,
+      "avgTurns": 7.61
+    },
+    {
+      "id": 12,
+      "name": "Katzengeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 838,
+      "fights": 900,
+      "rounds": 7045,
+      "losses": 62,
+      "winPct": 93.11,
+      "avgTurns": 7.83
+    },
+    {
+      "id": 13,
+      "name": "Engelsgeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 640,
+      "fights": 900,
+      "rounds": 6911,
+      "losses": 260,
+      "winPct": 71.11,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 14,
+      "name": "Engelsgeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 863,
+      "fights": 900,
+      "rounds": 6982,
+      "losses": 37,
+      "winPct": 95.89,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 15,
+      "name": "Lichtflämmchen",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 704,
+      "fights": 900,
+      "rounds": 6938,
+      "losses": 196,
+      "winPct": 78.22,
+      "avgTurns": 7.71
+    },
+    {
+      "id": 16,
+      "name": "Fuchsgeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 584,
+      "fights": 900,
+      "rounds": 6947,
+      "losses": 316,
+      "winPct": 64.89,
+      "avgTurns": 7.72
+    },
+    {
+      "id": 17,
+      "name": "Fuchsgeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 854,
+      "fights": 900,
+      "rounds": 7084,
+      "losses": 46,
+      "winPct": 94.89,
+      "avgTurns": 7.87
+    },
+    {
+      "id": 18,
+      "name": "Kürbisgeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 691,
+      "fights": 900,
+      "rounds": 6995,
+      "losses": 209,
+      "winPct": 76.78,
+      "avgTurns": 7.77
+    },
+    {
+      "id": 19,
+      "name": "Kürbisgeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 860,
+      "fights": 900,
+      "rounds": 6970,
+      "losses": 40,
+      "winPct": 95.56,
+      "avgTurns": 7.74
+    },
+    {
+      "id": 20,
+      "name": "Nebelflöckchen",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 672,
+      "fights": 900,
+      "rounds": 6883,
+      "losses": 228,
+      "winPct": 74.67,
+      "avgTurns": 7.65
+    },
+    {
+      "id": 21,
+      "name": "Wolfsgeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 550,
+      "fights": 900,
+      "rounds": 6875,
+      "losses": 350,
+      "winPct": 61.11,
+      "avgTurns": 7.64
+    },
+    {
+      "id": 22,
+      "name": "Wolfsgeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 840,
+      "fights": 900,
+      "rounds": 7047,
+      "losses": 60,
+      "winPct": 93.33,
+      "avgTurns": 7.83
+    },
+    {
+      "id": 23,
+      "name": "Feuerfuchs I",
+      "type": "FLAMME",
+      "stage": 1,
+      "wins": 581,
+      "fights": 900,
+      "rounds": 6840,
+      "losses": 319,
+      "winPct": 64.56,
+      "avgTurns": 7.6
+    },
+    {
+      "id": 24,
+      "name": "Feuerfuchs II",
+      "type": "FLAMME",
+      "stage": 2,
+      "wins": 843,
+      "fights": 900,
+      "rounds": 6998,
+      "losses": 57,
+      "winPct": 93.67,
+      "avgTurns": 7.78
+    },
+    {
+      "id": 25,
+      "name": "Feuerfuchs III",
+      "type": "FLAMME",
+      "stage": 3,
+      "wins": 898,
+      "fights": 900,
+      "rounds": 6664,
+      "losses": 2,
+      "winPct": 99.78,
+      "avgTurns": 7.4
+    },
+    {
+      "id": 26,
+      "name": "Gischtflöckchen",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 603,
+      "fights": 900,
+      "rounds": 6978,
+      "losses": 297,
+      "winPct": 67,
+      "avgTurns": 7.75
+    },
+    {
+      "id": 27,
+      "name": "Hirschgeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 658,
+      "fights": 900,
+      "rounds": 7002,
+      "losses": 242,
+      "winPct": 73.11,
+      "avgTurns": 7.78
+    },
+    {
+      "id": 28,
+      "name": "Hirschgeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 848,
+      "fights": 900,
+      "rounds": 7017,
+      "losses": 52,
+      "winPct": 94.22,
+      "avgTurns": 7.8
+    },
+    {
+      "id": 29,
+      "name": "Skelett-Hund I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 624,
+      "fights": 900,
+      "rounds": 6905,
+      "losses": 276,
+      "winPct": 69.33,
+      "avgTurns": 7.67
+    },
+    {
+      "id": 30,
+      "name": "Skelett-Hund II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 868,
+      "fights": 900,
+      "rounds": 6974,
+      "losses": 32,
+      "winPct": 96.44,
+      "avgTurns": 7.75
+    },
+    {
+      "id": 31,
+      "name": "Skelett-Hund III",
+      "type": "SCHATTEN",
+      "stage": 3,
+      "wins": 891,
+      "fights": 900,
+      "rounds": 6888,
+      "losses": 9,
+      "winPct": 99,
+      "avgTurns": 7.65
+    },
+    {
+      "id": 32,
+      "name": "Schattenwuschel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 597,
+      "fights": 900,
+      "rounds": 6906,
+      "losses": 303,
+      "winPct": 66.33,
+      "avgTurns": 7.67
+    },
+    {
+      "id": 33,
+      "name": "Eulengeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 648,
+      "fights": 900,
+      "rounds": 6937,
+      "losses": 252,
+      "winPct": 72,
+      "avgTurns": 7.71
+    },
+    {
+      "id": 34,
+      "name": "Eulengeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 870,
+      "fights": 900,
+      "rounds": 6989,
+      "losses": 30,
+      "winPct": 96.67,
+      "avgTurns": 7.77
+    },
+    {
+      "id": 35,
+      "name": "Eiskauz I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 731,
+      "fights": 900,
+      "rounds": 6990,
+      "losses": 169,
+      "winPct": 81.22,
+      "avgTurns": 7.77
+    },
+    {
+      "id": 36,
+      "name": "Eiskauz II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 846,
+      "fights": 900,
+      "rounds": 7105,
+      "losses": 54,
+      "winPct": 94,
+      "avgTurns": 7.89
+    },
+    {
+      "id": 37,
+      "name": "Rosahoppel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 580,
+      "fights": 900,
+      "rounds": 6837,
+      "losses": 320,
+      "winPct": 64.44,
+      "avgTurns": 7.6
+    },
+    {
+      "id": 38,
+      "name": "Fledermausgeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 599,
+      "fights": 900,
+      "rounds": 6870,
+      "losses": 301,
+      "winPct": 66.56,
+      "avgTurns": 7.63
+    },
+    {
+      "id": 39,
+      "name": "Fledermausgeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 867,
+      "fights": 900,
+      "rounds": 6983,
+      "losses": 33,
+      "winPct": 96.33,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 40,
+      "name": "Knochenrabe I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 683,
+      "fights": 900,
+      "rounds": 6938,
+      "losses": 217,
+      "winPct": 75.89,
+      "avgTurns": 7.71
+    },
+    {
+      "id": 41,
+      "name": "Knochenrabe II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 833,
+      "fights": 900,
+      "rounds": 7105,
+      "losses": 67,
+      "winPct": 92.56,
+      "avgTurns": 7.89
+    },
+    {
+      "id": 42,
+      "name": "Flammenlöffel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 618,
+      "fights": 900,
+      "rounds": 6947,
+      "losses": 282,
+      "winPct": 68.67,
+      "avgTurns": 7.72
+    },
+    {
+      "id": 43,
+      "name": "Mäusegeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 665,
+      "fights": 900,
+      "rounds": 6963,
+      "losses": 235,
+      "winPct": 73.89,
+      "avgTurns": 7.74
+    },
+    {
+      "id": 44,
+      "name": "Mäusegeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 872,
+      "fights": 900,
+      "rounds": 7001,
+      "losses": 28,
+      "winPct": 96.89,
+      "avgTurns": 7.78
+    },
+    {
+      "id": 45,
+      "name": "Nebelhund I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 726,
+      "fights": 900,
+      "rounds": 6982,
+      "losses": 174,
+      "winPct": 80.67,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 46,
+      "name": "Nebelhund II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 818,
+      "fights": 900,
+      "rounds": 7052,
+      "losses": 82,
+      "winPct": 90.89,
+      "avgTurns": 7.84
+    },
+    {
+      "id": 47,
+      "name": "Nebelhund III",
+      "type": "FLUT",
+      "stage": 3,
+      "wins": 896,
+      "fights": 900,
+      "rounds": 6800,
+      "losses": 4,
+      "winPct": 99.56,
+      "avgTurns": 7.56
+    },
+    {
+      "id": 48,
+      "name": "Dunkelhoppel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 619,
+      "fights": 900,
+      "rounds": 6887,
+      "losses": 281,
+      "winPct": 68.78,
+      "avgTurns": 7.65
+    },
+    {
+      "id": 49,
+      "name": "Bärengeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 655,
+      "fights": 900,
+      "rounds": 6908,
+      "losses": 245,
+      "winPct": 72.78,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 50,
+      "name": "Bärengeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 872,
+      "fights": 900,
+      "rounds": 6954,
+      "losses": 28,
+      "winPct": 96.89,
+      "avgTurns": 7.73
+    },
+    {
+      "id": 51,
+      "name": "Flammenfuchs I",
+      "type": "FLAMME",
+      "stage": 1,
+      "wins": 639,
+      "fights": 900,
+      "rounds": 6940,
+      "losses": 261,
+      "winPct": 71,
+      "avgTurns": 7.71
+    },
+    {
+      "id": 52,
+      "name": "Flammenfuchs II",
+      "type": "FLAMME",
+      "stage": 2,
+      "wins": 821,
+      "fights": 900,
+      "rounds": 7059,
+      "losses": 79,
+      "winPct": 91.22,
+      "avgTurns": 7.84
+    },
+    {
+      "id": 53,
+      "name": "Flammenfuchs III",
+      "type": "FLAMME",
+      "stage": 3,
+      "wins": 896,
+      "fights": 900,
+      "rounds": 6784,
+      "losses": 4,
+      "winPct": 99.56,
+      "avgTurns": 7.54
+    },
+    {
+      "id": 54,
+      "name": "Tauhorn",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 708,
+      "fights": 900,
+      "rounds": 7000,
+      "losses": 192,
+      "winPct": 78.67,
+      "avgTurns": 7.78
+    },
+    {
+      "id": 55,
+      "name": "Waschbärgeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 662,
+      "fights": 900,
+      "rounds": 6869,
+      "losses": 238,
+      "winPct": 73.56,
+      "avgTurns": 7.63
+    },
+    {
+      "id": 56,
+      "name": "Waschbärgeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 821,
+      "fights": 900,
+      "rounds": 7050,
+      "losses": 79,
+      "winPct": 91.22,
+      "avgTurns": 7.83
+    },
+    {
+      "id": 57,
+      "name": "Waldhirsch I",
+      "type": "WURZEL",
+      "stage": 1,
+      "wins": 645,
+      "fights": 900,
+      "rounds": 6612,
+      "losses": 255,
+      "winPct": 71.67,
+      "avgTurns": 7.35
+    },
+    {
+      "id": 58,
+      "name": "Waldhirsch II",
+      "type": "WURZEL",
+      "stage": 2,
+      "wins": 835,
+      "fights": 900,
+      "rounds": 6699,
+      "losses": 65,
+      "winPct": 92.78,
+      "avgTurns": 7.44
+    },
+    {
+      "id": 59,
+      "name": "Mondkitz",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 672,
+      "fights": 900,
+      "rounds": 6927,
+      "losses": 228,
+      "winPct": 74.67,
+      "avgTurns": 7.7
+    },
+    {
+      "id": 60,
+      "name": "Rotpandageist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 696,
+      "fights": 900,
+      "rounds": 6929,
+      "losses": 204,
+      "winPct": 77.33,
+      "avgTurns": 7.7
+    },
+    {
+      "id": 61,
+      "name": "Rotpandageist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 838,
+      "fights": 900,
+      "rounds": 7084,
+      "losses": 62,
+      "winPct": 93.11,
+      "avgTurns": 7.87
+    },
+    {
+      "id": 62,
+      "name": "Nebelwyrm I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 641,
+      "fights": 900,
+      "rounds": 6979,
+      "losses": 259,
+      "winPct": 71.22,
+      "avgTurns": 7.75
+    },
+    {
+      "id": 63,
+      "name": "Nebelwyrm II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 863,
+      "fights": 900,
+      "rounds": 7035,
+      "losses": 37,
+      "winPct": 95.89,
+      "avgTurns": 7.82
+    },
+    {
+      "id": 64,
+      "name": "Nachtgeweih",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 629,
+      "fights": 900,
+      "rounds": 6858,
+      "losses": 271,
+      "winPct": 69.89,
+      "avgTurns": 7.62
+    },
+    {
+      "id": 65,
+      "name": "Robbengeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 669,
+      "fights": 900,
+      "rounds": 6877,
+      "losses": 231,
+      "winPct": 74.33,
+      "avgTurns": 7.64
+    },
+    {
+      "id": 66,
+      "name": "Robbengeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 825,
+      "fights": 900,
+      "rounds": 7055,
+      "losses": 75,
+      "winPct": 91.67,
+      "avgTurns": 7.84
+    },
+    {
+      "id": 67,
+      "name": "Zombiehase I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 587,
+      "fights": 900,
+      "rounds": 6904,
+      "losses": 313,
+      "winPct": 65.22,
+      "avgTurns": 7.67
+    },
+    {
+      "id": 68,
+      "name": "Zombiehase II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 857,
+      "fights": 900,
+      "rounds": 7042,
+      "losses": 43,
+      "winPct": 95.22,
+      "avgTurns": 7.82
+    },
+    {
+      "id": 69,
+      "name": "Zombiehase III",
+      "type": "SCHATTEN",
+      "stage": 3,
+      "wins": 899,
+      "fights": 900,
+      "rounds": 6703,
+      "losses": 1,
+      "winPct": 99.89,
+      "avgTurns": 7.45
+    },
+    {
+      "id": 70,
+      "name": "Funkenfähe",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 708,
+      "fights": 900,
+      "rounds": 6949,
+      "losses": 192,
+      "winPct": 78.67,
+      "avgTurns": 7.72
+    },
+    {
+      "id": 71,
+      "name": "Rabengeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 616,
+      "fights": 900,
+      "rounds": 6975,
+      "losses": 284,
+      "winPct": 68.44,
+      "avgTurns": 7.75
+    },
+    {
+      "id": 72,
+      "name": "Rabengeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 862,
+      "fights": 900,
+      "rounds": 7081,
+      "losses": 38,
+      "winPct": 95.78,
+      "avgTurns": 7.87
+    },
+    {
+      "id": 73,
+      "name": "Eiswolf I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 606,
+      "fights": 900,
+      "rounds": 6857,
+      "losses": 294,
+      "winPct": 67.33,
+      "avgTurns": 7.62
+    },
+    {
+      "id": 74,
+      "name": "Eiswolf II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 855,
+      "fights": 900,
+      "rounds": 6983,
+      "losses": 45,
+      "winPct": 95,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 75,
+      "name": "Eiswolf III",
+      "type": "FLUT",
+      "stage": 3,
+      "wins": 898,
+      "fights": 900,
+      "rounds": 6622,
+      "losses": 2,
+      "winPct": 99.78,
+      "avgTurns": 7.36
+    },
+    {
+      "id": 76,
+      "name": "Sonnenwedel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 560,
+      "fights": 900,
+      "rounds": 6900,
+      "losses": 340,
+      "winPct": 62.22,
+      "avgTurns": 7.67
+    },
+    {
+      "id": 77,
+      "name": "Eichhörnchengeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 609,
+      "fights": 900,
+      "rounds": 6926,
+      "losses": 291,
+      "winPct": 67.67,
+      "avgTurns": 7.7
+    },
+    {
+      "id": 78,
+      "name": "Eichhörnchengeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 855,
+      "fights": 900,
+      "rounds": 7024,
+      "losses": 45,
+      "winPct": 95,
+      "avgTurns": 7.8
+    },
+    {
+      "id": 79,
+      "name": "Knochenkatze I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 675,
+      "fights": 900,
+      "rounds": 6973,
+      "losses": 225,
+      "winPct": 75,
+      "avgTurns": 7.75
+    },
+    {
+      "id": 80,
+      "name": "Knochenkatze II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 869,
+      "fights": 900,
+      "rounds": 6972,
+      "losses": 31,
+      "winPct": 96.56,
+      "avgTurns": 7.75
+    },
+    {
+      "id": 81,
+      "name": "Kohlenschweif",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 633,
+      "fights": 900,
+      "rounds": 7017,
+      "losses": 267,
+      "winPct": 70.33,
+      "avgTurns": 7.8
+    },
+    {
+      "id": 82,
+      "name": "Schattenhase I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 554,
+      "fights": 900,
+      "rounds": 6865,
+      "losses": 346,
+      "winPct": 61.56,
+      "avgTurns": 7.63
+    },
+    {
+      "id": 83,
+      "name": "Schattenhase II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 846,
+      "fights": 900,
+      "rounds": 7044,
+      "losses": 54,
+      "winPct": 94,
+      "avgTurns": 7.83
+    },
+    {
+      "id": 84,
+      "name": "Knochenhase I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 645,
+      "fights": 900,
+      "rounds": 6915,
+      "losses": 255,
+      "winPct": 71.67,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 85,
+      "name": "Knochenhase II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 863,
+      "fights": 900,
+      "rounds": 6970,
+      "losses": 37,
+      "winPct": 95.89,
+      "avgTurns": 7.74
+    },
+    {
+      "id": 86,
+      "name": "Wolkeneulchen",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 571,
+      "fights": 900,
+      "rounds": 6920,
+      "losses": 329,
+      "winPct": 63.44,
+      "avgTurns": 7.69
+    },
+    {
+      "id": 87,
+      "name": "Einhorngeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 616,
+      "fights": 900,
+      "rounds": 6947,
+      "losses": 284,
+      "winPct": 68.44,
+      "avgTurns": 7.72
+    },
+    {
+      "id": 88,
+      "name": "Einhorngeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 865,
+      "fights": 900,
+      "rounds": 7034,
+      "losses": 35,
+      "winPct": 96.11,
+      "avgTurns": 7.82
+    },
+    {
+      "id": 89,
+      "name": "Schattenfledermaus I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 697,
+      "fights": 900,
+      "rounds": 6998,
+      "losses": 203,
+      "winPct": 77.44,
+      "avgTurns": 7.78
+    },
+    {
+      "id": 90,
+      "name": "Schattenfledermaus II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 877,
+      "fights": 900,
+      "rounds": 6977,
+      "losses": 23,
+      "winPct": 97.44,
+      "avgTurns": 7.75
+    },
+    {
+      "id": 91,
+      "name": "Schattenfledermaus III",
+      "type": "SCHATTEN",
+      "stage": 3,
+      "wins": 891,
+      "fights": 900,
+      "rounds": 6886,
+      "losses": 9,
+      "winPct": 99,
+      "avgTurns": 7.65
+    },
+    {
+      "id": 92,
+      "name": "Lavendelflaum",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 576,
+      "fights": 900,
+      "rounds": 6872,
+      "losses": 324,
+      "winPct": 64,
+      "avgTurns": 7.64
+    },
+    {
+      "id": 93,
+      "name": "Stiergeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 623,
+      "fights": 900,
+      "rounds": 6902,
+      "losses": 277,
+      "winPct": 69.22,
+      "avgTurns": 7.67
+    },
+    {
+      "id": 94,
+      "name": "Stiergeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 866,
+      "fights": 900,
+      "rounds": 6983,
+      "losses": 34,
+      "winPct": 96.22,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 95,
+      "name": "Geisterqualle I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 693,
+      "fights": 900,
+      "rounds": 6931,
+      "losses": 207,
+      "winPct": 77,
+      "avgTurns": 7.7
+    },
+    {
+      "id": 96,
+      "name": "Geisterqualle II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 836,
+      "fights": 900,
+      "rounds": 7078,
+      "losses": 64,
+      "winPct": 92.89,
+      "avgTurns": 7.86
+    },
+    {
+      "id": 97,
+      "name": "Geisterqualle III",
+      "type": "FLUT",
+      "stage": 3,
+      "wins": 896,
+      "fights": 900,
+      "rounds": 6800,
+      "losses": 4,
+      "winPct": 99.56,
+      "avgTurns": 7.56
+    },
+    {
+      "id": 98,
+      "name": "Schattenfeder",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 667,
+      "fights": 900,
+      "rounds": 6970,
+      "losses": 233,
+      "winPct": 74.11,
+      "avgTurns": 7.74
+    },
+    {
+      "id": 99,
+      "name": "Widdergeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 707,
+      "fights": 900,
+      "rounds": 6984,
+      "losses": 193,
+      "winPct": 78.56,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 100,
+      "name": "Widdergeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 863,
+      "fights": 900,
+      "rounds": 6942,
+      "losses": 37,
+      "winPct": 95.89,
+      "avgTurns": 7.71
+    },
+    {
+      "id": 101,
+      "name": "Knocheneule I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 525,
+      "fights": 900,
+      "rounds": 6882,
+      "losses": 375,
+      "winPct": 58.33,
+      "avgTurns": 7.65
+    },
+    {
+      "id": 102,
+      "name": "Knocheneule II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 837,
+      "fights": 900,
+      "rounds": 7068,
+      "losses": 63,
+      "winPct": 93,
+      "avgTurns": 7.85
+    },
+    {
+      "id": 103,
+      "name": "Mondflatter",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 630,
+      "fights": 900,
+      "rounds": 6918,
+      "losses": 270,
+      "winPct": 70,
+      "avgTurns": 7.69
+    },
+    {
+      "id": 104,
+      "name": "Drachengeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 655,
+      "fights": 900,
+      "rounds": 6924,
+      "losses": 245,
+      "winPct": 72.78,
+      "avgTurns": 7.69
+    },
+    {
+      "id": 105,
+      "name": "Drachengeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 875,
+      "fights": 900,
+      "rounds": 6949,
+      "losses": 25,
+      "winPct": 97.22,
+      "avgTurns": 7.72
+    },
+    {
+      "id": 106,
+      "name": "Knochenhirsch I",
+      "type": "WURZEL",
+      "stage": 1,
+      "wins": 652,
+      "fights": 900,
+      "rounds": 6673,
+      "losses": 248,
+      "winPct": 72.44,
+      "avgTurns": 7.41
+    },
+    {
+      "id": 107,
+      "name": "Knochenhirsch II",
+      "type": "WURZEL",
+      "stage": 2,
+      "wins": 839,
+      "fights": 900,
+      "rounds": 6741,
+      "losses": 61,
+      "winPct": 93.22,
+      "avgTurns": 7.49
+    },
+    {
+      "id": 108,
+      "name": "Nachtflatter",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 700,
+      "fights": 900,
+      "rounds": 7012,
+      "losses": 200,
+      "winPct": 77.78,
+      "avgTurns": 7.79
+    },
+    {
+      "id": 109,
+      "name": "Fischgeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 633,
+      "fights": 900,
+      "rounds": 6863,
+      "losses": 267,
+      "winPct": 70.33,
+      "avgTurns": 7.63
+    },
+    {
+      "id": 110,
+      "name": "Fischgeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 869,
+      "fights": 900,
+      "rounds": 6944,
+      "losses": 31,
+      "winPct": 96.56,
+      "avgTurns": 7.72
+    },
+    {
+      "id": 111,
+      "name": "Quellflosse",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 536,
+      "fights": 900,
+      "rounds": 6873,
+      "losses": 364,
+      "winPct": 59.56,
+      "avgTurns": 7.64
+    },
+    {
+      "id": 112,
+      "name": "Schildkrötengeist I",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 599,
+      "fights": 900,
+      "rounds": 6911,
+      "losses": 301,
+      "winPct": 66.56,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 113,
+      "name": "Schildkrötengeist II",
+      "type": "FLUT",
+      "stage": 2,
+      "wins": 860,
+      "fights": 900,
+      "rounds": 7036,
+      "losses": 40,
+      "winPct": 95.56,
+      "avgTurns": 7.82
+    },
+    {
+      "id": 114,
+      "name": "Flutwirbel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 666,
+      "fights": 900,
+      "rounds": 6932,
+      "losses": 234,
+      "winPct": 74,
+      "avgTurns": 7.7
+    },
+    {
+      "id": 115,
+      "name": "Dämonenfuchs I",
+      "type": "FLAMME",
+      "stage": 1,
+      "wins": 659,
+      "fights": 900,
+      "rounds": 6899,
+      "losses": 241,
+      "winPct": 73.22,
+      "avgTurns": 7.67
+    },
+    {
+      "id": 116,
+      "name": "Dämonenfuchs II",
+      "type": "FLAMME",
+      "stage": 2,
+      "wins": 810,
+      "fights": 900,
+      "rounds": 7083,
+      "losses": 90,
+      "winPct": 90,
+      "avgTurns": 7.87
+    },
+    {
+      "id": 117,
+      "name": "Tiefenwyrm",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 663,
+      "fights": 900,
+      "rounds": 7003,
+      "losses": 237,
+      "winPct": 73.67,
+      "avgTurns": 7.78
+    },
+    {
+      "id": 118,
+      "name": "Schattenhund I",
+      "type": "SCHATTEN",
+      "stage": 1,
+      "wins": 599,
+      "fights": 900,
+      "rounds": 6884,
+      "losses": 301,
+      "winPct": 66.56,
+      "avgTurns": 7.65
+    },
+    {
+      "id": 119,
+      "name": "Schattenhund II",
+      "type": "SCHATTEN",
+      "stage": 2,
+      "wins": 861,
+      "fights": 900,
+      "rounds": 7013,
+      "losses": 39,
+      "winPct": 95.67,
+      "avgTurns": 7.79
+    },
+    {
+      "id": 120,
+      "name": "Schimmerpanzer",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 682,
+      "fights": 900,
+      "rounds": 6893,
+      "losses": 218,
+      "winPct": 75.78,
+      "avgTurns": 7.66
+    },
+    {
+      "id": 121,
+      "name": "Flammenhase I",
+      "type": "FLAMME",
+      "stage": 1,
+      "wins": 635,
+      "fights": 900,
+      "rounds": 6934,
+      "losses": 265,
+      "winPct": 70.56,
+      "avgTurns": 7.7
+    },
+    {
+      "id": 122,
+      "name": "Flammenhase II",
+      "type": "FLAMME",
+      "stage": 2,
+      "wins": 807,
+      "fights": 900,
+      "rounds": 7046,
+      "losses": 93,
+      "winPct": 89.67,
+      "avgTurns": 7.83
+    },
+    {
+      "id": 123,
+      "name": "Moorschild",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 653,
+      "fights": 900,
+      "rounds": 6936,
+      "losses": 247,
+      "winPct": 72.56,
+      "avgTurns": 7.71
+    },
+    {
+      "id": 124,
+      "name": "Phönixeule I",
+      "type": "LICHT",
+      "stage": 1,
+      "wins": 635,
+      "fights": 900,
+      "rounds": 7082,
+      "losses": 265,
+      "winPct": 70.56,
+      "avgTurns": 7.87
+    },
+    {
+      "id": 125,
+      "name": "Phönixeule II",
+      "type": "LICHT",
+      "stage": 2,
+      "wins": 845,
+      "fights": 900,
+      "rounds": 7103,
+      "losses": 55,
+      "winPct": 93.89,
+      "avgTurns": 7.89
+    },
+    {
+      "id": 126,
+      "name": "Gruftpanzer",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 627,
+      "fights": 900,
+      "rounds": 7016,
+      "losses": 273,
+      "winPct": 69.67,
+      "avgTurns": 7.8
+    },
+    {
+      "id": 127,
+      "name": "Himmelsmiez",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 576,
+      "fights": 900,
+      "rounds": 6842,
+      "losses": 324,
+      "winPct": 64,
+      "avgTurns": 7.6
+    },
+    {
+      "id": 128,
+      "name": "Engelschnurr",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 617,
+      "fights": 900,
+      "rounds": 6871,
+      "losses": 283,
+      "winPct": 68.56,
+      "avgTurns": 7.63
+    },
+    {
+      "id": 129,
+      "name": "Dunkelhalo",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 649,
+      "fights": 900,
+      "rounds": 6899,
+      "losses": 251,
+      "winPct": 72.11,
+      "avgTurns": 7.67
+    },
+    {
+      "id": 130,
+      "name": "Glockenkalb",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 687,
+      "fights": 900,
+      "rounds": 6914,
+      "losses": 213,
+      "winPct": 76.33,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 131,
+      "name": "Wiesenbimmel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 550,
+      "fights": 900,
+      "rounds": 6914,
+      "losses": 350,
+      "winPct": 61.11,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 132,
+      "name": "Knochenstier",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 604,
+      "fights": 900,
+      "rounds": 6930,
+      "losses": 296,
+      "winPct": 67.11,
+      "avgTurns": 7.7
+    },
+    {
+      "id": 133,
+      "name": "Wolkenpiep",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 667,
+      "fights": 900,
+      "rounds": 6963,
+      "losses": 233,
+      "winPct": 74.11,
+      "avgTurns": 7.74
+    },
+    {
+      "id": 134,
+      "name": "Gischtpiep",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 713,
+      "fights": 900,
+      "rounds": 6981,
+      "losses": 187,
+      "winPct": 79.22,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 135,
+      "name": "Sturmschnabel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 742,
+      "fights": 900,
+      "rounds": 7002,
+      "losses": 158,
+      "winPct": 82.44,
+      "avgTurns": 7.78
+    },
+    {
+      "id": 136,
+      "name": "Rosagrunzer",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 520,
+      "fights": 900,
+      "rounds": 6833,
+      "losses": 380,
+      "winPct": 57.78,
+      "avgTurns": 7.59
+    },
+    {
+      "id": 137,
+      "name": "Knochenschnüff",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 579,
+      "fights": 900,
+      "rounds": 6866,
+      "losses": 321,
+      "winPct": 64.33,
+      "avgTurns": 7.63
+    },
+    {
+      "id": 138,
+      "name": "Schattenborste",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 618,
+      "fights": 900,
+      "rounds": 6888,
+      "losses": 282,
+      "winPct": 68.67,
+      "avgTurns": 7.65
+    },
+    {
+      "id": 139,
+      "name": "Ringelgeist",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 663,
+      "fights": 900,
+      "rounds": 6904,
+      "losses": 237,
+      "winPct": 73.67,
+      "avgTurns": 7.67
+    },
+    {
+      "id": 140,
+      "name": "Dämmerstreif",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 685,
+      "fights": 900,
+      "rounds": 6912,
+      "losses": 215,
+      "winPct": 76.11,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 141,
+      "name": "Nachtringel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 581,
+      "fights": 900,
+      "rounds": 6942,
+      "losses": 319,
+      "winPct": 64.56,
+      "avgTurns": 7.71
+    },
+    {
+      "id": 142,
+      "name": "Rosenlöffel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 623,
+      "fights": 900,
+      "rounds": 6964,
+      "losses": 277,
+      "winPct": 69.22,
+      "avgTurns": 7.74
+    },
+    {
+      "id": 143,
+      "name": "Flimmerhase",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 688,
+      "fights": 900,
+      "rounds": 6985,
+      "losses": 212,
+      "winPct": 76.44,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 144,
+      "name": "Glutohren",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 714,
+      "fights": 900,
+      "rounds": 6985,
+      "losses": 186,
+      "winPct": 79.33,
+      "avgTurns": 7.76
+    },
+    {
+      "id": 145,
+      "name": "Froststachel",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 674,
+      "fights": 900,
+      "rounds": 6879,
+      "losses": 226,
+      "winPct": 74.89,
+      "avgTurns": 7.64
+    },
+    {
+      "id": 146,
+      "name": "Eisschauer",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 547,
+      "fights": 900,
+      "rounds": 6857,
+      "losses": 353,
+      "winPct": 60.78,
+      "avgTurns": 7.62
+    },
+    {
+      "id": 147,
+      "name": "Dornschatten",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 582,
+      "fights": 900,
+      "rounds": 6892,
+      "losses": 318,
+      "winPct": 64.67,
+      "avgTurns": 7.66
+    },
+    {
+      "id": 148,
+      "name": "Funkennuss",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 632,
+      "fights": 900,
+      "rounds": 6909,
+      "losses": 268,
+      "winPct": 70.22,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 149,
+      "name": "Wolkennuss",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 671,
+      "fights": 900,
+      "rounds": 6909,
+      "losses": 229,
+      "winPct": 74.56,
+      "avgTurns": 7.68
+    },
+    {
+      "id": 150,
+      "name": "Nachtsammler",
+      "type": "FLUT",
+      "stage": 1,
+      "wins": 696,
+      "fights": 900,
+      "rounds": 6928,
+      "losses": 204,
+      "winPct": 77.33,
+      "avgTurns": 7.7
+    }
+  ],
+  "errors": []
+}
