@@ -11,7 +11,7 @@ const env={window,document,navigator:{getGamepads(){return []}},location:window.
  Image:class{constructor(){this.complete=true;this.naturalWidth=256}},
  localStorage:{getItem(k){return stored[k]||null},setItem(k,v){stored[k]=v}},
  setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const file of ['data/species.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
+for(const file of ['data/species.js','data/affinities.js','data/skills.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
  vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
 const engine=fs.readFileSync('src/game.js','utf8');
 const mark='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';

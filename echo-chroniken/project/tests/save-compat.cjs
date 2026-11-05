@@ -28,7 +28,7 @@ function run(raw) {
    localStorage:{getItem:k=>store[k]??null,setItem:(k,v)=>store[k]=v},
    Math:Object.assign(Object.create(Math),{random:()=>0}),console,Uint8ClampedArray,setTimeout(fn){timers.push(fn)},clearTimeout(){},setInterval(){},
    clearInterval(){},requestAnimationFrame(){}};
- for(const file of ['data/species.js','src/village.js','src/first-route.js',
+ for(const file of ['data/species.js','data/affinities.js','data/skills.js','src/village.js','src/first-route.js',
    'src/exploration.js','src/interiors.js','src/combat-fx.js','src/platformer.js',
    'src/ruins.js','src/house.js','src/maps/registry.js','src/quests/registry.js','src/archive.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
  const injected='window.__saveQA={state:gameState,saveGame,loadGame,createMonsterInstance,executeBattleAction};\n';

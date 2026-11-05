@@ -87,6 +87,8 @@
   // 150 originale PNG-Monster aus den drei eingesandten 256px-Boegen.
   // Die Evolutionsketten stammen aus KACHEL_INDEX.csv, nicht mehr aus ID-Modulo.
   const SPECIES = window.ECHO_SPECIES;
+  const AFF = window.EchoTypes;
+  const SKILLBOOK = window.EchoSkillbook;
   if(window.EchoEncounters)window.EchoEncounters.initialize(SPECIES,window.ECHO_ENCOUNTER_TABLES);
 
   // --- SPRITE-RENDERER: 16x16 (Oberwelt/Lexikon) & 32x32 (Kampf) ---
@@ -375,10 +377,10 @@
 
   // Echo V0.6: alle Fähigkeiten bleiben dauerhaft erhalten, auch bei Entwicklungen.
   const ATTACKS = {
-    seelenstups:{name:'Seelenstups',type:'AETHER',power:22,desc:'Ein sicherer, kleiner Stoß.'},
-    sternenstaub:{name:'Sternenstaub',type:'AETHER',power:34,desc:'Sternenstaub wirbelt durch die Luft.'},
-    echowelle:{name:'Echowelle',type:'AETHER',power:44,desc:'Ein heller Schall trifft das Ziel.'},
-    astralsturm:{name:'Astralsturm',type:'AETHER',power:58,desc:'Ein Sturm aus alten Erinnerungen.'},
+    seelenstups:{name:'Seelenstups',type:'NORMAL',power:22,desc:'Ein sicherer, kleiner Stoß.'},
+    sternenstaub:{name:'Sternenstaub',type:'NORMAL',power:34,desc:'Sternenstaub wirbelt durch die Luft.'},
+    echowelle:{name:'Echowelle',type:'GEIST',power:44,desc:'Ein heller Schall trifft das Ziel.'},
+    astralsturm:{name:'Astralsturm',type:'GEIST',power:58,desc:'Ein Sturm aus alten Erinnerungen.'},
     lichtfunke:{name:'Lichtfunke',type:'LICHT',power:26,desc:'Ein warmer Funke.',fx:'#ffe58a'},
     mondschein:{name:'Mondschein',type:'LICHT',power:36,desc:'Ein Lichtstrahl in der Nacht.',fx:'#fff0af'},
     sternenfall:{name:'Sternenfall',type:'LICHT',power:48,desc:'Leuchtende Sterne treffen das Ziel.',fx:'#f4dfaa'},
@@ -402,6 +404,7 @@
     mooshammer:{name:'Mooshammer',type:'WURZEL',power:49,desc:'Ein grüner Aufprall.',fx:'#57ad62'},
     wurzelsturm:{name:'Wurzelsturm',type:'WURZEL',power:64,desc:'Wurzeln wirbeln empor.',fx:'#4b9e5d'}
   };
+  Object.assign(ATTACKS,SKILLBOOK.ATTACKS);
   const TYPE_SKILLS = {
     LICHT:['lichtfunke','mondschein','heilflimmern','sternenfall','sonnenchor'],
     SCHATTEN:['schattentipp','nebelbiss','nachthieb','finsternis'],
@@ -410,45 +413,116 @@
     WURZEL:['blattschnips','rankengriff','waldsegen','mooshammer','wurzelsturm'],
     AETHER:['seelenstups','sternenstaub','echowelle','astralsturm']
   };
-  const SKILL_LEVELS = [1,7,11,16,24];
-  function learnedFor(type,lv){
-    const tree=TYPE_SKILLS[type]||TYPE_SKILLS.AETHER;
-    const entries=[{id:tree[0],lv:1},{id:'seelenstups',lv:3},{id:tree[1],lv:7},{id:'sternenstaub',lv:9}];
-    if(tree[2])entries.push({id:tree[2],lv:11});
-    if(tree[3])entries.push({id:tree[3],lv:16});
-    if(tree[4])entries.push({id:tree[4],lv:24});
-    entries.push({id:'echowelle',lv:19},{id:'astralsturm',lv:30});
-    return entries.filter(e=>e.lv<=lv).sort((a,b)=>b.lv-a.lv).map(e=>e.id).filter((id,i,a)=>a.indexOf(id)===i);
+  Object.assign(TYPE_SKILLS,SKILLBOOK.TYPE_SKILLS);
+  const MAX_BATTLE_MOVES=SKILLBOOK.MAX_EQUIPPED;
+  const MAX_RUNE_MOVES=SKILLBOOK.MAX_RUNE_LEARNED;
+  function learnedFor(specOrType,lv){
+    const types=typeof specOrType==='string'?[AFF.normalize(specOrType)]:AFF.typesFor(specOrType);
+    const primary=TYPE_SKILLS[types[0]]||TYPE_SKILLS.GEIST;
+    const secondary=TYPE_SKILLS[types[1]]||[];
+    const levels=[1,7,11,16,24];
+    const entries=primary.map((id,i)=>({id,lv:levels[i]||30}));
+    entries.push({id:'seelenstups',lv:3},{id:'sternenstaub',lv:9},
+      {id:'echowelle',lv:19},{id:'astralsturm',lv:30});
+    if(secondary.length){
+      entries.push({id:secondary[0],lv:8});
+      if(secondary[1])entries.push({id:secondary[1],lv:18});
+      if(secondary[2])entries.push({id:secondary[2],lv:28});
+    }
+    return entries.filter(x=>x.lv<=lv).sort((a,b)=>b.lv-a.lv)
+      .map(x=>x.id).filter((id,i,a)=>a.indexOf(id)===i);
+  }
+  function recommendedLoadout(monster){
+    const skills=monster.moves.filter(id=>ATTACKS[id]);
+    const attackers=skills.filter(id=>(ATTACKS[id].power||0)>0)
+      .sort((a,b)=>ATTACKS[b].power-ATTACKS[a].power).slice(0,3);
+    const heal=skills.find(id=>ATTACKS[id].heal);
+    if(heal && attackers.length<MAX_BATTLE_MOVES && !attackers.includes(heal))attackers.push(heal);
+    for(const id of skills)if(attackers.length<MAX_BATTLE_MOVES&&!attackers.includes(id))attackers.push(id);
+    return attackers.slice(0,MAX_BATTLE_MOVES);
   }
   function ensureMonsterMoves(monster){
-    const natural=learnedFor(SPECIES[monster.id-1].type,monster.lv);
+    const natural=learnedFor(SPECIES[monster.id-1],monster.lv);
     if(!Array.isArray(monster.moves))monster.moves=natural.slice();
-    for(const id of natural){if(!monster.moves.includes(id))monster.moves.push(id);}
-    monster.moves=monster.moves.filter(id=>!!ATTACKS[id]);
+    for(const id of natural)if(!monster.moves.includes(id))monster.moves.push(id);
+    monster.moves=monster.moves.filter((id,i,a)=>!!ATTACKS[id]&&a.indexOf(id)===i);
     if(!monster.moves.length)monster.moves=['seelenstups'];
+    if(!Array.isArray(monster.runeMoves))monster.runeMoves=[];
+    monster.runeMoves=monster.runeMoves.filter(id=>SKILLBOOK.RUNE_IDS.includes(id)&&monster.moves.includes(id))
+      .slice(0,MAX_RUNE_MOVES);
+    if(!Array.isArray(monster.equippedMoves))monster.equippedMoves=recommendedLoadout(monster);
+    monster.equippedMoves=monster.equippedMoves
+      .filter((id,i,a)=>monster.moves.includes(id)&&a.indexOf(id)===i).slice(0,MAX_BATTLE_MOVES);
+    if(!monster.equippedMoves.length)monster.equippedMoves=recommendedLoadout(monster);
     return monster.moves;
   }
+  function battleMoves(monster){
+    ensureMonsterMoves(monster);
+    return monster.equippedMoves;
+  }
+  function toggleEquipped(monster,id){
+    ensureMonsterMoves(monster);
+    const active=monster.equippedMoves;
+    const index=active.indexOf(id);
+    if(index!==-1){
+      if(active.length===1)return false;
+      active.splice(index,1);
+    }else if(monster.moves.includes(id)){
+      if(active.length>=MAX_BATTLE_MOVES)active.pop();
+      active.unshift(id);
+    }else return false;
+    monster.manualLoadout=true;
+    saveGame(true);
+    return true;
+  }
   function addLevelMoves(monster,prevLevel,log){
-    const natural=learnedFor(SPECIES[monster.id-1].type,monster.lv);
+    // Keep the pre-level-up book intact until newly unlocked skills are
+    // announced; ensureMonsterMoves() would silently add them too early.
+    if(!Array.isArray(monster.moves))
+      monster.moves=learnedFor(SPECIES[monster.id-1],Math.max(1,prevLevel));
+    const natural=learnedFor(SPECIES[monster.id-1],monster.lv);
     for(const id of natural.slice().reverse()){
       if(!monster.moves.includes(id)){
-        monster.moves.unshift(id); // neue Attacken immer oben; alte bleiben erhalten
-        if(log)log.push(`⚡ ${SPECIES[monster.id-1].name} lernt ${ATTACKS[id].name}!`);
+        monster.moves.unshift(id);
+        if(log)log.push('⚡ '+SPECIES[monster.id-1].name+' lernt '+ATTACKS[id].name+'!');
       }
     }
+    if(!monster.manualLoadout)monster.equippedMoves=recommendedLoadout(monster);
+    ensureMonsterMoves(monster);
   }
   function skillDamage(user,target,move){
     const us=SPECIES[user.id-1],ts=SPECIES[target.id-1];
-    let advantage=1;
-    if((move.type==='FLAMME'&&ts.type==='WURZEL')||(move.type==='WURZEL'&&ts.type==='FLUT')||(move.type==='FLUT'&&ts.type==='FLAMME')||(move.type==='LICHT'&&ts.type==='SCHATTEN')||(move.type==='SCHATTEN'&&ts.type==='LICHT'))advantage=1.18;
-    return Math.max(2,Math.floor((move.power*.205+user.lv*.48+us.atk*.17-ts.def*.14)*(0.92+Math.random()*.14)*advantage));
+    const match=AFF.effectiveness(move.type,ts);
+    const same=AFF.stab(move.type,us);
+    const raw=move.power*.205+user.lv*.48+us.atk*.17-ts.def*.14;
+    return Math.max(2,Math.floor(raw*(.92+Math.random()*.14)*match*same));
   }
-  function createMonsterInstance(id, lv) {
+  function createMonsterInstance(id,lv){
     const sp=SPECIES[id-1];
     const maxHp=Math.floor(sp.hp+lv*4.5);
-    const m={uid:Math.random().toString(36).slice(2),id,lv,xp:0,nextXp:lv*18,maxHp,hp:maxHp,moves:[]};
-    m.moves=learnedFor(sp.type,lv);
+    const m={uid:Math.random().toString(36).slice(2),id,lv,xp:0,nextXp:lv*18,
+      maxHp,hp:maxHp,moves:learnedFor(sp,lv),runeMoves:[],equippedMoves:[]};
+    m.equippedMoves=recommendedLoadout(m);
     return m;
+  }
+  function teachRune(monster,runeId){
+    ensureMonsterMoves(monster);
+    const rune=SKILLBOOK.RUNES.find(x=>x.id===runeId);
+    if(!rune||!ATTACKS[runeId]||(gameState.runes?.[runeId]||0)<1)
+      return 'Diese Rune ist nicht in deinem Beutel.';
+    if(monster.moves.includes(runeId))return 'Dieses Wesen kennt die Attacke bereits.';
+    if(monster.runeMoves.length>=MAX_RUNE_MOVES)
+      return 'Dieses Wesen hat bereits zwei Runenattacken gelernt.';
+    if(!AFF.compatible(monster,ATTACKS[runeId].type))
+      return 'Diese Rune passt nicht zur Natur dieses Wesens.';
+    gameState.runes[runeId]--;
+    monster.moves.unshift(runeId);
+    monster.runeMoves.push(runeId);
+    if(monster.equippedMoves.length<MAX_BATTLE_MOVES)
+      monster.equippedMoves.unshift(runeId);
+    ensureMonsterMoves(monster);saveGame(true);
+    return SPECIES[monster.id-1].name+' lernt '+ATTACKS[runeId].name+
+      '! Im Attackenbuch kannst du vier Angriffe vorbereiten.';
   }
 
     window.EchoMaps?.registerLegacy(worldMap);
@@ -480,6 +554,11 @@
     musicBoxDelivered: false,
     potions: 5,
     orbs: 12,
+    runes: {},
+    runeRewards: {},
+    runeCursor: 0,
+    runeTeamCursor: 0,
+    attackBookTeamCursor: 0,
     encounterGrace: 0,
     battleWins: 0,
     routeQuest: {accepted:false,lights:[],rewarded:false,guardianWon:false},
@@ -538,6 +617,8 @@
         musicBoxDelivered: gameState.musicBoxDelivered,
         potions: gameState.potions,
         orbs: gameState.orbs,
+        runes: gameState.runes,
+        runeRewards: gameState.runeRewards,
         encounterGrace: gameState.encounterGrace,
         battleWins: gameState.battleWins,
         routeQuest: gameState.routeQuest,
@@ -622,7 +703,9 @@
            if(!m){gameState.currentMapId='legacy_wurzeldorf';gameState.player.x=5;gameState.player.y=6;}
          }
        }
-       gameState.team.forEach(m=>{ensureMonsterMoves(m);if(!m.nextXp)m.nextXp=m.lv*18;});
+       if(!gameState.runes||typeof gameState.runes!=='object')gameState.runes={};
+      if(!gameState.runeRewards||typeof gameState.runeRewards!=='object')gameState.runeRewards={};
+      gameState.team.forEach(m=>{ensureMonsterMoves(m);if(!m.nextXp)m.nextXp=m.lv*18;});
       if((d.balanceVersion||0)<6){
         // Einmalige Wiedergutmachung für überharte frühe Kämpfe.
         gameState.team.forEach(m=>m.hp=m.maxHp);
@@ -764,8 +847,10 @@ function executeBattleAction(choice){
     if(choice===0){gameState.mode='ATTACKS';b.attackCursor=0;b.attackTop=0;sfx.blip();return;}
     if(choice===1){
       const other=gameState.team.find(m=>m!==ally&&m.hp>0);
-      if(other){gameState.team=gameState.team.filter(m=>m!==other);gameState.team.unshift(other);b.log=`${SPECIES[other.id-1].name} kommt heraus!`;battleTimeout(enemyCounterAttack,450);b.busy=true;}
-      else b.log='Du hast keinen weiteren kampffähigen Geist.';
+      if(other){
+        gameState.teamCursor=gameState.team.indexOf(other);
+        gameState.mode='TEAM_SELECT';sfx.confirm();
+      }else b.log='Du hast keinen weiteren kampffähigen Geist.';
     }else if(choice===2){
       if(b.isTrainer){
         if(gameState.potions<=0){b.log='Keine Seelen-Tränke mehr!';sfx.cancel();return;}
@@ -799,7 +884,7 @@ function executeBattleAction(choice){
   function useSelectedAttack(){
     const b=gameState.battle,ally=getActiveAlly();if(!b||b.busy||!ally)return;
     ensureMonsterMoves(ally);
-    const id=ally.moves[b.attackCursor||0],move=ATTACKS[id];if(!move)return;
+    const id=battleMoves(ally)[b.attackCursor||0],move=ATTACKS[id];if(!move)return;
     gameState.mode='BATTLE';b.busy=true;
     if(move.heal){
       const healed=Math.min(move.heal,ally.maxHp-ally.hp);
@@ -807,20 +892,23 @@ function executeBattleAction(choice){
       sfx.heal();
       battleTimeout(enemyCounterAttack,650);return;
     }
+    const multiplier=AFF.effectiveness(move.type,b.enemy);
     const damage=skillDamage(ally,b.enemy,move);
     b.enemy.hp=Math.max(0,b.enemy.hp-damage);
     b.animTimer=18;b.fxTarget='enemy';b.lastAttackColor=move.fx||'#ffe3a2';
-    b.log=`${SPECIES[ally.id-1].name} nutzt ${move.name}! (${damage} Schaden)`;
+    b.log=SPECIES[ally.id-1].name+' nutzt '+move.name+'! ('+damage+' Schaden) · '+AFF.label(multiplier);
     sfx.hit();
     battleTimeout(()=>{if(b.enemy.hp<=0)handleEnemyDefeated();else enemyCounterAttack();},650);
   }
   function attackReorder(dir){
-    const b=gameState.battle,ally=b?getActiveAlly():gameState.team[0];
+    const menuOnly=['OVERWORLD','MENU'].includes(gameState.attackOrigin);
+    const b=menuOnly?null:gameState.battle,ally=b?getActiveAlly():gameState.team[gameState.attackBookTeamCursor||0];
     if(!ally)return;
     ensureMonsterMoves(ally);
     let index=b?b.attackCursor:gameState.freeAttackCursor||0;
-    const next=index+dir;if(next<0||next>=ally.moves.length){sfx.cancel();return;}
-    [ally.moves[index],ally.moves[next]]=[ally.moves[next],ally.moves[index]];
+    const list=b?battleMoves(ally):ally.moves;
+    const next=index+dir;if(next<0||next>=list.length){sfx.cancel();return;}
+    [list[index],list[next]]=[list[next],list[index]];
     if(b){b.attackCursor=next; b.attackTop=Math.max(0,Math.min(next,ally.moves.length-6));}
     else gameState.freeAttackCursor=next;
     sfx.confirm();
@@ -836,8 +924,9 @@ function executeBattleAction(choice){
     const enemySp = SPECIES[enemy.id - 1];
 
     ensureMonsterMoves(enemy);
-    const offensive=enemy.moves.filter(id=>ATTACKS[id]&&ATTACKS[id].power>0).slice(0,2);
-    const healing=enemy.moves.find(id=>ATTACKS[id]?.heal);
+    const prepared=battleMoves(enemy);
+    const offensive=prepared.filter(id=>ATTACKS[id]&&ATTACKS[id].power>0);
+    const healing=prepared.find(id=>ATTACKS[id]?.heal);
     // Healing spells must never deal phantom damage. Bosses may recover only once.
     if(healing&&!b.enemyHealUsed&&enemy.hp>0&&enemy.hp<=enemy.maxHp*.35&&Math.random()<.30){
       const move=ATTACKS[healing];
@@ -850,7 +939,14 @@ function executeBattleAction(choice){
       battleTimeout(()=>{b.busy=false;},700);
       return;
     }
-    const move=ATTACKS[offensive[Math.floor(Math.random()*offensive.length)]]||ATTACKS.seelenstups;
+    // Enemies notice elemental weaknesses, too. Usually choose a strong move,
+    // occasionally the second-best one to retain variety and avoid perfect AI.
+    const scored=offensive.slice().sort((a,b)=>{
+      const score=id=>(ATTACKS[id].power||0)*AFF.effectiveness(ATTACKS[id].type,ally)*AFF.stab(ATTACKS[id].type,enemy);
+      return score(b)-score(a);
+    });
+    const choice=Math.random()<.72?0:Math.min(1,scored.length-1);
+    const move=ATTACKS[scored[choice]]||ATTACKS.seelenstups;
     const dmg=Math.max(2,Math.round(skillDamage(enemy,ally,move)*(enemy.encounterScale||1)));
     b.lastAttackColor=move.fx||'#afbcce';
     ally.hp = Math.max(0, ally.hp - dmg);
@@ -951,6 +1047,21 @@ function executeBattleAction(choice){
     }
     if(reserveXp>0)msgs.push(`Deine ${reserves.length} Begleiter erhalten jeweils +${reserveXp} EP.`);
 
+    if(b.enemyQueue.length===1 && b.isTrainer){
+      const marker=String(b.trainerName||b.enemyDisplayName||'Trainer').slice(0,96);
+      if(!gameState.runeRewards[marker]){
+        gameState.runeRewards[marker]=true;
+        const count=Object.keys(gameState.runeRewards).length;
+        const rewardIndex=SKILLBOOK.AWARD_AFTER_UNIQUE_WINS.indexOf(count);
+        if(rewardIndex>=0){
+          const rune=SKILLBOOK.RUNES[rewardIndex];
+          if(rune){
+            gameState.runes[rune.id]=(gameState.runes[rune.id]||0)+1;
+            msgs.push('✧ Gefunden: '+rune.name+'! Runenlehre im Reisetagebuch.');
+          }
+        }
+      }
+    }
     b.enemyQueue.shift();
     if (b.enemyQueue.length > 0) {
       b.enemy = b.enemyQueue[0];
@@ -1365,6 +1476,7 @@ function executeBattleAction(choice){
       if(!gameState.team.length){showDialog(['Du brauchst zuerst Miora, um dein Attackenbuch zu öffnen.']);return;}
       gameState.attackOrigin=gameState.mode;
       gameState.freeAttackCursor=0;
+      gameState.attackBookTeamCursor=0;
       if(gameState.mode==='BATTLE'&&gameState.battle){gameState.battle.attackCursor=0;gameState.battle.attackTop=0;}
       gameState.mode='ATTACKS';sfx.confirm();return;
     }
@@ -1422,9 +1534,14 @@ function executeBattleAction(choice){
     if(gameState.mode==='ATTACKS'){
       const b=gameState.battle;
       const menuOnly=gameState.attackOrigin==='OVERWORLD'||gameState.attackOrigin==='MENU';
-      const ally=menuOnly?gameState.team[0]:getActiveAlly();
+      const ally=menuOnly?gameState.team[gameState.attackBookTeamCursor||0]:getActiveAlly();
       if(!ally)return;
       ensureMonsterMoves(ally);
+      if(menuOnly&&(cmd==='LEFT'||cmd==='RIGHT')){
+        const n=gameState.team.length,offset=cmd==='LEFT'?-1:1;
+        gameState.attackBookTeamCursor=(gameState.attackBookTeamCursor+offset+n)%n;
+        gameState.freeAttackCursor=0;sfx.blip();return;
+      }
       let idx=menuOnly?(gameState.freeAttackCursor||0):(b.attackCursor||0);
       if(cmd==='B'||cmd==='START'){
         gameState.mode=menuOnly?gameState.attackOrigin:'BATTLE';gameState.attackOrigin=null;sfx.cancel();return;
@@ -1435,7 +1552,31 @@ function executeBattleAction(choice){
       else{b.attackCursor=idx;b.attackTop=Math.max(0,Math.min(b.attackTop||0,idx));if(idx>=b.attackTop+6)b.attackTop=idx-5;}
       if(cmd==='L')attackReorder(-1);
       if(cmd==='R')attackReorder(1);
+      if(cmd==='A' && menuOnly){
+        const id=ally.moves[idx];
+        if(id&&toggleEquipped(ally,id))sfx.confirm();else sfx.cancel();
+      }
       if(cmd==='A'&&!menuOnly)useSelectedAttack();
+      return;
+    }
+    if(gameState.mode==='TEAM_SELECT'){
+      const b=gameState.battle;if(!b||b.busy)return;
+      const size=gameState.team.length;
+      if(cmd==='B'||cmd==='START'){gameState.mode='BATTLE';sfx.cancel();return;}
+      if(cmd==='UP'||cmd==='LEFT'){gameState.teamCursor=(gameState.teamCursor-1+size)%size;sfx.blip();return;}
+      if(cmd==='DOWN'||cmd==='RIGHT'){gameState.teamCursor=(gameState.teamCursor+1)%size;sfx.blip();return;}
+      if(cmd==='A'){
+        const index=gameState.teamCursor||0,other=gameState.team[index];
+        if(!other||other.hp<=0){sfx.cancel();return;}
+        if(index===0){gameState.mode='BATTLE';sfx.cancel();return;}
+        gameState.team.splice(index,1);gameState.team.unshift(other);
+        gameState.mode='BATTLE';
+        b.log=SPECIES[other.id-1].name+' kommt heraus!';
+        b.busy=true;
+        sfx.confirm();
+        battleTimeout(enemyCounterAttack,450);
+        saveGame(true);
+      }
       return;
     }
     if(gameState.mode==='BATTLE'){
@@ -1458,10 +1599,28 @@ function executeBattleAction(choice){
       return;
     }
 
+    if (gameState.mode === 'RUNEBOOK') {
+      const items=SKILLBOOK.RUNES.filter(x=>(gameState.runes[x.id]||0)>0);
+      const n=gameState.team.length;
+      if(cmd==='B'||cmd==='START'){gameState.mode='MENU';sfx.cancel();return;}
+      if(!n)return;
+      if(cmd==='LEFT'){gameState.runeTeamCursor=(gameState.runeTeamCursor-1+n)%n;sfx.blip();return;}
+      if(cmd==='RIGHT'){gameState.runeTeamCursor=(gameState.runeTeamCursor+1)%n;sfx.blip();return;}
+      if(cmd==='UP'&&items.length){gameState.runeCursor=(gameState.runeCursor-1+items.length)%items.length;sfx.blip();return;}
+      if(cmd==='DOWN'&&items.length){gameState.runeCursor=(gameState.runeCursor+1)%items.length;sfx.blip();return;}
+      if(cmd==='A'&&items.length){
+        const item=items[Math.min(gameState.runeCursor,items.length-1)];
+        const ally=gameState.team[gameState.runeTeamCursor];
+        const result=teachRune(ally,item.id);
+        gameState.runeCursor=0;
+        sfx.confirm();showDialog([result],()=>{gameState.mode='RUNEBOOK';});
+      }
+      return;
+    }
     if (gameState.mode === 'MENU') {
       if (cmd === 'B' || cmd === 'START') { gameState.mode = 'OVERWORLD'; sfx.cancel(); }
-      else if (cmd === 'UP') { gameState.menuCursor = (gameState.menuCursor + 4) % 5; sfx.blip(); }
-      else if (cmd === 'DOWN') { gameState.menuCursor = (gameState.menuCursor + 1) % 5; sfx.blip(); }
+      else if (cmd === 'UP') { gameState.menuCursor = (gameState.menuCursor + 5) % 6; sfx.blip(); }
+      else if (cmd === 'DOWN') { gameState.menuCursor = (gameState.menuCursor + 1) % 6; sfx.blip(); }
       else if (cmd === 'A') {
         if (gameState.menuCursor === 0) { gameState.mode = 'LEXICON'; sfx.confirm(); }
         else if (gameState.menuCursor === 1) {
@@ -1485,7 +1644,10 @@ function executeBattleAction(choice){
           gameState.archiveCursor=0;gameState.archiveTeamCursor=0;
           gameState.mode='ARCHIVE';sfx.confirm();
         }
-        else if (gameState.menuCursor === 4) { gameState.mode = 'OVERWORLD'; sfx.cancel(); }
+        else if (gameState.menuCursor === 4) {
+          gameState.mode='RUNEBOOK';gameState.runeCursor=0;gameState.runeTeamCursor=0;sfx.confirm();
+        }
+        else if (gameState.menuCursor === 5) { gameState.mode = 'OVERWORLD'; sfx.cancel(); }
       }
     }
   }
@@ -2323,6 +2485,70 @@ function executeBattleAction(choice){
     pix(x+2,y+2,Math.max(0,Math.round((w-4)*Math.max(0,Math.min(1,v)))),4,v<.25?'#cb715d':v<.5?'#dbaf5e':color);
     pix(x+3,y+2,Math.max(0,Math.round((w-4)*Math.max(0,Math.min(1,v)))-3),1,'#f1edb8');
   }
+  function drawTypeBadges(x,y,creature,size=13){
+    const types=AFF.typesFor(creature);
+    types.forEach((type,index)=>{
+      const info=AFF.INFO[type];
+      const px=x+index*(size+2);
+      ctx.fillStyle='#26383c';ctx.fillRect(px,y,size+2,size+2);
+      ctx.fillStyle=info.color;ctx.fillRect(px+1,y+1,size,size);
+      fText(info.symbol,px+size/2+1,y+size-1,Math.max(9,size-2),'#fff8df','center');
+    });
+  }
+  function effectivenessText(user,move,enemy){
+    if(!move||move.heal)return 'HEILUNG';
+    const e=AFF.effectiveness(move.type,enemy);
+    const stab=AFF.stab(move.type,user);
+    return (e>1.05?'STARK':e<.95?'SCHWACH':'NEUTRAL')+
+      ' x'+(Math.round(e*stab*100)/100).toFixed(2);
+  }
+  function renderTeamSelect(){
+    const b=gameState.battle;if(!b)return;
+    pix(0,0,PW,PH,'#213b4299');
+    boxArt(8,7,304,168,'#ede0c5','#2b5459','#fdf4de');
+    fText('GEISTER WECHSELN',160,25,14,'#294d51','center');
+    fText('KP · ELEMENTE · BESTE ATTACKE',160,37,8,'#607967','center');
+    const selected=gameState.teamCursor||0;
+    for(let i=0;i<Math.min(6,gameState.team.length);i++){
+      const m=gameState.team[i],sp=SPECIES[m.id-1],y=55+i*18;
+      ensureMonsterMoves(m);
+      const chosen=i===selected;
+      pix(15,y-12,291,17,chosen?'#8fb6a4':i%2?'#f8efda':'#ebe6d2');
+      const label=(chosen?'▶ ':' ')+(i===0?'★ ':'')+sp.name;
+      fText(label,20,y,sp.name.length>15?8:9,chosen?'#173f45':'#43645d');
+      drawTypeBadges(161,y-11,m,12);
+      const best=Math.max(...battleMoves(m).map(id=>AFF.effectiveness(ATTACKS[id]?.type||'NORMAL',b.enemy)));
+      fText(m.hp>0?'x'+best.toFixed(1):'K.O.',243,y,8,m.hp>0?'#2d6750':'#a14a4a','right');
+      fText(m.hp+'/'+m.maxHp,300,y,8,'#31554f','right');
+    }
+    fText('A WECHSELN   B ZURUECK   ↑↓',160,169,9,'#365e59','center');
+  }
+  function renderRuneBook(){
+    pix(0,0,PW,PH,'#153b4799');
+    boxArt(7,6,306,168,'#e9dcbf','#345458','#fff1d4');
+    const m=gameState.team[gameState.runeTeamCursor||0];
+    fText('RUNENLEHRE',160,23,15,'#304f52','center');
+    if(m){
+      drawTypeBadges(17,30,m,13);
+      fText(SPECIES[m.id-1].name+'  Lv.'+m.lv,65,40,10,'#2c5555');
+      fText('Runen '+(m.runeMoves?.length||0)+'/2',297,40,9,'#446d5f','right');
+    }
+    const items=SKILLBOOK.RUNES.filter(r=>(gameState.runes[r.id]||0)>0);
+    if(!items.length)fText('Gewinne besondere Kämpfe für Runen.',16,81,10,'#556e5e');
+    const cursor=Math.min(gameState.runeCursor||0,Math.max(0,items.length-1));
+    const first=Math.max(0,Math.min(cursor-3,Math.max(0,items.length-6)));
+    for(let row=0;row<6&&first+row<items.length;row++){
+      const item=items[first+row],i=first+row,y=60+row*16;
+      if(i===cursor)pix(15,y-11,290,16,'#a6c9b0');
+      drawTypeBadges(19,y-10,{affinities:[AFF.normalize(ATTACKS[item.id].type)]},11);
+      fText((i===cursor?'▶ ':' ')+ATTACKS[item.id].name,37,y,10,'#36564e');
+      const fits=m && AFF.compatible(m,ATTACKS[item.id].type)&&
+        !m.moves.includes(item.id)&&(m.runeMoves?.length||0)<MAX_RUNE_MOVES;
+      fText(fits?'LERNSBAR':'GESPERRT',281,y,8,fits?'#256f4b':'#8f6663','right');
+      fText('x'+gameState.runes[item.id],301,y,8,'#536962','right');
+    }
+    fText('←→ GEIST  ↑↓ RUNE  A LERNEN  B ZUR.',160,169,8,'#49685e','center');
+  }
   function renderBattle(tick){
     const b=gameState.battle;if(!b)return;
     const ally=getActiveAlly();if(!ally)return;
@@ -2369,12 +2595,13 @@ function executeBattleAction(choice){
     boxArt(5,5,143,35,'#f8efd6','#365456','#fff9e7');
     fText(b.enemyDisplayName||enemySp.name,12,18,10,'#263f43');
     fText('Lv.'+enemy.lv,123,18,9,'#486e60','right');
-    fText('KP',12,33,8,'#546a61');hpbar(31,26,109,enemy.hp/enemy.maxHp,'#69ad68');
+    drawTypeBadges(9,25,enemy,11);hpbar(41,26,99,enemy.hp/enemy.maxHp,'#69ad68');
     // Eigene Leiste rechts unten; mit genauen KP
     boxArt(176,79,140,38,'#f8efd6','#365456','#fff9e7');
     fText(allySp.name,182,91,9,'#263f43');
     fText('Lv.'+ally.lv,309,91,8,'#456459','right');
     hpbar(184,96,123,ally.hp/ally.maxHp,'#72b477');
+    drawTypeBadges(182,105,ally,11);
     fText(`${ally.hp}/${ally.maxHp} KP`,305,112,8,'#456459','right');
     // Klassische Game-Boy-Kampfleiste: Text links und die 4 Tasten rechts.
     pix(0,117,320,63,'#294346');pix(3,120,314,57,'#fff2ce');
@@ -2396,32 +2623,39 @@ function executeBattleAction(choice){
 
   function renderAttackBook(tick){
     const menuOnly=gameState.attackOrigin==='OVERWORLD'||gameState.attackOrigin==='MENU';
-    const b=gameState.battle,ally=menuOnly?gameState.team[0]:getActiveAlly();
+    const b=gameState.battle,ally=menuOnly?gameState.team[gameState.attackBookTeamCursor||0]:getActiveAlly();
     if(!ally)return;
     ensureMonsterMoves(ally);
-    const index=menuOnly?gameState.freeAttackCursor||0:b.attackCursor||0;
-    const top=menuOnly?Math.max(0,Math.min(ally.moves.length-6,index-3)):Math.max(0,Math.min(ally.moves.length-6,b.attackTop||0));
+    const moves=menuOnly?ally.moves:battleMoves(ally);
+    const index=Math.min(moves.length-1,menuOnly?gameState.freeAttackCursor||0:b.attackCursor||0);
+    const top=menuOnly?Math.max(0,Math.min(moves.length-6,index-3)):0;
     if(menuOnly)pix(0,0,PW,PH,'#122b3699');
-    boxArt(132,5,185,170,'#f8eed5','#2f5558','#fdf4d7');
-    pix(136,9,177,33,'#365b5b');
-    fText('ATTACKENBUCH',144,23,14,'#fff0c6');
-    fText(`Lv.${ally.lv}  ·  ${ally.moves.length} gelernt`,143,37,9,'#d2e7d1');
+    boxArt(125,5,192,170,'#f8eed5','#2f5558','#fdf4d7');
+    pix(129,9,184,33,'#365b5b');
+    fText(menuOnly?'ATTACKENBUCH':'KAMPF-ATTACKEN',137,23,12,'#fff0c6');
+    fText(menuOnly?('TEAM '+((gameState.attackBookTeamCursor||0)+1)+'/'+gameState.team.length+'  ←→  '+battleMoves(ally).length+'/4 AKTIV'):
+      ('4 AKTIVE PLÄTZE  ·  Lv.'+ally.lv),137,37,8,'#d2e7d1');
     for(let row=0;row<6;row++){
-      const i=top+row;if(i>=ally.moves.length)break;
-      const move=ATTACKS[ally.moves[i]],y=47+row*18,active=i===index;
-      pix(137,y,174,17,active?'#4d7676':row%2?'#e8ebd6':'#faf5e3');
-      pix(138,y+1,2,15,TYPE_COLORS[move.type][1]);
-      fText(`${active?'▶':' '} ${move.name}`,142,y+12,10,active?'#fff5df':'#304d50');
-      fText(move.heal?`+${move.heal} KP`:`${move.power}`,267,y+12,9,active?'#f9e7b1':'#65756c','right');
-      if(active){fText('↑',280,y+11,10,'#fff6db');fText('↓',296,y+11,10,'#fff6db');}
+      const i=top+row;if(i>=moves.length)break;
+      const move=ATTACKS[moves[i]],y=47+row*18,active=i===index;
+      pix(132,y,180,17,active?'#4d7676':row%2?'#e8ebd6':'#faf5e3');
+      const info=AFF.INFO[AFF.normalize(move.type)];
+      pix(135,y+1,3,15,info.color);
+      const equipped=menuOnly&&battleMoves(ally).includes(moves[i]);
+      fText((active?'▶':equipped?'●':' ')+ ' '+move.name,141,y+12,9,active?'#fff5df':'#304d50');
+      fText(move.heal?'HEIL':String(move.power),287,y+12,8,active?'#f9e7b1':'#65756c','right');
+      fText(info.symbol,305,y+12,10,active?'#fff6dc':info.color,'right');
     }
-    if(ally.moves.length>6){fText(`${top+1}-${Math.min(top+6,ally.moves.length)}/${ally.moves.length}`,311,167,8,'#55766b','right');}
-    const current=ATTACKS[ally.moves[index]];
-    pix(7,122,121,52,'#24444a');pix(10,125,115,46,'#f5e8c7');
-    fText(current.name,15,139,11,'#304d48');
-    fText(`${current.type} · ${current.heal?'HEILUNG':'STÄRKE '+current.power}`,15,151,8,'#5d7768');
-    fText(menuOnly?'L/R SORTIEREN': 'A EINSETZEN · B ZURÜCK',15,166,8,'#587064');
-    if(menuOnly)fText('Im Spiel: jederzeit mit ⚡',8,27,9,'#fff9cf');
+    if(moves.length>6)fText((top+1)+'-'+Math.min(top+6,moves.length)+'/'+moves.length,310,168,8,'#55766b','right');
+    const current=ATTACKS[moves[index]];
+    if(!current)return;
+    pix(5,121,117,54,'#24444a');pix(8,124,111,48,'#f5e8c7');
+    const info=AFF.INFO[AFF.normalize(current.type)];
+    fText(info.symbol+' '+current.name,12,139,9,'#304d48');
+    fText(current.heal?'HEILUNG +'+current.heal:
+      (menuOnly?info.name+'  KRAFT '+current.power:effectivenessText(ally,current,b.enemy)),
+      12,151,8,'#5d7768');
+    fText(menuOnly?'A AUSRUeSTEN':'A ANGRIFF',12,166,8,'#587064');
   }
 
   function ellipseBattle(x,y,rx,ry,fill,edge){
@@ -2443,14 +2677,16 @@ function executeBattleAction(choice){
     fText('REISETAGEBUCH',160,37,15,'#345851','center');
     fText('Vaters Seiten: '+gameState.pages.filter(Boolean).length+'/3   Orden: '+gameState.badges+'/3',66,55,9,'#557064');
     const items=['Buch der 150 Seelen','Team heilen ('+gameState.potions+' Traenke)',
-      'Spielstand speichern','Echo-Archiv ('+gameState.archive.length+')','Zurueck ins Abenteuer'];
+      'Spielstand speichern','Echo-Archiv ('+gameState.archive.length+')',
+      'Runenlehre ('+Object.values(gameState.runes||{}).reduce((a,b)=>a+b,0)+')',
+      'Zurueck ins Abenteuer'];
     items.forEach((label,i)=>{
-      const y=75+i*18;
+      const y=68+i*17;
       if(gameState.menuCursor===i){pix(62,y-11,197,16,'#93b6a0');pix(62,y-11,3,16,'#ebcc78');}
-      fText((gameState.menuCursor===i?'> ':'  ')+label,68,y,10,
+      fText((gameState.menuCursor===i?'> ':'  ')+label,68,y,9,
         gameState.menuCursor===i?'#244a43':'#526759');
     });
-    fText('A: Auswaehlen  B: Schliessen',160,165,8,'#5c7466','center');
+    fText('A: Auswaehlen  B: Schliessen',160,168,8,'#5c7466','center');
   }
   function renderArchive(){
     pix(0,0,PW,PH,'#254c50');
@@ -2487,7 +2723,11 @@ function executeBattleAction(choice){
     ctx.drawImage(csp,25,44,72,72);
     fText(`Nr. ${String(id).padStart(3,'0')}`,122,45,10,'#597364');
     fText(seen?sp.name:'???',122,64,sp.name.length>19?10:sp.name.length>14?12:15,'#345851');
-    fText(`Element    ${seen?sp.type:'Unbekannt'}`,122,82,10,'#5c7363');
+    fText('Elemente:',122,82,9,'#5c7363');
+    if(seen){
+      drawTypeBadges(174,70,sp,12);
+      fText(AFF.typesFor(sp).map(t=>AFF.INFO[t].name).join('/'),214,82,8,'#455e5a');
+    }
     fText(seen ? `Form ${sp.stage}/${sp.stageCount}   ${sp.evolvesTo ? '→ Nr.'+String(sp.evolvesTo).padStart(3,'0')+' ab Lv.'+sp.evolveLv : '· Endform'}` : 'Form unbekannt',122,96,9,'#5c7363');
     fText(`KP ${seen?sp.hp:'--'}   ANG ${seen?sp.atk:'--'}   VER ${seen?sp.def:'--'}`,122,110,9,'#5c7363');
     fText(gameState.caughtIds[id]?'✦ VERBUNDEN':seen?'◈ GESEHEN':'◇ NICHT ENTDECKT',122,122,9,'#9d7b51');
@@ -2570,7 +2810,7 @@ function executeBattleAction(choice){
   function updateTouchLabel() {
     if (lastTouchMode === gameState.mode) return;
     lastTouchMode = gameState.mode;
-    touchALabel.textContent = ({TITLE: 'Starten', DIALOG: 'Weiter', OVERWORLD: 'Aktion', PLATFORM:'Springen', BATTLE: 'Wählen', ATTACKS:'Angriff', LEXICON: 'Info', ARCHIVE: 'Tauschen', MENU: 'Wählen'})[gameState.mode] || 'OK';
+    touchALabel.textContent = ({TITLE: 'Starten', DIALOG: 'Weiter', OVERWORLD: 'Aktion', PLATFORM:'Springen', BATTLE: 'Wählen', ATTACKS:'Angriff', TEAM_SELECT:'Wechseln', RUNEBOOK:'Lernen', LEXICON: 'Info', ARCHIVE: 'Tauschen', MENU: 'Wählen'})[gameState.mode] || 'OK';
   }
 
 
@@ -2579,7 +2819,7 @@ function executeBattleAction(choice){
   const labAlly=document.getElementById('lab-ally');
   const labEnemy=document.getElementById('lab-enemy');
   let savedBeforeLab=null;
-  const LAB_IDS=[1,2,3,5,6,7,8,9];
+  const LAB_IDS=[1,2,3,5,6,7,8,9,23,27,51,65,123,124,125];
   for(const id of LAB_IDS){
     const s=SPECIES[id-1];
     for(const select of [labAlly,labEnemy]){
@@ -2618,6 +2858,11 @@ function executeBattleAction(choice){
     const ally=createMonsterInstance(id, SPECIES[id-1].stage===1?5:SPECIES[id-1].stage===2?11:17);
     const enemy=createMonsterInstance(eId, SPECIES[eId-1].stage===1?3:SPECIES[eId-1].stage===2?10:16);
     gameState.team=[ally];
+    if(window.echoBattleLabReserveId){
+      const reserveId=window.echoBattleLabReserveId;
+      if(SPECIES[reserveId-1])gameState.team.push(createMonsterInstance(reserveId,ally.lv));
+      window.echoBattleLabReserveId=null;
+    }
     gameState.hasStarter=true;
     gameState.mode='BATTLE';
     gameState.battle={isTrainer:false,trainerName:null,gymIndex:null,
@@ -2652,11 +2897,29 @@ function executeBattleAction(choice){
       }
       return;
     }
+    if(gameState.mode==='TEAM_SELECT'){
+      if(x>=15&&x<=305&&y>=43&&y<43+gameState.team.length*18){
+        gameState.teamCursor=Math.floor((y-43)/18);
+        handleCommand('A');
+      }
+      return;
+    }
+    if(gameState.mode==='RUNEBOOK'){
+      const items=SKILLBOOK.RUNES.filter(r=>(gameState.runes[r.id]||0)>0);
+      if(y<45&&x>160){handleCommand('RIGHT');return;}
+      if(y>=49&&y<156&&items.length){
+        const cursor=gameState.runeCursor||0,first=Math.max(0,Math.min(cursor-3,Math.max(0,items.length-6)));
+        gameState.runeCursor=Math.min(items.length-1,first+Math.floor((y-49)/16));
+        handleCommand('A');
+      }
+      return;
+    }
     if(gameState.mode==='ATTACKS'){
       const menuOnly=gameState.attackOrigin==='OVERWORLD'||gameState.attackOrigin==='MENU';
       const b=gameState.battle,ally=menuOnly?gameState.team[0]:getActiveAlly();
       if(!ally)return;
       ensureMonsterMoves(ally);
+      if(menuOnly&&y<46){handleCommand(x<230?'LEFT':'RIGHT');return;}
       if(x<137||x>319||y<46||y>161)return;
       const top=menuOnly?Math.max(0,Math.min(ally.moves.length-6,(gameState.freeAttackCursor||0)-3)):(b.attackTop||0);
       const index=top+Math.floor((y-47)/18);
@@ -2664,7 +2927,7 @@ function executeBattleAction(choice){
       if(menuOnly)gameState.freeAttackCursor=index;else b.attackCursor=index;
       if(x>289){attackReorder(1);return;}
       if(x>271){attackReorder(-1);return;}
-      if(!menuOnly)useSelectedAttack();
+      if(menuOnly)handleCommand('A');else useSelectedAttack();
       return;
     }
     if(gameState.mode!=='BATTLE'||!gameState.battle||gameState.battle.busy)return;
@@ -2674,10 +2937,20 @@ function executeBattleAction(choice){
     executeBattleAction(gameState.battle.cursor);
   });
   
-    window.echoBattleLab={start(allyId=1,enemyId=9){labAlly.value=String(allyId);labEnemy.value=String(enemyId);document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
+    window.echoBattleLab={start(allyId=1,enemyId=9,reserveId=null){labAlly.value=String(allyId);labEnemy.value=String(enemyId);window.echoBattleLabReserveId=reserveId;document.getElementById('lab-start').click();}, stop:exitLab, status:()=>({active:!!savedBeforeLab,mode:gameState.mode,ally:gameState.team[0]?.id,enemy:gameState.battle?.enemy?.id})};
 
   window.tvControllerInput=(cmd)=>handleCommand(cmd);
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,chapter6:gameState.chapter6,chapter7:gameState.chapter7,chapter8:gameState.chapter8,chapter9:gameState.chapter9,chapter10:gameState.chapter10,chapter11:gameState.chapter11,chapter12:gameState.chapter12,chapter13:gameState.chapter13,chapter14:gameState.chapter14,postgame:gameState.postgame,optional_postgame_completed:gameState.optional_postgame_completed,main_story_finished:gameState.main_story_finished,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:m.moves})),archiveCount:gameState.archive.length,dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,busy:gameState.battle.busy,cursor:gameState.battle.cursor}:null});
+  // Read-only QA introspection: never changes HP, inventory, AI or story flags.
+  window.echoQACombatOptions=()=>{
+    if(!gameState.battle||!getActiveAlly())return [];
+    const ally=getActiveAlly(),enemy=gameState.battle.enemy;
+    return battleMoves(ally).map((id,index)=>{
+      const move=ATTACKS[id],factor=AFF.effectiveness(move.type,enemy),stab=AFF.stab(move.type,ally);
+      return {id,index,power:move.power||0,heal:move.heal||0,
+        factor,stab,score:(move.power||0)*factor*stab};
+    });
+  };
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,chapter6:gameState.chapter6,chapter7:gameState.chapter7,chapter8:gameState.chapter8,chapter9:gameState.chapter9,chapter10:gameState.chapter10,chapter11:gameState.chapter11,chapter12:gameState.chapter12,chapter13:gameState.chapter13,chapter14:gameState.chapter14,postgame:gameState.postgame,optional_postgame_completed:gameState.optional_postgame_completed,main_story_finished:gameState.main_story_finished,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,potions:gameState.potions,orbs:gameState.orbs,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:battleMoves(m),learnedMoves:m.moves,types:AFF.typesFor(m)})),archiveCount:gameState.archive.length,dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,enemyHp:gameState.battle.enemy?.hp,enemyMaxHp:gameState.battle.enemy?.maxHp,busy:gameState.battle.busy,cursor:gameState.battle.cursor,log:gameState.battle.log,teamCursor:gameState.teamCursor}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
@@ -2709,10 +2982,11 @@ function executeBattleAction(choice){
     } else if (gameState.mode === 'DIALOG') {
       renderScene(tick);
       renderDialog();
-    } else if (gameState.mode === 'BATTLE'||gameState.mode==='ATTACKS') {
+    } else if (['BATTLE','ATTACKS','TEAM_SELECT'].includes(gameState.mode)) {
       if(gameState.mode==='ATTACKS'&&['OVERWORLD','MENU'].includes(gameState.attackOrigin))renderScene(tick);
       else renderBattle(tick);
       if(gameState.mode==='ATTACKS')renderAttackBook(tick);
+      if(gameState.mode==='TEAM_SELECT')renderTeamSelect();
     } else if (gameState.mode === 'MAP') {
       if(gameState.currentMapId==='legacy_wurzeldorf')window.EchoExplore.drawMap(ctx,worldMap,gameState);
        else (window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
@@ -2727,6 +3001,8 @@ function executeBattleAction(choice){
       renderLexicon();
     } else if (gameState.mode === 'ARCHIVE') {
       renderArchive();
+    } else if (gameState.mode === 'RUNEBOOK') {
+      renderRuneBook();
     } else if (gameState.mode === 'MENU') {
       renderScene(tick);
       renderMenu();

@@ -8,6 +8,7 @@ const save={},window={document,addEventListener(){},location:{search:''},ECHO_BA
 const env={window,document,navigator:{getGamepads(){return []}},location:window.location,URLSearchParams,Math,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(k){return save[k]},setItem(k,v){save[k]=v}},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
 const species=fs.readFileSync('data/species.js','utf8'),engine=fs.readFileSync('src/game.js','utf8');
 vm.runInNewContext(species,env);
+for(const f of ['data/affinities.js','data/skills.js'])vm.runInNewContext(fs.readFileSync(f,'utf8'),env);
 vm.runInNewContext(fs.readFileSync('data/encounters.js','utf8'),env);
 vm.runInNewContext(fs.readFileSync('src/encounters/registry.js','utf8'),env);
 vm.runInNewContext(fs.readFileSync('src/village.js','utf8'),env);

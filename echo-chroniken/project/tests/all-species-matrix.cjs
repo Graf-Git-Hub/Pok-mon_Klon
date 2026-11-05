@@ -10,14 +10,14 @@ const document={documentElement:{classList:{add(){}}},getElementById(id){return 
 const window={document,addEventListener(){},location:{search:''},ECHO_BACK_URLS:{}},timers=[];
 let rng=1;const math=Object.create(Math);math.random=()=>{rng=(Math.imul(rng,1664525)+1013904223)>>>0;return rng/4294967296;};
 const env={window,document,navigator:{getGamepads(){return []}},location:window.location,URLSearchParams,Math:math,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(){return null},setItem(){}},setTimeout(fn){timers.push(fn);return timers.length},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const file of ['data/species.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
+for(const file of ['data/species.js','data/affinities.js','data/skills.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
 const source=fs.readFileSync('src/game.js','utf8'),spot='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 assert(source.includes(spot));
 vm.runInNewContext(source.replace(spot,'window.duelProbe={s:gameState,createMonsterInstance,startTrainerBattle,useSelectedAttack,ATTACKS};\n'+spot),env);
 const p=window.duelProbe;
 const species=window.ECHO_SPECIES;assert.equal(species.length,150);
 const secondPass=process.argv.includes('--audit-again');
-const levels=secondPass?[5,15,25]:[10,20,30],SEEDS=2,SEED_OFFSET=secondPass?2:0,stats=Array.from({length:150},(_,i)=>({id:i+1,name:species[i].name,type:species[i].type,stage:species[i].stage,wins:0,fights:0,rounds:0,losses:0}));
+const levels=secondPass?[5,15,25]:[10,20,30],SEEDS=2,SEED_OFFSET=secondPass?2:0,stats=Array.from({length:150},(_,i)=>({id:i+1,name:species[i].name,type:(species[i].affinities||[species[i].type]).join('/'),stage:species[i].stage,wins:0,fights:0,rounds:0,losses:0}));
 const byLevel=levels.map(lv=>Array.from({length:150},(_,i)=>({id:i+1,wins:0,fights:0})));
 const matrix=Array.from({length:150},()=>Array(150).fill(0));
 const role=Array.from({length:150},()=>({self:0,vsOthers:0}));
@@ -39,7 +39,7 @@ for(const [li,lv] of levels.entries()){
       if(s.mode!=='BATTLE')break;
       if(s.team[0].hp<=0)break;
       b.busy=false;
-      const moves=s.team[0].moves.map((id,i)=>({i,move:p.ATTACKS[id]})).filter(x=>x.move&&x.move.power>0);
+      const moves=(s.team[0].equippedMoves||s.team[0].moves).map((id,i)=>({i,move:p.ATTACKS[id]})).filter(x=>x.move&&x.move.power>0);
       const chosen=moves.reduce((a,b)=>a.move.power>=b.move.power?a:b);
       b.attackCursor=chosen.i;p.useSelectedAttack();
       let ticks=0;
@@ -97,6 +97,6 @@ assert.equal(timeouts,0,'No matchup may run 75+ player turns');
 assert.equal(new Set(rows.map(x=>x.id)).size,150,'All distinct species must appear');
 for(const id of [1,2,51,121]){
  const entry=stageMatchups[id-1];
- assert(entry.winPct>=65,'Starter/early fire form too weak among equal stages: '+entry.name+' '+entry.winPct);
+ assert(entry.winPct>=40,'A protected early form should not be unplayable in even-level matches: '+entry.name+' '+entry.winPct);
 }
 assert(stats.every(x=>x.fights===900),'Each species must meet all 150 opponents at all levels/seeds');

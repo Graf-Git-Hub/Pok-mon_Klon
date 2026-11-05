@@ -10,7 +10,7 @@ let seed=1;
 const math=Object.create(Math);
 math.random=()=>{seed=(Math.imul(1664525,seed)+1013904223)>>>0;return seed/4294967296};
 const env={window,document,navigator:{getGamepads(){return []}},location:window.location,URLSearchParams,Math:math,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(){return null},setItem(){}},setTimeout(fn){timers.push(fn);return timers.length},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const f of ['data/species.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])vm.runInNewContext(fs.readFileSync(f,'utf8'),env);
+for(const f of ['data/species.js','data/affinities.js','data/skills.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])vm.runInNewContext(fs.readFileSync(f,'utf8'),env);
 const src=fs.readFileSync('src/game.js','utf8'),point='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 assert(src.includes(point));
 vm.runInNewContext(src.replace(point,'window.stress={s:gameState,createMonsterInstance,startTrainerBattle,executeBattleAction,useSelectedAttack,ATTACKS,bossMultipliers,storyBossRoster,scaleBossRoster};\n'+point),env);
@@ -50,7 +50,7 @@ function simulate(spec,policy,potions,partySize,n){
    p.executeBattleAction(2);flush();
    if(s.potions<pre){heals++;continue}
   }
-  const opts=ally.moves.map((id,i)=>({id,i,power:p.ATTACKS[id]?.power||0})).filter(x=>policy==='first-slot'||x.power>0);
+  const opts=(ally.equippedMoves||ally.moves).map((id,i)=>({id,i,power:p.ATTACKS[id]?.power||0})).filter(x=>policy==='first-slot'||x.power>0);
   assert(opts.length,'No attacks');
   let selected=opts[0];
   if(policy==='best') selected=opts.reduce((a,c)=>c.power>a.power?c:a);

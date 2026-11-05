@@ -10,7 +10,7 @@ const rnd=Object.create(Math);rnd.random=()=>{seed=(Math.imul(seed,1664525)+1013
 const env={window,document,navigator:{getGamepads(){return []}},location:window.location,URLSearchParams,Math:rnd,console,
  Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(){return null},setItem(){}},
  setTimeout(fn){timers.push(fn);return timers.length},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const f of ['data/species.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
+for(const f of ['data/species.js','data/affinities.js','data/skills.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
  vm.runInNewContext(fs.readFileSync(f,'utf8'),env);
 const code=fs.readFileSync('src/game.js','utf8'),mark='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 vm.runInNewContext(code.replace(mark,'window.earlyProbe={s:gameState,createMonsterInstance,startWildBattle,useSelectedAttack,ATTACKS};\n'+mark),env);
@@ -28,7 +28,7 @@ function trial(at,lv,afterWins,i){
  for(;rounds<30;rounds++){
   const b=s.battle;
   if(starter.hp<=0)break;
-  const attack=starter.moves.map((id,index)=>({index,move:p.ATTACKS[id]}))
+  const attack=(starter.equippedMoves||starter.moves).map((id,index)=>({index,move:p.ATTACKS[id]}))
    .filter(x=>x.move&&x.move.power>0).sort((a,b)=>b.move.power-a.move.power)[0];
   assert(attack);b.busy=false;b.attackCursor=attack.index;p.useSelectedAttack();
   let guard=0;while(timers.length&&guard++<40)timers.shift()();

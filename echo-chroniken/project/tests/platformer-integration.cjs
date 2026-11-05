@@ -5,7 +5,7 @@ function el(){return {style:{},dataset:{},value:'',textContent:'',classList:{add
 const elems={},document={documentElement:{classList:{add(){},remove(){}}},getElementById(n){return elems[n]??(elems[n]=el())},createElement:el,addEventListener(){}};
 const local={},window={document,addEventListener(){},location:{search:''},ECHO_BACK_URLS:{},ECHO_ATLAS_DATA:''};
 const env={window,document,localStorage:{getItem:k=>local[k],setItem:(k,v)=>local[k]=v},location:window.location,URLSearchParams,navigator:{getGamepads(){return []}},console,Math,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},Uint8ClampedArray,setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){}};
-for(const p of ['data/species.js','src/village.js','src/first-route.js','src/exploration.js','src/interiors.js','src/combat-fx.js','src/platformer.js','src/house.js'])vm.runInNewContext(rd(p),env);
+for(const p of ['data/species.js','data/affinities.js','data/skills.js','src/village.js','src/first-route.js','src/exploration.js','src/interiors.js','src/combat-fx.js','src/platformer.js','src/house.js'])vm.runInNewContext(rd(p),env);
 const engine=rd('src/game.js');
 const anchor='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 assert(engine.includes(anchor));vm.runInNewContext(engine.replace(anchor,'window.__stageGame=gameState;window.__stageMap=worldMap;\n'+anchor),env);

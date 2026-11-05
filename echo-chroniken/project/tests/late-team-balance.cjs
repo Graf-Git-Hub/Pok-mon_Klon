@@ -13,7 +13,7 @@ fixedMath.random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/
 const env={window,document,navigator:{getGamepads(){return []}},location:window.location,URLSearchParams,Math:fixedMath,console,
  Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(){return null},setItem(){}},
  setTimeout(fn){timers.push(fn);return timers.length},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const f of ['data/species.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
+for(const f of ['data/species.js','data/affinities.js','data/skills.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
  vm.runInNewContext(fs.readFileSync(f,'utf8'),env);
 const game=fs.readFileSync('src/game.js','utf8'),mark='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 assert(game.includes(mark));
@@ -46,7 +46,7 @@ function duel(spec,gap,iteration){
    p.executeBattleAction(2);
    if(s.potions<before)heals++;
   }else{
-   const attack=ally.moves.map((id,i)=>({id,i,move:p.ATTACKS[id]}))
+   const attack=(ally.equippedMoves||ally.moves).map((id,i)=>({id,i,move:p.ATTACKS[id]}))
     .filter(x=>x.move&&x.move.power>0).sort((a,b)=>b.move.power-a.move.power)[0];
    assert(attack, 'No offensive move');
    b.attackCursor=attack.i;p.useSelectedAttack();

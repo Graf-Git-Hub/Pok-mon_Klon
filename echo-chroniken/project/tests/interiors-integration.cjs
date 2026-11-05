@@ -6,7 +6,7 @@ function element(){return {style:{},dataset:{},value:'',textContent:'',classList
 const els={},document={documentElement:{classList:{add(){},remove(){}}},getElementById(id){return els[id]??(els[id]=element())},createElement:element,addEventListener(){}};
 const store={},win={document,addEventListener(){},location:{search:''},ECHO_BACK_URLS:{},ECHO_ATLAS_DATA:''};
 const env={document,window:win,navigator:{getGamepads(){return []}},localStorage:{getItem:k=>store[k],setItem:(k,v)=>store[k]=v},location:win.location,URLSearchParams,Math,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},setTimeout(){},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const p of ['data/species.js','src/village.js','src/first-route.js','src/exploration.js','src/interiors.js','src/combat-fx.js','src/house.js'])vm.runInNewContext(read(p),env);
+for(const p of ['data/species.js','data/affinities.js','data/skills.js','src/village.js','src/first-route.js','src/exploration.js','src/interiors.js','src/combat-fx.js','src/house.js'])vm.runInNewContext(read(p),env);
 const anchor='  // --- HAUPTSCHLEIFE (GAME LOOP) ---',engine=read('src/game.js');
 assert(engine.includes(anchor));
 vm.runInNewContext(engine.replace(anchor,'window.__buildingState=gameState;\n'+anchor),env);
