@@ -1,0 +1,37 @@
+name: Echo-Chroniken 10000 Duel Parity (Laura vs GitHub)
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/tests/combat-10000.cjs'
+      - '.github/workflows/echo-10000-duels.yml'
+      - 'echo-chroniken/project/src/game.js'
+      - 'echo-chroniken/project/data/skills.js'
+      - 'echo-chroniken/project/data/affinities.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ten-thousand-real-engine-duels:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run exactly 10000 seeded real-engine battles with three strategies
+        run: node echo-chroniken/project/tests/combat-10000.cjs
+      - name: Verify GitHub output matches Laura desktop run exactly
+        run: |
+          node -e "const r=require('./echo-chroniken/docs/visual-audit/battle-matrix/duel-10000-report.json'); const expected='82296039944df4cc4f92f04a9a9ff2c518533002ea464ad52a5888df87e6fb49'; if(r.count!==10000||r.timeouts!==0||r.fingerprint!==expected){console.error('PC/CLOUD PARITY FAILURE',r.count,r.timeouts,r.fingerprint);process.exit(1)} console.log('LAURA_GITHUB_PARITY_OK',r.fingerprint,'wins',r.wins,'losses',r.losses)"
+      - name: Preserve full 10000-duel results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-10000-duels-full-report
+          path: echo-chroniken/docs/visual-audit/battle-matrix/duel-10000-report.json
+          retention-days: 14
+          if-no-files-found: error
