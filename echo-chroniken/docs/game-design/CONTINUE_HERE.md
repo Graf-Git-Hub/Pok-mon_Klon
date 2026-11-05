@@ -1,5 +1,8 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+> **AKTUELLE Taktikprüfung, 05.11.2026:** Eigenständiger gezielter QA-Branch `feature/echo-tactical-audit-20261105`, auf Basis der 20×100k-Balancerunde PR #34. 144 Element-Matchups, 1.800 Art/Angriffstyp-Zellen, 96.000 echte Auslöseversuche von Statusattacken und 45.000 Kämpfe mit identischen Startpaarungen unter drei Politikvarianten. Elementwahl 62,00 % vs. rohe Angriffskraft 58,13 %, zusätzliche Heil-/Statuspolitik nur 62,05 % und damit kaum besser. Regel- und Ergebnisprotokoll `TACTICAL_AUDIT_20261105.md`. Nicht voreilig Statuswerte nachstellen. Original-Arbeitskopie unangetastet lassen. PR #34 erst nach vollständig grüner Cloud-CI freigeben, Audit-PR danach.
+
+
 > **AKTUELL 05.11.2026: Adaptive 20x100k auf Laura ERFOLGREICH** im separaten Worktree `Echo_20x100k_Adaptive_20261105` (Basis PR #33). 2.000.000 zufällige Engine-Duelle, 20/20 abgeschlossene Kalibrierrunden, 0 Timeouts, 141 begrenzte Stat-Änderungen, 42 Arten final geändert. Vorher/Nachher mit neuer gleicher 100k-Stichprobe: mittlere absolute Abweichung vom Stufenmedian **6,953 → 6,346 Prozentpunkte** (4 → 3 große Ausreißer). Details und Einschränkungen in `ADAPTIVE_20X100K_20261105.md`. Wichtig: noch nicht als Hauptversion/APK freigeben; weitere Browser-/Story-/Android-Checks und GitHub-PR erforderlich. Keine 100 Millionen Kämpfe auf Verdacht starten.
 
 

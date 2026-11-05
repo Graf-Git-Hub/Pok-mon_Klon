@@ -1,5 +1,11 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-05 - Gezielte Kampfentscheidungs- und Statusprüfung
+- Alle 144 Elementpaare, 1.800 Art-Angriffstypkombinationen und 12 Statusregeln kontrolliert; 96.000 tatsächliche Effekt-Auslöseversuche mit erwarteten Wahrscheinlichkeiten.
+- 15.000 gleiche Startpaarungen dreimal als echte Engine-Kämpfe wiederholt: 45.000 Kämpfe, 0 Timeouts, rohe Kraft 58,13 %, Elementwahl 62,00 %, taktische Heil-/Statusheuristik 62,05 %.
+- Elementwahl gewinnt 585 gepaarte Situationen allein (Rohkraft nur fünf), Heil-/Statusentscheidung gewinnt gegenüber reiner Elementwahl nur sieben zusätzliche netto. Neue Tests und GitHub-CI im isolierten QA-Branch. Bericht `TACTICAL_AUDIT_20261105.md`.
+
+
 ## 2026-11-05 - PC-Training mit 20 x 100.000 echten Engine-Duellen
 - Alle 20 Runden abgeschlossen, unabhängig zufällig gewählte Arten an beiden Seiten, 2.000.000 Kämpfe, 0 Timeouts. Nach jeder Runde gezielte bounded HP/ATK/DEF-Anpassungen, 141 Anpassungsaktionen, 42 Arten am Ende geändert; kein Eingriff in Save/ID/Story-Elemente und Starter-Familie #1–3 geschützt.
 - Unabhängige neue 100.000 Vorher- und 100.000 Nachher-Duelle mit identischen Paarungen: Abweichung zum Stufenmedian 6,953 → 6,346 Prozentpunkte, große Ausreißer 4 → 3. 0 Hänger.
