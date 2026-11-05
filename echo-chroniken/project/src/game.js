@@ -934,10 +934,13 @@ function executeBattleAction(choice){
 
     ensureMonsterMoves(enemy);
     const prepared=battleMoves(enemy);
-    const offensive=prepared.filter(id=>ATTACKS[id]&&ATTACKS[id].power>0);
-    const healing=prepared.find(id=>ATTACKS[id]?.heal);
-    // Healing spells must never deal phantom damage. Bosses may recover only once.
-    if(healing&&!b.enemyHealUsed&&enemy.hp>0&&enemy.hp<=enemy.maxHp*.35&&Math.random()<.30){
+    const decision=SKILLBOOK.ENEMY_AI.choose({
+      battle:b,enemy,ally,prepared,attacks:ATTACKS,aff:AFF,species:SPECIES
+    });
+    const selected=decision.id;
+    const healing=ATTACKS[selected]?.heal?selected:null;
+    // Only one deliberate recovery per enemy, and never phantom damage.
+    if(healing){
       const move=ATTACKS[healing];
       const healed=Math.min(move.heal,enemy.maxHp-enemy.hp);
       enemy.hp+=healed;
@@ -952,14 +955,9 @@ function executeBattleAction(choice){
       battleTimeout(()=>{b.busy=false;},700);
       return;
     }
-    // Enemies notice elemental weaknesses, too. Usually choose a strong move,
-    // occasionally the second-best one to retain variety and avoid perfect AI.
-    const scored=offensive.slice().sort((a,b)=>{
-      const score=id=>(ATTACKS[id].power||0)*AFF.effectiveness(ATTACKS[id].type,ally)*AFF.stab(ATTACKS[id].type,enemy);
-      return score(b)-score(a);
-    });
-    const choice=Math.random()<.72?0:Math.min(1,scored.length-1);
-    const move=ATTACKS[scored[choice]]||ATTACKS.seelenstups;
+    // Evaluate immediate damage together with expected, limited status value.
+    // Top move is preferred; near-equal runners-up remain possible for variety.
+    const move=ATTACKS[selected]||ATTACKS.seelenstups;
     const dmg=STATUS.adjustedDamage(b,enemy,ally,
       Math.max(2,Math.round(skillDamage(enemy,ally,move)*(enemy.encounterScale||1))));
     b.lastAttackColor=move.fx||'#afbcce';
@@ -967,7 +965,7 @@ function executeBattleAction(choice){
     sfx.hit();
     b.animTimer=18;b.fxTarget='ally';
     b.log = `${b.enemyDisplayName||enemySp.name} nutzt ${move.name}! (${dmg} Schaden)`;
-    const effect=STATUS.apply(b,enemy,ally,scored[choice]);
+    const effect=STATUS.apply(b,enemy,ally,selected);
     const ongoing=STATUS.endAction(b,enemy);
     if(effect)b.log+=' / '+effect;
     if(ongoing)b.log+=' / '+ongoing;

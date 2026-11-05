@@ -1,5 +1,8 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+> **AKTUELL 05.11.2026:** Baseline nach gemergten PRs #33–#35; neuer Branch `feature/echo-smart-enemy-ai-20261105` implementiert intelligente Gegnerentscheidungen zu Heilung, K.-o.-Priorisierung, Elementen und Status. Anfängergegner Level <=8 bleiben absichtlich einfach. Gegen alte KI 12.000 identische Startpaarungen pro Variante, Spieler-Siegquote 61,48 → 58,29 %, früh 62,50 → 60,47 %. 52/52 Node, Desktop/Touch-Story Kapitel 1–4 und Browser-Kampf-UI PASS. 100k neue Zufallskämpfe null Timeouts; CI-Golden-Wert aktualisiert. **Nächster Schritt** separaten PR/Cloud-CI inklusive Kapitel 14/Postgame, 150×150-Matrix, Android/Save prüfen, erst dann integrieren. Details `SMART_ENEMY_AI_20261105.md`. Originalworktree nicht überschreiben.
+
+
 > **AKTUELLE Taktikprüfung, 05.11.2026:** Eigenständiger gezielter QA-Branch `feature/echo-tactical-audit-20261105`, auf Basis der 20×100k-Balancerunde PR #34. 144 Element-Matchups, 1.800 Art/Angriffstyp-Zellen, 96.000 echte Auslöseversuche von Statusattacken und 45.000 Kämpfe mit identischen Startpaarungen unter drei Politikvarianten. Elementwahl 62,00 % vs. rohe Angriffskraft 58,13 %, zusätzliche Heil-/Statuspolitik nur 62,05 % und damit kaum besser. Regel- und Ergebnisprotokoll `TACTICAL_AUDIT_20261105.md`. Nicht voreilig Statuswerte nachstellen. Original-Arbeitskopie unangetastet lassen. PR #34 erst nach vollständig grüner Cloud-CI freigeben, Audit-PR danach.
 
 

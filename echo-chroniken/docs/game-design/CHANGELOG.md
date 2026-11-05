@@ -1,5 +1,12 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-05 - Intelligente KI im echten Kampfsystem
+- Gegner entscheiden anhand des zu erwartenden Nutzens zwischen K.-o.-Treffer, Typvorteil, nicht erneut gestapelten Statuseffekten, Schutz und einmaliger sinnvoller Heilung; Gegner bis einschließlich Level 8 bleiben einsteigerfreundlich.
+- Neue testbare Entscheidungslogik mit konkreten Unit-Tests und unabhängigem gepaartem Engine-A/B-Test auf 12.000 identischen Ausgangspaarungen: 24.000 Kämpfe, null Timeouts; Spieler-Siegquote 61,48 → 58,29 %, bei frühen Leveln 62,50 → 60,47 %.
+- 52/52 Node-Tests, realistischer Desktop-/Touch-Storylauf bis Kapitel 4, Browser-Kampf-UI und 100.000 neue Zufallskämpfe ohne Hänger bestanden. Der 100k-PC-Fingerprint wurde im Cloud-Workflow aktualisiert.
+- Noch keine Freigabe für `main` oder neue APK, bis vollständige Cloud-CI inklusive Geschichte bis Postgame grün ist. Details `SMART_ENEMY_AI_20261105.md`.
+
+
 ## 2026-11-05 - Gezielte Kampfentscheidungs- und Statusprüfung
 - Alle 144 Elementpaare, 1.800 Art-Angriffstypkombinationen und 12 Statusregeln kontrolliert; 96.000 tatsächliche Effekt-Auslöseversuche mit erwarteten Wahrscheinlichkeiten.
 - 15.000 gleiche Startpaarungen dreimal als echte Engine-Kämpfe wiederholt: 45.000 Kämpfe, 0 Timeouts, rohe Kraft 58,13 %, Elementwahl 62,00 %, taktische Heil-/Statusheuristik 62,05 %.

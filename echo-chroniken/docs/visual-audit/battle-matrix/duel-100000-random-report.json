@@ -2,599 +2,599 @@
   "test": "100,000 seed-randomized in-memory engine duels: independent random species at both sides, half equal-level / half independent-level, actual elemental/status rules and enemy AI",
   "codeRef": "same branch and HEAD for both PC and GitHub",
   "count": 100000,
-  "wins": 50246,
-  "losses": 49754,
-  "winPct": 50.25,
+  "wins": 47840,
+  "losses": 52160,
+  "winPct": 47.84,
   "timeouts": 0,
   "equalLevelFights": 58415,
   "defenderMin": 611,
   "defenderMax": 728,
   "attackerMin": 608,
   "attackerMax": 757,
-  "avgTurns": 6,
+  "avgTurns": 5.93,
   "maxTurns": 14,
-  "fingerprint": "1003fcc0d1c6471eefacebceb8b527c215ab58443a67715a4e0292e3763da4f3",
+  "fingerprint": "dce11c77f5f669bbb689558cfd4482b5f5ed9fe9d2935bb6a4902c629fcfb853",
   "levels": {
     "5": {
       "fights": 16760,
-      "wins": 5259,
-      "turns": 106936,
-      "winPct": 31.38,
-      "avgTurns": 6.38
+      "wins": 5246,
+      "turns": 105804,
+      "winPct": 31.3,
+      "avgTurns": 6.31
     },
     "10": {
       "fights": 16582,
-      "wins": 5863,
-      "turns": 100787,
-      "winPct": 35.36,
-      "avgTurns": 6.08
+      "wins": 5404,
+      "turns": 97701,
+      "winPct": 32.59,
+      "avgTurns": 5.89
     },
     "15": {
       "fights": 16457,
-      "wins": 7692,
-      "turns": 99774,
-      "winPct": 46.74,
-      "avgTurns": 6.06
+      "wins": 7160,
+      "turns": 98312,
+      "winPct": 43.51,
+      "avgTurns": 5.97
     },
     "20": {
       "fights": 16762,
-      "wins": 9594,
-      "turns": 97028,
-      "winPct": 57.24,
-      "avgTurns": 5.79
+      "wins": 9038,
+      "turns": 96296,
+      "winPct": 53.92,
+      "avgTurns": 5.74
     },
     "25": {
       "fights": 16804,
-      "wins": 10651,
-      "turns": 98299,
-      "winPct": 63.38,
-      "avgTurns": 5.85
+      "wins": 10171,
+      "turns": 97763,
+      "winPct": 60.53,
+      "avgTurns": 5.82
     },
     "30": {
       "fights": 16635,
-      "wins": 11187,
-      "turns": 97145,
-      "winPct": 67.25,
-      "avgTurns": 5.84
+      "wins": 10821,
+      "turns": 97016,
+      "winPct": 65.05,
+      "avgTurns": 5.83
     }
   },
   "tactics": {
     "power": {
       "fights": 33641,
-      "wins": 18869,
-      "turns": 196868,
-      "winPct": 56.09,
-      "avgTurns": 5.85
+      "wins": 18020,
+      "turns": 194829,
+      "winPct": 53.57,
+      "avgTurns": 5.79
     },
     "element": {
       "fights": 33126,
-      "wins": 19750,
-      "turns": 189766,
-      "winPct": 59.62,
-      "avgTurns": 5.73
+      "wins": 18880,
+      "turns": 188444,
+      "winPct": 56.99,
+      "avgTurns": 5.69
     },
     "weak": {
       "fights": 33233,
-      "wins": 11627,
-      "turns": 213335,
-      "winPct": 34.99,
-      "avgTurns": 6.42
+      "wins": 10940,
+      "turns": 209619,
+      "winPct": 32.92,
+      "avgTurns": 6.31
     }
   },
   "stages": {
     "1": {
       "fights": 63287,
-      "wins": 28431,
-      "turns": 371915,
-      "winPct": 44.92,
-      "avgTurns": 5.88
+      "wins": 26966,
+      "turns": 367042,
+      "winPct": 42.61,
+      "avgTurns": 5.8
     },
     "2": {
       "fights": 29977,
-      "wins": 17061,
-      "turns": 185382,
-      "winPct": 56.91,
-      "avgTurns": 6.18
+      "wins": 16290,
+      "turns": 183355,
+      "winPct": 54.34,
+      "avgTurns": 6.12
     },
     "3": {
       "fights": 6736,
-      "wins": 4754,
-      "turns": 42672,
-      "winPct": 70.58,
-      "avgTurns": 6.33
+      "wins": 4584,
+      "turns": 42495,
+      "winPct": 68.05,
+      "avgTurns": 6.31
     }
   },
   "typeCombinations": {
     "NATUR/NORMAL": {
       "fights": 1281,
-      "wins": 599,
-      "turns": 7809,
-      "winPct": 46.76,
-      "avgTurns": 6.1
+      "wins": 563,
+      "turns": 7666,
+      "winPct": 43.95,
+      "avgTurns": 5.98
     },
     "ERDE/SCHATTEN": {
       "fights": 638,
-      "wins": 247,
-      "turns": 3858,
-      "winPct": 38.71,
-      "avgTurns": 6.05
+      "wins": 232,
+      "turns": 3777,
+      "winPct": 36.36,
+      "avgTurns": 5.92
     },
     "LICHT/GEIST": {
       "fights": 2663,
-      "wins": 1671,
-      "turns": 15601,
-      "winPct": 62.75,
-      "avgTurns": 5.86
+      "wins": 1587,
+      "turns": 15521,
+      "winPct": 59.59,
+      "avgTurns": 5.83
     },
     "LICHT/LUFT": {
       "fights": 2617,
-      "wins": 1413,
-      "turns": 15106,
-      "winPct": 53.99,
-      "avgTurns": 5.77
+      "wins": 1356,
+      "turns": 15028,
+      "winPct": 51.82,
+      "avgTurns": 5.74
     },
     "SCHATTEN/FLAMME": {
       "fights": 2064,
-      "wins": 1040,
-      "turns": 12197,
-      "winPct": 50.39,
-      "avgTurns": 5.91
+      "wins": 983,
+      "turns": 12003,
+      "winPct": 47.63,
+      "avgTurns": 5.82
     },
     "NORMAL/EIS": {
       "fights": 1340,
-      "wins": 713,
-      "turns": 8494,
-      "winPct": 53.21,
-      "avgTurns": 6.34
+      "wins": 673,
+      "turns": 8440,
+      "winPct": 50.22,
+      "avgTurns": 6.3
     },
     "SCHATTEN/GEIST": {
       "fights": 5981,
-      "wins": 3043,
-      "turns": 36109,
-      "winPct": 50.88,
-      "avgTurns": 6.04
+      "wins": 2894,
+      "turns": 35730,
+      "winPct": 48.39,
+      "avgTurns": 5.97
     },
     "SCHATTEN/NATUR": {
       "fights": 1320,
-      "wins": 671,
-      "turns": 7418,
-      "winPct": 50.83,
-      "avgTurns": 5.62
+      "wins": 637,
+      "turns": 7361,
+      "winPct": 48.26,
+      "avgTurns": 5.58
     },
     "NORMAL/FLAMME": {
       "fights": 673,
-      "wins": 299,
-      "turns": 4083,
-      "winPct": 44.43,
-      "avgTurns": 6.07
+      "wins": 281,
+      "turns": 4007,
+      "winPct": 41.75,
+      "avgTurns": 5.95
     },
     "GEIST/LUFT": {
       "fights": 2589,
-      "wins": 1248,
-      "turns": 16142,
-      "winPct": 48.2,
-      "avgTurns": 6.23
+      "wins": 1180,
+      "turns": 15981,
+      "winPct": 45.58,
+      "avgTurns": 6.17
     },
     "GEIST/ERDE": {
       "fights": 6010,
-      "wins": 2997,
-      "turns": 37852,
-      "winPct": 49.87,
-      "avgTurns": 6.3
+      "wins": 2846,
+      "turns": 37301,
+      "winPct": 47.35,
+      "avgTurns": 6.21
     },
     "ERDE/GEIST": {
       "fights": 3960,
-      "wins": 1786,
-      "turns": 24351,
-      "winPct": 45.1,
-      "avgTurns": 6.15
+      "wins": 1673,
+      "turns": 23875,
+      "winPct": 42.25,
+      "avgTurns": 6.03
     },
     "WASSER/EIS": {
       "fights": 1369,
-      "wins": 778,
-      "turns": 8430,
-      "winPct": 56.83,
-      "avgTurns": 6.16
+      "wins": 752,
+      "turns": 8423,
+      "winPct": 54.93,
+      "avgTurns": 6.15
     },
     "NORMAL/GEIST": {
       "fights": 3357,
-      "wins": 1540,
-      "turns": 20745,
-      "winPct": 45.87,
-      "avgTurns": 6.18
+      "wins": 1441,
+      "turns": 20447,
+      "winPct": 42.93,
+      "avgTurns": 6.09
     },
     "SCHATTEN/PSYCHO": {
       "fights": 2690,
-      "wins": 1237,
-      "turns": 15307,
-      "winPct": 45.99,
-      "avgTurns": 5.69
+      "wins": 1189,
+      "turns": 15193,
+      "winPct": 44.2,
+      "avgTurns": 5.65
     },
     "NORMAL/PSYCHO": {
       "fights": 2717,
-      "wins": 1222,
-      "turns": 16126,
-      "winPct": 44.98,
-      "avgTurns": 5.94
+      "wins": 1130,
+      "turns": 15932,
+      "winPct": 41.59,
+      "avgTurns": 5.86
     },
     "EIS/SCHATTEN": {
       "fights": 3353,
-      "wins": 1853,
-      "turns": 20448,
-      "winPct": 55.26,
-      "avgTurns": 6.1
+      "wins": 1790,
+      "turns": 20197,
+      "winPct": 53.39,
+      "avgTurns": 6.02
     },
     "GEIST/PSYCHO": {
       "fights": 1342,
-      "wins": 630,
-      "turns": 7988,
-      "winPct": 46.94,
-      "avgTurns": 5.95
+      "wins": 584,
+      "turns": 7890,
+      "winPct": 43.52,
+      "avgTurns": 5.88
     },
     "NATUR/LICHT": {
       "fights": 2645,
-      "wins": 1163,
-      "turns": 16032,
-      "winPct": 43.97,
-      "avgTurns": 6.06
+      "wins": 1104,
+      "turns": 15804,
+      "winPct": 41.74,
+      "avgTurns": 5.98
     },
     "LUFT/PSYCHO": {
       "fights": 1364,
-      "wins": 672,
-      "turns": 7746,
-      "winPct": 49.27,
-      "avgTurns": 5.68
+      "wins": 631,
+      "turns": 7630,
+      "winPct": 46.26,
+      "avgTurns": 5.59
     },
     "FLAMME/PSYCHO": {
       "fights": 1278,
-      "wins": 611,
-      "turns": 6976,
-      "winPct": 47.81,
-      "avgTurns": 5.46
+      "wins": 593,
+      "turns": 6899,
+      "winPct": 46.4,
+      "avgTurns": 5.4
     },
     "SCHATTEN/LUFT": {
       "fights": 3231,
-      "wins": 1772,
-      "turns": 19706,
-      "winPct": 54.84,
-      "avgTurns": 6.1
+      "wins": 1691,
+      "turns": 19563,
+      "winPct": 52.34,
+      "avgTurns": 6.05
     },
     "FLAMME/LICHT": {
       "fights": 1953,
-      "wins": 1140,
-      "turns": 11079,
-      "winPct": 58.37,
-      "avgTurns": 5.67
+      "wins": 1097,
+      "turns": 11011,
+      "winPct": 56.17,
+      "avgTurns": 5.64
     },
     "WASSER/GEIST": {
       "fights": 7421,
-      "wins": 4025,
-      "turns": 45223,
-      "winPct": 54.24,
-      "avgTurns": 6.09
+      "wins": 3842,
+      "turns": 44678,
+      "winPct": 51.77,
+      "avgTurns": 6.02
     },
     "FLAMME/GEIST": {
       "fights": 2629,
-      "wins": 1579,
-      "turns": 15941,
-      "winPct": 60.06,
-      "avgTurns": 6.06
+      "wins": 1499,
+      "turns": 15691,
+      "winPct": 57.02,
+      "avgTurns": 5.97
     },
     "NATUR/GEIST": {
       "fights": 1340,
-      "wins": 640,
-      "turns": 8088,
-      "winPct": 47.76,
-      "avgTurns": 6.04
+      "wins": 601,
+      "turns": 7984,
+      "winPct": 44.85,
+      "avgTurns": 5.96
     },
     "LUFT/SCHATTEN": {
       "fights": 1337,
-      "wins": 710,
-      "turns": 8248,
-      "winPct": 53.1,
-      "avgTurns": 6.17
+      "wins": 688,
+      "turns": 8164,
+      "winPct": 51.46,
+      "avgTurns": 6.11
     },
     "GEIST/FLAMME": {
       "fights": 1337,
-      "wins": 646,
-      "turns": 8208,
-      "winPct": 48.32,
-      "avgTurns": 6.14
+      "wins": 588,
+      "turns": 8021,
+      "winPct": 43.98,
+      "avgTurns": 6
     },
     "NATUR/SCHATTEN": {
       "fights": 654,
-      "wins": 273,
-      "turns": 3674,
-      "winPct": 41.74,
-      "avgTurns": 5.62
+      "wins": 254,
+      "turns": 3599,
+      "winPct": 38.84,
+      "avgTurns": 5.5
     },
     "LUFT/LICHT": {
       "fights": 1372,
-      "wins": 687,
-      "turns": 8064,
-      "winPct": 50.07,
-      "avgTurns": 5.88
+      "wins": 655,
+      "turns": 8021,
+      "winPct": 47.74,
+      "avgTurns": 5.85
     },
     "ERDE/NATUR": {
       "fights": 2053,
-      "wins": 925,
-      "turns": 12689,
-      "winPct": 45.06,
-      "avgTurns": 6.18
+      "wins": 886,
+      "turns": 12547,
+      "winPct": 43.16,
+      "avgTurns": 6.11
     },
     "LICHT/PSYCHO": {
       "fights": 1918,
-      "wins": 990,
-      "turns": 10829,
-      "winPct": 51.62,
-      "avgTurns": 5.65
+      "wins": 942,
+      "turns": 10729,
+      "winPct": 49.11,
+      "avgTurns": 5.59
     },
     "PSYCHO/LUFT": {
       "fights": 1311,
-      "wins": 519,
-      "turns": 7164,
-      "winPct": 39.59,
-      "avgTurns": 5.46
+      "wins": 474,
+      "turns": 7035,
+      "winPct": 36.16,
+      "avgTurns": 5.37
     },
     "NATUR/FLAMME": {
       "fights": 639,
-      "wins": 302,
-      "turns": 3752,
-      "winPct": 47.26,
-      "avgTurns": 5.87
+      "wins": 291,
+      "turns": 3709,
+      "winPct": 45.54,
+      "avgTurns": 5.8
     },
     "FLAMME/NORMAL": {
       "fights": 2070,
-      "wins": 1136,
-      "turns": 12110,
-      "winPct": 54.88,
-      "avgTurns": 5.85
+      "wins": 1079,
+      "turns": 11903,
+      "winPct": 52.13,
+      "avgTurns": 5.75
     },
     "EIS/LUFT": {
       "fights": 1380,
-      "wins": 713,
-      "turns": 8661,
-      "winPct": 51.67,
-      "avgTurns": 6.28
+      "wins": 693,
+      "turns": 8580,
+      "winPct": 50.22,
+      "avgTurns": 6.22
     },
     "NORMAL/NATUR": {
       "fights": 675,
-      "wins": 262,
-      "turns": 4079,
-      "winPct": 38.81,
-      "avgTurns": 6.04
+      "wins": 243,
+      "turns": 4024,
+      "winPct": 36,
+      "avgTurns": 5.96
     },
     "WASSER/BLITZ": {
       "fights": 629,
-      "wins": 322,
-      "turns": 3867,
-      "winPct": 51.19,
-      "avgTurns": 6.15
+      "wins": 313,
+      "turns": 3839,
+      "winPct": 49.76,
+      "avgTurns": 6.1
     },
     "WASSER/LUFT": {
       "fights": 1370,
-      "wins": 687,
-      "turns": 8209,
-      "winPct": 50.15,
-      "avgTurns": 5.99
+      "wins": 669,
+      "turns": 8190,
+      "winPct": 48.83,
+      "avgTurns": 5.98
     },
     "GEIST/BLITZ": {
       "fights": 689,
-      "wins": 294,
-      "turns": 4183,
-      "winPct": 42.67,
-      "avgTurns": 6.07
+      "wins": 274,
+      "turns": 4098,
+      "winPct": 39.77,
+      "avgTurns": 5.95
     },
     "ERDE/EIS": {
       "fights": 651,
-      "wins": 302,
-      "turns": 3977,
-      "winPct": 46.39,
-      "avgTurns": 6.11
+      "wins": 296,
+      "turns": 3952,
+      "winPct": 45.47,
+      "avgTurns": 6.07
     },
     "ERDE/WASSER": {
       "fights": 1936,
-      "wins": 877,
-      "turns": 11567,
-      "winPct": 45.3,
-      "avgTurns": 5.97
+      "wins": 864,
+      "turns": 11426,
+      "winPct": 44.63,
+      "avgTurns": 5.9
     },
     "NATUR/PSYCHO": {
       "fights": 718,
-      "wins": 274,
-      "turns": 3936,
-      "winPct": 38.16,
-      "avgTurns": 5.48
+      "wins": 260,
+      "turns": 3869,
+      "winPct": 36.21,
+      "avgTurns": 5.39
     },
     "NATUR/WASSER": {
       "fights": 654,
-      "wins": 275,
-      "turns": 3925,
-      "winPct": 42.05,
-      "avgTurns": 6
+      "wins": 260,
+      "turns": 3864,
+      "winPct": 39.76,
+      "avgTurns": 5.91
     },
     "EIS/WASSER": {
       "fights": 705,
-      "wins": 345,
-      "turns": 4331,
-      "winPct": 48.94,
-      "avgTurns": 6.14
+      "wins": 336,
+      "turns": 4308,
+      "winPct": 47.66,
+      "avgTurns": 6.11
     },
     "EIS/ERDE": {
       "fights": 655,
-      "wins": 308,
-      "turns": 3954,
-      "winPct": 47.02,
-      "avgTurns": 6.04
+      "wins": 304,
+      "turns": 3925,
+      "winPct": 46.41,
+      "avgTurns": 5.99
     },
     "WASSER/SCHATTEN": {
       "fights": 647,
-      "wins": 356,
-      "turns": 4023,
-      "winPct": 55.02,
-      "avgTurns": 6.22
+      "wins": 342,
+      "turns": 3990,
+      "winPct": 52.86,
+      "avgTurns": 6.17
     },
     "BLITZ/LUFT": {
       "fights": 653,
-      "wins": 324,
-      "turns": 3928,
-      "winPct": 49.62,
-      "avgTurns": 6.02
+      "wins": 316,
+      "turns": 3873,
+      "winPct": 48.39,
+      "avgTurns": 5.93
     },
     "FLAMME/LUFT": {
       "fights": 1313,
-      "wins": 724,
-      "turns": 7719,
-      "winPct": 55.14,
-      "avgTurns": 5.88
+      "wins": 700,
+      "turns": 7625,
+      "winPct": 53.31,
+      "avgTurns": 5.81
     },
     "NATUR/LUFT": {
       "fights": 692,
-      "wins": 313,
-      "turns": 4022,
-      "winPct": 45.23,
-      "avgTurns": 5.81
+      "wins": 296,
+      "turns": 3959,
+      "winPct": 42.77,
+      "avgTurns": 5.72
     },
     "LUFT/GEIST": {
       "fights": 1340,
-      "wins": 726,
-      "turns": 8038,
-      "winPct": 54.18,
-      "avgTurns": 6
+      "wins": 695,
+      "turns": 7983,
+      "winPct": 51.87,
+      "avgTurns": 5.96
     },
     "FLAMME": {
       "fights": 1288,
-      "wins": 696,
-      "turns": 7748,
-      "winPct": 54.04,
-      "avgTurns": 6.02
+      "wins": 665,
+      "turns": 7644,
+      "winPct": 51.63,
+      "avgTurns": 5.93
     },
     "FLAMME/SCHATTEN": {
       "fights": 717,
-      "wins": 347,
-      "turns": 4100,
-      "winPct": 48.4,
-      "avgTurns": 5.72
+      "wins": 329,
+      "turns": 4029,
+      "winPct": 45.89,
+      "avgTurns": 5.62
     },
     "LICHT/NATUR": {
       "fights": 674,
-      "wins": 328,
-      "turns": 3786,
-      "winPct": 48.66,
-      "avgTurns": 5.62
+      "wins": 320,
+      "turns": 3766,
+      "winPct": 47.48,
+      "avgTurns": 5.59
     },
     "WASSER/LICHT": {
       "fights": 728,
-      "wins": 337,
-      "turns": 4229,
-      "winPct": 46.29,
-      "avgTurns": 5.81
+      "wins": 324,
+      "turns": 4183,
+      "winPct": 44.51,
+      "avgTurns": 5.75
     },
     "NORMAL/LICHT": {
       "fights": 697,
-      "wins": 307,
-      "turns": 4253,
-      "winPct": 44.05,
-      "avgTurns": 6.1
+      "wins": 291,
+      "turns": 4223,
+      "winPct": 41.75,
+      "avgTurns": 6.06
     },
     "FLAMME/BLITZ": {
       "fights": 673,
-      "wins": 352,
-      "turns": 3841,
-      "winPct": 52.3,
-      "avgTurns": 5.71
+      "wins": 344,
+      "turns": 3782,
+      "winPct": 51.11,
+      "avgTurns": 5.62
     }
   },
   "sameStageWeakest": [
-    {
-      "id": 67,
-      "name": "Zombiehase I",
-      "stage": 1,
-      "fights": 248,
-      "wins": 84,
-      "turns": 1684,
-      "winPct": 33.87
-    },
     {
       "id": 68,
       "name": "Zombiehase II",
       "stage": 2,
       "fights": 110,
-      "wins": 38,
-      "turns": 769,
-      "winPct": 34.55
+      "wins": 34,
+      "turns": 749,
+      "winPct": 30.91
     },
     {
       "id": 57,
       "name": "Waldhirsch I",
       "stage": 1,
       "fights": 262,
-      "wins": 91,
-      "turns": 1644,
-      "winPct": 34.73
+      "wins": 82,
+      "turns": 1615,
+      "winPct": 31.3
     },
     {
-      "id": 94,
-      "name": "Stiergeist II",
-      "stage": 2,
-      "fights": 108,
-      "wins": 39,
-      "turns": 732,
-      "winPct": 36.11
-    },
-    {
-      "id": 122,
-      "name": "Flammenhase II",
-      "stage": 2,
-      "fights": 113,
-      "wins": 42,
-      "turns": 702,
-      "winPct": 37.17
+      "id": 67,
+      "name": "Zombiehase I",
+      "stage": 1,
+      "fights": 248,
+      "wins": 79,
+      "turns": 1645,
+      "winPct": 31.85
     },
     {
       "id": 29,
       "name": "Skelett-Hund I",
       "stage": 1,
       "fights": 251,
-      "wins": 94,
-      "turns": 1633,
-      "winPct": 37.45
-    },
-    {
-      "id": 77,
-      "name": "Eichhörnchengeist I",
-      "stage": 1,
-      "fights": 215,
-      "wins": 85,
-      "turns": 1402,
-      "winPct": 39.53
+      "wins": 87,
+      "turns": 1594,
+      "winPct": 34.66
     },
     {
       "id": 107,
       "name": "Knochenhirsch II",
       "stage": 2,
       "fights": 111,
-      "wins": 44,
-      "turns": 789,
-      "winPct": 39.64
+      "wins": 39,
+      "turns": 780,
+      "winPct": 35.14
+    },
+    {
+      "id": 94,
+      "name": "Stiergeist II",
+      "stage": 2,
+      "fights": 108,
+      "wins": 38,
+      "turns": 726,
+      "winPct": 35.19
     },
     {
       "id": 92,
       "name": "Lavendelflaum",
       "stage": 1,
       "fights": 234,
-      "wins": 93,
-      "turns": 1397,
-      "winPct": 39.74
+      "wins": 83,
+      "turns": 1363,
+      "winPct": 35.47
+    },
+    {
+      "id": 106,
+      "name": "Knochenhirsch I",
+      "stage": 1,
+      "fights": 233,
+      "wins": 83,
+      "turns": 1510,
+      "winPct": 35.62
     },
     {
       "id": 52,
       "name": "Flammenfuchs II",
       "stage": 2,
       "fights": 119,
-      "wins": 48,
-      "turns": 790,
-      "winPct": 40.34
+      "wins": 44,
+      "turns": 778,
+      "winPct": 36.97
+    },
+    {
+      "id": 77,
+      "name": "Eichhörnchengeist I",
+      "stage": 1,
+      "fights": 215,
+      "wins": 80,
+      "turns": 1381,
+      "winPct": 37.21
     }
   ],
   "sameStageStrongest": [
@@ -603,2341 +603,2341 @@
       "name": "Seelara",
       "stage": 2,
       "fights": 115,
-      "wins": 80,
-      "turns": 751,
-      "winPct": 69.57
+      "wins": 76,
+      "turns": 753,
+      "winPct": 66.09
+    },
+    {
+      "id": 70,
+      "name": "Funkenfähe",
+      "stage": 1,
+      "fights": 239,
+      "wins": 151,
+      "turns": 1530,
+      "winPct": 63.18
     },
     {
       "id": 39,
       "name": "Fledermausgeist II",
       "stage": 2,
       "fights": 106,
-      "wins": 72,
-      "turns": 743,
-      "winPct": 67.92
-    },
-    {
-      "id": 90,
-      "name": "Schattenfledermaus II",
-      "stage": 2,
-      "fights": 108,
-      "wins": 71,
-      "turns": 758,
-      "winPct": 65.74
-    },
-    {
-      "id": 14,
-      "name": "Engelsgeist II",
-      "stage": 2,
-      "fights": 101,
       "wins": 66,
-      "turns": 671,
-      "winPct": 65.35
-    },
-    {
-      "id": 150,
-      "name": "Nachtsammler",
-      "stage": 1,
-      "fights": 232,
-      "wins": 151,
-      "turns": 1472,
-      "winPct": 65.09
-    },
-    {
-      "id": 117,
-      "name": "Tiefenwyrm",
-      "stage": 1,
-      "fights": 230,
-      "wins": 148,
-      "turns": 1556,
-      "winPct": 64.35
-    },
-    {
-      "id": 124,
-      "name": "Phönixeule I",
-      "stage": 1,
-      "fights": 238,
-      "wins": 153,
-      "turns": 1449,
-      "winPct": 64.29
-    },
-    {
-      "id": 76,
-      "name": "Sonnenwedel",
-      "stage": 1,
-      "fights": 252,
-      "wins": 162,
-      "turns": 1566,
-      "winPct": 64.29
+      "turns": 743,
+      "winPct": 62.26
     },
     {
       "id": 146,
       "name": "Eisschauer",
       "stage": 1,
       "fights": 270,
-      "wins": 173,
-      "turns": 1797,
-      "winPct": 64.07
+      "wins": 167,
+      "turns": 1796,
+      "winPct": 61.85
     },
     {
-      "id": 50,
-      "name": "Bärengeist II",
+      "id": 14,
+      "name": "Engelsgeist II",
       "stage": 2,
-      "fights": 114,
-      "wins": 73,
-      "turns": 856,
-      "winPct": 64.04
+      "fights": 101,
+      "wins": 62,
+      "turns": 677,
+      "winPct": 61.39
+    },
+    {
+      "id": 90,
+      "name": "Schattenfledermaus II",
+      "stage": 2,
+      "fights": 108,
+      "wins": 66,
+      "turns": 756,
+      "winPct": 61.11
+    },
+    {
+      "id": 134,
+      "name": "Gischtpiep",
+      "stage": 1,
+      "fights": 264,
+      "wins": 161,
+      "turns": 1746,
+      "winPct": 60.98
+    },
+    {
+      "id": 124,
+      "name": "Phönixeule I",
+      "stage": 1,
+      "fights": 238,
+      "wins": 145,
+      "turns": 1440,
+      "winPct": 60.92
+    },
+    {
+      "id": 117,
+      "name": "Tiefenwyrm",
+      "stage": 1,
+      "fights": 230,
+      "wins": 138,
+      "turns": 1542,
+      "winPct": 60
+    },
+    {
+      "id": 125,
+      "name": "Phönixeule II",
+      "stage": 2,
+      "fights": 102,
+      "wins": 61,
+      "turns": 702,
+      "winPct": 59.8
     }
   ],
   "species": [
     {
       "fights": 673,
-      "wins": 353,
-      "turns": 3821,
+      "wins": 321,
+      "turns": 3782,
       "id": 1,
       "name": "Miora",
       "stage": 1,
-      "winPct": 52.45,
+      "winPct": 47.7,
       "sameStage": {
         "fights": 228,
-        "wins": 126,
-        "turns": 1434,
-        "winPct": 55.26
+        "wins": 116,
+        "turns": 1435,
+        "winPct": 50.88
       }
     },
     {
       "fights": 653,
-      "wins": 424,
-      "turns": 3894,
+      "wins": 413,
+      "turns": 3884,
       "id": 2,
       "name": "Seelara",
       "stage": 2,
-      "winPct": 64.93,
+      "winPct": 63.25,
       "sameStage": {
         "fights": 115,
-        "wins": 80,
-        "turns": 751,
-        "winPct": 69.57
+        "wins": 76,
+        "turns": 753,
+        "winPct": 66.09
       }
     },
     {
       "fights": 696,
-      "wins": 544,
-      "turns": 4209,
+      "wins": 535,
+      "turns": 4224,
       "id": 3,
       "name": "Maternalis",
       "stage": 3,
-      "winPct": 78.16,
+      "winPct": 76.87,
       "sameStage": {
         "fights": 41,
         "wins": 35,
-        "turns": 259,
+        "turns": 261,
         "winPct": 85.37
       }
     },
     {
       "fights": 689,
-      "wins": 294,
-      "turns": 4183,
+      "wins": 274,
+      "turns": 4098,
       "id": 4,
       "name": "Glimmerpfote",
       "stage": 1,
-      "winPct": 42.67,
+      "winPct": 39.77,
       "sameStage": {
         "fights": 275,
-        "wins": 142,
-        "turns": 1843,
-        "winPct": 51.64
+        "wins": 127,
+        "turns": 1806,
+        "winPct": 46.18
       }
     },
     {
       "fights": 664,
-      "wins": 269,
-      "turns": 3870,
+      "wins": 245,
+      "turns": 3807,
       "id": 5,
       "name": "Hasengeist I",
       "stage": 1,
-      "winPct": 40.51,
+      "winPct": 36.9,
       "sameStage": {
         "fights": 251,
-        "wins": 124,
-        "turns": 1620,
-        "winPct": 49.4
+        "wins": 106,
+        "turns": 1602,
+        "winPct": 42.23
       }
     },
     {
       "fights": 703,
-      "wins": 415,
-      "turns": 4351,
+      "wins": 391,
+      "turns": 4325,
       "id": 6,
       "name": "Hasengeist II",
       "stage": 2,
-      "winPct": 59.03,
+      "winPct": 55.62,
       "sameStage": {
         "fights": 125,
-        "wins": 64,
-        "turns": 870,
-        "winPct": 51.2
+        "wins": 53,
+        "turns": 857,
+        "winPct": 42.4
       }
     },
     {
       "fights": 662,
-      "wins": 288,
-      "turns": 4028,
+      "wins": 265,
+      "turns": 3955,
       "id": 7,
       "name": "Schattenkatze I",
       "stage": 1,
-      "winPct": 43.5,
+      "winPct": 40.03,
       "sameStage": {
         "fights": 241,
-        "wins": 134,
-        "turns": 1610,
-        "winPct": 55.6
+        "wins": 126,
+        "turns": 1602,
+        "winPct": 52.28
       }
     },
     {
       "fights": 659,
-      "wins": 381,
-      "turns": 4168,
+      "wins": 368,
+      "turns": 4129,
       "id": 8,
       "name": "Schattenkatze II",
       "stage": 2,
-      "winPct": 57.81,
+      "winPct": 55.84,
       "sameStage": {
         "fights": 110,
-        "wins": 61,
-        "turns": 799,
-        "winPct": 55.45
+        "wins": 55,
+        "turns": 794,
+        "winPct": 50
       }
     },
     {
       "fights": 707,
-      "wins": 495,
-      "turns": 4464,
+      "wins": 480,
+      "turns": 4448,
       "id": 9,
       "name": "Schattenkatze III",
       "stage": 3,
-      "winPct": 70.01,
+      "winPct": 67.89,
       "sameStage": {
         "fights": 21,
         "wins": 11,
-        "turns": 158,
+        "turns": 157,
         "winPct": 52.38
       }
     },
     {
       "fights": 639,
-      "wins": 281,
-      "turns": 3665,
+      "wins": 266,
+      "turns": 3620,
       "id": 10,
       "name": "Nachtpfote",
       "stage": 1,
-      "winPct": 43.97,
+      "winPct": 41.63,
       "sameStage": {
         "fights": 226,
-        "wins": 121,
-        "turns": 1427,
-        "winPct": 53.54
+        "wins": 117,
+        "turns": 1423,
+        "winPct": 51.77
       }
     },
     {
       "fights": 659,
-      "wins": 244,
-      "turns": 3826,
+      "wins": 225,
+      "turns": 3768,
       "id": 11,
       "name": "Katzengeist I",
       "stage": 1,
-      "winPct": 37.03,
+      "winPct": 34.14,
       "sameStage": {
         "fights": 237,
-        "wins": 107,
-        "turns": 1502,
-        "winPct": 45.15
+        "wins": 97,
+        "turns": 1485,
+        "winPct": 40.93
       }
     },
     {
       "fights": 683,
-      "wins": 386,
-      "turns": 4162,
+      "wins": 359,
+      "turns": 4122,
       "id": 12,
       "name": "Katzengeist II",
       "stage": 2,
-      "winPct": 56.52,
+      "winPct": 52.56,
       "sameStage": {
         "fights": 136,
-        "wins": 72,
-        "turns": 935,
-        "winPct": 52.94
+        "wins": 62,
+        "turns": 920,
+        "winPct": 45.59
       }
     },
     {
       "fights": 699,
-      "wins": 347,
-      "turns": 4041,
+      "wins": 333,
+      "turns": 4007,
       "id": 13,
       "name": "Engelsgeist I",
       "stage": 1,
-      "winPct": 49.64,
+      "winPct": 47.64,
       "sameStage": {
         "fights": 248,
-        "wins": 140,
-        "turns": 1594,
-        "winPct": 56.45
+        "wins": 131,
+        "turns": 1584,
+        "winPct": 52.82
       }
     },
     {
       "fights": 618,
-      "wins": 409,
-      "turns": 3648,
+      "wins": 385,
+      "turns": 3637,
       "id": 14,
       "name": "Engelsgeist II",
       "stage": 2,
-      "winPct": 66.18,
+      "winPct": 62.3,
       "sameStage": {
         "fights": 101,
-        "wins": 66,
-        "turns": 671,
-        "winPct": 65.35
+        "wins": 62,
+        "turns": 677,
+        "winPct": 61.39
       }
     },
     {
       "fights": 641,
-      "wins": 350,
-      "turns": 3677,
+      "wins": 318,
+      "turns": 3631,
       "id": 15,
       "name": "Lichtflämmchen",
       "stage": 1,
-      "winPct": 54.6,
+      "winPct": 49.61,
       "sameStage": {
         "fights": 220,
-        "wins": 139,
-        "turns": 1384,
-        "winPct": 63.18
+        "wins": 119,
+        "turns": 1358,
+        "winPct": 54.09
       }
     },
     {
       "fights": 658,
-      "wins": 263,
-      "turns": 3969,
+      "wins": 234,
+      "turns": 3868,
       "id": 16,
       "name": "Fuchsgeist I",
       "stage": 1,
-      "winPct": 39.97,
+      "winPct": 35.56,
       "sameStage": {
         "fights": 244,
-        "wins": 109,
-        "turns": 1600,
-        "winPct": 44.67
+        "wins": 93,
+        "turns": 1558,
+        "winPct": 38.11
       }
     },
     {
       "fights": 679,
-      "wins": 383,
-      "turns": 4239,
+      "wins": 354,
+      "turns": 4153,
       "id": 17,
       "name": "Fuchsgeist II",
       "stage": 2,
-      "winPct": 56.41,
+      "winPct": 52.14,
       "sameStage": {
         "fights": 128,
-        "wins": 61,
-        "turns": 895,
-        "winPct": 47.66
+        "wins": 54,
+        "turns": 878,
+        "winPct": 42.19
       }
     },
     {
       "fights": 685,
-      "wins": 294,
-      "turns": 4044,
+      "wins": 277,
+      "turns": 3983,
       "id": 18,
       "name": "Kürbisgeist I",
       "stage": 1,
-      "winPct": 42.92,
+      "winPct": 40.44,
       "sameStage": {
         "fights": 256,
-        "wins": 130,
-        "turns": 1662,
-        "winPct": 50.78
+        "wins": 120,
+        "turns": 1644,
+        "winPct": 46.88
       }
     },
     {
       "fights": 655,
-      "wins": 346,
-      "turns": 4044,
+      "wins": 324,
+      "turns": 4001,
       "id": 19,
       "name": "Kürbisgeist II",
       "stage": 2,
-      "winPct": 52.82,
+      "winPct": 49.47,
       "sameStage": {
         "fights": 116,
-        "wins": 49,
-        "turns": 774,
-        "winPct": 42.24
+        "wins": 46,
+        "turns": 767,
+        "winPct": 39.66
       }
     },
     {
       "fights": 700,
-      "wins": 306,
-      "turns": 4091,
+      "wins": 285,
+      "turns": 4027,
       "id": 20,
       "name": "Nebelflöckchen",
       "stage": 1,
-      "winPct": 43.71,
+      "winPct": 40.71,
       "sameStage": {
         "fights": 287,
-        "wins": 143,
-        "turns": 1819,
-        "winPct": 49.83
+        "wins": 127,
+        "turns": 1790,
+        "winPct": 44.25
       }
     },
     {
       "fights": 683,
-      "wins": 308,
-      "turns": 4047,
+      "wins": 301,
+      "turns": 3969,
       "id": 21,
       "name": "Wolfsgeist I",
       "stage": 1,
-      "winPct": 45.1,
+      "winPct": 44.07,
       "sameStage": {
         "fights": 265,
-        "wins": 131,
-        "turns": 1736,
-        "winPct": 49.43
+        "wins": 129,
+        "turns": 1700,
+        "winPct": 48.68
       }
     },
     {
       "fights": 633,
-      "wins": 353,
-      "turns": 3878,
+      "wins": 340,
+      "turns": 3822,
       "id": 22,
       "name": "Wolfsgeist II",
       "stage": 2,
-      "winPct": 55.77,
+      "winPct": 53.71,
       "sameStage": {
         "fights": 113,
-        "wins": 61,
-        "turns": 818,
-        "winPct": 53.98
+        "wins": 58,
+        "turns": 811,
+        "winPct": 51.33
       }
     },
     {
       "fights": 639,
-      "wins": 317,
-      "turns": 3732,
+      "wins": 305,
+      "turns": 3690,
       "id": 23,
       "name": "Feuerfuchs I",
       "stage": 1,
-      "winPct": 49.61,
+      "winPct": 47.73,
       "sameStage": {
         "fights": 232,
-        "wins": 126,
-        "turns": 1448,
-        "winPct": 54.31
+        "wins": 116,
+        "turns": 1435,
+        "winPct": 50
       }
     },
     {
       "fights": 649,
-      "wins": 379,
-      "turns": 4016,
+      "wins": 360,
+      "turns": 3954,
       "id": 24,
       "name": "Feuerfuchs II",
       "stage": 2,
-      "winPct": 58.4,
+      "winPct": 55.47,
       "sameStage": {
         "fights": 124,
-        "wins": 64,
-        "turns": 853,
-        "winPct": 51.61
+        "wins": 57,
+        "turns": 837,
+        "winPct": 45.97
       }
     },
     {
       "fights": 703,
-      "wins": 478,
-      "turns": 4440,
+      "wins": 445,
+      "turns": 4363,
       "id": 25,
       "name": "Feuerfuchs III",
       "stage": 3,
-      "winPct": 67.99,
+      "winPct": 63.3,
       "sameStage": {
         "fights": 32,
-        "wins": 13,
-        "turns": 234,
-        "winPct": 40.63
+        "wins": 11,
+        "turns": 230,
+        "winPct": 34.38
       }
     },
     {
       "fights": 696,
-      "wins": 348,
-      "turns": 4168,
+      "wins": 340,
+      "turns": 4166,
       "id": 26,
       "name": "Gischtflöckchen",
       "stage": 1,
-      "winPct": 50,
+      "winPct": 48.85,
       "sameStage": {
         "fights": 255,
-        "wins": 149,
-        "turns": 1697,
-        "winPct": 58.43
+        "wins": 147,
+        "turns": 1695,
+        "winPct": 57.65
       }
     },
     {
       "fights": 637,
-      "wins": 255,
-      "turns": 3847,
+      "wins": 243,
+      "turns": 3797,
       "id": 27,
       "name": "Hirschgeist I",
       "stage": 1,
-      "winPct": 40.03,
+      "winPct": 38.15,
       "sameStage": {
         "fights": 236,
-        "wins": 98,
-        "turns": 1529,
-        "winPct": 41.53
+        "wins": 91,
+        "turns": 1521,
+        "winPct": 38.56
       }
     },
     {
       "fights": 611,
-      "wins": 289,
-      "turns": 3704,
+      "wins": 273,
+      "turns": 3658,
       "id": 28,
       "name": "Hirschgeist II",
       "stage": 2,
-      "winPct": 47.3,
+      "winPct": 44.68,
       "sameStage": {
         "fights": 114,
-        "wins": 50,
-        "turns": 765,
-        "winPct": 43.86
+        "wins": 45,
+        "turns": 746,
+        "winPct": 39.47
       }
     },
     {
       "fights": 669,
-      "wins": 251,
-      "turns": 4016,
+      "wins": 235,
+      "turns": 3928,
       "id": 29,
       "name": "Skelett-Hund I",
       "stage": 1,
-      "winPct": 37.52,
+      "winPct": 35.13,
       "sameStage": {
         "fights": 251,
-        "wins": 94,
-        "turns": 1633,
-        "winPct": 37.45
+        "wins": 87,
+        "turns": 1594,
+        "winPct": 34.66
       }
     },
     {
       "fights": 676,
-      "wins": 372,
-      "turns": 4232,
+      "wins": 355,
+      "turns": 4175,
       "id": 30,
       "name": "Skelett-Hund II",
       "stage": 2,
-      "winPct": 55.03,
+      "winPct": 52.51,
       "sameStage": {
         "fights": 120,
-        "wins": 65,
-        "turns": 855,
-        "winPct": 54.17
+        "wins": 63,
+        "turns": 851,
+        "winPct": 52.5
       }
     },
     {
       "fights": 688,
-      "wins": 489,
-      "turns": 4566,
+      "wins": 471,
+      "turns": 4546,
       "id": 31,
       "name": "Skelett-Hund III",
       "stage": 3,
-      "winPct": 71.08,
+      "winPct": 68.46,
       "sameStage": {
         "fights": 26,
-        "wins": 14,
-        "turns": 229,
-        "winPct": 53.85
+        "wins": 13,
+        "turns": 228,
+        "winPct": 50
       }
     },
     {
       "fights": 637,
-      "wins": 294,
-      "turns": 3758,
+      "wins": 280,
+      "turns": 3707,
       "id": 32,
       "name": "Schattenwuschel",
       "stage": 1,
-      "winPct": 46.15,
+      "winPct": 43.96,
       "sameStage": {
         "fights": 225,
-        "wins": 133,
-        "turns": 1481,
-        "winPct": 59.11
+        "wins": 126,
+        "turns": 1470,
+        "winPct": 56
       }
     },
     {
       "fights": 696,
-      "wins": 261,
-      "turns": 3845,
+      "wins": 245,
+      "turns": 3762,
       "id": 33,
       "name": "Eulengeist I",
       "stage": 1,
-      "winPct": 37.5,
+      "winPct": 35.2,
       "sameStage": {
         "fights": 246,
-        "wins": 105,
-        "turns": 1519,
-        "winPct": 42.68
+        "wins": 95,
+        "turns": 1487,
+        "winPct": 38.62
       }
     },
     {
       "fights": 668,
-      "wins": 411,
-      "turns": 3901,
+      "wins": 386,
+      "turns": 3868,
       "id": 34,
       "name": "Eulengeist II",
       "stage": 2,
-      "winPct": 61.53,
+      "winPct": 57.78,
       "sameStage": {
         "fights": 109,
-        "wins": 61,
-        "turns": 713,
-        "winPct": 55.96
+        "wins": 53,
+        "turns": 719,
+        "winPct": 48.62
       }
     },
     {
       "fights": 690,
-      "wins": 328,
-      "turns": 4185,
+      "wins": 319,
+      "turns": 4141,
       "id": 35,
       "name": "Eiskauz I",
       "stage": 1,
-      "winPct": 47.54,
+      "winPct": 46.23,
       "sameStage": {
         "fights": 251,
-        "wins": 132,
-        "turns": 1667,
-        "winPct": 52.59
+        "wins": 126,
+        "turns": 1652,
+        "winPct": 50.2
       }
     },
     {
       "fights": 690,
-      "wins": 385,
-      "turns": 4476,
+      "wins": 374,
+      "turns": 4439,
       "id": 36,
       "name": "Eiskauz II",
       "stage": 2,
-      "winPct": 55.8,
+      "winPct": 54.2,
       "sameStage": {
         "fights": 118,
-        "wins": 51,
-        "turns": 834,
-        "winPct": 43.22
+        "wins": 49,
+        "turns": 820,
+        "winPct": 41.53
       }
     },
     {
       "fights": 664,
-      "wins": 276,
-      "turns": 3910,
+      "wins": 256,
+      "turns": 3857,
       "id": 37,
       "name": "Rosahoppel",
       "stage": 1,
-      "winPct": 41.57,
+      "winPct": 38.55,
       "sameStage": {
         "fights": 243,
-        "wins": 123,
-        "turns": 1579,
-        "winPct": 50.62
+        "wins": 109,
+        "turns": 1565,
+        "winPct": 44.86
       }
     },
     {
       "fights": 670,
-      "wins": 302,
-      "turns": 3870,
+      "wins": 283,
+      "turns": 3847,
       "id": 38,
       "name": "Fledermausgeist I",
       "stage": 1,
-      "winPct": 45.07,
+      "winPct": 42.24,
       "sameStage": {
         "fights": 260,
-        "wins": 144,
-        "turns": 1667,
-        "winPct": 55.38
+        "wins": 130,
+        "turns": 1662,
+        "winPct": 50
       }
     },
     {
       "fights": 670,
-      "wins": 424,
-      "turns": 4168,
+      "wins": 412,
+      "turns": 4136,
       "id": 39,
       "name": "Fledermausgeist II",
       "stage": 2,
-      "winPct": 63.28,
+      "winPct": 61.49,
       "sameStage": {
         "fights": 106,
-        "wins": 72,
+        "wins": 66,
         "turns": 743,
-        "winPct": 67.92
+        "winPct": 62.26
       }
     },
     {
       "fights": 634,
-      "wins": 274,
-      "turns": 3781,
+      "wins": 254,
+      "turns": 3728,
       "id": 40,
       "name": "Knochenrabe I",
       "stage": 1,
-      "winPct": 43.22,
+      "winPct": 40.06,
       "sameStage": {
         "fights": 204,
-        "wins": 105,
-        "turns": 1348,
-        "winPct": 51.47
+        "wins": 98,
+        "turns": 1328,
+        "winPct": 48.04
       }
     },
     {
       "fights": 673,
-      "wins": 355,
-      "turns": 4327,
+      "wins": 345,
+      "turns": 4307,
       "id": 41,
       "name": "Knochenrabe II",
       "stage": 2,
-      "winPct": 52.75,
+      "winPct": 51.26,
       "sameStage": {
         "fights": 101,
-        "wins": 47,
-        "turns": 730,
-        "winPct": 46.53
+        "wins": 43,
+        "turns": 724,
+        "winPct": 42.57
       }
     },
     {
       "fights": 673,
-      "wins": 299,
-      "turns": 4083,
+      "wins": 281,
+      "turns": 4007,
       "id": 42,
       "name": "Flammenlöffel",
       "stage": 1,
-      "winPct": 44.43,
+      "winPct": 41.75,
       "sameStage": {
         "fights": 264,
-        "wins": 137,
-        "turns": 1772,
-        "winPct": 51.89
+        "wins": 126,
+        "turns": 1739,
+        "winPct": 47.73
       }
     },
     {
       "fights": 675,
-      "wins": 242,
-      "turns": 4130,
+      "wins": 229,
+      "turns": 4062,
       "id": 43,
       "name": "Mäusegeist I",
       "stage": 1,
-      "winPct": 35.85,
+      "winPct": 33.93,
       "sameStage": {
         "fights": 250,
-        "wins": 119,
-        "turns": 1727,
-        "winPct": 47.6
+        "wins": 108,
+        "turns": 1699,
+        "winPct": 43.2
       }
     },
     {
       "fights": 640,
-      "wins": 367,
-      "turns": 4093,
+      "wins": 347,
+      "turns": 4043,
       "id": 44,
       "name": "Mäusegeist II",
       "stage": 2,
-      "winPct": 57.34,
+      "winPct": 54.22,
       "sameStage": {
         "fights": 128,
-        "wins": 62,
-        "turns": 967,
-        "winPct": 48.44
+        "wins": 57,
+        "turns": 959,
+        "winPct": 44.53
       }
     },
     {
       "fights": 650,
-      "wins": 348,
-      "turns": 3906,
+      "wins": 335,
+      "turns": 3858,
       "id": 45,
       "name": "Nebelhund I",
       "stage": 1,
-      "winPct": 53.54,
+      "winPct": 51.54,
       "sameStage": {
         "fights": 256,
-        "wins": 157,
-        "turns": 1675,
-        "winPct": 61.33
+        "wins": 146,
+        "turns": 1663,
+        "winPct": 57.03
       }
     },
     {
       "fights": 658,
-      "wins": 347,
-      "turns": 4025,
+      "wins": 334,
+      "turns": 3977,
       "id": 46,
       "name": "Nebelhund II",
       "stage": 2,
-      "winPct": 52.74,
+      "winPct": 50.76,
       "sameStage": {
         "fights": 126,
-        "wins": 62,
-        "turns": 855,
-        "winPct": 49.21
+        "wins": 61,
+        "turns": 861,
+        "winPct": 48.41
       }
     },
     {
       "fights": 711,
-      "wins": 482,
-      "turns": 4516,
+      "wins": 466,
+      "turns": 4491,
       "id": 47,
       "name": "Nebelhund III",
       "stage": 3,
-      "winPct": 67.79,
+      "winPct": 65.54,
       "sameStage": {
         "fights": 25,
         "wins": 14,
-        "turns": 186,
+        "turns": 185,
         "winPct": 56
       }
     },
     {
       "fights": 690,
-      "wins": 342,
-      "turns": 3949,
+      "wins": 331,
+      "turns": 3905,
       "id": 48,
       "name": "Dunkelhoppel",
       "stage": 1,
-      "winPct": 49.57,
+      "winPct": 47.97,
       "sameStage": {
         "fights": 263,
-        "wins": 144,
-        "turns": 1598,
-        "winPct": 54.75
+        "wins": 138,
+        "turns": 1593,
+        "winPct": 52.47
       }
     },
     {
       "fights": 664,
-      "wins": 289,
-      "turns": 4130,
+      "wins": 267,
+      "turns": 4077,
       "id": 49,
       "name": "Bärengeist I",
       "stage": 1,
-      "winPct": 43.52,
+      "winPct": 40.21,
       "sameStage": {
         "fights": 232,
-        "wins": 129,
-        "turns": 1598,
-        "winPct": 55.6
+        "wins": 120,
+        "turns": 1588,
+        "winPct": 51.72
       }
     },
     {
       "fights": 676,
-      "wins": 424,
-      "turns": 4364,
+      "wins": 406,
+      "turns": 4363,
       "id": 50,
       "name": "Bärengeist II",
       "stage": 2,
-      "winPct": 62.72,
+      "winPct": 60.06,
       "sameStage": {
         "fights": 114,
-        "wins": 73,
-        "turns": 856,
-        "winPct": 64.04
+        "wins": 65,
+        "turns": 853,
+        "winPct": 57.02
       }
     },
     {
       "fights": 631,
-      "wins": 288,
-      "turns": 3654,
+      "wins": 271,
+      "turns": 3568,
       "id": 51,
       "name": "Flammenfuchs I",
       "stage": 1,
-      "winPct": 45.64,
+      "winPct": 42.95,
       "sameStage": {
         "fights": 244,
-        "wins": 114,
-        "turns": 1542,
-        "winPct": 46.72
+        "wins": 103,
+        "turns": 1505,
+        "winPct": 42.21
       }
     },
     {
       "fights": 666,
-      "wins": 368,
-      "turns": 3993,
+      "wins": 352,
+      "turns": 3933,
       "id": 52,
       "name": "Flammenfuchs II",
       "stage": 2,
-      "winPct": 55.26,
+      "winPct": 52.85,
       "sameStage": {
         "fights": 119,
-        "wins": 48,
-        "turns": 790,
-        "winPct": 40.34
+        "wins": 44,
+        "turns": 778,
+        "winPct": 36.97
       }
     },
     {
       "fights": 629,
-      "wins": 445,
-      "turns": 3854,
+      "wins": 431,
+      "turns": 3827,
       "id": 53,
       "name": "Flammenfuchs III",
       "stage": 3,
-      "winPct": 70.75,
+      "winPct": 68.52,
       "sameStage": {
         "fights": 25,
         "wins": 7,
-        "turns": 194,
+        "turns": 191,
         "winPct": 28
       }
     },
     {
       "fights": 654,
-      "wins": 275,
-      "turns": 3925,
+      "wins": 260,
+      "turns": 3864,
       "id": 54,
       "name": "Tauhorn",
       "stage": 1,
-      "winPct": 42.05,
+      "winPct": 39.76,
       "sameStage": {
         "fights": 249,
-        "wins": 110,
-        "turns": 1624,
-        "winPct": 44.18
+        "wins": 100,
+        "turns": 1596,
+        "winPct": 40.16
       }
     },
     {
       "fights": 718,
-      "wins": 286,
-      "turns": 4246,
+      "wins": 256,
+      "turns": 4164,
       "id": 55,
       "name": "Waschbärgeist I",
       "stage": 1,
-      "winPct": 39.83,
+      "winPct": 35.65,
       "sameStage": {
         "fights": 251,
-        "wins": 130,
-        "turns": 1683,
-        "winPct": 51.79
+        "wins": 109,
+        "turns": 1650,
+        "winPct": 43.43
       }
     },
     {
       "fights": 665,
-      "wins": 395,
-      "turns": 4273,
+      "wins": 376,
+      "turns": 4235,
       "id": 56,
       "name": "Waschbärgeist II",
       "stage": 2,
-      "winPct": 59.4,
+      "winPct": 56.54,
       "sameStage": {
         "fights": 98,
-        "wins": 59,
-        "turns": 746,
-        "winPct": 60.2
-      }
-    },
-    {
-      "fights": 709,
-      "wins": 275,
-      "turns": 4159,
-      "id": 57,
-      "name": "Waldhirsch I",
-      "stage": 1,
-      "winPct": 38.79,
-      "sameStage": {
-        "fights": 262,
-        "wins": 91,
-        "turns": 1644,
-        "winPct": 34.73
-      }
-    },
-    {
-      "fights": 688,
-      "wins": 344,
-      "turns": 4322,
-      "id": 58,
-      "name": "Waldhirsch II",
-      "stage": 2,
-      "winPct": 50,
-      "sameStage": {
-        "fights": 117,
-        "wins": 52,
-        "turns": 795,
-        "winPct": 44.44
-      }
-    },
-    {
-      "fights": 674,
-      "wins": 328,
-      "turns": 3786,
-      "id": 59,
-      "name": "Mondkitz",
-      "stage": 1,
-      "winPct": 48.66,
-      "sameStage": {
-        "fights": 247,
-        "wins": 128,
-        "turns": 1503,
-        "winPct": 51.82
-      }
-    },
-    {
-      "fights": 662,
-      "wins": 339,
-      "turns": 3771,
-      "id": 60,
-      "name": "Rotpandageist I",
-      "stage": 1,
-      "winPct": 51.21,
-      "sameStage": {
-        "fights": 242,
-        "wins": 144,
-        "turns": 1535,
-        "winPct": 59.5
-      }
-    },
-    {
-      "fights": 714,
-      "wins": 436,
-      "turns": 4301,
-      "id": 61,
-      "name": "Rotpandageist II",
-      "stage": 2,
-      "winPct": 61.06,
-      "sameStage": {
-        "fights": 124,
-        "wins": 64,
-        "turns": 864,
-        "winPct": 51.61
-      }
-    },
-    {
-      "fights": 630,
-      "wins": 272,
-      "turns": 3732,
-      "id": 62,
-      "name": "Nebelwyrm I",
-      "stage": 1,
-      "winPct": 43.17,
-      "sameStage": {
-        "fights": 219,
-        "wins": 103,
-        "turns": 1457,
-        "winPct": 47.03
-      }
-    },
-    {
-      "fights": 720,
-      "wins": 455,
-      "turns": 4593,
-      "id": 63,
-      "name": "Nebelwyrm II",
-      "stage": 2,
-      "winPct": 63.19,
-      "sameStage": {
-        "fights": 142,
-        "wins": 88,
-        "turns": 990,
-        "winPct": 61.97
-      }
-    },
-    {
-      "fights": 699,
-      "wins": 341,
-      "turns": 3854,
-      "id": 64,
-      "name": "Nachtgeweih",
-      "stage": 1,
-      "winPct": 48.78,
-      "sameStage": {
-        "fights": 271,
-        "wins": 153,
-        "turns": 1632,
-        "winPct": 56.46
-      }
-    },
-    {
-      "fights": 676,
-      "wins": 355,
-      "turns": 4076,
-      "id": 65,
-      "name": "Robbengeist I",
-      "stage": 1,
-      "winPct": 52.51,
-      "sameStage": {
-        "fights": 263,
-        "wins": 160,
-        "turns": 1740,
-        "winPct": 60.84
-      }
-    },
-    {
-      "fights": 693,
-      "wins": 423,
-      "turns": 4354,
-      "id": 66,
-      "name": "Robbengeist II",
-      "stage": 2,
-      "winPct": 61.04,
-      "sameStage": {
-        "fights": 108,
-        "wins": 64,
-        "turns": 799,
-        "winPct": 59.26
-      }
-    },
-    {
-      "fights": 647,
-      "wins": 231,
-      "turns": 3963,
-      "id": 67,
-      "name": "Zombiehase I",
-      "stage": 1,
-      "winPct": 35.7,
-      "sameStage": {
-        "fights": 248,
-        "wins": 84,
-        "turns": 1684,
-        "winPct": 33.87
-      }
-    },
-    {
-      "fights": 608,
-      "wins": 289,
-      "turns": 3883,
-      "id": 68,
-      "name": "Zombiehase II",
-      "stage": 2,
-      "winPct": 47.53,
-      "sameStage": {
-        "fights": 110,
-        "wins": 38,
-        "turns": 769,
-        "winPct": 34.55
-      }
-    },
-    {
-      "fights": 655,
-      "wins": 458,
-      "turns": 4312,
-      "id": 69,
-      "name": "Zombiehase III",
-      "stage": 3,
-      "winPct": 69.92,
-      "sameStage": {
-        "fights": 28,
-        "wins": 17,
-        "turns": 247,
-        "winPct": 60.71
-      }
-    },
-    {
-      "fights": 673,
-      "wins": 352,
-      "turns": 3841,
-      "id": 70,
-      "name": "Funkenfähe",
-      "stage": 1,
-      "winPct": 52.3,
-      "sameStage": {
-        "fights": 239,
-        "wins": 150,
-        "turns": 1546,
-        "winPct": 62.76
-      }
-    },
-    {
-      "fights": 687,
-      "wins": 320,
-      "turns": 4136,
-      "id": 71,
-      "name": "Rabengeist I",
-      "stage": 1,
-      "winPct": 46.58,
-      "sameStage": {
-        "fights": 278,
-        "wins": 156,
-        "turns": 1806,
+        "wins": 55,
+        "turns": 740,
         "winPct": 56.12
       }
     },
     {
-      "fights": 650,
-      "wins": 390,
-      "turns": 4112,
-      "id": 72,
-      "name": "Rabengeist II",
-      "stage": 2,
-      "winPct": 60,
-      "sameStage": {
-        "fights": 106,
-        "wins": 62,
-        "turns": 779,
-        "winPct": 58.49
-      }
-    },
-    {
-      "fights": 665,
-      "wins": 310,
-      "turns": 3941,
-      "id": 73,
-      "name": "Eiswolf I",
-      "stage": 1,
-      "winPct": 46.62,
-      "sameStage": {
-        "fights": 251,
-        "wins": 135,
-        "turns": 1577,
-        "winPct": 53.78
-      }
-    },
-    {
-      "fights": 690,
-      "wins": 396,
-      "turns": 4288,
-      "id": 74,
-      "name": "Eiswolf II",
-      "stage": 2,
-      "winPct": 57.39,
-      "sameStage": {
-        "fights": 141,
-        "wins": 69,
-        "turns": 1007,
-        "winPct": 48.94
-      }
-    },
-    {
-      "fights": 682,
-      "wins": 486,
-      "turns": 4294,
-      "id": 75,
-      "name": "Eiswolf III",
-      "stage": 3,
-      "winPct": 71.26,
-      "sameStage": {
-        "fights": 30,
-        "wins": 12,
-        "turns": 245,
-        "winPct": 40
-      }
-    },
-    {
-      "fights": 651,
-      "wins": 353,
-      "turns": 3682,
-      "id": 76,
-      "name": "Sonnenwedel",
-      "stage": 1,
-      "winPct": 54.22,
-      "sameStage": {
-        "fights": 252,
-        "wins": 162,
-        "turns": 1566,
-        "winPct": 64.29
-      }
-    },
-    {
-      "fights": 629,
-      "wins": 232,
-      "turns": 3762,
-      "id": 77,
-      "name": "Eichhörnchengeist I",
-      "stage": 1,
-      "winPct": 36.88,
-      "sameStage": {
-        "fights": 215,
-        "wins": 85,
-        "turns": 1402,
-        "winPct": 39.53
-      }
-    },
-    {
-      "fights": 652,
-      "wins": 367,
-      "turns": 4047,
-      "id": 78,
-      "name": "Eichhörnchengeist II",
-      "stage": 2,
-      "winPct": 56.29,
-      "sameStage": {
-        "fights": 109,
-        "wins": 49,
-        "turns": 746,
-        "winPct": 44.95
-      }
-    },
-    {
-      "fights": 690,
-      "wins": 288,
-      "turns": 4232,
-      "id": 79,
-      "name": "Knochenkatze I",
-      "stage": 1,
-      "winPct": 41.74,
-      "sameStage": {
-        "fights": 261,
-        "wins": 121,
-        "turns": 1716,
-        "winPct": 46.36
-      }
-    },
-    {
-      "fights": 696,
-      "wins": 360,
-      "turns": 4505,
-      "id": 80,
-      "name": "Knochenkatze II",
-      "stage": 2,
-      "winPct": 51.72,
-      "sameStage": {
-        "fights": 135,
-        "wins": 66,
-        "turns": 987,
-        "winPct": 48.89
-      }
-    },
-    {
-      "fights": 717,
-      "wins": 347,
-      "turns": 4100,
-      "id": 81,
-      "name": "Kohlenschweif",
-      "stage": 1,
-      "winPct": 48.4,
-      "sameStage": {
-        "fights": 271,
-        "wins": 144,
-        "turns": 1686,
-        "winPct": 53.14
-      }
-    },
-    {
-      "fights": 679,
-      "wins": 298,
-      "turns": 3752,
-      "id": 82,
-      "name": "Schattenhase I",
-      "stage": 1,
-      "winPct": 43.89,
-      "sameStage": {
-        "fights": 250,
-        "wins": 114,
-        "turns": 1502,
-        "winPct": 45.6
-      }
-    },
-    {
-      "fights": 696,
-      "wins": 382,
-      "turns": 4125,
-      "id": 83,
-      "name": "Schattenhase II",
-      "stage": 2,
-      "winPct": 54.89,
-      "sameStage": {
-        "fights": 110,
-        "wins": 58,
-        "turns": 744,
-        "winPct": 52.73
-      }
-    },
-    {
-      "fights": 700,
-      "wins": 267,
-      "turns": 4228,
-      "id": 84,
-      "name": "Knochenhase I",
-      "stage": 1,
-      "winPct": 38.14,
-      "sameStage": {
-        "fights": 259,
-        "wins": 111,
-        "turns": 1694,
-        "winPct": 42.86
-      }
-    },
-    {
-      "fights": 615,
-      "wins": 344,
-      "turns": 3894,
-      "id": 85,
-      "name": "Knochenhase II",
-      "stage": 2,
-      "winPct": 55.93,
-      "sameStage": {
-        "fights": 119,
-        "wins": 64,
-        "turns": 857,
-        "winPct": 53.78
-      }
-    },
-    {
-      "fights": 673,
-      "wins": 335,
-      "turns": 3931,
-      "id": 86,
-      "name": "Wolkeneulchen",
-      "stage": 1,
-      "winPct": 49.78,
-      "sameStage": {
-        "fights": 266,
-        "wins": 145,
-        "turns": 1695,
-        "winPct": 54.51
-      }
-    },
-    {
-      "fights": 613,
-      "wins": 290,
-      "turns": 3443,
-      "id": 87,
-      "name": "Einhorngeist I",
-      "stage": 1,
-      "winPct": 47.31,
-      "sameStage": {
-        "fights": 236,
-        "wins": 119,
-        "turns": 1454,
-        "winPct": 50.42
-      }
-    },
-    {
-      "fights": 649,
-      "wins": 380,
-      "turns": 3749,
-      "id": 88,
-      "name": "Einhorngeist II",
-      "stage": 2,
-      "winPct": 58.55,
-      "sameStage": {
-        "fights": 112,
-        "wins": 69,
-        "turns": 754,
-        "winPct": 61.61
-      }
-    },
-    {
-      "fights": 648,
-      "wins": 306,
-      "turns": 3878,
-      "id": 89,
-      "name": "Schattenfledermaus I",
-      "stage": 1,
-      "winPct": 47.22,
-      "sameStage": {
-        "fights": 217,
-        "wins": 130,
-        "turns": 1432,
-        "winPct": 59.91
-      }
-    },
-    {
-      "fights": 633,
-      "wins": 396,
-      "turns": 3912,
-      "id": 90,
-      "name": "Schattenfledermaus II",
-      "stage": 2,
-      "winPct": 62.56,
-      "sameStage": {
-        "fights": 108,
-        "wins": 71,
-        "turns": 758,
-        "winPct": 65.74
-      }
-    },
-    {
-      "fights": 628,
-      "wins": 426,
-      "turns": 3929,
-      "id": 91,
-      "name": "Schattenfledermaus III",
-      "stage": 3,
-      "winPct": 67.83,
-      "sameStage": {
-        "fights": 20,
-        "wins": 6,
-        "turns": 144,
-        "winPct": 30
-      }
-    },
-    {
-      "fights": 664,
-      "wins": 261,
-      "turns": 3613,
-      "id": 92,
-      "name": "Lavendelflaum",
-      "stage": 1,
-      "winPct": 39.31,
-      "sameStage": {
-        "fights": 234,
-        "wins": 93,
-        "turns": 1397,
-        "winPct": 39.74
-      }
-    },
-    {
-      "fights": 656,
+      "fights": 709,
       "wins": 259,
-      "turns": 3913,
-      "id": 93,
-      "name": "Stiergeist I",
+      "turns": 4102,
+      "id": 57,
+      "name": "Waldhirsch I",
       "stage": 1,
-      "winPct": 39.48,
+      "winPct": 36.53,
       "sameStage": {
-        "fights": 226,
-        "wins": 101,
-        "turns": 1470,
-        "winPct": 44.69
+        "fights": 262,
+        "wins": 82,
+        "turns": 1615,
+        "winPct": 31.3
       }
     },
     {
-      "fights": 631,
-      "wins": 330,
-      "turns": 3937,
-      "id": 94,
-      "name": "Stiergeist II",
+      "fights": 688,
+      "wins": 329,
+      "turns": 4247,
+      "id": 58,
+      "name": "Waldhirsch II",
       "stage": 2,
-      "winPct": 52.3,
-      "sameStage": {
-        "fights": 108,
-        "wins": 39,
-        "turns": 732,
-        "winPct": 36.11
-      }
-    },
-    {
-      "fights": 642,
-      "wins": 282,
-      "turns": 3764,
-      "id": 95,
-      "name": "Geisterqualle I",
-      "stage": 1,
-      "winPct": 43.93,
-      "sameStage": {
-        "fights": 237,
-        "wins": 122,
-        "turns": 1543,
-        "winPct": 51.48
-      }
-    },
-    {
-      "fights": 757,
-      "wins": 422,
-      "turns": 4719,
-      "id": 96,
-      "name": "Geisterqualle II",
-      "stage": 2,
-      "winPct": 55.75,
-      "sameStage": {
-        "fights": 149,
-        "wins": 81,
-        "turns": 1007,
-        "winPct": 54.36
-      }
-    },
-    {
-      "fights": 637,
-      "wins": 451,
-      "turns": 4088,
-      "id": 97,
-      "name": "Geisterqualle III",
-      "stage": 3,
-      "winPct": 70.8,
-      "sameStage": {
-        "fights": 21,
-        "wins": 12,
-        "turns": 170,
-        "winPct": 57.14
-      }
-    },
-    {
-      "fights": 660,
-      "wins": 335,
-      "turns": 4037,
-      "id": 98,
-      "name": "Schattenfeder",
-      "stage": 1,
-      "winPct": 50.76,
-      "sameStage": {
-        "fights": 260,
-        "wins": 155,
-        "turns": 1720,
-        "winPct": 59.62
-      }
-    },
-    {
-      "fights": 700,
-      "wins": 298,
-      "turns": 4344,
-      "id": 99,
-      "name": "Widdergeist I",
-      "stage": 1,
-      "winPct": 42.57,
-      "sameStage": {
-        "fights": 230,
-        "wins": 105,
-        "turns": 1567,
-        "winPct": 45.65
-      }
-    },
-    {
-      "fights": 679,
-      "wins": 364,
-      "turns": 4310,
-      "id": 100,
-      "name": "Widdergeist II",
-      "stage": 2,
-      "winPct": 53.61,
+      "winPct": 47.82,
       "sameStage": {
         "fights": 117,
-        "wins": 58,
-        "turns": 858,
-        "winPct": 49.57
+        "wins": 51,
+        "turns": 785,
+        "winPct": 43.59
       }
     },
     {
-      "fights": 636,
-      "wins": 260,
-      "turns": 3877,
-      "id": 101,
-      "name": "Knocheneule I",
+      "fights": 674,
+      "wins": 320,
+      "turns": 3766,
+      "id": 59,
+      "name": "Mondkitz",
       "stage": 1,
-      "winPct": 40.88,
+      "winPct": 47.48,
       "sameStage": {
-        "fights": 234,
-        "wins": 120,
-        "turns": 1581,
-        "winPct": 51.28
+        "fights": 247,
+        "wins": 127,
+        "turns": 1506,
+        "winPct": 51.42
       }
     },
     {
-      "fights": 646,
-      "wins": 359,
-      "turns": 4157,
-      "id": 102,
-      "name": "Knocheneule II",
-      "stage": 2,
-      "winPct": 55.57,
+      "fights": 662,
+      "wins": 321,
+      "turns": 3713,
+      "id": 60,
+      "name": "Rotpandageist I",
+      "stage": 1,
+      "winPct": 48.49,
       "sameStage": {
-        "fights": 107,
+        "fights": 242,
+        "wins": 135,
+        "turns": 1501,
+        "winPct": 55.79
+      }
+    },
+    {
+      "fights": 714,
+      "wins": 419,
+      "turns": 4237,
+      "id": 61,
+      "name": "Rotpandageist II",
+      "stage": 2,
+      "winPct": 58.68,
+      "sameStage": {
+        "fights": 124,
         "wins": 61,
-        "turns": 780,
-        "winPct": 57.01
+        "turns": 848,
+        "winPct": 49.19
+      }
+    },
+    {
+      "fights": 630,
+      "wins": 259,
+      "turns": 3669,
+      "id": 62,
+      "name": "Nebelwyrm I",
+      "stage": 1,
+      "winPct": 41.11,
+      "sameStage": {
+        "fights": 219,
+        "wins": 97,
+        "turns": 1445,
+        "winPct": 44.29
+      }
+    },
+    {
+      "fights": 720,
+      "wins": 430,
+      "turns": 4540,
+      "id": 63,
+      "name": "Nebelwyrm II",
+      "stage": 2,
+      "winPct": 59.72,
+      "sameStage": {
+        "fights": 142,
+        "wins": 82,
+        "turns": 976,
+        "winPct": 57.75
+      }
+    },
+    {
+      "fights": 699,
+      "wins": 324,
+      "turns": 3826,
+      "id": 64,
+      "name": "Nachtgeweih",
+      "stage": 1,
+      "winPct": 46.35,
+      "sameStage": {
+        "fights": 271,
+        "wins": 145,
+        "turns": 1630,
+        "winPct": 53.51
+      }
+    },
+    {
+      "fights": 676,
+      "wins": 338,
+      "turns": 4065,
+      "id": 65,
+      "name": "Robbengeist I",
+      "stage": 1,
+      "winPct": 50,
+      "sameStage": {
+        "fights": 263,
+        "wins": 154,
+        "turns": 1748,
+        "winPct": 58.56
+      }
+    },
+    {
+      "fights": 693,
+      "wins": 414,
+      "turns": 4358,
+      "id": 66,
+      "name": "Robbengeist II",
+      "stage": 2,
+      "winPct": 59.74,
+      "sameStage": {
+        "fights": 108,
+        "wins": 61,
+        "turns": 801,
+        "winPct": 56.48
       }
     },
     {
       "fights": 647,
-      "wins": 258,
-      "turns": 3551,
-      "id": 103,
-      "name": "Mondflatter",
+      "wins": 224,
+      "turns": 3871,
+      "id": 67,
+      "name": "Zombiehase I",
       "stage": 1,
-      "winPct": 39.88,
+      "winPct": 34.62,
       "sameStage": {
-        "fights": 239,
-        "wins": 102,
-        "turns": 1449,
-        "winPct": 42.68
+        "fights": 248,
+        "wins": 79,
+        "turns": 1645,
+        "winPct": 31.85
       }
     },
     {
-      "fights": 642,
-      "wins": 312,
-      "turns": 3686,
-      "id": 104,
-      "name": "Drachengeist I",
-      "stage": 1,
-      "winPct": 48.6,
+      "fights": 608,
+      "wins": 266,
+      "turns": 3812,
+      "id": 68,
+      "name": "Zombiehase II",
+      "stage": 2,
+      "winPct": 43.75,
       "sameStage": {
-        "fights": 235,
-        "wins": 133,
-        "turns": 1451,
+        "fights": 110,
+        "wins": 34,
+        "turns": 749,
+        "winPct": 30.91
+      }
+    },
+    {
+      "fights": 655,
+      "wins": 437,
+      "turns": 4283,
+      "id": 69,
+      "name": "Zombiehase III",
+      "stage": 3,
+      "winPct": 66.72,
+      "sameStage": {
+        "fights": 28,
+        "wins": 14,
+        "turns": 239,
+        "winPct": 50
+      }
+    },
+    {
+      "fights": 673,
+      "wins": 344,
+      "turns": 3782,
+      "id": 70,
+      "name": "Funkenfähe",
+      "stage": 1,
+      "winPct": 51.11,
+      "sameStage": {
+        "fights": 239,
+        "wins": 151,
+        "turns": 1530,
+        "winPct": 63.18
+      }
+    },
+    {
+      "fights": 687,
+      "wins": 309,
+      "turns": 4096,
+      "id": 71,
+      "name": "Rabengeist I",
+      "stage": 1,
+      "winPct": 44.98,
+      "sameStage": {
+        "fights": 278,
+        "wins": 150,
+        "turns": 1793,
+        "winPct": 53.96
+      }
+    },
+    {
+      "fights": 650,
+      "wins": 379,
+      "turns": 4068,
+      "id": 72,
+      "name": "Rabengeist II",
+      "stage": 2,
+      "winPct": 58.31,
+      "sameStage": {
+        "fights": 106,
+        "wins": 60,
+        "turns": 770,
         "winPct": 56.6
       }
     },
     {
+      "fights": 665,
+      "wins": 295,
+      "turns": 3864,
+      "id": 73,
+      "name": "Eiswolf I",
+      "stage": 1,
+      "winPct": 44.36,
+      "sameStage": {
+        "fights": 251,
+        "wins": 129,
+        "turns": 1554,
+        "winPct": 51.39
+      }
+    },
+    {
+      "fights": 690,
+      "wins": 380,
+      "turns": 4243,
+      "id": 74,
+      "name": "Eiswolf II",
+      "stage": 2,
+      "winPct": 55.07,
+      "sameStage": {
+        "fights": 141,
+        "wins": 63,
+        "turns": 994,
+        "winPct": 44.68
+      }
+    },
+    {
+      "fights": 682,
+      "wins": 474,
+      "turns": 4299,
+      "id": 75,
+      "name": "Eiswolf III",
+      "stage": 3,
+      "winPct": 69.5,
+      "sameStage": {
+        "fights": 30,
+        "wins": 11,
+        "turns": 240,
+        "winPct": 36.67
+      }
+    },
+    {
+      "fights": 651,
+      "wins": 336,
+      "turns": 3654,
+      "id": 76,
+      "name": "Sonnenwedel",
+      "stage": 1,
+      "winPct": 51.61,
+      "sameStage": {
+        "fights": 252,
+        "wins": 150,
+        "turns": 1552,
+        "winPct": 59.52
+      }
+    },
+    {
+      "fights": 629,
+      "wins": 223,
+      "turns": 3697,
+      "id": 77,
+      "name": "Eichhörnchengeist I",
+      "stage": 1,
+      "winPct": 35.45,
+      "sameStage": {
+        "fights": 215,
+        "wins": 80,
+        "turns": 1381,
+        "winPct": 37.21
+      }
+    },
+    {
+      "fights": 652,
+      "wins": 340,
+      "turns": 3969,
+      "id": 78,
+      "name": "Eichhörnchengeist II",
+      "stage": 2,
+      "winPct": 52.15,
+      "sameStage": {
+        "fights": 109,
+        "wins": 46,
+        "turns": 734,
+        "winPct": 42.2
+      }
+    },
+    {
+      "fights": 690,
+      "wins": 272,
+      "turns": 4164,
+      "id": 79,
+      "name": "Knochenkatze I",
+      "stage": 1,
+      "winPct": 39.42,
+      "sameStage": {
+        "fights": 261,
+        "wins": 116,
+        "turns": 1702,
+        "winPct": 44.44
+      }
+    },
+    {
+      "fights": 696,
+      "wins": 343,
+      "turns": 4458,
+      "id": 80,
+      "name": "Knochenkatze II",
+      "stage": 2,
+      "winPct": 49.28,
+      "sameStage": {
+        "fights": 135,
+        "wins": 63,
+        "turns": 976,
+        "winPct": 46.67
+      }
+    },
+    {
+      "fights": 717,
+      "wins": 329,
+      "turns": 4029,
+      "id": 81,
+      "name": "Kohlenschweif",
+      "stage": 1,
+      "winPct": 45.89,
+      "sameStage": {
+        "fights": 271,
+        "wins": 137,
+        "turns": 1660,
+        "winPct": 50.55
+      }
+    },
+    {
+      "fights": 679,
+      "wins": 281,
+      "turns": 3739,
+      "id": 82,
+      "name": "Schattenhase I",
+      "stage": 1,
+      "winPct": 41.38,
+      "sameStage": {
+        "fights": 250,
+        "wins": 108,
+        "turns": 1499,
+        "winPct": 43.2
+      }
+    },
+    {
+      "fights": 696,
+      "wins": 377,
+      "turns": 4101,
+      "id": 83,
+      "name": "Schattenhase II",
+      "stage": 2,
+      "winPct": 54.17,
+      "sameStage": {
+        "fights": 110,
+        "wins": 56,
+        "turns": 743,
+        "winPct": 50.91
+      }
+    },
+    {
+      "fights": 700,
+      "wins": 252,
+      "turns": 4138,
+      "id": 84,
+      "name": "Knochenhase I",
+      "stage": 1,
+      "winPct": 36,
+      "sameStage": {
+        "fights": 259,
+        "wins": 107,
+        "turns": 1649,
+        "winPct": 41.31
+      }
+    },
+    {
+      "fights": 615,
+      "wins": 316,
+      "turns": 3803,
+      "id": 85,
+      "name": "Knochenhase II",
+      "stage": 2,
+      "winPct": 51.38,
+      "sameStage": {
+        "fights": 119,
+        "wins": 61,
+        "turns": 841,
+        "winPct": 51.26
+      }
+    },
+    {
+      "fights": 673,
+      "wins": 325,
+      "turns": 3909,
+      "id": 86,
+      "name": "Wolkeneulchen",
+      "stage": 1,
+      "winPct": 48.29,
+      "sameStage": {
+        "fights": 266,
+        "wins": 142,
+        "turns": 1700,
+        "winPct": 53.38
+      }
+    },
+    {
+      "fights": 613,
+      "wins": 274,
+      "turns": 3402,
+      "id": 87,
+      "name": "Einhorngeist I",
+      "stage": 1,
+      "winPct": 44.7,
+      "sameStage": {
+        "fights": 236,
+        "wins": 110,
+        "turns": 1441,
+        "winPct": 46.61
+      }
+    },
+    {
+      "fights": 649,
+      "wins": 366,
+      "turns": 3728,
+      "id": 88,
+      "name": "Einhorngeist II",
+      "stage": 2,
+      "winPct": 56.39,
+      "sameStage": {
+        "fights": 112,
+        "wins": 65,
+        "turns": 751,
+        "winPct": 58.04
+      }
+    },
+    {
+      "fights": 648,
+      "wins": 289,
+      "turns": 3835,
+      "id": 89,
+      "name": "Schattenfledermaus I",
+      "stage": 1,
+      "winPct": 44.6,
+      "sameStage": {
+        "fights": 217,
+        "wins": 124,
+        "turns": 1431,
+        "winPct": 57.14
+      }
+    },
+    {
+      "fights": 633,
+      "wins": 376,
+      "turns": 3879,
+      "id": 90,
+      "name": "Schattenfledermaus II",
+      "stage": 2,
+      "winPct": 59.4,
+      "sameStage": {
+        "fights": 108,
+        "wins": 66,
+        "turns": 756,
+        "winPct": 61.11
+      }
+    },
+    {
+      "fights": 628,
+      "wins": 414,
+      "turns": 3950,
+      "id": 91,
+      "name": "Schattenfledermaus III",
+      "stage": 3,
+      "winPct": 65.92,
+      "sameStage": {
+        "fights": 20,
+        "wins": 4,
+        "turns": 142,
+        "winPct": 20
+      }
+    },
+    {
+      "fights": 664,
+      "wins": 237,
+      "turns": 3540,
+      "id": 92,
+      "name": "Lavendelflaum",
+      "stage": 1,
+      "winPct": 35.69,
+      "sameStage": {
+        "fights": 234,
+        "wins": 83,
+        "turns": 1363,
+        "winPct": 35.47
+      }
+    },
+    {
+      "fights": 656,
+      "wins": 244,
+      "turns": 3841,
+      "id": 93,
+      "name": "Stiergeist I",
+      "stage": 1,
+      "winPct": 37.2,
+      "sameStage": {
+        "fights": 226,
+        "wins": 92,
+        "turns": 1438,
+        "winPct": 40.71
+      }
+    },
+    {
+      "fights": 631,
+      "wins": 312,
+      "turns": 3872,
+      "id": 94,
+      "name": "Stiergeist II",
+      "stage": 2,
+      "winPct": 49.45,
+      "sameStage": {
+        "fights": 108,
+        "wins": 38,
+        "turns": 726,
+        "winPct": 35.19
+      }
+    },
+    {
+      "fights": 642,
+      "wins": 268,
+      "turns": 3719,
+      "id": 95,
+      "name": "Geisterqualle I",
+      "stage": 1,
+      "winPct": 41.74,
+      "sameStage": {
+        "fights": 237,
+        "wins": 115,
+        "turns": 1522,
+        "winPct": 48.52
+      }
+    },
+    {
+      "fights": 757,
+      "wins": 413,
+      "turns": 4666,
+      "id": 96,
+      "name": "Geisterqualle II",
+      "stage": 2,
+      "winPct": 54.56,
+      "sameStage": {
+        "fights": 149,
+        "wins": 80,
+        "turns": 998,
+        "winPct": 53.69
+      }
+    },
+    {
+      "fights": 637,
+      "wins": 431,
+      "turns": 4064,
+      "id": 97,
+      "name": "Geisterqualle III",
+      "stage": 3,
+      "winPct": 67.66,
+      "sameStage": {
+        "fights": 21,
+        "wins": 9,
+        "turns": 164,
+        "winPct": 42.86
+      }
+    },
+    {
+      "fights": 660,
+      "wins": 317,
+      "turns": 3984,
+      "id": 98,
+      "name": "Schattenfeder",
+      "stage": 1,
+      "winPct": 48.03,
+      "sameStage": {
+        "fights": 260,
+        "wins": 151,
+        "turns": 1711,
+        "winPct": 58.08
+      }
+    },
+    {
+      "fights": 700,
+      "wins": 282,
+      "turns": 4308,
+      "id": 99,
+      "name": "Widdergeist I",
+      "stage": 1,
+      "winPct": 40.29,
+      "sameStage": {
+        "fights": 230,
+        "wins": 99,
+        "turns": 1550,
+        "winPct": 43.04
+      }
+    },
+    {
+      "fights": 679,
+      "wins": 348,
+      "turns": 4261,
+      "id": 100,
+      "name": "Widdergeist II",
+      "stage": 2,
+      "winPct": 51.25,
+      "sameStage": {
+        "fights": 117,
+        "wins": 51,
+        "turns": 848,
+        "winPct": 43.59
+      }
+    },
+    {
+      "fights": 636,
+      "wins": 245,
+      "turns": 3844,
+      "id": 101,
+      "name": "Knocheneule I",
+      "stage": 1,
+      "winPct": 38.52,
+      "sameStage": {
+        "fights": 234,
+        "wins": 113,
+        "turns": 1576,
+        "winPct": 48.29
+      }
+    },
+    {
+      "fights": 646,
+      "wins": 336,
+      "turns": 4102,
+      "id": 102,
+      "name": "Knocheneule II",
+      "stage": 2,
+      "winPct": 52.01,
+      "sameStage": {
+        "fights": 107,
+        "wins": 56,
+        "turns": 764,
+        "winPct": 52.34
+      }
+    },
+    {
+      "fights": 647,
+      "wins": 237,
+      "turns": 3495,
+      "id": 103,
+      "name": "Mondflatter",
+      "stage": 1,
+      "winPct": 36.63,
+      "sameStage": {
+        "fights": 239,
+        "wins": 93,
+        "turns": 1421,
+        "winPct": 38.91
+      }
+    },
+    {
+      "fights": 642,
+      "wins": 300,
+      "turns": 3642,
+      "id": 104,
+      "name": "Drachengeist I",
+      "stage": 1,
+      "winPct": 46.73,
+      "sameStage": {
+        "fights": 235,
+        "wins": 126,
+        "turns": 1425,
+        "winPct": 53.62
+      }
+    },
+    {
       "fights": 671,
-      "wins": 412,
-      "turns": 4033,
+      "wins": 400,
+      "turns": 3983,
       "id": 105,
       "name": "Drachengeist II",
       "stage": 2,
-      "winPct": 61.4,
+      "winPct": 59.61,
       "sameStage": {
         "fights": 103,
         "wins": 61,
-        "turns": 703,
+        "turns": 699,
         "winPct": 59.22
       }
     },
     {
       "fights": 676,
-      "wins": 266,
-      "turns": 4122,
+      "wins": 246,
+      "turns": 4053,
       "id": 106,
       "name": "Knochenhirsch I",
       "stage": 1,
-      "winPct": 39.35,
+      "winPct": 36.39,
       "sameStage": {
         "fights": 233,
-        "wins": 99,
-        "turns": 1541,
-        "winPct": 42.49
+        "wins": 83,
+        "turns": 1510,
+        "winPct": 35.62
       }
     },
     {
       "fights": 682,
-      "wins": 320,
-      "turns": 4257,
+      "wins": 303,
+      "turns": 4168,
       "id": 107,
       "name": "Knochenhirsch II",
       "stage": 2,
-      "winPct": 46.92,
+      "winPct": 44.43,
       "sameStage": {
         "fights": 111,
-        "wins": 44,
-        "turns": 789,
-        "winPct": 39.64
+        "wins": 39,
+        "turns": 780,
+        "winPct": 35.14
       }
     },
     {
       "fights": 662,
-      "wins": 309,
-      "turns": 3950,
+      "wins": 295,
+      "turns": 3915,
       "id": 108,
       "name": "Nachtflatter",
       "stage": 1,
-      "winPct": 46.68,
+      "winPct": 44.56,
       "sameStage": {
         "fights": 232,
-        "wins": 127,
-        "turns": 1489,
-        "winPct": 54.74
+        "wins": 122,
+        "turns": 1483,
+        "winPct": 52.59
       }
     },
     {
       "fights": 691,
-      "wins": 304,
-      "turns": 3964,
+      "wins": 284,
+      "turns": 3884,
       "id": 109,
       "name": "Fischgeist I",
       "stage": 1,
-      "winPct": 43.99,
+      "winPct": 41.1,
       "sameStage": {
         "fights": 256,
-        "wins": 120,
-        "turns": 1602,
-        "winPct": 46.88
+        "wins": 106,
+        "turns": 1557,
+        "winPct": 41.41
       }
     },
     {
       "fights": 625,
-      "wins": 356,
-      "turns": 3825,
+      "wins": 337,
+      "turns": 3783,
       "id": 110,
       "name": "Fischgeist II",
       "stage": 2,
-      "winPct": 56.96,
+      "winPct": 53.92,
       "sameStage": {
         "fights": 109,
-        "wins": 65,
+        "wins": 62,
         "turns": 738,
-        "winPct": 59.63
+        "winPct": 56.88
       }
     },
     {
       "fights": 728,
-      "wins": 337,
-      "turns": 4229,
+      "wins": 324,
+      "turns": 4183,
       "id": 111,
       "name": "Quellflosse",
       "stage": 1,
-      "winPct": 46.29,
+      "winPct": 44.51,
       "sameStage": {
         "fights": 268,
-        "wins": 117,
-        "turns": 1697,
-        "winPct": 43.66
+        "wins": 112,
+        "turns": 1681,
+        "winPct": 41.79
       }
     },
     {
       "fights": 669,
-      "wins": 265,
-      "turns": 3958,
+      "wins": 257,
+      "turns": 3909,
       "id": 112,
       "name": "Schildkrötengeist I",
       "stage": 1,
-      "winPct": 39.61,
+      "winPct": 38.42,
       "sameStage": {
         "fights": 259,
-        "wins": 110,
-        "turns": 1662,
-        "winPct": 42.47
+        "wins": 106,
+        "turns": 1656,
+        "winPct": 40.93
       }
     },
     {
       "fights": 652,
-      "wins": 367,
-      "turns": 4041,
+      "wins": 363,
+      "turns": 3995,
       "id": 113,
       "name": "Schildkrötengeist II",
       "stage": 2,
-      "winPct": 56.29,
+      "winPct": 55.67,
       "sameStage": {
         "fights": 111,
-        "wins": 56,
-        "turns": 759,
-        "winPct": 50.45
+        "wins": 57,
+        "turns": 751,
+        "winPct": 51.35
       }
     },
     {
       "fights": 629,
-      "wins": 322,
-      "turns": 3867,
+      "wins": 313,
+      "turns": 3839,
       "id": 114,
       "name": "Flutwirbel",
       "stage": 1,
-      "winPct": 51.19,
+      "winPct": 49.76,
       "sameStage": {
         "fights": 244,
         "wins": 137,
-        "turns": 1625,
+        "turns": 1617,
         "winPct": 56.15
       }
     },
     {
       "fights": 669,
-      "wins": 332,
-      "turns": 3920,
+      "wins": 313,
+      "turns": 3846,
       "id": 115,
       "name": "Dämonenfuchs I",
       "stage": 1,
-      "winPct": 49.63,
+      "winPct": 46.79,
       "sameStage": {
         "fights": 242,
-        "wins": 125,
-        "turns": 1527,
-        "winPct": 51.65
+        "wins": 115,
+        "turns": 1488,
+        "winPct": 47.52
       }
     },
     {
       "fights": 705,
-      "wins": 366,
-      "turns": 4328,
+      "wins": 339,
+      "turns": 4252,
       "id": 116,
       "name": "Dämonenfuchs II",
       "stage": 2,
-      "winPct": 51.91,
+      "winPct": 48.09,
       "sameStage": {
         "fights": 118,
-        "wins": 54,
-        "turns": 811,
-        "winPct": 45.76
+        "wins": 48,
+        "turns": 809,
+        "winPct": 40.68
       }
     },
     {
       "fights": 647,
-      "wins": 356,
-      "turns": 4023,
+      "wins": 342,
+      "turns": 3990,
       "id": 117,
       "name": "Tiefenwyrm",
       "stage": 1,
-      "winPct": 55.02,
+      "winPct": 52.86,
       "sameStage": {
         "fights": 230,
-        "wins": 148,
-        "turns": 1556,
-        "winPct": 64.35
+        "wins": 138,
+        "turns": 1542,
+        "winPct": 60
       }
     },
     {
       "fights": 636,
-      "wins": 264,
-      "turns": 3649,
+      "wins": 243,
+      "turns": 3608,
       "id": 118,
       "name": "Schattenhund I",
       "stage": 1,
-      "winPct": 41.51,
+      "winPct": 38.21,
       "sameStage": {
         "fights": 241,
-        "wins": 139,
-        "turns": 1531,
-        "winPct": 57.68
+        "wins": 122,
+        "turns": 1518,
+        "winPct": 50.62
       }
     },
     {
       "fights": 693,
-      "wins": 419,
-      "turns": 4295,
+      "wins": 401,
+      "turns": 4272,
       "id": 119,
       "name": "Schattenhund II",
       "stage": 2,
-      "winPct": 60.46,
+      "winPct": 57.86,
       "sameStage": {
         "fights": 119,
-        "wins": 69,
-        "turns": 853,
-        "winPct": 57.98
+        "wins": 61,
+        "turns": 841,
+        "winPct": 51.26
       }
     },
     {
       "fights": 615,
-      "wins": 245,
-      "turns": 3568,
+      "wins": 244,
+      "turns": 3522,
       "id": 120,
       "name": "Schimmerpanzer",
       "stage": 1,
-      "winPct": 39.84,
+      "winPct": 39.67,
       "sameStage": {
         "fights": 213,
         "wins": 100,
-        "turns": 1359,
+        "turns": 1341,
         "winPct": 46.95
       }
     },
     {
       "fights": 638,
-      "wins": 286,
-      "turns": 3386,
+      "wins": 279,
+      "turns": 3343,
       "id": 121,
       "name": "Flammenhase I",
       "stage": 1,
-      "winPct": 44.83,
+      "winPct": 43.73,
       "sameStage": {
         "fights": 222,
-        "wins": 118,
-        "turns": 1303,
-        "winPct": 53.15
+        "wins": 113,
+        "turns": 1296,
+        "winPct": 50.9
       }
     },
     {
       "fights": 640,
-      "wins": 325,
-      "turns": 3590,
+      "wins": 314,
+      "turns": 3556,
       "id": 122,
       "name": "Flammenhase II",
       "stage": 2,
-      "winPct": 50.78,
+      "winPct": 49.06,
       "sameStage": {
         "fights": 113,
-        "wins": 42,
-        "turns": 702,
-        "winPct": 37.17
+        "wins": 43,
+        "turns": 706,
+        "winPct": 38.05
       }
     },
     {
       "fights": 674,
-      "wins": 263,
-      "turns": 4035,
+      "wins": 256,
+      "turns": 3978,
       "id": 123,
       "name": "Moorschild",
       "stage": 1,
-      "winPct": 39.02,
+      "winPct": 37.98,
       "sameStage": {
         "fights": 234,
-        "wins": 100,
-        "turns": 1512,
-        "winPct": 42.74
+        "wins": 96,
+        "turns": 1500,
+        "winPct": 41.03
       }
     },
     {
       "fights": 635,
-      "wins": 341,
-      "turns": 3548,
+      "wins": 326,
+      "turns": 3516,
       "id": 124,
       "name": "Phönixeule I",
       "stage": 1,
-      "winPct": 53.7,
+      "winPct": 51.34,
       "sameStage": {
         "fights": 238,
-        "wins": 153,
-        "turns": 1449,
-        "winPct": 64.29
+        "wins": 145,
+        "turns": 1440,
+        "winPct": 60.92
       }
     },
     {
       "fights": 667,
-      "wins": 446,
-      "turns": 3849,
+      "wins": 435,
+      "turns": 3841,
       "id": 125,
       "name": "Phönixeule II",
       "stage": 2,
-      "winPct": 66.87,
+      "winPct": 65.22,
       "sameStage": {
         "fights": 102,
-        "wins": 62,
-        "turns": 705,
-        "winPct": 60.78
+        "wins": 61,
+        "turns": 702,
+        "winPct": 59.8
       }
     },
     {
       "fights": 638,
-      "wins": 247,
-      "turns": 3858,
+      "wins": 232,
+      "turns": 3777,
       "id": 126,
       "name": "Gruftpanzer",
       "stage": 1,
-      "winPct": 38.71,
+      "winPct": 36.36,
       "sameStage": {
         "fights": 221,
-        "wins": 98,
-        "turns": 1453,
-        "winPct": 44.34
+        "wins": 93,
+        "turns": 1432,
+        "winPct": 42.08
       }
     },
     {
       "fights": 649,
-      "wins": 317,
-      "turns": 3710,
+      "wins": 307,
+      "turns": 3698,
       "id": 127,
       "name": "Himmelsmiez",
       "stage": 1,
-      "winPct": 48.84,
+      "winPct": 47.3,
       "sameStage": {
         "fights": 228,
-        "wins": 131,
-        "turns": 1421,
-        "winPct": 57.46
+        "wins": 126,
+        "turns": 1424,
+        "winPct": 55.26
       }
     },
     {
       "fights": 651,
-      "wins": 340,
-      "turns": 3707,
+      "wins": 331,
+      "turns": 3686,
       "id": 128,
       "name": "Engelschnurr",
       "stage": 1,
-      "winPct": 52.23,
+      "winPct": 50.84,
       "sameStage": {
         "fights": 218,
-        "wins": 136,
-        "turns": 1383,
-        "winPct": 62.39
+        "wins": 130,
+        "turns": 1387,
+        "winPct": 59.63
       }
     },
     {
       "fights": 674,
-      "wins": 326,
-      "turns": 4047,
+      "wins": 315,
+      "turns": 4011,
       "id": 129,
       "name": "Dunkelhalo",
       "stage": 1,
-      "winPct": 48.37,
+      "winPct": 46.74,
       "sameStage": {
         "fights": 244,
-        "wins": 141,
-        "turns": 1637,
-        "winPct": 57.79
+        "wins": 139,
+        "turns": 1630,
+        "winPct": 56.97
       }
     },
     {
       "fights": 697,
-      "wins": 307,
-      "turns": 4253,
+      "wins": 291,
+      "turns": 4223,
       "id": 130,
       "name": "Glockenkalb",
       "stage": 1,
-      "winPct": 44.05,
+      "winPct": 41.75,
       "sameStage": {
         "fights": 265,
-        "wins": 144,
-        "turns": 1808,
-        "winPct": 54.34
+        "wins": 136,
+        "turns": 1813,
+        "winPct": 51.32
       }
     },
     {
       "fights": 675,
-      "wins": 262,
-      "turns": 4079,
+      "wins": 243,
+      "turns": 4024,
       "id": 131,
       "name": "Wiesenbimmel",
       "stage": 1,
-      "winPct": 38.81,
+      "winPct": 36,
       "sameStage": {
         "fights": 245,
-        "wins": 116,
-        "turns": 1647,
-        "winPct": 47.35
+        "wins": 106,
+        "turns": 1636,
+        "winPct": 43.27
       }
     },
     {
       "fights": 651,
-      "wins": 302,
-      "turns": 3977,
+      "wins": 296,
+      "turns": 3952,
       "id": 132,
       "name": "Knochenstier",
       "stage": 1,
-      "winPct": 46.39,
+      "winPct": 45.47,
       "sameStage": {
         "fights": 249,
-        "wins": 130,
-        "turns": 1648,
-        "winPct": 52.21
+        "wins": 132,
+        "turns": 1651,
+        "winPct": 53.01
       }
     },
     {
       "fights": 699,
-      "wins": 352,
-      "turns": 4133,
+      "wins": 330,
+      "turns": 4112,
       "id": 133,
       "name": "Wolkenpiep",
       "stage": 1,
-      "winPct": 50.36,
+      "winPct": 47.21,
       "sameStage": {
         "fights": 272,
-        "wins": 147,
-        "turns": 1767,
-        "winPct": 54.04
+        "wins": 139,
+        "turns": 1762,
+        "winPct": 51.1
       }
     },
     {
       "fights": 674,
-      "wins": 339,
-      "turns": 4041,
+      "wins": 329,
+      "turns": 4024,
       "id": 134,
       "name": "Gischtpiep",
       "stage": 1,
-      "winPct": 50.3,
+      "winPct": 48.81,
       "sameStage": {
         "fights": 264,
-        "wins": 166,
-        "turns": 1739,
-        "winPct": 62.88
+        "wins": 161,
+        "turns": 1746,
+        "winPct": 60.98
       }
     },
     {
       "fights": 653,
-      "wins": 324,
-      "turns": 3928,
+      "wins": 316,
+      "turns": 3873,
       "id": 135,
       "name": "Sturmschnabel",
       "stage": 1,
-      "winPct": 49.62,
+      "winPct": 48.39,
       "sameStage": {
         "fights": 229,
-        "wins": 139,
-        "turns": 1500,
-        "winPct": 60.7
+        "wins": 135,
+        "turns": 1482,
+        "winPct": 58.95
       }
     },
     {
       "fights": 686,
-      "wins": 262,
-      "turns": 3995,
+      "wins": 238,
+      "turns": 3943,
       "id": 136,
       "name": "Rosagrunzer",
       "stage": 1,
-      "winPct": 38.19,
+      "winPct": 34.69,
       "sameStage": {
         "fights": 276,
-        "wins": 124,
-        "turns": 1773,
-        "winPct": 44.93
+        "wins": 109,
+        "turns": 1755,
+        "winPct": 39.49
       }
     },
     {
       "fights": 681,
-      "wins": 259,
-      "turns": 4143,
+      "wins": 243,
+      "turns": 4064,
       "id": 137,
       "name": "Knochenschnüff",
       "stage": 1,
-      "winPct": 38.03,
+      "winPct": 35.68,
       "sameStage": {
         "fights": 241,
-        "wins": 106,
-        "turns": 1619,
-        "winPct": 43.98
+        "wins": 99,
+        "turns": 1591,
+        "winPct": 41.08
       }
     },
     {
       "fights": 640,
-      "wins": 263,
-      "turns": 3584,
+      "wins": 253,
+      "turns": 3538,
       "id": 138,
       "name": "Schattenborste",
       "stage": 1,
-      "winPct": 41.09,
+      "winPct": 39.53,
       "sameStage": {
         "fights": 232,
-        "wins": 108,
-        "turns": 1391,
-        "winPct": 46.55
+        "wins": 106,
+        "turns": 1381,
+        "winPct": 45.69
       }
     },
     {
       "fights": 659,
-      "wins": 250,
-      "turns": 4003,
+      "wins": 233,
+      "turns": 3943,
       "id": 139,
       "name": "Ringelgeist",
       "stage": 1,
-      "winPct": 37.94,
+      "winPct": 35.36,
       "sameStage": {
         "fights": 255,
-        "wins": 119,
-        "turns": 1723,
-        "winPct": 46.67
+        "wins": 110,
+        "turns": 1703,
+        "winPct": 43.14
       }
     },
     {
       "fights": 675,
-      "wins": 294,
-      "turns": 3846,
+      "wins": 278,
+      "turns": 3815,
       "id": 140,
       "name": "Dämmerstreif",
       "stage": 1,
-      "winPct": 43.56,
+      "winPct": 41.19,
       "sameStage": {
         "fights": 257,
-        "wins": 123,
-        "turns": 1596,
-        "winPct": 47.86
+        "wins": 115,
+        "turns": 1590,
+        "winPct": 44.75
       }
     },
     {
       "fights": 674,
-      "wins": 295,
-      "turns": 4035,
+      "wins": 276,
+      "turns": 3980,
       "id": 141,
       "name": "Nachtringel",
       "stage": 1,
-      "winPct": 43.77,
+      "winPct": 40.95,
       "sameStage": {
         "fights": 267,
-        "wins": 146,
-        "turns": 1729,
-        "winPct": 54.68
+        "wins": 136,
+        "turns": 1720,
+        "winPct": 50.94
       }
     },
     {
       "fights": 718,
-      "wins": 274,
-      "turns": 3936,
+      "wins": 260,
+      "turns": 3869,
       "id": 142,
       "name": "Rosenlöffel",
       "stage": 1,
-      "winPct": 38.16,
+      "winPct": 36.21,
       "sameStage": {
         "fights": 279,
-        "wins": 118,
-        "turns": 1696,
-        "winPct": 42.29
+        "wins": 111,
+        "turns": 1670,
+        "winPct": 39.78
       }
     },
     {
       "fights": 656,
-      "wins": 320,
-      "turns": 3637,
+      "wins": 302,
+      "turns": 3599,
       "id": 143,
       "name": "Flimmerhase",
       "stage": 1,
-      "winPct": 48.78,
+      "winPct": 46.04,
       "sameStage": {
         "fights": 244,
-        "wins": 129,
-        "turns": 1505,
-        "winPct": 52.87
+        "wins": 119,
+        "turns": 1484,
+        "winPct": 48.77
       }
     },
     {
       "fights": 694,
-      "wins": 361,
-      "turns": 4038,
+      "wins": 339,
+      "turns": 3953,
       "id": 144,
       "name": "Glutohren",
       "stage": 1,
-      "winPct": 52.02,
+      "winPct": 48.85,
       "sameStage": {
         "fights": 276,
-        "wins": 165,
-        "turns": 1713,
-        "winPct": 59.78
+        "wins": 152,
+        "turns": 1684,
+        "winPct": 55.07
       }
     },
     {
       "fights": 655,
-      "wins": 308,
-      "turns": 3954,
+      "wins": 304,
+      "turns": 3925,
       "id": 145,
       "name": "Froststachel",
       "stage": 1,
-      "winPct": 47.02,
+      "winPct": 46.41,
       "sameStage": {
         "fights": 230,
-        "wins": 125,
-        "turns": 1491,
-        "winPct": 54.35
+        "wins": 123,
+        "turns": 1479,
+        "winPct": 53.48
       }
     },
     {
       "fights": 705,
-      "wins": 345,
-      "turns": 4331,
+      "wins": 336,
+      "turns": 4308,
       "id": 146,
       "name": "Eisschauer",
       "stage": 1,
-      "winPct": 48.94,
+      "winPct": 47.66,
       "sameStage": {
         "fights": 270,
-        "wins": 173,
-        "turns": 1797,
-        "winPct": 64.07
+        "wins": 167,
+        "turns": 1796,
+        "winPct": 61.85
       }
     },
     {
       "fights": 654,
-      "wins": 273,
-      "turns": 3674,
+      "wins": 254,
+      "turns": 3599,
       "id": 147,
       "name": "Dornschatten",
       "stage": 1,
-      "winPct": 41.74,
+      "winPct": 38.84,
       "sameStage": {
         "fights": 249,
-        "wins": 116,
-        "turns": 1508,
-        "winPct": 46.59
+        "wins": 104,
+        "turns": 1479,
+        "winPct": 41.77
       }
     },
     {
       "fights": 639,
-      "wins": 302,
-      "turns": 3752,
+      "wins": 291,
+      "turns": 3709,
       "id": 148,
       "name": "Funkennuss",
       "stage": 1,
-      "winPct": 47.26,
+      "winPct": 45.54,
       "sameStage": {
         "fights": 222,
-        "wins": 114,
-        "turns": 1438,
-        "winPct": 51.35
+        "wins": 110,
+        "turns": 1421,
+        "winPct": 49.55
       }
     },
     {
       "fights": 692,
-      "wins": 313,
-      "turns": 4022,
+      "wins": 296,
+      "turns": 3959,
       "id": 149,
       "name": "Wolkennuss",
       "stage": 1,
-      "winPct": 45.23,
+      "winPct": 42.77,
       "sameStage": {
         "fights": 259,
-        "wins": 134,
-        "turns": 1646,
-        "winPct": 51.74
+        "wins": 127,
+        "turns": 1637,
+        "winPct": 49.03
       }
     },
     {
       "fights": 621,
-      "wins": 330,
-      "turns": 3564,
+      "wins": 313,
+      "turns": 3535,
       "id": 150,
       "name": "Nachtsammler",
       "stage": 1,
-      "winPct": 53.14,
+      "winPct": 50.4,
       "sameStage": {
         "fights": 232,
-        "wins": 151,
-        "turns": 1472,
-        "winPct": 65.09
+        "wins": 138,
+        "turns": 1469,
+        "winPct": 59.48
       }
     }
   ],

@@ -142,9 +142,83 @@
     return parts.join(' + ');
   }
   const STATUS=Object.freeze({rules:STATUS_RULES,apply,adjustedDamage,endAction,labels,state});
+  // Enemy tactics are deliberately transparent, bounded and save-agnostic.
+  // They use approximate damage, not the future RNG or a player's hidden inputs.
+  const ENEMY_AI=Object.freeze({
+    estimate(user,target,move,aff,species,battle){
+      if(!move||!move.power)return 0;
+      const a=species[user.id-1],d=species[target.id-1];
+      const raw=move.power*.205+user.lv*.48+a.atk*.17-d.def*.14;
+      const modifier=aff.effectiveness(move.type,target)*aff.stab(move.type,user);
+      const statuses=battle?.effects||[];
+      const from=statuses.find(x=>x.monster===user)?.status;
+      const to=statuses.find(x=>x.monster===target)?.status;
+      const penalty=from?.weak>0?.8:1,protection=to?.guard>0?.65:1;
+      return Math.max(2,Math.floor(raw*.99*modifier*penalty*protection));
+    },
+    choose({battle,enemy,ally,prepared,attacks,aff,species,random=Math.random}){
+      const known=prepared.filter(id=>attacks[id]);
+      const offensive=known.filter(id=>attacks[id].power>0);
+      if(!offensive.length)return {id:'seelenstups',reason:'fallback'};
+      const estimate=(user,target,move)=>ENEMY_AI.estimate(user,target,move,aff,species,battle);
+      const current=offensive.map(id=>({id,damage:estimate(enemy,ally,attacks[id])*(enemy.encounterScale||1)}));
+      const strongest=current.reduce((a,b)=>a.damage>=b.damage?a:b);
+      // Intro opponents intentionally keep simple, readable attack choices.
+      // The early area must not become harder merely because late bosses learn tactics.
+      if(enemy.lv<=8){
+        const ranked=offensive.slice().sort((a,b)=>
+          attacks[b].power*aff.effectiveness(attacks[b].type,ally)*aff.stab(attacks[b].type,enemy)-
+          attacks[a].power*aff.effectiveness(attacks[a].type,ally)*aff.stab(attacks[a].type,enemy));
+        return {id:ranked[random()<.72?0:Math.min(1,ranked.length-1)],reason:'rookie-attack'};
+      }
+      const playerMoves=(ally.equippedMoves||ally.moves||[]).filter(id=>attacks[id]?.power>0);
+      const incoming=playerMoves.length?
+        Math.max(...playerMoves.map(id=>estimate(ally,enemy,attacks[id]))):
+        Math.max(2,ally.lv*.5+species[ally.id-1].atk*.1);
+      const healId=known.find(id=>attacks[id].heal>0);
+      if(healId&&!battle?.enemyHealUsed){
+        const move=attacks[healId],amount=Math.min(move.heal,enemy.maxHp-enemy.hp);
+        const ward=STATUS_RULES[healId]?.kind==='guard'?.65:1;
+        const afterHealingDamage=incoming*ward;
+        // Healing cannot save an already hopeless fight, or waste a turn at high HP.
+        // Do not skip a probable immediate knockout for a small heal.
+        if(enemy.hp>0&&enemy.hp<=enemy.maxHp*.44&&
+          amount>=Math.max(8,move.heal*.5)&&
+          enemy.hp+amount>afterHealingDamage*.9&&
+          ally.hp>strongest.damage*1.05&&
+          (enemy.hp<=incoming*1.35||enemy.hp<=enemy.maxHp*.25)){
+          return {id:healId,reason:'survival-heal'};
+        }
+      }
+      const effects=battle?.effects||[];
+      const onEnemy=effects.find(x=>x.monster===enemy)?.status;
+      const onAlly=effects.find(x=>x.monster===ally)?.status;
+      const ranked=current.map(({id,damage})=>{
+        const rule=STATUS_RULES[id];let bonus=0;
+        if(rule){
+          if(rule.kind==='burn'&&!onAlly?.burn){
+            bonus=rule.chance*Math.min(12,ally.maxHp*.05*2);
+          }else if(rule.kind==='weak'&&!onAlly?.weak){
+            bonus=rule.chance*Math.min(10,incoming*.35);
+          }else if(rule.kind==='guard'&&!onEnemy?.guard){
+            bonus=Math.min(12,incoming*.35)*(enemy.hp<=incoming*1.5?1:.45);
+          }else if(rule.kind==='regen'&&!onEnemy?.regen){
+            bonus=Math.min(10,Math.max(0,enemy.maxHp-enemy.hp)*.12);
+          }
+        }
+        // Finishing the fight now is worth more than a future status tick.
+        const lethal=damage>=ally.hp?100:0;
+        return {id,damage,score:damage+bonus+lethal,bonus};
+      }).sort((a,b)=>b.score-a.score);
+      const runnerUp=ranked[1];
+      const chosen=runnerUp&&runnerUp.score>=ranked[0].score*.83&&random()<.16?
+        runnerUp:ranked[0];
+      return {id:chosen.id,reason:chosen.bonus>0?'effective-status':'element-damage'};
+    }
+  });
   const ATTACK_TYPES=Object.freeze(Object.fromEntries(
     Object.entries(ATTACKS).map(([id,v])=>[id,v.type])));
   window.EchoSkillbook=Object.freeze({
-    ATTACKS,TYPE_SKILLS,RUNES,RUNE_IDS,ATTACK_TYPES,STATUS,AWARD_AFTER_UNIQUE_WINS,MAX_EQUIPPED:4,MAX_RUNE_LEARNED:2
+    ATTACKS,TYPE_SKILLS,RUNES,RUNE_IDS,ATTACK_TYPES,STATUS,ENEMY_AI,AWARD_AFTER_UNIQUE_WINS,MAX_EQUIPPED:4,MAX_RUNE_LEARNED:2
   });
 })();

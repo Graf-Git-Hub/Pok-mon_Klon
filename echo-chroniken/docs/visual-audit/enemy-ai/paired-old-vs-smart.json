@@ -1,0 +1,53 @@
+{
+  "baselineCommit": "8077ce6f64d1ddf847a3678638a9dcd927c21f40",
+  "fixtures": 12000,
+  "engineFights": 24000,
+  "timeouts": 0,
+  "groups": {
+    "all": {
+      "n": 12000,
+      "baseline": 7377,
+      "smart": 6995,
+      "baselineTurns": 72490,
+      "smartTurns": 71981,
+      "baselineWinPct": 61.48,
+      "smartWinPct": 58.29,
+      "deltaPlayerWinPct": -3.18
+    },
+    "early": {
+      "n": 3339,
+      "baseline": 2087,
+      "smart": 2019,
+      "baselineWinPct": 62.5,
+      "smartWinPct": 60.47,
+      "deltaPlayerWinPct": -2.04
+    },
+    "sameStage": {
+      "n": 4683,
+      "baseline": 3157,
+      "smart": 2967,
+      "baselineWinPct": 67.41,
+      "smartWinPct": 63.36,
+      "deltaPlayerWinPct": -4.06
+    },
+    "late": {
+      "n": 6735,
+      "baseline": 4167,
+      "smart": 3931,
+      "baselineWinPct": 61.87,
+      "smartWinPct": 58.37,
+      "deltaPlayerWinPct": -3.5
+    }
+  },
+  "paired": {
+    "oldOnly": 467,
+    "smartOnly": 85,
+    "both": 6910,
+    "neither": 4538
+  },
+  "avgTurns": {
+    "baseline": 6.04,
+    "smart": 6
+  },
+  "caveat": "Player always acts first. Identical starts and initial seeds but different choices consume RNG differently. Players use elemental strategy; no human choice/physical device measured."
+}

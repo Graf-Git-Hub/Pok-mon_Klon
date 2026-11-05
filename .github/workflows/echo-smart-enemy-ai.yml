@@ -1,0 +1,44 @@
+name: Echo-Chroniken Smart Enemy Tactics QA
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/data/skills.js'
+      - 'echo-chroniken/project/src/game.js'
+      - 'echo-chroniken/project/tests/enemy-ai-decisions.cjs'
+      - 'echo-chroniken/project/qa/compare-enemy-ai.cjs'
+      - 'echo-chroniken/docs/visual-audit/enemy-ai/paired-old-vs-smart.json'
+      - '.github/workflows/echo-smart-enemy-ai.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  real-game-enemy-tactics:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Real enemy selection decisions and original healing regressions
+        run: |
+          node echo-chroniken/project/tests/enemy-ai-decisions.cjs
+          node echo-chroniken/project/tests/battle-healing.cjs
+          node echo-chroniken/project/tests/combat-status.cjs
+      - name: Compare baseline and smart AI with 12000 identical fixtures
+        run: node echo-chroniken/project/qa/compare-enemy-ai.cjs
+      - name: Verify every paired result matches Laura PC
+        run: git diff --exit-code -- echo-chroniken/docs/visual-audit/enemy-ai/paired-old-vs-smart.json
+      - name: Keep tactical evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-smart-enemy-ai-evidence
+          path: echo-chroniken/docs/visual-audit/enemy-ai/paired-old-vs-smart.json
+          retention-days: 14
+          if-no-files-found: error
