@@ -32,6 +32,14 @@ Im paarweisen Vergleich gewinnt der Spieler 467-mal nur gegen die alte KI, 85-ma
 
 Die anschließende neue 100.000er-Zufallsprüfung mit allen 150 Wesen beendete sämtliche Kämpfe: **47.840 Siege, 52.160 Niederlagen, 0 Timeouts**, mittlere Kampfdauer 5,93 Runden. Neue SHA-256-Prüfsumme: `dce11c77f5f669bbb689558cfd4482b5f5ed9fe9d2935bb6a4902c629fcfb853`. Der Golden-Fixture-Workflow wurde mit dem neuen echten PC-Ergebnis aktualisiert.
 
+## Auch die vorhandenen Kampfreferenzen wurden neu gemessen
+
+Durch die geänderte Gegnerauswahl sind **frühere Golden-Dateien bewusst nicht mehr gültig**. Die seit längerem existierenden Tests wurden deshalb auf Laura auf dem finalen neuen Code erneut ausgeführt und ihre GitHub-Vergleichswerte aktualisiert:
+
+- 10.000 Engine-Kämpfe: **4.746 Spieler-Siege / 5.254 Niederlagen**, 0 Hänger, SHA `d1638e97d6e3f8038bda2f42d562211e3eddc9a016f9e1ba89b33796290ecf54`.
+- 15.000 gepaarte Situationen je drei Spielerstrategien: **55,55 % Rohkraft, 59,28 % Elementwahl, 59,14 % zusätzliche Heil-/Statuspolitik**; 45.000 Kämpfe, 0 Hänger. Es ist kein belastbarer Mehrwert der bisherigen einfachen Heil-/Status-Spielerheuristik erkennbar.
+- Deren vollständige JSON-Reports wurden im selben Stand erneuert, damit GitHub nicht auf veraltete Gegnerwerte prüft.
+
 ## Grenzen und Freigabe
 
 Das sind echte simulierte Engine-Kämpfe, keine menschlichen Duelle. Der Spieler handelt weiterhin zuerst. Auch bei gleichem Start-Seed divergiert der weitere Zufallsverbrauch, wenn die KI unterschiedlich handelt. Frühe Browser-/Touch-Story bis Kapitel 4 und vollständige GitHub-CI bis Kapitel 14/Postgame sind getrennte Freigabekontrollen. Physische Android-/TV-Geräte wurden hier nicht getestet.

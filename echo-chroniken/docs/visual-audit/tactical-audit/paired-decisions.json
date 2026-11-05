@@ -4,53 +4,53 @@
   "equalStageFixtures": 7500,
   "policies": {
     "power": {
-      "wins": 8720,
-      "turns": 90972,
+      "wins": 8332,
+      "turns": 90148,
       "heals": 0,
-      "statusAttacks": 8978,
-      "offensive": 75972,
+      "statusAttacks": 8929,
+      "offensive": 75148,
       "timeout": 0
     },
     "element": {
-      "wins": 9300,
-      "turns": 89621,
+      "wins": 8892,
+      "turns": 88985,
       "heals": 0,
-      "statusAttacks": 7219,
-      "offensive": 74621,
+      "statusAttacks": 7240,
+      "offensive": 73985,
       "timeout": 0
     },
     "tactical": {
-      "wins": 9307,
-      "turns": 92820,
-      "heals": 3372,
-      "statusAttacks": 10020,
-      "offensive": 74448,
+      "wins": 8871,
+      "turns": 92187,
+      "heals": 3512,
+      "statusAttacks": 10117,
+      "offensive": 73675,
       "timeout": 0
     }
   },
   "winPct": {
-    "power": 58.13,
-    "element": 62,
-    "tactical": 62.05
+    "power": 55.55,
+    "element": 59.28,
+    "tactical": 59.14
   },
   "matched": {
     "power_vs_element": {
-      "element_only": 585,
-      "power_only": 5,
-      "both": 8715,
-      "neither": 5695
+      "element_only": 561,
+      "power_only": 1,
+      "both": 8331,
+      "neither": 6107
     },
     "element_vs_tactical": {
-      "tactical_only": 105,
-      "element_only": 98,
-      "both": 9202,
-      "neither": 5595
+      "tactical_only": 91,
+      "element_only": 112,
+      "both": 8780,
+      "neither": 6017
     }
   },
   "moveChoiceCompare": {
-    "identicalMoveDecisions": 60892,
-    "nonidenticalMoveDecisions": 15080,
-    "totalMoves": 75972
+    "identicalMoveDecisions": 60604,
+    "nonidenticalMoveDecisions": 14544,
+    "totalMoves": 75148
   },
   "note": "Same pairs, levels, and initial random seeds; RNG consumption can diverge after actions differ. Same four equipped moves for all strategies; tactical may heal and prioritize status, opponent AI unchanged."
 }
