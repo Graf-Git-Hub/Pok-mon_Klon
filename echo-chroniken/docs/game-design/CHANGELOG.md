@@ -1,5 +1,12 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-05 - Taktische Zusatzeffekte für Elementattacken (separater Branch)
+- 12 ausgewählte Feuer-, Eis-, Blitz-, Psycho-, Natur- und Runenattacken mit Brand, Schwächung, Schutz oder Regeneration.
+- Effekte gelten pro Kampf und individuellem Wesen, Dauer begrenzt; keine Save-Schema-Migration oder Änderungen an Arten-IDs.
+- Neue Statushinweise im Kampf und Attackenbuch; im Kampf-Testlabor jetzt alle 150 Wesen wählbar.
+- 46/46 Node-Tests sowie Desktop-/Touch-Status-Browserchecks lokal grün; vollständige CI/Android-Freigabe bleibt ausstehend.
+
+
 ## 2026-11-05 - Zwölf Elemente, Doppeltypen, permanentes Attackenbuch und Runen
 - 150 feste Arten-Typzuweisungen aus Atlas/Artenmotiv, inklusive Doppeltypen, typisierte Stärken/Schwächen, Retro-Typenbadges neben KP.
 - 40 zusätzliche Elementattacken, 12 begrenzt erspielbare Runen, max. zwei Runenattacken pro Wesen; nur vier vorbereitete Kampfattacken, alle gelernten bleiben im Buch.

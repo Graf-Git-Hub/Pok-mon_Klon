@@ -1,5 +1,8 @@
 # ECHO-CHRONIKEN — Verbindliches Projektprotokoll und Übergabe
 
+> **05.11.2026, neue Statusmechanik:** Separater Worktree `C:\\Users\\graf8\\Documents\\GitHub\\Echo_StatusEffects_20261105`, Branch `feature/echo-status-effects-20261105` auf Grundlage PR #28 + PR #30 Merge (`a3d2886`): 12 ausgewählte Attacken mit taktischen Zuständen, neue Tests, Battle-Lab mit allen 150 Arten, UI. Stand lokal: 46 Node-Tests plus Desktop/Touch-Browserprüfung erfolgreich. **Noch keine Aussage zu fertiger Hauptversion oder neuer APK**, vor Integration die GitHub-CI prüfen. Siehe `echo-chroniken/docs/game-design/COMBAT_STATUS_EFFECTS_20261105.md`.
+
+
 > **NEUSTER ENTWICKLUNGSSTAND, 05.11.2026:** PR #27 wurde um **10:13 Uhr Berlin-Zeit** in `main` integriert (Merge `3ac781d3`). Der eigene Worktree `C:\\Users\\graf8\\Documents\\GitHub\\Echo_DualTypes_20261105` auf Branch `feature/echo-dual-type-system-20261105` enthält die neue Element- und Runenentwicklung. Geplant für separaten PR: 12 Elemente, Doppeltypen für 150 Wesen, 40 weitere Attacken, 12 einmalige Runen, bis zu 4 vorbereitete und unbegrenzt behaltene Level-Attacken, bis zu 2 gelehrte Runenattacken, Typen-UI und Teamwechsel. **Lokale Abnahme nach Level-Up-Meldungsfix:** 45/45 Node-Tests grün, Desktop/Touch-Browser-Checks für Typanzeigen, Teamwahl und Runenlehre erfolgreich. **Noch nicht als `main`-Feature oder Android-Release deklarieren**, bis PR/CI durchgelaufen sind. Originalarbeitspfad mit fremden Änderungen bleibt unverändert. Die nachfolgenden älteren Abschnitte sind historische Zwischenstände.
 
 **Stand: 05.11.2026, nach erneuter vollständiger Kampfmatrix (Europe/Berlin)**

@@ -77,9 +77,74 @@
   // Twelve finite awards across 16 unique story/optional trainer victories.
   const AWARD_AFTER_UNIQUE_WINS=Object.freeze([1,2,3,4,5,6,8,9,10,12,14,16]);
   const RUNE_IDS=RUNES.map(x=>x.id);
+  // Optional tactical effects; never tied to save-schema or creature IDs.
+  // Statuses live only in a single battle and refresh rather than stack.
+  const STATUS_RULES=Object.freeze({
+    feuerwirbel:{kind:'burn',chance:.30,turns:3,label:'BRAND'},
+    phönixstoß:{kind:'burn',chance:.40,turns:3,label:'BRAND'},
+    kohlenregen:{kind:'burn',chance:.50,turns:3,label:'BRAND'},
+    frostbiss:{kind:'weak',chance:.30,turns:2,label:'FROST'},
+    winterkrone:{kind:'weak',chance:.50,turns:2,label:'FROST'},
+    blitzstich:{kind:'weak',chance:.25,turns:2,label:'SCHOCK'},
+    gewitterherz:{kind:'weak',chance:.40,turns:2,label:'SCHOCK'},
+    seelenrätsel:{kind:'weak',chance:.45,turns:2,label:'VERWIRRT'},
+    steinmantel:{kind:'guard',chance:1,turns:1,label:'SCHUTZ',self:true},
+    eisspiegel:{kind:'guard',chance:1,turns:1,label:'SCHUTZ',self:true},
+    pfotentanz:{kind:'guard',chance:1,turns:1,label:'SCHUTZ',self:true},
+    waldsegen:{kind:'regen',chance:1,turns:2,label:'NACHKLANG',self:true}
+  });
+  const newState=()=>({burn:0,weak:0,weakLabel:'',guard:0,regen:0});
+  function state(b,monster){
+    if(!b.effects)b.effects=[];
+    let slot=b.effects.find(x=>x.monster===monster);
+    if(!slot){slot={monster,status:newState()};b.effects.push(slot);}
+    return slot.status;
+  }
+  function apply(b,attacker,defender,moveId,roll=Math.random){
+    const rule=STATUS_RULES[moveId];
+    if(!rule)return '';
+    const recipient=rule.self?attacker:defender;
+    if(!recipient||recipient.hp<=0||roll()>=rule.chance)return '';
+    const s=state(b,recipient);
+    s[rule.kind]=Math.max(s[rule.kind]||0,rule.turns);
+    if(rule.kind==='weak')s.weakLabel=rule.label;
+    return rule.label;
+  }
+  function adjustedDamage(b,attacker,defender,raw){
+    const a=state(b,attacker),d=state(b,defender);
+    let factor=a.weak>0?.8:1;
+    if(d.guard>0){factor*=.65;d.guard=0;}
+    return Math.max(2,Math.round(raw*factor));
+  }
+  function endAction(b,monster){
+    const s=state(b,monster),events=[];
+    if(s.burn>0){
+      // Periodic damage is capped so a status alone never KOs a creature.
+      const lost=Math.min(Math.max(0,monster.hp-1),Math.max(1,Math.floor(monster.maxHp*.05)));
+      monster.hp-=lost;s.burn--;if(lost)events.push('BRAND -'+lost+' KP');
+    }
+    if(s.regen>0){
+      const healed=Math.min(monster.maxHp-monster.hp,Math.max(1,Math.ceil(monster.maxHp*.05)));
+      monster.hp+=healed;s.regen--;if(healed)events.push('NACHKLANG +'+healed+' KP');
+    }
+    if(s.weak>0){s.weak--;if(s.weak===0)s.weakLabel='';}
+    return events.join(' / ');
+  }
+  function labels(b,monster){
+    // Read-only UI/QA lookup: rendering must not create combat state.
+    const s=b.effects?.find(x=>x.monster===monster)?.status;
+    if(!s)return '';
+    const parts=[];
+    if(s.burn>0)parts.push('BRAND');
+    if(s.weak>0)parts.push(s.weakLabel||'SCHWACH');
+    if(s.guard>0)parts.push('SCHUTZ');
+    if(s.regen>0)parts.push('REGEN');
+    return parts.join(' + ');
+  }
+  const STATUS=Object.freeze({rules:STATUS_RULES,apply,adjustedDamage,endAction,labels,state});
   const ATTACK_TYPES=Object.freeze(Object.fromEntries(
     Object.entries(ATTACKS).map(([id,v])=>[id,v.type])));
   window.EchoSkillbook=Object.freeze({
-    ATTACKS,TYPE_SKILLS,RUNES,RUNE_IDS,ATTACK_TYPES,AWARD_AFTER_UNIQUE_WINS,MAX_EQUIPPED:4,MAX_RUNE_LEARNED:2
+    ATTACKS,TYPE_SKILLS,RUNES,RUNE_IDS,ATTACK_TYPES,STATUS,AWARD_AFTER_UNIQUE_WINS,MAX_EQUIPPED:4,MAX_RUNE_LEARNED:2
   });
 })();
