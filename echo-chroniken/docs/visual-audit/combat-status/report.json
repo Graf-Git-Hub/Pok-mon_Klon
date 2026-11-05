@@ -1,0 +1,17 @@
+{
+  "cases": [
+    {
+      "viewport": "desktop",
+      "regen": true,
+      "burn": true,
+      "pageErrors": []
+    },
+    {
+      "viewport": "touch",
+      "regen": true,
+      "burn": true,
+      "pageErrors": []
+    }
+  ],
+  "errors": []
+}

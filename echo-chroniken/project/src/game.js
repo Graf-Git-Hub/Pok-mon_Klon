@@ -89,6 +89,7 @@
   const SPECIES = window.ECHO_SPECIES;
   const AFF = window.EchoTypes;
   const SKILLBOOK = window.EchoSkillbook;
+  const STATUS = SKILLBOOK.STATUS;
   if(window.EchoEncounters)window.EchoEncounters.initialize(SPECIES,window.ECHO_ENCOUNTER_TABLES);
 
   // --- SPRITE-RENDERER: 16x16 (Oberwelt/Lexikon) & 32x32 (Kampf) ---
@@ -889,14 +890,22 @@ function executeBattleAction(choice){
     if(move.heal){
       const healed=Math.min(move.heal,ally.maxHp-ally.hp);
       ally.hp+=healed;b.log=`${SPECIES[ally.id-1].name} nutzt ${move.name}! +${healed} KP`;
+      const effect=STATUS.apply(b,ally,b.enemy,id);
+      const ongoing=STATUS.endAction(b,ally);
+      if(effect)b.log+=' / '+effect;
+      if(ongoing)b.log+=' / '+ongoing;
       sfx.heal();
       battleTimeout(enemyCounterAttack,650);return;
     }
     const multiplier=AFF.effectiveness(move.type,b.enemy);
-    const damage=skillDamage(ally,b.enemy,move);
+    const damage=STATUS.adjustedDamage(b,ally,b.enemy,skillDamage(ally,b.enemy,move));
     b.enemy.hp=Math.max(0,b.enemy.hp-damage);
     b.animTimer=18;b.fxTarget='enemy';b.lastAttackColor=move.fx||'#ffe3a2';
     b.log=SPECIES[ally.id-1].name+' nutzt '+move.name+'! ('+damage+' Schaden) · '+AFF.label(multiplier);
+    const effect=STATUS.apply(b,ally,b.enemy,id);
+    const ongoing=STATUS.endAction(b,ally);
+    if(effect)b.log+=' / '+effect;
+    if(ongoing)b.log+=' / '+ongoing;
     sfx.hit();
     battleTimeout(()=>{if(b.enemy.hp<=0)handleEnemyDefeated();else enemyCounterAttack();},650);
   }
@@ -932,9 +941,13 @@ function executeBattleAction(choice){
       const move=ATTACKS[healing];
       const healed=Math.min(move.heal,enemy.maxHp-enemy.hp);
       enemy.hp+=healed;
+      const effect=STATUS.apply(b,enemy,enemy,healing);
+      const ongoing=STATUS.endAction(b,enemy);
       b.enemyHealUsed=true;
       b.animTimer=18;b.fxTarget='enemy';
       b.log=`${b.enemyDisplayName||enemySp.name} nutzt ${move.name}! (+${healed} KP)`;
+      if(effect)b.log+=' / '+effect;
+      if(ongoing)b.log+=' / '+ongoing;
       sfx.heal();
       battleTimeout(()=>{b.busy=false;},700);
       return;
@@ -947,12 +960,17 @@ function executeBattleAction(choice){
     });
     const choice=Math.random()<.72?0:Math.min(1,scored.length-1);
     const move=ATTACKS[scored[choice]]||ATTACKS.seelenstups;
-    const dmg=Math.max(2,Math.round(skillDamage(enemy,ally,move)*(enemy.encounterScale||1)));
+    const dmg=STATUS.adjustedDamage(b,enemy,ally,
+      Math.max(2,Math.round(skillDamage(enemy,ally,move)*(enemy.encounterScale||1))));
     b.lastAttackColor=move.fx||'#afbcce';
     ally.hp = Math.max(0, ally.hp - dmg);
     sfx.hit();
     b.animTimer=18;b.fxTarget='ally';
     b.log = `${b.enemyDisplayName||enemySp.name} nutzt ${move.name}! (${dmg} Schaden)`;
+    const effect=STATUS.apply(b,enemy,ally,scored[choice]);
+    const ongoing=STATUS.endAction(b,enemy);
+    if(effect)b.log+=' / '+effect;
+    if(ongoing)b.log+=' / '+ongoing;
 
     battleTimeout(() => {
       if (ally.hp <= 0) {
@@ -2596,12 +2614,22 @@ function executeBattleAction(choice){
     fText(b.enemyDisplayName||enemySp.name,12,18,10,'#263f43');
     fText('Lv.'+enemy.lv,123,18,9,'#486e60','right');
     drawTypeBadges(9,25,enemy,11);hpbar(41,26,99,enemy.hp/enemy.maxHp,'#69ad68');
+    const enemyStatus=STATUS.labels(b,enemy);
+    if(enemyStatus){
+      pix(143,20,Math.min(90,enemyStatus.length*5+8),13,'#f5e5c8');
+      fText(enemyStatus,147,30,7,'#733e37');
+    }
     // Eigene Leiste rechts unten; mit genauen KP
     boxArt(176,79,140,38,'#f8efd6','#365456','#fff9e7');
     fText(allySp.name,182,91,9,'#263f43');
     fText('Lv.'+ally.lv,309,91,8,'#456459','right');
     hpbar(184,96,123,ally.hp/ally.maxHp,'#72b477');
     drawTypeBadges(182,105,ally,11);
+    const allyStatus=STATUS.labels(b,ally);
+    if(allyStatus){
+      pix(175,65,Math.min(90,allyStatus.length*5+8),13,'#f5e5c8');
+      fText(allyStatus,179,75,7,'#713b44');
+    }
     fText(`${ally.hp}/${ally.maxHp} KP`,305,112,8,'#456459','right');
     // Klassische Game-Boy-Kampfleiste: Text links und die 4 Tasten rechts.
     pix(0,117,320,63,'#294346');pix(3,120,314,57,'#fff2ce');
@@ -2655,7 +2683,9 @@ function executeBattleAction(choice){
     fText(current.heal?'HEILUNG +'+current.heal:
       (menuOnly?info.name+'  KRAFT '+current.power:effectivenessText(ally,current,b.enemy)),
       12,151,8,'#5d7768');
-    fText(menuOnly?'A AUSRUeSTEN':'A ANGRIFF',12,166,8,'#587064');
+    const special=STATUS.rules[moves[index]];
+    fText((menuOnly?'A AUSRUeSTEN':'A ANGRIFF')+(special?' / '+special.label:''),
+      12,166,special?7:8,'#587064');
   }
 
   function ellipseBattle(x,y,rx,ry,fill,edge){
@@ -2819,7 +2849,8 @@ function executeBattleAction(choice){
   const labAlly=document.getElementById('lab-ally');
   const labEnemy=document.getElementById('lab-enemy');
   let savedBeforeLab=null;
-  const LAB_IDS=[1,2,3,5,6,7,8,9,23,27,51,65,123,124,125];
+  // All 150 species can be tested in the battle sandbox; original save stays intact.
+  const LAB_IDS=SPECIES.map((_,index)=>index+1);
   for(const id of LAB_IDS){
     const s=SPECIES[id-1];
     for(const select of [labAlly,labEnemy]){
@@ -2950,7 +2981,9 @@ function executeBattleAction(choice){
         factor,stab,score:(move.power||0)*factor*stab};
     });
   };
-  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,chapter6:gameState.chapter6,chapter7:gameState.chapter7,chapter8:gameState.chapter8,chapter9:gameState.chapter9,chapter10:gameState.chapter10,chapter11:gameState.chapter11,chapter12:gameState.chapter12,chapter13:gameState.chapter13,chapter14:gameState.chapter14,postgame:gameState.postgame,optional_postgame_completed:gameState.optional_postgame_completed,main_story_finished:gameState.main_story_finished,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,potions:gameState.potions,orbs:gameState.orbs,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:battleMoves(m),learnedMoves:m.moves,types:AFF.typesFor(m)})),archiveCount:gameState.archive.length,dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,enemyHp:gameState.battle.enemy?.hp,enemyMaxHp:gameState.battle.enemy?.maxHp,busy:gameState.battle.busy,cursor:gameState.battle.cursor,log:gameState.battle.log,teamCursor:gameState.teamCursor}:null});
+  window.echoQASnapshot=()=>({mode:gameState.mode,scene:gameState.scene,mapId:gameState.currentMapId,chapter3:gameState.chapter3,chapter4:gameState.chapter4,chapter5:gameState.chapter5,chapter6:gameState.chapter6,chapter7:gameState.chapter7,chapter8:gameState.chapter8,chapter9:gameState.chapter9,chapter10:gameState.chapter10,chapter11:gameState.chapter11,chapter12:gameState.chapter12,chapter13:gameState.chapter13,chapter14:gameState.chapter14,postgame:gameState.postgame,optional_postgame_completed:gameState.optional_postgame_completed,main_story_finished:gameState.main_story_finished,railCursor:gameState.railCursor,ruinsProgress:gameState.ruinsProgress,platformProgress:gameState.platformProgress,platformRun:window.EchoPlatformer?.snapshot(),routeQuest:gameState.routeQuest,explorationFound:gameState.explorationFound,introStage:gameState.introStage,objective:window.EchoHouse.objective(gameState),player:{...gameState.player},starter:gameState.hasStarter,potions:gameState.potions,orbs:gameState.orbs,team:gameState.team.map(m=>({id:m.id,lv:m.lv,hp:m.hp,moves:battleMoves(m),learnedMoves:m.moves,types:AFF.typesFor(m)})),archiveCount:gameState.archive.length,dialogPages:gameState.dialogQueue.length,battle:gameState.battle?{enemy:gameState.battle.enemy?.id,enemyHp:gameState.battle.enemy?.hp,enemyMaxHp:gameState.battle.enemy?.maxHp,busy:gameState.battle.busy,cursor:gameState.battle.cursor,log:gameState.battle.log,teamCursor:gameState.teamCursor,
+      allyStatus:STATUS.labels(gameState.battle,getActiveAlly()),
+      enemyStatus:STATUS.labels(gameState.battle,gameState.battle.enemy)}:null});
   if(gameState.dialogQueue.length>0 || gameState.mode==='OVERWORLD'){
     // A clean title screen on every launch; continuation stays in existing state.
     gameState.mode='TITLE';
