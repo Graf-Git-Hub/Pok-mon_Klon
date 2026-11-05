@@ -1,0 +1,12 @@
+{
+  "tests": [
+    "Switch A starts from title",
+    "Switch Plus opens menu",
+    "Switch B closes menu",
+    "Switch D-pad down moves player",
+    "Switch D-pad up moves player",
+    "TV/desktop gamepad does not display touch overlay"
+  ],
+  "pageErrors": [],
+  "scope": "Browser Gamepad API emulation: Switch A=1, B=0, Plus=9, Dpad=12-15. Not physical hardware."
+}
