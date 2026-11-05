@@ -20,7 +20,7 @@ vm.runInNewContext(source.replace(marker,
  'window.pairedProbe={s:gameState,createMonsterInstance,startTrainerBattle,useSelectedAttack,ATTACKS};\n'+marker),env);
 const p=window.pairedProbe,aff=window.EchoTypes,ST=window.EchoSkillbook.STATUS,species=window.ECHO_SPECIES;
 assert.equal(species.length,150);
-const COUNT=15000,LEVELS=[5,10,15,20,25,30],POLICIES=['power','element','tactical'];
+const COUNT=15000,LEVELS=[5,10,15,20,25,30],POLICIES=['power','element','element_heal','status','tactical'];
 let fixtureRng=0x9e3779b9;
 function draw(){fixtureRng=(fixtureRng+0x6D2B79F5)>>>0;
  let v=fixtureRng;v=Math.imul(v^v>>>15,v|1);v^=v+Math.imul(v^v>>>7,v|61);
@@ -28,8 +28,8 @@ function draw(){fixtureRng=(fixtureRng+0x6D2B79F5)>>>0;
 const pick=n=>Math.floor(draw()*n);
 const byStage={1:[],2:[],3:[]};species.forEach(s=>byStage[s.stage].push(s.id));
 const results=Object.fromEntries(POLICIES.map(k=>[k,{wins:0,turns:0,heals:0,statusAttacks:0,offensive:0,timeout:0}]));
-const matched={power_vs_element:{element_only:0,power_only:0,both:0,neither:0},
- element_vs_tactical:{tactical_only:0,element_only:0,both:0,neither:0}};
+const matched=Object.fromEntries(['power','element_heal','status','tactical'].map(policy=>[
+  'element_vs_'+policy,{otherOnly:0,elementOnly:0,both:0,neither:0}]));
 let identicalMoveDecisions=0,nonidenticalMoveDecisions=0,totalMoves=0,equalStageFixtures=0;
 function choose(options,policy,ally,enemy,healCount){
  const offensive=options.filter(o=>o.move.power>0);
@@ -41,7 +41,7 @@ function choose(options,policy,ally,enemy,healCount){
  if(policy==='power')return power;
  if(policy==='element')return element;
  const heal=options.find(o=>o.move.heal);
- if(heal&&healCount<2&&ally.hp/ally.maxHp<=.48&&enemy.hp/enemy.maxHp>.23)return heal;
+ if((policy==='element_heal'||policy==='tactical')&&heal&&healCount<2&&ally.hp/ally.maxHp<=.48&&enemy.hp/enemy.maxHp>.23)return heal;
  const value=o=>{
   const rule=ST.rules[o.id],score=effective(o);
   if(!rule)return score;
@@ -94,25 +94,22 @@ for(let i=0;i<COUNT;i++){
  const level=LEVELS[pick(LEVELS.length)],enemyLevel=i%3===0?LEVELS[pick(LEVELS.length)]:level;
  const seed=(Math.imul(i+1,131071)+Math.imul(attacker,8111)+Math.imul(defender,17027)+level*13007+enemyLevel*23)>>>0;
  const wins=Object.fromEntries(POLICIES.map(policy=>[policy,simulate(attacker,defender,level,enemyLevel,seed,policy)]));
- const ep=matched.power_vs_element;
- if(wins.power&&wins.element)ep.both++;
- else if(wins.element)ep.element_only++;
- else if(wins.power)ep.power_only++;
- else ep.neither++;
- const te=matched.element_vs_tactical;
- if(wins.element&&wins.tactical)te.both++;
- else if(wins.tactical)te.tactical_only++;
- else if(wins.element)te.element_only++;
- else te.neither++;
+ for(const policy of ['power','element_heal','status','tactical']){
+  const row=matched['element_vs_'+policy];
+  if(wins.element&&wins[policy])row.both++;
+  else if(wins[policy])row.otherOnly++;
+  else if(wins.element)row.elementOnly++;
+  else row.neither++;
+ }
  if((i+1)%5000===0)console.log('MATCHED_PAIR_PROGRESS',i+1,'/',COUNT);
 }
 assert(POLICIES.every(k=>results[k].timeout===0),'all battles must end');
-assert.equal(Object.values(matched.power_vs_element).reduce((a,b)=>a+b,0),COUNT);
-assert.equal(Object.values(matched.element_vs_tactical).reduce((a,b)=>a+b,0),COUNT);
-const report={fixtureCount:COUNT,engineFights:COUNT*3,equalStageFixtures,policies:results,
+for(const row of Object.values(matched))
+ assert.equal(Object.values(row).reduce((a,b)=>a+b,0),COUNT);
+const report={fixtureCount:COUNT,engineFights:COUNT*POLICIES.length,equalStageFixtures,policies:results,
  winPct:Object.fromEntries(POLICIES.map(k=>[k,+(results[k].wins/COUNT*100).toFixed(2)])),
  matched,moveChoiceCompare:{identicalMoveDecisions,nonidenticalMoveDecisions,totalMoves},
- note:'Same pairs, levels, and initial random seeds; RNG consumption can diverge after actions differ. Same four equipped moves for all strategies; tactical may heal and prioritize status, opponent AI unchanged.'};
+ note:'Same pairs, levels and initial random seeds; RNG consumption diverges after choices differ. Element: effectiveness. Element-heal: same with limited healing. Status: chance-weighted damage. Tactical: both. All use four equipped moves and same enemy AI.'};
 const out=path.resolve('../docs/visual-audit/tactical-audit/paired-decisions.json');
 fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify(report,null,2)+'\n');
 console.log('PAIRED_TACTICAL_AUDIT_RESULT '+JSON.stringify(report));
