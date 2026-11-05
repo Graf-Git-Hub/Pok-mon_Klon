@@ -1,5 +1,12 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-05 - Zwölf Elemente, Doppeltypen, permanentes Attackenbuch und Runen
+- 150 feste Arten-Typzuweisungen aus Atlas/Artenmotiv, inklusive Doppeltypen, typisierte Stärken/Schwächen, Retro-Typenbadges neben KP.
+- 40 zusätzliche Elementattacken, 12 begrenzt erspielbare Runen, max. zwei Runenattacken pro Wesen; nur vier vorbereitete Kampfattacken, alle gelernten bleiben im Buch.
+- Teamwechsel im Kampf und Attacken-/Runenwahl per Tastatur und Touch, bestehende Saves bleiben kompatibel.
+- Fehler behoben: Beim Level-Up wurden neue Angriffe zwar gelernt, aber durch eine zu frühe Synchronisierung nicht als neu gemeldet. Regressionstest ergänzt.
+- Lokal: alle 45 Node-Tests bestanden, Typ-/Runen-Browserchecks auf Desktop und Touch bestanden. Vollständige Cloud-CI/Android-Hardwareprüfung und neues signiertes Release bleiben getrennte Freigabeschritte.
+
 ## 2026-11-04 - Kapitel 8-10 und mobiles Portraitlayout
 - Echter Tastatur-/Touch-Durchlauf ab Kapitel 7 bis Kapitel 11:
   Kronenstadt, Archivindex und Waechter; Frostgrat mit montierter

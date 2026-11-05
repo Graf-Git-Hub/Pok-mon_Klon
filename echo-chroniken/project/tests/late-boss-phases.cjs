@@ -9,7 +9,7 @@ const window={document,addEventListener(){},location:{search:''},ECHO_BACK_URLS:
 const env={window,document,navigator:{getGamepads(){return []}},location:window.location,URLSearchParams,Math,console,
  Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(){return null},setItem(){}},
  setTimeout(fn){timers.push(fn);return timers.length},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const file of ['data/species.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
+for(const file of ['data/species.js','data/affinities.js','data/skills.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
  vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
 const src=fs.readFileSync('src/game.js','utf8'),marker='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 assert(src.includes(marker),'Game engine injection point');

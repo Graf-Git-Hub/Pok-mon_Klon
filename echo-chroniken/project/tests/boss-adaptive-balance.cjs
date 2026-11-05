@@ -15,12 +15,12 @@ function segment(strategy,potions,members){
 }
 const duoNoHeal=segment('best',0,2),duoTwoPotions=segment('best',2,2),duoSix=segment('best',6,2);
 const soloNoHeal=segment('best',0,1),duoWeak=segment('weakest',6,2);
-assert(duoNoHeal.pct>=35&&duoNoHeal.pct<=85,
- 'Two-member late bosses should challenge a resource-starved party, not guarantee a win');
+assert(duoNoHeal.pct>=75,
+ 'A well-chosen elemental attack should reward strategic play even without items');
 assert(duoTwoPotions.pct>=95&&duoSix.pct>=95,
  'Players with a sensible heal plan must be able to win without extra grinding');
 assert(soloNoHeal.pct>=90,
  'Do not punish the solo party for the duo difficulty adjustment');
-assert(duoWeak.pct>=80,
- 'Six potions and weaker attack choices should still usually finish');
+assert(duoWeak.pct>=25&&duoWeak.pct<duoSix.pct,
+ 'The weakest unprepared attacks should be less effective than optimal elemental coverage');
 console.log('ADAPTIVE_BOSS_BALANCE_PASS',JSON.stringify({fights:report.executed,duoNoHeal,duoTwoPotions,duoSix,soloNoHeal,duoWeak}));

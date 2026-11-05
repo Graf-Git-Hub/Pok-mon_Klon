@@ -10,7 +10,7 @@ const env={window,document,navigator:{getGamepads(){return []}},location:window.
  Image:class{constructor(){this.complete=true;this.naturalWidth=256}},
  localStorage:{getItem(){return null},setItem(k,v){writes.push({k,v})}},
  setTimeout(fn){timers.push(fn);return timers.length},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const file of ['data/species.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
+for(const file of ['data/species.js','data/affinities.js','data/skills.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])
  vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
 const source=fs.readFileSync('src/game.js','utf8'),marker='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 assert(source.includes(marker),'Engine injection point missing');

@@ -8,7 +8,7 @@ const document={documentElement:{classList:{add(){}}},getElementById(x){return e
 const window={document,addEventListener(){},location:{search:''},ECHO_BACK_URLS:{}};
 const quietRandom=Object.create(Math);quietRandom.random=()=>0;
 const env={window,document,navigator:{getGamepads(){return []}},location:window.location,URLSearchParams,Math:quietRandom,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(){return null},setItem(){}},setTimeout(fn){timers.push(fn);return timers.length},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const file of ['data/species.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
+for(const file of ['data/species.js','data/affinities.js','data/skills.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
 const code=fs.readFileSync('src/game.js','utf8');
 const marker='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 assert(code.includes(marker),'Real battle engine hook missing');

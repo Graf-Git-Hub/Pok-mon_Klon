@@ -8,7 +8,7 @@ const document={documentElement:{classList:{add(){}}},getElementById(x){return e
 const window={document,addEventListener(){},location:{search:''},ECHO_BACK_URLS:{}};
 let seed=1;const math=Object.create(Math);math.random=()=>{seed=(Math.imul(1664525,seed)+1013904223)>>>0;return seed/4294967296;};
 const env={window,document,navigator:{getGamepads(){return []}},location:window.location,URLSearchParams,Math:math,console,Image:class{constructor(){this.complete=true;this.naturalWidth=256}},localStorage:{getItem(){return null},setItem(){}},setTimeout(fn){timeouts.push(fn);return timeouts.length},clearTimeout(){},setInterval(){},clearInterval(){},requestAnimationFrame(){},Uint8ClampedArray};
-for(const file of ['data/species.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
+for(const file of ['data/species.js','data/affinities.js','data/skills.js','data/encounters.js','src/encounters/registry.js','src/village.js','src/house.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),env);
 const src=fs.readFileSync('src/game.js','utf8'),mark='  // --- HAUPTSCHLEIFE (GAME LOOP) ---';
 vm.runInNewContext(src.replace(mark, 'window.probe={state:gameState,createMonsterInstance,startTrainerBattle,executeBattleAction,useSelectedAttack,ATTACKS,bossMultipliers};\n'+mark),env);
 const p=window.probe;
@@ -43,7 +43,7 @@ function run(spec,phase,teamCount,levelDrop,index){
   if(s.potions>0 && ally.hp<ally.maxHp*.40){
     const before=s.potions;p.executeBattleAction(2);heals+=before-s.potions;
   }else{
-    const move=ally.moves.map((id,i)=>({id,i,s:p.ATTACKS[id]})).filter(x=>x.s&&x.s.power>0).sort((a,b)=>b.s.power-a.s.power)[0];
+    const move=(ally.equippedMoves||ally.moves).map((id,i)=>({id,i,s:p.ATTACKS[id]})).filter(x=>x.s&&x.s.power>0).sort((a,b)=>b.s.power-a.s.power)[0];
     assert(move,'No damage move');b.attackCursor=move.i;p.useSelectedAttack();attacks++;
   }
   let loops=0;while(timeouts.length&&loops++<80)timeouts.shift()();

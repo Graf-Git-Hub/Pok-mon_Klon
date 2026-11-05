@@ -198,7 +198,7 @@ try:
      ally=alive[0]
      maxhp={m["id"]:m["maxHp"] for m in opening["team"]}.get(ally["id"],ally["hp"])
      cursor=state["battle"]["cursor"]
-     if ally["hp"]<maxhp*.38 and stored()["potions"]>0:
+     if ally["hp"]<maxhp*.38 and snap()["potions"]>0:
       if cursor<2:press("DOWN")
       if snap()["battle"]["cursor"]%2:press("LEFT")
       assert snap()["battle"]["cursor"]==2
@@ -209,9 +209,9 @@ try:
      if snap()["battle"]["cursor"]%2:press("LEFT")
      press("A")
      assert snap()["mode"]=="ATTACKS",(who,marker,"no attack menu")
-     power=[POWERS.get(m,0) for m in ally["moves"]]
-     index=max(range(len(power)),key=lambda i:power[i])
-     assert power[index]>0,(who,"no offensive attacks",ally)
+     options=page.evaluate("window.echoQACombatOptions()")
+     index=max(range(len(options)),key=lambda i:options[i]["score"])
+     assert options[index]["score"]>0,(who,"no effective offensive attacks",ally)
      for i in range(index):press("DOWN")
      press("A");case["attacks"]+=1
      page.wait_for_timeout(1000)
@@ -358,7 +358,7 @@ try:
       active=alive[0]
       maximum={m["id"]:m["maxHp"] for m in stored()["team"]}.get(active["id"],active["hp"])
       cursor=state["battle"]["cursor"]
-      if active["hp"]<maximum*.35 and stored()["potions"]>0:
+      if active["hp"]<maximum*.35 and snap()["potions"]>0:
        if cursor<2:press("DOWN")
        if snap()["battle"]["cursor"]%2:press("LEFT")
        assert snap()["battle"]["cursor"]==2
@@ -366,13 +366,16 @@ try:
       if cursor>=2:press("UP")
       if snap()["battle"]["cursor"]%2:press("LEFT")
       press("A");assert snap()["mode"]=="ATTACKS"
-      powers=[POWERS.get(move,0) for move in active["moves"]]
-      index=max(range(len(powers)),key=lambda j:powers[j])
-      assert powers[index]>0,(who,"no offensive postgame move",active)
+      options=page.evaluate("window.echoQACombatOptions()")
+      index=max(range(len(options)),key=lambda j:options[j]["score"])
+      assert options[index]["score"]>0,(who,"no effective postgame move",active)
       for j in range(index):press("DOWN")
       press("A");case["attacks"]+=1
       page.wait_for_timeout(1000)
       if len(snap()["postgame"]["trials"])>before_trials:break
+     if len(snap()["postgame"]["trials"])!=before_trials+1:
+      print("POSTGAME_FAILURE_DIAGNOSTIC",who,i,"state",snap(),"items",{"potions":stored()["potions"],"team":stored()["team"]},flush=True)
+      screenshot("postgame-failed-"+str(i))
      assert len(snap()["postgame"]["trials"])==before_trials+1
      dismiss();case["bosses"].append("postgameTrial"+str(i//2))
    portal("to_museum","rail_heritage_museum")
