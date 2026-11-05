@@ -303,7 +303,13 @@ try:
       page.wait_for_function("window.echoQASnapshot().mode!=='BATTLE' || (window.echoQASnapshot().battle && !window.echoQASnapshot().battle.busy)",timeout=9000)
       if snap()["mode"]=="DIALOG":continue
       assert snap()["mode"]=="BATTLE",(who,"postgame ended without win",snap())
+      # Elemental battles require a damaging, effective move; slot zero can
+      # be a healing spell or a resisted attack after rune/type upgrades.
       press("A");assert snap()["mode"]=="ATTACKS"
+      options=page.evaluate("window.echoQACombatOptions()")
+      best=max(range(len(options)),key=lambda j:options[j]["score"])
+      assert options[best]["score"]>0,(who,"no effective postgame attack",options)
+      for _ in range(best):press("DOWN")
       press("A");case["attacks"]+=1
       page.wait_for_timeout(1000)
       if len(snap()["postgame"]["trials"])>before_trials:break
