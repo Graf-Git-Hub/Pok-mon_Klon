@@ -1,0 +1,1077 @@
+{
+  "label": "100k independently seeded equal-fixture holdout, run 21",
+  "fightsEach": 100000,
+  "beforeWins": 50220,
+  "afterWins": 50237,
+  "beforeTimeouts": 0,
+  "afterTimeouts": 0,
+  "beforeFingerprint": "dcd0aca71dd35fb82c7ff5fec28bd9820d006397c057b9f336fafacc29e7988e",
+  "afterFingerprint": "bcefd5e0320aa7e422a3437fada93be21a2ff39e9818206d9e253fd3664a8570",
+  "beforeWeightedMeanAbsGapPoints": 6.953,
+  "afterWeightedMeanAbsGapPoints": 6.346,
+  "gapChangePoints": -0.607,
+  "beforeOutside18": 4,
+  "afterOutside18": 3,
+  "beforeStageMedians": {
+    "1": 52.0,
+    "2": 51.28,
+    "3": 46.93
+  },
+  "afterStageMedians": {
+    "1": 51.41,
+    "2": 51.28,
+    "3": 47.72
+  },
+  "speciesChanges": [
+    {
+      "id": 1,
+      "name": "Miora",
+      "stage": 1,
+      "beforePct": 54.15,
+      "afterPct": 53.43
+    },
+    {
+      "id": 2,
+      "name": "Seelara",
+      "stage": 2,
+      "beforePct": 71.32,
+      "afterPct": 70.59
+    },
+    {
+      "id": 3,
+      "name": "Maternalis",
+      "stage": 3,
+      "beforePct": 69.57,
+      "afterPct": 69.57
+    },
+    {
+      "id": 4,
+      "name": "Glimmerpfote",
+      "stage": 1,
+      "beforePct": 46.61,
+      "afterPct": 47.46
+    },
+    {
+      "id": 5,
+      "name": "Hasengeist I",
+      "stage": 1,
+      "beforePct": 48.39,
+      "afterPct": 47.98
+    },
+    {
+      "id": 6,
+      "name": "Hasengeist II",
+      "stage": 2,
+      "beforePct": 51.22,
+      "afterPct": 50.41
+    },
+    {
+      "id": 7,
+      "name": "Schattenkatze I",
+      "stage": 1,
+      "beforePct": 61.0,
+      "afterPct": 60.62
+    },
+    {
+      "id": 8,
+      "name": "Schattenkatze II",
+      "stage": 2,
+      "beforePct": 59.13,
+      "afterPct": 58.26
+    },
+    {
+      "id": 9,
+      "name": "Schattenkatze III",
+      "stage": 3,
+      "beforePct": 58.82,
+      "afterPct": 58.82
+    },
+    {
+      "id": 10,
+      "name": "Nachtpfote",
+      "stage": 1,
+      "beforePct": 54.69,
+      "afterPct": 53.88
+    },
+    {
+      "id": 11,
+      "name": "Katzengeist I",
+      "stage": 1,
+      "beforePct": 42.51,
+      "afterPct": 40.49
+    },
+    {
+      "id": 12,
+      "name": "Katzengeist II",
+      "stage": 2,
+      "beforePct": 55.68,
+      "afterPct": 55.68
+    },
+    {
+      "id": 13,
+      "name": "Engelsgeist I",
+      "stage": 1,
+      "beforePct": 62.39,
+      "afterPct": 61.97
+    },
+    {
+      "id": 14,
+      "name": "Engelsgeist II",
+      "stage": 2,
+      "beforePct": 59.2,
+      "afterPct": 55.2
+    },
+    {
+      "id": 15,
+      "name": "Lichtflämmchen",
+      "stage": 1,
+      "beforePct": 65.25,
+      "afterPct": 65.25
+    },
+    {
+      "id": 16,
+      "name": "Fuchsgeist I",
+      "stage": 1,
+      "beforePct": 41.08,
+      "afterPct": 43.15
+    },
+    {
+      "id": 17,
+      "name": "Fuchsgeist II",
+      "stage": 2,
+      "beforePct": 49.49,
+      "afterPct": 49.49
+    },
+    {
+      "id": 18,
+      "name": "Kürbisgeist I",
+      "stage": 1,
+      "beforePct": 38.76,
+      "afterPct": 42.25
+    },
+    {
+      "id": 19,
+      "name": "Kürbisgeist II",
+      "stage": 2,
+      "beforePct": 37.84,
+      "afterPct": 42.34
+    },
+    {
+      "id": 20,
+      "name": "Nebelflöckchen",
+      "stage": 1,
+      "beforePct": 52.23,
+      "afterPct": 52.23
+    },
+    {
+      "id": 21,
+      "name": "Wolfsgeist I",
+      "stage": 1,
+      "beforePct": 53.57,
+      "afterPct": 52.86
+    },
+    {
+      "id": 22,
+      "name": "Wolfsgeist II",
+      "stage": 2,
+      "beforePct": 61.29,
+      "afterPct": 61.29
+    },
+    {
+      "id": 23,
+      "name": "Feuerfuchs I",
+      "stage": 1,
+      "beforePct": 53.54,
+      "afterPct": 53.15
+    },
+    {
+      "id": 24,
+      "name": "Feuerfuchs II",
+      "stage": 2,
+      "beforePct": 44.26,
+      "afterPct": 45.08
+    },
+    {
+      "id": 25,
+      "name": "Feuerfuchs III",
+      "stage": 3,
+      "beforePct": 30.3,
+      "afterPct": 30.3
+    },
+    {
+      "id": 26,
+      "name": "Gischtflöckchen",
+      "stage": 1,
+      "beforePct": 64.73,
+      "afterPct": 63.57
+    },
+    {
+      "id": 27,
+      "name": "Hirschgeist I",
+      "stage": 1,
+      "beforePct": 38.89,
+      "afterPct": 41.67
+    },
+    {
+      "id": 28,
+      "name": "Hirschgeist II",
+      "stage": 2,
+      "beforePct": 41.73,
+      "afterPct": 43.31
+    },
+    {
+      "id": 29,
+      "name": "Skelett-Hund I",
+      "stage": 1,
+      "beforePct": 38.02,
+      "afterPct": 40.91
+    },
+    {
+      "id": 30,
+      "name": "Skelett-Hund II",
+      "stage": 2,
+      "beforePct": 46.28,
+      "afterPct": 45.45
+    },
+    {
+      "id": 31,
+      "name": "Skelett-Hund III",
+      "stage": 3,
+      "beforePct": 53.12,
+      "afterPct": 53.12
+    },
+    {
+      "id": 32,
+      "name": "Schattenwuschel",
+      "stage": 1,
+      "beforePct": 53.31,
+      "afterPct": 53.31
+    },
+    {
+      "id": 33,
+      "name": "Eulengeist I",
+      "stage": 1,
+      "beforePct": 45.16,
+      "afterPct": 45.97
+    },
+    {
+      "id": 34,
+      "name": "Eulengeist II",
+      "stage": 2,
+      "beforePct": 50.48,
+      "afterPct": 50.48
+    },
+    {
+      "id": 35,
+      "name": "Eiskauz I",
+      "stage": 1,
+      "beforePct": 57.59,
+      "afterPct": 56.03
+    },
+    {
+      "id": 36,
+      "name": "Eiskauz II",
+      "stage": 2,
+      "beforePct": 44.44,
+      "afterPct": 44.44
+    },
+    {
+      "id": 37,
+      "name": "Rosahoppel",
+      "stage": 1,
+      "beforePct": 44.81,
+      "afterPct": 46.23
+    },
+    {
+      "id": 38,
+      "name": "Fledermausgeist I",
+      "stage": 1,
+      "beforePct": 59.71,
+      "afterPct": 57.88
+    },
+    {
+      "id": 39,
+      "name": "Fledermausgeist II",
+      "stage": 2,
+      "beforePct": 59.82,
+      "afterPct": 60.71
+    },
+    {
+      "id": 40,
+      "name": "Knochenrabe I",
+      "stage": 1,
+      "beforePct": 45.97,
+      "afterPct": 45.97
+    },
+    {
+      "id": 41,
+      "name": "Knochenrabe II",
+      "stage": 2,
+      "beforePct": 51.85,
+      "afterPct": 51.85
+    },
+    {
+      "id": 42,
+      "name": "Flammenlöffel",
+      "stage": 1,
+      "beforePct": 40.5,
+      "afterPct": 39.67
+    },
+    {
+      "id": 43,
+      "name": "Mäusegeist I",
+      "stage": 1,
+      "beforePct": 50.63,
+      "afterPct": 49.79
+    },
+    {
+      "id": 44,
+      "name": "Mäusegeist II",
+      "stage": 2,
+      "beforePct": 53.85,
+      "afterPct": 51.65
+    },
+    {
+      "id": 45,
+      "name": "Nebelhund I",
+      "stage": 1,
+      "beforePct": 61.72,
+      "afterPct": 61.72
+    },
+    {
+      "id": 46,
+      "name": "Nebelhund II",
+      "stage": 2,
+      "beforePct": 48.31,
+      "afterPct": 48.31
+    },
+    {
+      "id": 47,
+      "name": "Nebelhund III",
+      "stage": 3,
+      "beforePct": 40.74,
+      "afterPct": 40.74
+    },
+    {
+      "id": 48,
+      "name": "Dunkelhoppel",
+      "stage": 1,
+      "beforePct": 58.3,
+      "afterPct": 58.3
+    },
+    {
+      "id": 49,
+      "name": "Bärengeist I",
+      "stage": 1,
+      "beforePct": 64.85,
+      "afterPct": 64.02
+    },
+    {
+      "id": 50,
+      "name": "Bärengeist II",
+      "stage": 2,
+      "beforePct": 57.98,
+      "afterPct": 57.98
+    },
+    {
+      "id": 51,
+      "name": "Flammenfuchs I",
+      "stage": 1,
+      "beforePct": 49.5,
+      "afterPct": 50.0
+    },
+    {
+      "id": 52,
+      "name": "Flammenfuchs II",
+      "stage": 2,
+      "beforePct": 47.75,
+      "afterPct": 47.75
+    },
+    {
+      "id": 53,
+      "name": "Flammenfuchs III",
+      "stage": 3,
+      "beforePct": 31.82,
+      "afterPct": 31.82
+    },
+    {
+      "id": 54,
+      "name": "Tauhorn",
+      "stage": 1,
+      "beforePct": 40.59,
+      "afterPct": 39.75
+    },
+    {
+      "id": 55,
+      "name": "Waschbärgeist I",
+      "stage": 1,
+      "beforePct": 50.2,
+      "afterPct": 49.41
+    },
+    {
+      "id": 56,
+      "name": "Waschbärgeist II",
+      "stage": 2,
+      "beforePct": 52.17,
+      "afterPct": 53.04
+    },
+    {
+      "id": 57,
+      "name": "Waldhirsch I",
+      "stage": 1,
+      "beforePct": 32.21,
+      "afterPct": 35.96
+    },
+    {
+      "id": 58,
+      "name": "Waldhirsch II",
+      "stage": 2,
+      "beforePct": 44.95,
+      "afterPct": 44.95
+    },
+    {
+      "id": 59,
+      "name": "Mondkitz",
+      "stage": 1,
+      "beforePct": 53.79,
+      "afterPct": 54.17
+    },
+    {
+      "id": 60,
+      "name": "Rotpandageist I",
+      "stage": 1,
+      "beforePct": 64.2,
+      "afterPct": 63.79
+    },
+    {
+      "id": 61,
+      "name": "Rotpandageist II",
+      "stage": 2,
+      "beforePct": 52.78,
+      "afterPct": 52.78
+    },
+    {
+      "id": 62,
+      "name": "Nebelwyrm I",
+      "stage": 1,
+      "beforePct": 45.57,
+      "afterPct": 45.99
+    },
+    {
+      "id": 63,
+      "name": "Nebelwyrm II",
+      "stage": 2,
+      "beforePct": 69.3,
+      "afterPct": 69.3
+    },
+    {
+      "id": 64,
+      "name": "Nachtgeweih",
+      "stage": 1,
+      "beforePct": 55.02,
+      "afterPct": 55.39
+    },
+    {
+      "id": 65,
+      "name": "Robbengeist I",
+      "stage": 1,
+      "beforePct": 64.49,
+      "afterPct": 60.0
+    },
+    {
+      "id": 66,
+      "name": "Robbengeist II",
+      "stage": 2,
+      "beforePct": 52.17,
+      "afterPct": 52.17
+    },
+    {
+      "id": 67,
+      "name": "Zombiehase I",
+      "stage": 1,
+      "beforePct": 28.84,
+      "afterPct": 31.63
+    },
+    {
+      "id": 68,
+      "name": "Zombiehase II",
+      "stage": 2,
+      "beforePct": 42.73,
+      "afterPct": 41.82
+    },
+    {
+      "id": 69,
+      "name": "Zombiehase III",
+      "stage": 3,
+      "beforePct": 38.46,
+      "afterPct": 42.31
+    },
+    {
+      "id": 70,
+      "name": "Funkenfähe",
+      "stage": 1,
+      "beforePct": 60.0,
+      "afterPct": 59.0
+    },
+    {
+      "id": 71,
+      "name": "Rabengeist I",
+      "stage": 1,
+      "beforePct": 52.99,
+      "afterPct": 52.56
+    },
+    {
+      "id": 72,
+      "name": "Rabengeist II",
+      "stage": 2,
+      "beforePct": 56.9,
+      "afterPct": 57.76
+    },
+    {
+      "id": 73,
+      "name": "Eiswolf I",
+      "stage": 1,
+      "beforePct": 51.57,
+      "afterPct": 50.79
+    },
+    {
+      "id": 74,
+      "name": "Eiswolf II",
+      "stage": 2,
+      "beforePct": 61.82,
+      "afterPct": 61.82
+    },
+    {
+      "id": 75,
+      "name": "Eiswolf III",
+      "stage": 3,
+      "beforePct": 57.69,
+      "afterPct": 57.69
+    },
+    {
+      "id": 76,
+      "name": "Sonnenwedel",
+      "stage": 1,
+      "beforePct": 59.34,
+      "afterPct": 59.75
+    },
+    {
+      "id": 77,
+      "name": "Eichhörnchengeist I",
+      "stage": 1,
+      "beforePct": 35.07,
+      "afterPct": 38.39
+    },
+    {
+      "id": 78,
+      "name": "Eichhörnchengeist II",
+      "stage": 2,
+      "beforePct": 35.96,
+      "afterPct": 36.84
+    },
+    {
+      "id": 79,
+      "name": "Knochenkatze I",
+      "stage": 1,
+      "beforePct": 40.74,
+      "afterPct": 42.13
+    },
+    {
+      "id": 80,
+      "name": "Knochenkatze II",
+      "stage": 2,
+      "beforePct": 58.87,
+      "afterPct": 58.06
+    },
+    {
+      "id": 81,
+      "name": "Kohlenschweif",
+      "stage": 1,
+      "beforePct": 48.21,
+      "afterPct": 48.21
+    },
+    {
+      "id": 82,
+      "name": "Schattenhase I",
+      "stage": 1,
+      "beforePct": 47.01,
+      "afterPct": 47.01
+    },
+    {
+      "id": 83,
+      "name": "Schattenhase II",
+      "stage": 2,
+      "beforePct": 50.42,
+      "afterPct": 50.42
+    },
+    {
+      "id": 84,
+      "name": "Knochenhase I",
+      "stage": 1,
+      "beforePct": 37.55,
+      "afterPct": 38.82
+    },
+    {
+      "id": 85,
+      "name": "Knochenhase II",
+      "stage": 2,
+      "beforePct": 50.82,
+      "afterPct": 50.82
+    },
+    {
+      "id": 86,
+      "name": "Wolkeneulchen",
+      "stage": 1,
+      "beforePct": 60.0,
+      "afterPct": 60.0
+    },
+    {
+      "id": 87,
+      "name": "Einhorngeist I",
+      "stage": 1,
+      "beforePct": 47.35,
+      "afterPct": 47.35
+    },
+    {
+      "id": 88,
+      "name": "Einhorngeist II",
+      "stage": 2,
+      "beforePct": 58.16,
+      "afterPct": 55.1
+    },
+    {
+      "id": 89,
+      "name": "Schattenfledermaus I",
+      "stage": 1,
+      "beforePct": 56.94,
+      "afterPct": 56.94
+    },
+    {
+      "id": 90,
+      "name": "Schattenfledermaus II",
+      "stage": 2,
+      "beforePct": 65.6,
+      "afterPct": 64.0
+    },
+    {
+      "id": 91,
+      "name": "Schattenfledermaus III",
+      "stage": 3,
+      "beforePct": 54.55,
+      "afterPct": 54.55
+    },
+    {
+      "id": 92,
+      "name": "Lavendelflaum",
+      "stage": 1,
+      "beforePct": 39.53,
+      "afterPct": 40.71
+    },
+    {
+      "id": 93,
+      "name": "Stiergeist I",
+      "stage": 1,
+      "beforePct": 45.96,
+      "afterPct": 45.96
+    },
+    {
+      "id": 94,
+      "name": "Stiergeist II",
+      "stage": 2,
+      "beforePct": 37.1,
+      "afterPct": 37.1
+    },
+    {
+      "id": 95,
+      "name": "Geisterqualle I",
+      "stage": 1,
+      "beforePct": 52.44,
+      "afterPct": 51.22
+    },
+    {
+      "id": 96,
+      "name": "Geisterqualle II",
+      "stage": 2,
+      "beforePct": 51.28,
+      "afterPct": 51.28
+    },
+    {
+      "id": 97,
+      "name": "Geisterqualle III",
+      "stage": 3,
+      "beforePct": 65.0,
+      "afterPct": 65.0
+    },
+    {
+      "id": 98,
+      "name": "Schattenfeder",
+      "stage": 1,
+      "beforePct": 58.1,
+      "afterPct": 57.75
+    },
+    {
+      "id": 99,
+      "name": "Widdergeist I",
+      "stage": 1,
+      "beforePct": 48.95,
+      "afterPct": 48.12
+    },
+    {
+      "id": 100,
+      "name": "Widdergeist II",
+      "stage": 2,
+      "beforePct": 50.83,
+      "afterPct": 50.83
+    },
+    {
+      "id": 101,
+      "name": "Knocheneule I",
+      "stage": 1,
+      "beforePct": 39.74,
+      "afterPct": 42.74
+    },
+    {
+      "id": 102,
+      "name": "Knocheneule II",
+      "stage": 2,
+      "beforePct": 51.67,
+      "afterPct": 51.67
+    },
+    {
+      "id": 103,
+      "name": "Mondflatter",
+      "stage": 1,
+      "beforePct": 40.64,
+      "afterPct": 40.64
+    },
+    {
+      "id": 104,
+      "name": "Drachengeist I",
+      "stage": 1,
+      "beforePct": 56.79,
+      "afterPct": 56.79
+    },
+    {
+      "id": 105,
+      "name": "Drachengeist II",
+      "stage": 2,
+      "beforePct": 45.95,
+      "afterPct": 45.95
+    },
+    {
+      "id": 106,
+      "name": "Knochenhirsch I",
+      "stage": 1,
+      "beforePct": 34.68,
+      "afterPct": 39.11
+    },
+    {
+      "id": 107,
+      "name": "Knochenhirsch II",
+      "stage": 2,
+      "beforePct": 41.67,
+      "afterPct": 43.75
+    },
+    {
+      "id": 108,
+      "name": "Nachtflatter",
+      "stage": 1,
+      "beforePct": 57.68,
+      "afterPct": 57.68
+    },
+    {
+      "id": 109,
+      "name": "Fischgeist I",
+      "stage": 1,
+      "beforePct": 51.06,
+      "afterPct": 51.41
+    },
+    {
+      "id": 110,
+      "name": "Fischgeist II",
+      "stage": 2,
+      "beforePct": 54.47,
+      "afterPct": 55.28
+    },
+    {
+      "id": 111,
+      "name": "Quellflosse",
+      "stage": 1,
+      "beforePct": 57.14,
+      "afterPct": 57.94
+    },
+    {
+      "id": 112,
+      "name": "Schildkrötengeist I",
+      "stage": 1,
+      "beforePct": 50.39,
+      "afterPct": 50.0
+    },
+    {
+      "id": 113,
+      "name": "Schildkrötengeist II",
+      "stage": 2,
+      "beforePct": 51.15,
+      "afterPct": 51.15
+    },
+    {
+      "id": 114,
+      "name": "Flutwirbel",
+      "stage": 1,
+      "beforePct": 61.34,
+      "afterPct": 60.22
+    },
+    {
+      "id": 115,
+      "name": "Dämonenfuchs I",
+      "stage": 1,
+      "beforePct": 55.98,
+      "afterPct": 56.41
+    },
+    {
+      "id": 116,
+      "name": "Dämonenfuchs II",
+      "stage": 2,
+      "beforePct": 46.67,
+      "afterPct": 47.5
+    },
+    {
+      "id": 117,
+      "name": "Tiefenwyrm",
+      "stage": 1,
+      "beforePct": 61.11,
+      "afterPct": 61.11
+    },
+    {
+      "id": 118,
+      "name": "Schattenhund I",
+      "stage": 1,
+      "beforePct": 54.36,
+      "afterPct": 55.19
+    },
+    {
+      "id": 119,
+      "name": "Schattenhund II",
+      "stage": 2,
+      "beforePct": 60.33,
+      "afterPct": 60.33
+    },
+    {
+      "id": 120,
+      "name": "Schimmerpanzer",
+      "stage": 1,
+      "beforePct": 52.0,
+      "afterPct": 51.6
+    },
+    {
+      "id": 121,
+      "name": "Flammenhase I",
+      "stage": 1,
+      "beforePct": 50.0,
+      "afterPct": 49.62
+    },
+    {
+      "id": 122,
+      "name": "Flammenhase II",
+      "stage": 2,
+      "beforePct": 38.66,
+      "afterPct": 45.38
+    },
+    {
+      "id": 123,
+      "name": "Moorschild",
+      "stage": 1,
+      "beforePct": 44.03,
+      "afterPct": 44.44
+    },
+    {
+      "id": 124,
+      "name": "Phönixeule I",
+      "stage": 1,
+      "beforePct": 60.91,
+      "afterPct": 57.2
+    },
+    {
+      "id": 125,
+      "name": "Phönixeule II",
+      "stage": 2,
+      "beforePct": 67.92,
+      "afterPct": 65.09
+    },
+    {
+      "id": 126,
+      "name": "Gruftpanzer",
+      "stage": 1,
+      "beforePct": 47.03,
+      "afterPct": 47.46
+    },
+    {
+      "id": 127,
+      "name": "Himmelsmiez",
+      "stage": 1,
+      "beforePct": 57.21,
+      "afterPct": 58.11
+    },
+    {
+      "id": 128,
+      "name": "Engelschnurr",
+      "stage": 1,
+      "beforePct": 60.4,
+      "afterPct": 60.8
+    },
+    {
+      "id": 129,
+      "name": "Dunkelhalo",
+      "stage": 1,
+      "beforePct": 59.36,
+      "afterPct": 58.57
+    },
+    {
+      "id": 130,
+      "name": "Glockenkalb",
+      "stage": 1,
+      "beforePct": 57.31,
+      "afterPct": 57.31
+    },
+    {
+      "id": 131,
+      "name": "Wiesenbimmel",
+      "stage": 1,
+      "beforePct": 39.2,
+      "afterPct": 44.0
+    },
+    {
+      "id": 132,
+      "name": "Knochenstier",
+      "stage": 1,
+      "beforePct": 53.33,
+      "afterPct": 53.33
+    },
+    {
+      "id": 133,
+      "name": "Wolkenpiep",
+      "stage": 1,
+      "beforePct": 53.01,
+      "afterPct": 51.88
+    },
+    {
+      "id": 134,
+      "name": "Gischtpiep",
+      "stage": 1,
+      "beforePct": 67.47,
+      "afterPct": 65.46
+    },
+    {
+      "id": 135,
+      "name": "Sturmschnabel",
+      "stage": 1,
+      "beforePct": 58.87,
+      "afterPct": 56.45
+    },
+    {
+      "id": 136,
+      "name": "Rosagrunzer",
+      "stage": 1,
+      "beforePct": 41.2,
+      "afterPct": 39.48
+    },
+    {
+      "id": 137,
+      "name": "Knochenschnüff",
+      "stage": 1,
+      "beforePct": 39.6,
+      "afterPct": 41.2
+    },
+    {
+      "id": 138,
+      "name": "Schattenborste",
+      "stage": 1,
+      "beforePct": 45.25,
+      "afterPct": 45.63
+    },
+    {
+      "id": 139,
+      "name": "Ringelgeist",
+      "stage": 1,
+      "beforePct": 50.58,
+      "afterPct": 49.42
+    },
+    {
+      "id": 140,
+      "name": "Dämmerstreif",
+      "stage": 1,
+      "beforePct": 51.27,
+      "afterPct": 51.27
+    },
+    {
+      "id": 141,
+      "name": "Nachtringel",
+      "stage": 1,
+      "beforePct": 52.48,
+      "afterPct": 52.48
+    },
+    {
+      "id": 142,
+      "name": "Rosenlöffel",
+      "stage": 1,
+      "beforePct": 36.9,
+      "afterPct": 41.33
+    },
+    {
+      "id": 143,
+      "name": "Flimmerhase",
+      "stage": 1,
+      "beforePct": 54.69,
+      "afterPct": 56.33
+    },
+    {
+      "id": 144,
+      "name": "Glutohren",
+      "stage": 1,
+      "beforePct": 65.93,
+      "afterPct": 66.3
+    },
+    {
+      "id": 145,
+      "name": "Froststachel",
+      "stage": 1,
+      "beforePct": 50.94,
+      "afterPct": 50.19
+    },
+    {
+      "id": 146,
+      "name": "Eisschauer",
+      "stage": 1,
+      "beforePct": 57.33,
+      "afterPct": 57.33
+    },
+    {
+      "id": 147,
+      "name": "Dornschatten",
+      "stage": 1,
+      "beforePct": 47.09,
+      "afterPct": 47.09
+    },
+    {
+      "id": 148,
+      "name": "Funkennuss",
+      "stage": 1,
+      "beforePct": 49.57,
+      "afterPct": 50.0
+    },
+    {
+      "id": 149,
+      "name": "Wolkennuss",
+      "stage": 1,
+      "beforePct": 49.81,
+      "afterPct": 49.81
+    },
+    {
+      "id": 150,
+      "name": "Nachtsammler",
+      "stage": 1,
+      "beforePct": 62.2,
+      "afterPct": 61.81
+    }
+  ]
+}

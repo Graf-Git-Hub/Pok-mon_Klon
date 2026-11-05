@@ -1,0 +1,1202 @@
+[
+  {
+    "id": 1,
+    "name": "Miora",
+    "stage": 1,
+    "hp": 39,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 2,
+    "name": "Seelara",
+    "stage": 2,
+    "hp": 56,
+    "atk": 21,
+    "def": 20
+  },
+  {
+    "id": 3,
+    "name": "Maternalis",
+    "stage": 3,
+    "hp": 82,
+    "atk": 29,
+    "def": 27
+  },
+  {
+    "id": 4,
+    "name": "Glimmerpfote",
+    "stage": 1,
+    "hp": 39,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 5,
+    "name": "Hasengeist I",
+    "stage": 1,
+    "hp": 46,
+    "atk": 20,
+    "def": 19
+  },
+  {
+    "id": 6,
+    "name": "Hasengeist II",
+    "stage": 2,
+    "hp": 67,
+    "atk": 27,
+    "def": 23
+  },
+  {
+    "id": 7,
+    "name": "Schattenkatze I",
+    "stage": 1,
+    "hp": 42,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 8,
+    "name": "Schattenkatze II",
+    "stage": 2,
+    "hp": 57,
+    "atk": 22,
+    "def": 19
+  },
+  {
+    "id": 9,
+    "name": "Schattenkatze III",
+    "stage": 3,
+    "hp": 72,
+    "atk": 29,
+    "def": 25
+  },
+  {
+    "id": 10,
+    "name": "Nachtpfote",
+    "stage": 1,
+    "hp": 36,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 11,
+    "name": "Katzengeist I",
+    "stage": 1,
+    "hp": 47,
+    "atk": 19,
+    "def": 18
+  },
+  {
+    "id": 12,
+    "name": "Katzengeist II",
+    "stage": 2,
+    "hp": 65,
+    "atk": 28,
+    "def": 24
+  },
+  {
+    "id": 13,
+    "name": "Engelsgeist I",
+    "stage": 1,
+    "hp": 39,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 14,
+    "name": "Engelsgeist II",
+    "stage": 2,
+    "hp": 54,
+    "atk": 23,
+    "def": 20
+  },
+  {
+    "id": 15,
+    "name": "Lichtflämmchen",
+    "stage": 1,
+    "hp": 41,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 16,
+    "name": "Fuchsgeist I",
+    "stage": 1,
+    "hp": 42,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 17,
+    "name": "Fuchsgeist II",
+    "stage": 2,
+    "hp": 57,
+    "atk": 21,
+    "def": 18
+  },
+  {
+    "id": 18,
+    "name": "Kürbisgeist I",
+    "stage": 1,
+    "hp": 44,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 19,
+    "name": "Kürbisgeist II",
+    "stage": 2,
+    "hp": 50,
+    "atk": 23,
+    "def": 20
+  },
+  {
+    "id": 20,
+    "name": "Nebelflöckchen",
+    "stage": 1,
+    "hp": 37,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 21,
+    "name": "Wolfsgeist I",
+    "stage": 1,
+    "hp": 38,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 22,
+    "name": "Wolfsgeist II",
+    "stage": 2,
+    "hp": 53,
+    "atk": 21,
+    "def": 18
+  },
+  {
+    "id": 23,
+    "name": "Feuerfuchs I",
+    "stage": 1,
+    "hp": 40,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 24,
+    "name": "Feuerfuchs II",
+    "stage": 2,
+    "hp": 55,
+    "atk": 23,
+    "def": 20
+  },
+  {
+    "id": 25,
+    "name": "Feuerfuchs III",
+    "stage": 3,
+    "hp": 70,
+    "atk": 30,
+    "def": 26
+  },
+  {
+    "id": 26,
+    "name": "Gischtflöckchen",
+    "stage": 1,
+    "hp": 43,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 27,
+    "name": "Hirschgeist I",
+    "stage": 1,
+    "hp": 44,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 28,
+    "name": "Hirschgeist II",
+    "stage": 2,
+    "hp": 50,
+    "atk": 22,
+    "def": 19
+  },
+  {
+    "id": 29,
+    "name": "Skelett-Hund I",
+    "stage": 1,
+    "hp": 37,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 30,
+    "name": "Skelett-Hund II",
+    "stage": 2,
+    "hp": 52,
+    "atk": 24,
+    "def": 21
+  },
+  {
+    "id": 31,
+    "name": "Skelett-Hund III",
+    "stage": 3,
+    "hp": 76,
+    "atk": 30,
+    "def": 26
+  },
+  {
+    "id": 32,
+    "name": "Schattenwuschel",
+    "stage": 1,
+    "hp": 40,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 33,
+    "name": "Eulengeist I",
+    "stage": 1,
+    "hp": 41,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 34,
+    "name": "Eulengeist II",
+    "stage": 2,
+    "hp": 64,
+    "atk": 27,
+    "def": 23
+  },
+  {
+    "id": 35,
+    "name": "Eiskauz I",
+    "stage": 1,
+    "hp": 43,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 36,
+    "name": "Eiskauz II",
+    "stage": 2,
+    "hp": 58,
+    "atk": 20,
+    "def": 17
+  },
+  {
+    "id": 37,
+    "name": "Rosahoppel",
+    "stage": 1,
+    "hp": 47,
+    "atk": 20,
+    "def": 19
+  },
+  {
+    "id": 38,
+    "name": "Fledermausgeist I",
+    "stage": 1,
+    "hp": 37,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 39,
+    "name": "Fledermausgeist II",
+    "stage": 2,
+    "hp": 52,
+    "atk": 23,
+    "def": 20
+  },
+  {
+    "id": 40,
+    "name": "Knochenrabe I",
+    "stage": 1,
+    "hp": 39,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 41,
+    "name": "Knochenrabe II",
+    "stage": 2,
+    "hp": 54,
+    "atk": 20,
+    "def": 17
+  },
+  {
+    "id": 42,
+    "name": "Flammenlöffel",
+    "stage": 1,
+    "hp": 41,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 43,
+    "name": "Mäusegeist I",
+    "stage": 1,
+    "hp": 42,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 44,
+    "name": "Mäusegeist II",
+    "stage": 2,
+    "hp": 57,
+    "atk": 23,
+    "def": 20
+  },
+  {
+    "id": 45,
+    "name": "Nebelhund I",
+    "stage": 1,
+    "hp": 44,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 46,
+    "name": "Nebelhund II",
+    "stage": 2,
+    "hp": 50,
+    "atk": 20,
+    "def": 17
+  },
+  {
+    "id": 47,
+    "name": "Nebelhund III",
+    "stage": 3,
+    "hp": 65,
+    "atk": 27,
+    "def": 23
+  },
+  {
+    "id": 48,
+    "name": "Dunkelhoppel",
+    "stage": 1,
+    "hp": 38,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 49,
+    "name": "Bärengeist I",
+    "stage": 1,
+    "hp": 39,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 50,
+    "name": "Bärengeist II",
+    "stage": 2,
+    "hp": 54,
+    "atk": 24,
+    "def": 21
+  },
+  {
+    "id": 51,
+    "name": "Flammenfuchs I",
+    "stage": 1,
+    "hp": 45,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 52,
+    "name": "Flammenfuchs II",
+    "stage": 2,
+    "hp": 56,
+    "atk": 21,
+    "def": 18
+  },
+  {
+    "id": 53,
+    "name": "Flammenfuchs III",
+    "stage": 3,
+    "hp": 71,
+    "atk": 28,
+    "def": 24
+  },
+  {
+    "id": 54,
+    "name": "Tauhorn",
+    "stage": 1,
+    "hp": 44,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 55,
+    "name": "Waschbärgeist I",
+    "stage": 1,
+    "hp": 36,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 56,
+    "name": "Waschbärgeist II",
+    "stage": 2,
+    "hp": 56,
+    "atk": 22,
+    "def": 20
+  },
+  {
+    "id": 57,
+    "name": "Waldhirsch I",
+    "stage": 1,
+    "hp": 38,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 58,
+    "name": "Waldhirsch II",
+    "stage": 2,
+    "hp": 53,
+    "atk": 22,
+    "def": 19
+  },
+  {
+    "id": 59,
+    "name": "Mondkitz",
+    "stage": 1,
+    "hp": 40,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 60,
+    "name": "Rotpandageist I",
+    "stage": 1,
+    "hp": 41,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 61,
+    "name": "Rotpandageist II",
+    "stage": 2,
+    "hp": 56,
+    "atk": 20,
+    "def": 17
+  },
+  {
+    "id": 62,
+    "name": "Nebelwyrm I",
+    "stage": 1,
+    "hp": 43,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 63,
+    "name": "Nebelwyrm II",
+    "stage": 2,
+    "hp": 58,
+    "atk": 22,
+    "def": 19
+  },
+  {
+    "id": 64,
+    "name": "Nachtgeweih",
+    "stage": 1,
+    "hp": 36,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 65,
+    "name": "Robbengeist I",
+    "stage": 1,
+    "hp": 37,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 66,
+    "name": "Robbengeist II",
+    "stage": 2,
+    "hp": 49,
+    "atk": 19,
+    "def": 17
+  },
+  {
+    "id": 67,
+    "name": "Zombiehase I",
+    "stage": 1,
+    "hp": 39,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 68,
+    "name": "Zombiehase II",
+    "stage": 2,
+    "hp": 54,
+    "atk": 22,
+    "def": 19
+  },
+  {
+    "id": 69,
+    "name": "Zombiehase III",
+    "stage": 3,
+    "hp": 76,
+    "atk": 32,
+    "def": 27
+  },
+  {
+    "id": 70,
+    "name": "Funkenfähe",
+    "stage": 1,
+    "hp": 42,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 71,
+    "name": "Rabengeist I",
+    "stage": 1,
+    "hp": 43,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 72,
+    "name": "Rabengeist II",
+    "stage": 2,
+    "hp": 58,
+    "atk": 21,
+    "def": 18
+  },
+  {
+    "id": 73,
+    "name": "Eiswolf I",
+    "stage": 1,
+    "hp": 36,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 74,
+    "name": "Eiswolf II",
+    "stage": 2,
+    "hp": 51,
+    "atk": 23,
+    "def": 20
+  },
+  {
+    "id": 75,
+    "name": "Eiswolf III",
+    "stage": 3,
+    "hp": 66,
+    "atk": 30,
+    "def": 26
+  },
+  {
+    "id": 76,
+    "name": "Sonnenwedel",
+    "stage": 1,
+    "hp": 39,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 77,
+    "name": "Eichhörnchengeist I",
+    "stage": 1,
+    "hp": 40,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 78,
+    "name": "Eichhörnchengeist II",
+    "stage": 2,
+    "hp": 55,
+    "atk": 22,
+    "def": 19
+  },
+  {
+    "id": 79,
+    "name": "Knochenkatze I",
+    "stage": 1,
+    "hp": 42,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 80,
+    "name": "Knochenkatze II",
+    "stage": 2,
+    "hp": 57,
+    "atk": 24,
+    "def": 21
+  },
+  {
+    "id": 81,
+    "name": "Kohlenschweif",
+    "stage": 1,
+    "hp": 44,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 82,
+    "name": "Schattenhase I",
+    "stage": 1,
+    "hp": 36,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 83,
+    "name": "Schattenhase II",
+    "stage": 2,
+    "hp": 51,
+    "atk": 22,
+    "def": 19
+  },
+  {
+    "id": 84,
+    "name": "Knochenhase I",
+    "stage": 1,
+    "hp": 38,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 85,
+    "name": "Knochenhase II",
+    "stage": 2,
+    "hp": 53,
+    "atk": 24,
+    "def": 21
+  },
+  {
+    "id": 86,
+    "name": "Wolkeneulchen",
+    "stage": 1,
+    "hp": 40,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 87,
+    "name": "Einhorngeist I",
+    "stage": 1,
+    "hp": 41,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 88,
+    "name": "Einhorngeist II",
+    "stage": 2,
+    "hp": 56,
+    "atk": 22,
+    "def": 19
+  },
+  {
+    "id": 89,
+    "name": "Schattenfledermaus I",
+    "stage": 1,
+    "hp": 43,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 90,
+    "name": "Schattenfledermaus II",
+    "stage": 2,
+    "hp": 58,
+    "atk": 24,
+    "def": 21
+  },
+  {
+    "id": 91,
+    "name": "Schattenfledermaus III",
+    "stage": 3,
+    "hp": 64,
+    "atk": 26,
+    "def": 22
+  },
+  {
+    "id": 92,
+    "name": "Lavendelflaum",
+    "stage": 1,
+    "hp": 37,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 93,
+    "name": "Stiergeist I",
+    "stage": 1,
+    "hp": 38,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 94,
+    "name": "Stiergeist II",
+    "stage": 2,
+    "hp": 53,
+    "atk": 23,
+    "def": 20
+  },
+  {
+    "id": 95,
+    "name": "Geisterqualle I",
+    "stage": 1,
+    "hp": 40,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 96,
+    "name": "Geisterqualle II",
+    "stage": 2,
+    "hp": 55,
+    "atk": 20,
+    "def": 17
+  },
+  {
+    "id": 97,
+    "name": "Geisterqualle III",
+    "stage": 3,
+    "hp": 70,
+    "atk": 27,
+    "def": 23
+  },
+  {
+    "id": 98,
+    "name": "Schattenfeder",
+    "stage": 1,
+    "hp": 43,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 99,
+    "name": "Widdergeist I",
+    "stage": 1,
+    "hp": 44,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 100,
+    "name": "Widdergeist II",
+    "stage": 2,
+    "hp": 50,
+    "atk": 24,
+    "def": 21
+  },
+  {
+    "id": 101,
+    "name": "Knocheneule I",
+    "stage": 1,
+    "hp": 37,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 102,
+    "name": "Knocheneule II",
+    "stage": 2,
+    "hp": 52,
+    "atk": 21,
+    "def": 18
+  },
+  {
+    "id": 103,
+    "name": "Mondflatter",
+    "stage": 1,
+    "hp": 39,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 104,
+    "name": "Drachengeist I",
+    "stage": 1,
+    "hp": 40,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 105,
+    "name": "Drachengeist II",
+    "stage": 2,
+    "hp": 55,
+    "atk": 24,
+    "def": 21
+  },
+  {
+    "id": 106,
+    "name": "Knochenhirsch I",
+    "stage": 1,
+    "hp": 42,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 107,
+    "name": "Knochenhirsch II",
+    "stage": 2,
+    "hp": 57,
+    "atk": 21,
+    "def": 18
+  },
+  {
+    "id": 108,
+    "name": "Nachtflatter",
+    "stage": 1,
+    "hp": 44,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 109,
+    "name": "Fischgeist I",
+    "stage": 1,
+    "hp": 36,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 110,
+    "name": "Fischgeist II",
+    "stage": 2,
+    "hp": 51,
+    "atk": 24,
+    "def": 21
+  },
+  {
+    "id": 111,
+    "name": "Quellflosse",
+    "stage": 1,
+    "hp": 38,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 112,
+    "name": "Schildkrötengeist I",
+    "stage": 1,
+    "hp": 39,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 113,
+    "name": "Schildkrötengeist II",
+    "stage": 2,
+    "hp": 54,
+    "atk": 22,
+    "def": 19
+  },
+  {
+    "id": 114,
+    "name": "Flutwirbel",
+    "stage": 1,
+    "hp": 41,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 115,
+    "name": "Dämonenfuchs I",
+    "stage": 1,
+    "hp": 42,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 116,
+    "name": "Dämonenfuchs II",
+    "stage": 2,
+    "hp": 57,
+    "atk": 20,
+    "def": 17
+  },
+  {
+    "id": 117,
+    "name": "Tiefenwyrm",
+    "stage": 1,
+    "hp": 44,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 118,
+    "name": "Schattenhund I",
+    "stage": 1,
+    "hp": 36,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 119,
+    "name": "Schattenhund II",
+    "stage": 2,
+    "hp": 51,
+    "atk": 23,
+    "def": 20
+  },
+  {
+    "id": 120,
+    "name": "Schimmerpanzer",
+    "stage": 1,
+    "hp": 38,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 121,
+    "name": "Flammenhase I",
+    "stage": 1,
+    "hp": 44,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 122,
+    "name": "Flammenhase II",
+    "stage": 2,
+    "hp": 54,
+    "atk": 21,
+    "def": 18
+  },
+  {
+    "id": 123,
+    "name": "Moorschild",
+    "stage": 1,
+    "hp": 41,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 124,
+    "name": "Phönixeule I",
+    "stage": 1,
+    "hp": 42,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 125,
+    "name": "Phönixeule II",
+    "stage": 2,
+    "hp": 57,
+    "atk": 24,
+    "def": 21
+  },
+  {
+    "id": 126,
+    "name": "Gruftpanzer",
+    "stage": 1,
+    "hp": 44,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 127,
+    "name": "Himmelsmiez",
+    "stage": 1,
+    "hp": 36,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 128,
+    "name": "Engelschnurr",
+    "stage": 1,
+    "hp": 37,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 129,
+    "name": "Dunkelhalo",
+    "stage": 1,
+    "hp": 38,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 130,
+    "name": "Glockenkalb",
+    "stage": 1,
+    "hp": 39,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 131,
+    "name": "Wiesenbimmel",
+    "stage": 1,
+    "hp": 40,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 132,
+    "name": "Knochenstier",
+    "stage": 1,
+    "hp": 41,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 133,
+    "name": "Wolkenpiep",
+    "stage": 1,
+    "hp": 42,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 134,
+    "name": "Gischtpiep",
+    "stage": 1,
+    "hp": 43,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 135,
+    "name": "Sturmschnabel",
+    "stage": 1,
+    "hp": 44,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 136,
+    "name": "Rosagrunzer",
+    "stage": 1,
+    "hp": 47,
+    "atk": 19,
+    "def": 18
+  },
+  {
+    "id": 137,
+    "name": "Knochenschnüff",
+    "stage": 1,
+    "hp": 42,
+    "atk": 17,
+    "def": 16
+  },
+  {
+    "id": 138,
+    "name": "Schattenborste",
+    "stage": 1,
+    "hp": 38,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 139,
+    "name": "Ringelgeist",
+    "stage": 1,
+    "hp": 39,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 140,
+    "name": "Dämmerstreif",
+    "stage": 1,
+    "hp": 40,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 141,
+    "name": "Nachtringel",
+    "stage": 1,
+    "hp": 41,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 142,
+    "name": "Rosenlöffel",
+    "stage": 1,
+    "hp": 46,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 143,
+    "name": "Flimmerhase",
+    "stage": 1,
+    "hp": 43,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 144,
+    "name": "Glutohren",
+    "stage": 1,
+    "hp": 44,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 145,
+    "name": "Froststachel",
+    "stage": 1,
+    "hp": 36,
+    "atk": 18,
+    "def": 16
+  },
+  {
+    "id": 146,
+    "name": "Eisschauer",
+    "stage": 1,
+    "hp": 37,
+    "atk": 14,
+    "def": 12
+  },
+  {
+    "id": 147,
+    "name": "Dornschatten",
+    "stage": 1,
+    "hp": 38,
+    "atk": 15,
+    "def": 13
+  },
+  {
+    "id": 148,
+    "name": "Funkennuss",
+    "stage": 1,
+    "hp": 39,
+    "atk": 16,
+    "def": 14
+  },
+  {
+    "id": 149,
+    "name": "Wolkennuss",
+    "stage": 1,
+    "hp": 40,
+    "atk": 17,
+    "def": 15
+  },
+  {
+    "id": 150,
+    "name": "Nachtsammler",
+    "stage": 1,
+    "hp": 41,
+    "atk": 18,
+    "def": 16
+  }
+]

@@ -1,0 +1,3386 @@
+{
+  "rounds": 20,
+  "fights": 2000000,
+  "timeouts": 0,
+  "wins": 1005084,
+  "losses": 994916,
+  "adjustmentActions": 141,
+  "speciesAdjusted": 42,
+  "protectedSpeciesIds": [
+    1,
+    2,
+    3
+  ],
+  "finalChanges": [
+    {
+      "id": 8,
+      "name": "Schattenkatze II",
+      "stage": 2,
+      "before": [
+        57,
+        22,
+        19
+      ],
+      "after": [
+        56,
+        22,
+        19
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Schattenkatze III",
+      "stage": 3,
+      "before": [
+        72,
+        29,
+        25
+      ],
+      "after": [
+        71,
+        29,
+        25
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Engelsgeist II",
+      "stage": 2,
+      "before": [
+        54,
+        23,
+        20
+      ],
+      "after": [
+        48,
+        23,
+        20
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Lichtflämmchen",
+      "stage": 1,
+      "before": [
+        41,
+        18,
+        16
+      ],
+      "after": [
+        40,
+        18,
+        16
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Fuchsgeist I",
+      "stage": 1,
+      "before": [
+        42,
+        14,
+        12
+      ],
+      "after": [
+        44,
+        14,
+        12
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Kürbisgeist I",
+      "stage": 1,
+      "before": [
+        44,
+        16,
+        14
+      ],
+      "after": [
+        49,
+        16,
+        14
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Kürbisgeist II",
+      "stage": 2,
+      "before": [
+        50,
+        23,
+        20
+      ],
+      "after": [
+        56,
+        23,
+        20
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Gischtflöckchen",
+      "stage": 1,
+      "before": [
+        43,
+        14,
+        12
+      ],
+      "after": [
+        42,
+        14,
+        12
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Hirschgeist I",
+      "stage": 1,
+      "before": [
+        44,
+        15,
+        13
+      ],
+      "after": [
+        50,
+        15,
+        13
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Hirschgeist II",
+      "stage": 2,
+      "before": [
+        50,
+        22,
+        19
+      ],
+      "after": [
+        52,
+        23,
+        19
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Skelett-Hund I",
+      "stage": 1,
+      "before": [
+        37,
+        17,
+        15
+      ],
+      "after": [
+        42,
+        17,
+        15
+      ]
+    },
+    {
+      "id": 33,
+      "name": "Eulengeist I",
+      "stage": 1,
+      "before": [
+        41,
+        16,
+        14
+      ],
+      "after": [
+        44,
+        16,
+        14
+      ]
+    },
+    {
+      "id": 44,
+      "name": "Mäusegeist II",
+      "stage": 2,
+      "before": [
+        57,
+        23,
+        20
+      ],
+      "after": [
+        56,
+        23,
+        20
+      ]
+    },
+    {
+      "id": 57,
+      "name": "Waldhirsch I",
+      "stage": 1,
+      "before": [
+        38,
+        15,
+        13
+      ],
+      "after": [
+        43,
+        15,
+        13
+      ]
+    },
+    {
+      "id": 58,
+      "name": "Waldhirsch II",
+      "stage": 2,
+      "before": [
+        53,
+        22,
+        19
+      ],
+      "after": [
+        54,
+        22,
+        19
+      ]
+    },
+    {
+      "id": 65,
+      "name": "Robbengeist I",
+      "stage": 1,
+      "before": [
+        37,
+        18,
+        16
+      ],
+      "after": [
+        33,
+        18,
+        16
+      ]
+    },
+    {
+      "id": 67,
+      "name": "Zombiehase I",
+      "stage": 1,
+      "before": [
+        39,
+        15,
+        13
+      ],
+      "after": [
+        44,
+        15,
+        13
+      ]
+    },
+    {
+      "id": 70,
+      "name": "Funkenfähe",
+      "stage": 1,
+      "before": [
+        42,
+        18,
+        16
+      ],
+      "after": [
+        37,
+        18,
+        16
+      ]
+    },
+    {
+      "id": 75,
+      "name": "Eiswolf III",
+      "stage": 3,
+      "before": [
+        66,
+        30,
+        26
+      ],
+      "after": [
+        65,
+        30,
+        26
+      ]
+    },
+    {
+      "id": 77,
+      "name": "Eichhörnchengeist I",
+      "stage": 1,
+      "before": [
+        40,
+        15,
+        13
+      ],
+      "after": [
+        45,
+        15,
+        13
+      ]
+    },
+    {
+      "id": 78,
+      "name": "Eichhörnchengeist II",
+      "stage": 2,
+      "before": [
+        55,
+        22,
+        19
+      ],
+      "after": [
+        56,
+        22,
+        19
+      ]
+    },
+    {
+      "id": 79,
+      "name": "Knochenkatze I",
+      "stage": 1,
+      "before": [
+        42,
+        17,
+        15
+      ],
+      "after": [
+        44,
+        17,
+        15
+      ]
+    },
+    {
+      "id": 82,
+      "name": "Schattenhase I",
+      "stage": 1,
+      "before": [
+        36,
+        15,
+        13
+      ],
+      "after": [
+        37,
+        15,
+        13
+      ]
+    },
+    {
+      "id": 84,
+      "name": "Knochenhase I",
+      "stage": 1,
+      "before": [
+        38,
+        17,
+        15
+      ],
+      "after": [
+        41,
+        17,
+        15
+      ]
+    },
+    {
+      "id": 88,
+      "name": "Einhorngeist II",
+      "stage": 2,
+      "before": [
+        56,
+        22,
+        19
+      ],
+      "after": [
+        54,
+        22,
+        19
+      ]
+    },
+    {
+      "id": 90,
+      "name": "Schattenfledermaus II",
+      "stage": 2,
+      "before": [
+        58,
+        24,
+        21
+      ],
+      "after": [
+        56,
+        24,
+        21
+      ]
+    },
+    {
+      "id": 92,
+      "name": "Lavendelflaum",
+      "stage": 1,
+      "before": [
+        37,
+        15,
+        13
+      ],
+      "after": [
+        40,
+        15,
+        13
+      ]
+    },
+    {
+      "id": 93,
+      "name": "Stiergeist I",
+      "stage": 1,
+      "before": [
+        38,
+        16,
+        14
+      ],
+      "after": [
+        43,
+        16,
+        14
+      ]
+    },
+    {
+      "id": 97,
+      "name": "Geisterqualle III",
+      "stage": 3,
+      "before": [
+        70,
+        27,
+        23
+      ],
+      "after": [
+        69,
+        27,
+        23
+      ]
+    },
+    {
+      "id": 101,
+      "name": "Knocheneule I",
+      "stage": 1,
+      "before": [
+        37,
+        14,
+        12
+      ],
+      "after": [
+        41,
+        14,
+        12
+      ]
+    },
+    {
+      "id": 106,
+      "name": "Knochenhirsch I",
+      "stage": 1,
+      "before": [
+        42,
+        14,
+        12
+      ],
+      "after": [
+        48,
+        14,
+        12
+      ]
+    },
+    {
+      "id": 114,
+      "name": "Flutwirbel",
+      "stage": 1,
+      "before": [
+        41,
+        17,
+        15
+      ],
+      "after": [
+        37,
+        17,
+        15
+      ]
+    },
+    {
+      "id": 122,
+      "name": "Flammenhase II",
+      "stage": 2,
+      "before": [
+        54,
+        21,
+        18
+      ],
+      "after": [
+        58,
+        21,
+        18
+      ]
+    },
+    {
+      "id": 124,
+      "name": "Phönixeule I",
+      "stage": 1,
+      "before": [
+        42,
+        17,
+        15
+      ],
+      "after": [
+        37,
+        17,
+        15
+      ]
+    },
+    {
+      "id": 125,
+      "name": "Phönixeule II",
+      "stage": 2,
+      "before": [
+        57,
+        24,
+        21
+      ],
+      "after": [
+        51,
+        24,
+        21
+      ]
+    },
+    {
+      "id": 131,
+      "name": "Wiesenbimmel",
+      "stage": 1,
+      "before": [
+        40,
+        14,
+        12
+      ],
+      "after": [
+        44,
+        14,
+        12
+      ]
+    },
+    {
+      "id": 133,
+      "name": "Wolkenpiep",
+      "stage": 1,
+      "before": [
+        42,
+        16,
+        14
+      ],
+      "after": [
+        38,
+        16,
+        14
+      ]
+    },
+    {
+      "id": 134,
+      "name": "Gischtpiep",
+      "stage": 1,
+      "before": [
+        43,
+        17,
+        15
+      ],
+      "after": [
+        38,
+        17,
+        15
+      ]
+    },
+    {
+      "id": 135,
+      "name": "Sturmschnabel",
+      "stage": 1,
+      "before": [
+        44,
+        18,
+        16
+      ],
+      "after": [
+        40,
+        18,
+        16
+      ]
+    },
+    {
+      "id": 137,
+      "name": "Knochenschnüff",
+      "stage": 1,
+      "before": [
+        42,
+        17,
+        16
+      ],
+      "after": [
+        44,
+        17,
+        16
+      ]
+    },
+    {
+      "id": 142,
+      "name": "Rosenlöffel",
+      "stage": 1,
+      "before": [
+        46,
+        18,
+        16
+      ],
+      "after": [
+        52,
+        18,
+        16
+      ]
+    },
+    {
+      "id": 147,
+      "name": "Dornschatten",
+      "stage": 1,
+      "before": [
+        38,
+        15,
+        13
+      ],
+      "after": [
+        39,
+        15,
+        13
+      ]
+    }
+  ],
+  "roundResults": [
+    {
+      "round": 1,
+      "fights": 100000,
+      "wins": 49913,
+      "winPct": 49.91,
+      "losses": 50087,
+      "avgTurns": 5.98,
+      "timeouts": 0,
+      "fingerprint": "4581a6514e01ba2c8ca54528fe0f691c57e7ca5f7120927b36104e56b4f043dc",
+      "sameStageMedians": {
+        "1": 52.05,
+        "2": 51.43,
+        "3": 46.07
+      },
+      "adjustments": [
+        {
+          "id": 77,
+          "name": "Eichhörnchengeist I",
+          "stage": 1,
+          "old": [
+            40,
+            15,
+            13
+          ],
+          "new": [
+            41,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -15.11,
+          "equalStageSample": 254
+        },
+        {
+          "id": 106,
+          "name": "Knochenhirsch I",
+          "stage": 1,
+          "old": [
+            42,
+            14,
+            12
+          ],
+          "new": [
+            43,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -13.62,
+          "equalStageSample": 239
+        },
+        {
+          "id": 137,
+          "name": "Knochenschnüff",
+          "stage": 1,
+          "old": [
+            42,
+            17,
+            16
+          ],
+          "new": [
+            43,
+            17,
+            16
+          ],
+          "deltaToStageMedianPoints": -13.52,
+          "equalStageSample": 259
+        },
+        {
+          "id": 101,
+          "name": "Knocheneule I",
+          "stage": 1,
+          "old": [
+            37,
+            14,
+            12
+          ],
+          "new": [
+            38,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -13.43,
+          "equalStageSample": 266
+        },
+        {
+          "id": 14,
+          "name": "Engelsgeist II",
+          "stage": 2,
+          "old": [
+            54,
+            23,
+            20
+          ],
+          "new": [
+            53,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": 12.66,
+          "equalStageSample": 112
+        },
+        {
+          "id": 27,
+          "name": "Hirschgeist I",
+          "stage": 1,
+          "old": [
+            44,
+            15,
+            13
+          ],
+          "new": [
+            45,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -12.55,
+          "equalStageSample": 208
+        },
+        {
+          "id": 131,
+          "name": "Wiesenbimmel",
+          "stage": 1,
+          "old": [
+            40,
+            14,
+            12
+          ],
+          "new": [
+            41,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -12.45,
+          "equalStageSample": 230
+        },
+        {
+          "id": 133,
+          "name": "Wolkenpiep",
+          "stage": 1,
+          "old": [
+            42,
+            16,
+            14
+          ],
+          "new": [
+            41,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": 11.98,
+          "equalStageSample": 219
+        },
+        {
+          "id": 134,
+          "name": "Gischtpiep",
+          "stage": 1,
+          "old": [
+            43,
+            17,
+            15
+          ],
+          "new": [
+            42,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 11.62,
+          "equalStageSample": 241
+        },
+        {
+          "id": 124,
+          "name": "Phönixeule I",
+          "stage": 1,
+          "old": [
+            42,
+            17,
+            15
+          ],
+          "new": [
+            41,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 11.24,
+          "equalStageSample": 246
+        },
+        {
+          "id": 8,
+          "name": "Schattenkatze II",
+          "stage": 2,
+          "old": [
+            57,
+            22,
+            19
+          ],
+          "new": [
+            56,
+            22,
+            19
+          ],
+          "deltaToStageMedianPoints": 10.58,
+          "equalStageSample": 126
+        }
+      ]
+    },
+    {
+      "round": 2,
+      "fights": 100000,
+      "wins": 50244,
+      "winPct": 50.24,
+      "losses": 49756,
+      "avgTurns": 5.98,
+      "timeouts": 0,
+      "fingerprint": "e7eda6530bcc62b79fa86df3296d41f25cdf845df4b793e9daefe45cfe0f220f",
+      "sameStageMedians": {
+        "1": 52.05,
+        "2": 51.12,
+        "3": 50.09
+      },
+      "adjustments": [
+        {
+          "id": 142,
+          "name": "Rosenlöffel",
+          "stage": 1,
+          "old": [
+            46,
+            18,
+            16
+          ],
+          "new": [
+            47,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": -14.54,
+          "equalStageSample": 521
+        },
+        {
+          "id": 33,
+          "name": "Eulengeist I",
+          "stage": 1,
+          "old": [
+            41,
+            16,
+            14
+          ],
+          "new": [
+            42,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -13.68,
+          "equalStageSample": 487
+        },
+        {
+          "id": 67,
+          "name": "Zombiehase I",
+          "stage": 1,
+          "old": [
+            39,
+            15,
+            13
+          ],
+          "new": [
+            40,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -13.51,
+          "equalStageSample": 495
+        },
+        {
+          "id": 93,
+          "name": "Stiergeist I",
+          "stage": 1,
+          "old": [
+            38,
+            16,
+            14
+          ],
+          "new": [
+            39,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -12.99,
+          "equalStageSample": 508
+        },
+        {
+          "id": 135,
+          "name": "Sturmschnabel",
+          "stage": 1,
+          "old": [
+            44,
+            18,
+            16
+          ],
+          "new": [
+            43,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 12.93,
+          "equalStageSample": 518
+        },
+        {
+          "id": 65,
+          "name": "Robbengeist I",
+          "stage": 1,
+          "old": [
+            37,
+            18,
+            16
+          ],
+          "new": [
+            36,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 12.07,
+          "equalStageSample": 504
+        },
+        {
+          "id": 29,
+          "name": "Skelett-Hund I",
+          "stage": 1,
+          "old": [
+            37,
+            17,
+            15
+          ],
+          "new": [
+            38,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -11.79,
+          "equalStageSample": 491
+        },
+        {
+          "id": 125,
+          "name": "Phönixeule II",
+          "stage": 2,
+          "old": [
+            57,
+            24,
+            21
+          ],
+          "new": [
+            56,
+            24,
+            21
+          ],
+          "deltaToStageMedianPoints": 11.63,
+          "equalStageSample": 227
+        },
+        {
+          "id": 92,
+          "name": "Lavendelflaum",
+          "stage": 1,
+          "old": [
+            37,
+            15,
+            13
+          ],
+          "new": [
+            38,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -11.46,
+          "equalStageSample": 484
+        },
+        {
+          "id": 70,
+          "name": "Funkenfähe",
+          "stage": 1,
+          "old": [
+            42,
+            18,
+            16
+          ],
+          "new": [
+            41,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 10.8,
+          "equalStageSample": 498
+        }
+      ]
+    },
+    {
+      "round": 3,
+      "fights": 100000,
+      "wins": 50516,
+      "winPct": 50.52,
+      "losses": 49484,
+      "avgTurns": 5.98,
+      "timeouts": 0,
+      "fingerprint": "39ac7ae90e1ec41ca1dc69292c912f601b39525fa22f445fd63ae0a420b767bd",
+      "sameStageMedians": {
+        "1": 52.52,
+        "2": 52.03,
+        "3": 45.71
+      },
+      "adjustments": [
+        {
+          "id": 106,
+          "name": "Knochenhirsch I",
+          "stage": 1,
+          "old": [
+            43,
+            14,
+            12
+          ],
+          "new": [
+            44,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -17.07,
+          "equalStageSample": 728
+        },
+        {
+          "id": 131,
+          "name": "Wiesenbimmel",
+          "stage": 1,
+          "old": [
+            41,
+            14,
+            12
+          ],
+          "new": [
+            42,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -13.14,
+          "equalStageSample": 687
+        },
+        {
+          "id": 19,
+          "name": "Kürbisgeist II",
+          "stage": 2,
+          "old": [
+            50,
+            23,
+            20
+          ],
+          "new": [
+            51,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": -12.89,
+          "equalStageSample": 328
+        },
+        {
+          "id": 84,
+          "name": "Knochenhase I",
+          "stage": 1,
+          "old": [
+            38,
+            17,
+            15
+          ],
+          "new": [
+            39,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -12.32,
+          "equalStageSample": 724
+        },
+        {
+          "id": 57,
+          "name": "Waldhirsch I",
+          "stage": 1,
+          "old": [
+            38,
+            15,
+            13
+          ],
+          "new": [
+            39,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -11.96,
+          "equalStageSample": 712
+        },
+        {
+          "id": 77,
+          "name": "Eichhörnchengeist I",
+          "stage": 1,
+          "old": [
+            41,
+            15,
+            13
+          ],
+          "new": [
+            42,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -11.93,
+          "equalStageSample": 709
+        },
+        {
+          "id": 114,
+          "name": "Flutwirbel",
+          "stage": 1,
+          "old": [
+            41,
+            17,
+            15
+          ],
+          "new": [
+            40,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 11.34,
+          "equalStageSample": 701
+        },
+        {
+          "id": 14,
+          "name": "Engelsgeist II",
+          "stage": 2,
+          "old": [
+            53,
+            23,
+            20
+          ],
+          "new": [
+            52,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": 10.99,
+          "equalStageSample": 352
+        },
+        {
+          "id": 124,
+          "name": "Phönixeule I",
+          "stage": 1,
+          "old": [
+            41,
+            17,
+            15
+          ],
+          "new": [
+            40,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 10.87,
+          "equalStageSample": 754
+        }
+      ]
+    },
+    {
+      "round": 4,
+      "fights": 100000,
+      "wins": 49961,
+      "winPct": 49.96,
+      "losses": 50039,
+      "avgTurns": 5.98,
+      "timeouts": 0,
+      "fingerprint": "530d19e0b0d76d5b2080c1d3bf5603653865c636158ae870550709dc552d5182",
+      "sameStageMedians": {
+        "1": 51.79,
+        "2": 53.51,
+        "3": 45.33
+      },
+      "adjustments": [
+        {
+          "id": 28,
+          "name": "Hirschgeist II",
+          "stage": 2,
+          "old": [
+            50,
+            22,
+            19
+          ],
+          "new": [
+            51,
+            23,
+            19
+          ],
+          "deltaToStageMedianPoints": -15.38,
+          "equalStageSample": 341
+        },
+        {
+          "id": 33,
+          "name": "Eulengeist I",
+          "stage": 1,
+          "old": [
+            42,
+            16,
+            14
+          ],
+          "new": [
+            43,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -14.63,
+          "equalStageSample": 728
+        },
+        {
+          "id": 29,
+          "name": "Skelett-Hund I",
+          "stage": 1,
+          "old": [
+            38,
+            17,
+            15
+          ],
+          "new": [
+            39,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -14.29,
+          "equalStageSample": 742
+        },
+        {
+          "id": 70,
+          "name": "Funkenfähe",
+          "stage": 1,
+          "old": [
+            41,
+            18,
+            16
+          ],
+          "new": [
+            40,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 13.39,
+          "equalStageSample": 763
+        },
+        {
+          "id": 142,
+          "name": "Rosenlöffel",
+          "stage": 1,
+          "old": [
+            47,
+            18,
+            16
+          ],
+          "new": [
+            48,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": -13.27,
+          "equalStageSample": 744
+        },
+        {
+          "id": 135,
+          "name": "Sturmschnabel",
+          "stage": 1,
+          "old": [
+            43,
+            18,
+            16
+          ],
+          "new": [
+            42,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 13.01,
+          "equalStageSample": 737
+        },
+        {
+          "id": 122,
+          "name": "Flammenhase II",
+          "stage": 2,
+          "old": [
+            54,
+            21,
+            18
+          ],
+          "new": [
+            55,
+            21,
+            18
+          ],
+          "deltaToStageMedianPoints": -12.49,
+          "equalStageSample": 366
+        },
+        {
+          "id": 67,
+          "name": "Zombiehase I",
+          "stage": 1,
+          "old": [
+            40,
+            15,
+            13
+          ],
+          "new": [
+            41,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -11.76,
+          "equalStageSample": 736
+        },
+        {
+          "id": 65,
+          "name": "Robbengeist I",
+          "stage": 1,
+          "old": [
+            36,
+            18,
+            16
+          ],
+          "new": [
+            35,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 11.74,
+          "equalStageSample": 742
+        },
+        {
+          "id": 134,
+          "name": "Gischtpiep",
+          "stage": 1,
+          "old": [
+            42,
+            17,
+            15
+          ],
+          "new": [
+            41,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 10.79,
+          "equalStageSample": 727
+        }
+      ]
+    },
+    {
+      "round": 5,
+      "fights": 100000,
+      "wins": 50400,
+      "winPct": 50.4,
+      "losses": 49600,
+      "avgTurns": 5.99,
+      "timeouts": 0,
+      "fingerprint": "aea544bef65826066e3237d7809e4022c78f3f070077360931f32aed8325ebb6",
+      "sameStageMedians": {
+        "1": 51.89,
+        "2": 53.27,
+        "3": 42.92
+      },
+      "adjustments": [
+        {
+          "id": 106,
+          "name": "Knochenhirsch I",
+          "stage": 1,
+          "old": [
+            44,
+            14,
+            12
+          ],
+          "new": [
+            45,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -16.4,
+          "equalStageSample": 729
+        },
+        {
+          "id": 57,
+          "name": "Waldhirsch I",
+          "stage": 1,
+          "old": [
+            39,
+            15,
+            13
+          ],
+          "new": [
+            40,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -14.28,
+          "equalStageSample": 748
+        },
+        {
+          "id": 19,
+          "name": "Kürbisgeist II",
+          "stage": 2,
+          "old": [
+            51,
+            23,
+            20
+          ],
+          "new": [
+            52,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": -13.42,
+          "equalStageSample": 338
+        },
+        {
+          "id": 124,
+          "name": "Phönixeule I",
+          "stage": 1,
+          "old": [
+            40,
+            17,
+            15
+          ],
+          "new": [
+            39,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 13.29,
+          "equalStageSample": 803
+        },
+        {
+          "id": 101,
+          "name": "Knocheneule I",
+          "stage": 1,
+          "old": [
+            38,
+            14,
+            12
+          ],
+          "new": [
+            39,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -13.09,
+          "equalStageSample": 723
+        },
+        {
+          "id": 27,
+          "name": "Hirschgeist I",
+          "stage": 1,
+          "old": [
+            45,
+            15,
+            13
+          ],
+          "new": [
+            46,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -12.86,
+          "equalStageSample": 762
+        },
+        {
+          "id": 77,
+          "name": "Eichhörnchengeist I",
+          "stage": 1,
+          "old": [
+            42,
+            15,
+            13
+          ],
+          "new": [
+            43,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -12.07,
+          "equalStageSample": 753
+        },
+        {
+          "id": 114,
+          "name": "Flutwirbel",
+          "stage": 1,
+          "old": [
+            40,
+            17,
+            15
+          ],
+          "new": [
+            39,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 12.04,
+          "equalStageSample": 712
+        }
+      ]
+    },
+    {
+      "round": 6,
+      "fights": 100000,
+      "wins": 50240,
+      "winPct": 50.24,
+      "losses": 49760,
+      "avgTurns": 5.99,
+      "timeouts": 0,
+      "fingerprint": "9ccb8132010afb0a8b94df34088c1afd689d22f7aaa64c686c565994907008c8",
+      "sameStageMedians": {
+        "1": 51.31,
+        "2": 51.85,
+        "3": 42.49
+      },
+      "adjustments": [
+        {
+          "id": 134,
+          "name": "Gischtpiep",
+          "stage": 1,
+          "old": [
+            41,
+            17,
+            15
+          ],
+          "new": [
+            40,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 14.51,
+          "equalStageSample": 753
+        },
+        {
+          "id": 70,
+          "name": "Funkenfähe",
+          "stage": 1,
+          "old": [
+            40,
+            18,
+            16
+          ],
+          "new": [
+            39,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 13.56,
+          "equalStageSample": 748
+        },
+        {
+          "id": 29,
+          "name": "Skelett-Hund I",
+          "stage": 1,
+          "old": [
+            39,
+            17,
+            15
+          ],
+          "new": [
+            40,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -13.39,
+          "equalStageSample": 743
+        },
+        {
+          "id": 65,
+          "name": "Robbengeist I",
+          "stage": 1,
+          "old": [
+            35,
+            18,
+            16
+          ],
+          "new": [
+            34,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 12.94,
+          "equalStageSample": 734
+        },
+        {
+          "id": 28,
+          "name": "Hirschgeist II",
+          "stage": 2,
+          "old": [
+            51,
+            23,
+            19
+          ],
+          "new": [
+            52,
+            23,
+            19
+          ],
+          "deltaToStageMedianPoints": -12.37,
+          "equalStageSample": 342
+        },
+        {
+          "id": 93,
+          "name": "Stiergeist I",
+          "stage": 1,
+          "old": [
+            39,
+            16,
+            14
+          ],
+          "new": [
+            40,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -12.15,
+          "equalStageSample": 720
+        },
+        {
+          "id": 14,
+          "name": "Engelsgeist II",
+          "stage": 2,
+          "old": [
+            52,
+            23,
+            20
+          ],
+          "new": [
+            51,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": 12.03,
+          "equalStageSample": 340
+        },
+        {
+          "id": 135,
+          "name": "Sturmschnabel",
+          "stage": 1,
+          "old": [
+            42,
+            18,
+            16
+          ],
+          "new": [
+            41,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 11.66,
+          "equalStageSample": 755
+        },
+        {
+          "id": 18,
+          "name": "Kürbisgeist I",
+          "stage": 1,
+          "old": [
+            44,
+            16,
+            14
+          ],
+          "new": [
+            45,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -11.51,
+          "equalStageSample": 750
+        },
+        {
+          "id": 16,
+          "name": "Fuchsgeist I",
+          "stage": 1,
+          "old": [
+            42,
+            14,
+            12
+          ],
+          "new": [
+            43,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -11.05,
+          "equalStageSample": 681
+        },
+        {
+          "id": 79,
+          "name": "Knochenkatze I",
+          "stage": 1,
+          "old": [
+            42,
+            17,
+            15
+          ],
+          "new": [
+            43,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -10.86,
+          "equalStageSample": 727
+        },
+        {
+          "id": 90,
+          "name": "Schattenfledermaus II",
+          "stage": 2,
+          "old": [
+            58,
+            24,
+            21
+          ],
+          "new": [
+            57,
+            24,
+            21
+          ],
+          "deltaToStageMedianPoints": 10.85,
+          "equalStageSample": 346
+        }
+      ]
+    },
+    {
+      "round": 7,
+      "fights": 100000,
+      "wins": 50024,
+      "winPct": 50.02,
+      "losses": 49976,
+      "avgTurns": 5.98,
+      "timeouts": 0,
+      "fingerprint": "70c7864ce59c2293ea2e878cbd78c705219fcb9eb767aacd070d2b1831c8dc30",
+      "sameStageMedians": {
+        "1": 51.22,
+        "2": 52.34,
+        "3": 46.17
+      },
+      "adjustments": [
+        {
+          "id": 19,
+          "name": "Kürbisgeist II",
+          "stage": 2,
+          "old": [
+            52,
+            23,
+            20
+          ],
+          "new": [
+            53,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": -14.92,
+          "equalStageSample": 352
+        },
+        {
+          "id": 125,
+          "name": "Phönixeule II",
+          "stage": 2,
+          "old": [
+            56,
+            24,
+            21
+          ],
+          "new": [
+            55,
+            24,
+            21
+          ],
+          "deltaToStageMedianPoints": 13.63,
+          "equalStageSample": 364
+        },
+        {
+          "id": 122,
+          "name": "Flammenhase II",
+          "stage": 2,
+          "old": [
+            55,
+            21,
+            18
+          ],
+          "new": [
+            56,
+            21,
+            18
+          ],
+          "deltaToStageMedianPoints": -12.09,
+          "equalStageSample": 350
+        },
+        {
+          "id": 114,
+          "name": "Flutwirbel",
+          "stage": 1,
+          "old": [
+            39,
+            17,
+            15
+          ],
+          "new": [
+            38,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 11.95,
+          "equalStageSample": 719
+        },
+        {
+          "id": 106,
+          "name": "Knochenhirsch I",
+          "stage": 1,
+          "old": [
+            45,
+            14,
+            12
+          ],
+          "new": [
+            46,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -11.74,
+          "equalStageSample": 736
+        },
+        {
+          "id": 67,
+          "name": "Zombiehase I",
+          "stage": 1,
+          "old": [
+            41,
+            15,
+            13
+          ],
+          "new": [
+            42,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -11.47,
+          "equalStageSample": 698
+        },
+        {
+          "id": 142,
+          "name": "Rosenlöffel",
+          "stage": 1,
+          "old": [
+            48,
+            18,
+            16
+          ],
+          "new": [
+            49,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": -11.19,
+          "equalStageSample": 760
+        },
+        {
+          "id": 124,
+          "name": "Phönixeule I",
+          "stage": 1,
+          "old": [
+            39,
+            17,
+            15
+          ],
+          "new": [
+            38,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 11.14,
+          "equalStageSample": 787
+        },
+        {
+          "id": 57,
+          "name": "Waldhirsch I",
+          "stage": 1,
+          "old": [
+            40,
+            15,
+            13
+          ],
+          "new": [
+            41,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -10.67,
+          "equalStageSample": 715
+        },
+        {
+          "id": 133,
+          "name": "Wolkenpiep",
+          "stage": 1,
+          "old": [
+            41,
+            16,
+            14
+          ],
+          "new": [
+            40,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": 10.58,
+          "equalStageSample": 738
+        }
+      ]
+    },
+    {
+      "round": 8,
+      "fights": 100000,
+      "wins": 50515,
+      "winPct": 50.52,
+      "losses": 49485,
+      "avgTurns": 5.99,
+      "timeouts": 0,
+      "fingerprint": "232bfa8cf01323b240240b3cef1945c5cf411ddb9f53843f22a871060babc3c7",
+      "sameStageMedians": {
+        "1": 52.11,
+        "2": 50.69,
+        "3": 47.79
+      },
+      "adjustments": [
+        {
+          "id": 93,
+          "name": "Stiergeist I",
+          "stage": 1,
+          "old": [
+            40,
+            16,
+            14
+          ],
+          "new": [
+            41,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -13.63,
+          "equalStageSample": 735
+        },
+        {
+          "id": 18,
+          "name": "Kürbisgeist I",
+          "stage": 1,
+          "old": [
+            45,
+            16,
+            14
+          ],
+          "new": [
+            46,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -13.02,
+          "equalStageSample": 720
+        },
+        {
+          "id": 70,
+          "name": "Funkenfähe",
+          "stage": 1,
+          "old": [
+            39,
+            18,
+            16
+          ],
+          "new": [
+            38,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 11.3,
+          "equalStageSample": 728
+        },
+        {
+          "id": 65,
+          "name": "Robbengeist I",
+          "stage": 1,
+          "old": [
+            34,
+            18,
+            16
+          ],
+          "new": [
+            33,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 10.89,
+          "equalStageSample": 703
+        },
+        {
+          "id": 16,
+          "name": "Fuchsgeist I",
+          "stage": 1,
+          "old": [
+            43,
+            14,
+            12
+          ],
+          "new": [
+            44,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -10.88,
+          "equalStageSample": 672
+        },
+        {
+          "id": 135,
+          "name": "Sturmschnabel",
+          "stage": 1,
+          "old": [
+            41,
+            18,
+            16
+          ],
+          "new": [
+            40,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 10.87,
+          "equalStageSample": 754
+        },
+        {
+          "id": 131,
+          "name": "Wiesenbimmel",
+          "stage": 1,
+          "old": [
+            42,
+            14,
+            12
+          ],
+          "new": [
+            43,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -10.59,
+          "equalStageSample": 780
+        },
+        {
+          "id": 137,
+          "name": "Knochenschnüff",
+          "stage": 1,
+          "old": [
+            43,
+            17,
+            16
+          ],
+          "new": [
+            44,
+            17,
+            16
+          ],
+          "deltaToStageMedianPoints": -10.59,
+          "equalStageSample": 739
+        }
+      ]
+    },
+    {
+      "round": 9,
+      "fights": 100000,
+      "wins": 50268,
+      "winPct": 50.27,
+      "losses": 49732,
+      "avgTurns": 5.99,
+      "timeouts": 0,
+      "fingerprint": "a6c18a1d9a07142c7a1ba4828b6fb529d884f2e8fd79d739780a7bd82cf3e1ed",
+      "sameStageMedians": {
+        "1": 52.61,
+        "2": 51.55,
+        "3": 50.84
+      },
+      "adjustments": [
+        {
+          "id": 125,
+          "name": "Phönixeule II",
+          "stage": 2,
+          "old": [
+            55,
+            24,
+            21
+          ],
+          "new": [
+            54,
+            24,
+            21
+          ],
+          "deltaToStageMedianPoints": 14.85,
+          "equalStageSample": 362
+        },
+        {
+          "id": 142,
+          "name": "Rosenlöffel",
+          "stage": 1,
+          "old": [
+            49,
+            18,
+            16
+          ],
+          "new": [
+            50,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": -14.79,
+          "equalStageSample": 697
+        },
+        {
+          "id": 67,
+          "name": "Zombiehase I",
+          "stage": 1,
+          "old": [
+            42,
+            15,
+            13
+          ],
+          "new": [
+            43,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -14.28,
+          "equalStageSample": 739
+        },
+        {
+          "id": 57,
+          "name": "Waldhirsch I",
+          "stage": 1,
+          "old": [
+            41,
+            15,
+            13
+          ],
+          "new": [
+            42,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -14.07,
+          "equalStageSample": 727
+        },
+        {
+          "id": 77,
+          "name": "Eichhörnchengeist I",
+          "stage": 1,
+          "old": [
+            43,
+            15,
+            13
+          ],
+          "new": [
+            44,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -13.13,
+          "equalStageSample": 736
+        },
+        {
+          "id": 19,
+          "name": "Kürbisgeist II",
+          "stage": 2,
+          "old": [
+            53,
+            23,
+            20
+          ],
+          "new": [
+            54,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": -12.56,
+          "equalStageSample": 339
+        },
+        {
+          "id": 106,
+          "name": "Knochenhirsch I",
+          "stage": 1,
+          "old": [
+            46,
+            14,
+            12
+          ],
+          "new": [
+            47,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -12.15,
+          "equalStageSample": 724
+        }
+      ]
+    },
+    {
+      "round": 10,
+      "fights": 100000,
+      "wins": 50259,
+      "winPct": 50.26,
+      "losses": 49741,
+      "avgTurns": 5.99,
+      "timeouts": 0,
+      "fingerprint": "e8518d575448c69d000a9fdaefa95044c46c57d6593f707fb9fa033e4b8fd0ff",
+      "sameStageMedians": {
+        "1": 52.53,
+        "2": 50.97,
+        "3": 50.02
+      },
+      "adjustments": [
+        {
+          "id": 18,
+          "name": "Kürbisgeist I",
+          "stage": 1,
+          "old": [
+            46,
+            16,
+            14
+          ],
+          "new": [
+            47,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -13.61,
+          "equalStageSample": 732
+        },
+        {
+          "id": 92,
+          "name": "Lavendelflaum",
+          "stage": 1,
+          "old": [
+            38,
+            15,
+            13
+          ],
+          "new": [
+            39,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -13.36,
+          "equalStageSample": 709
+        },
+        {
+          "id": 93,
+          "name": "Stiergeist I",
+          "stage": 1,
+          "old": [
+            41,
+            16,
+            14
+          ],
+          "new": [
+            42,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -12.38,
+          "equalStageSample": 720
+        },
+        {
+          "id": 124,
+          "name": "Phönixeule I",
+          "stage": 1,
+          "old": [
+            38,
+            17,
+            15
+          ],
+          "new": [
+            37,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 12.28,
+          "equalStageSample": 696
+        },
+        {
+          "id": 29,
+          "name": "Skelett-Hund I",
+          "stage": 1,
+          "old": [
+            40,
+            17,
+            15
+          ],
+          "new": [
+            41,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -11.65,
+          "equalStageSample": 777
+        },
+        {
+          "id": 70,
+          "name": "Funkenfähe",
+          "stage": 1,
+          "old": [
+            38,
+            18,
+            16
+          ],
+          "new": [
+            37,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 11.31,
+          "equalStageSample": 731
+        },
+        {
+          "id": 27,
+          "name": "Hirschgeist I",
+          "stage": 1,
+          "old": [
+            46,
+            15,
+            13
+          ],
+          "new": [
+            47,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -10.57,
+          "equalStageSample": 667
+        }
+      ]
+    },
+    {
+      "round": 11,
+      "fights": 100000,
+      "wins": 50312,
+      "winPct": 50.31,
+      "losses": 49688,
+      "avgTurns": 5.99,
+      "timeouts": 0,
+      "fingerprint": "cad1af0e6bb453de2f054a6bc0e5c8c73df4717bfca77360e918fd53126b1681",
+      "sameStageMedians": {
+        "1": 52.48,
+        "2": 50.92,
+        "3": 52.45
+      },
+      "adjustments": [
+        {
+          "id": 142,
+          "name": "Rosenlöffel",
+          "stage": 1,
+          "old": [
+            50,
+            18,
+            16
+          ],
+          "new": [
+            51,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": -13.47,
+          "equalStageSample": 735
+        },
+        {
+          "id": 57,
+          "name": "Waldhirsch I",
+          "stage": 1,
+          "old": [
+            42,
+            15,
+            13
+          ],
+          "new": [
+            43,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -12.9,
+          "equalStageSample": 731
+        },
+        {
+          "id": 125,
+          "name": "Phönixeule II",
+          "stage": 2,
+          "old": [
+            54,
+            24,
+            21
+          ],
+          "new": [
+            53,
+            24,
+            21
+          ],
+          "deltaToStageMedianPoints": 12.3,
+          "equalStageSample": 329
+        },
+        {
+          "id": 134,
+          "name": "Gischtpiep",
+          "stage": 1,
+          "old": [
+            40,
+            17,
+            15
+          ],
+          "new": [
+            39,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 11.01,
+          "equalStageSample": 751
+        },
+        {
+          "id": 14,
+          "name": "Engelsgeist II",
+          "stage": 2,
+          "old": [
+            51,
+            23,
+            20
+          ],
+          "new": [
+            50,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": 10.88,
+          "equalStageSample": 351
+        },
+        {
+          "id": 77,
+          "name": "Eichhörnchengeist I",
+          "stage": 1,
+          "old": [
+            44,
+            15,
+            13
+          ],
+          "new": [
+            45,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -10.79,
+          "equalStageSample": 746
+        }
+      ]
+    },
+    {
+      "round": 12,
+      "fights": 100000,
+      "wins": 50116,
+      "winPct": 50.12,
+      "losses": 49884,
+      "avgTurns": 5.99,
+      "timeouts": 0,
+      "fingerprint": "b9fa40c1c39baad50c35568bf6e3607ace418eaac05a2a0b91feee139d23e860",
+      "sameStageMedians": {
+        "1": 52.71,
+        "2": 52.05,
+        "3": 51.19
+      },
+      "adjustments": [
+        {
+          "id": 29,
+          "name": "Skelett-Hund I",
+          "stage": 1,
+          "old": [
+            41,
+            17,
+            15
+          ],
+          "new": [
+            42,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -13.9,
+          "equalStageSample": 773
+        },
+        {
+          "id": 122,
+          "name": "Flammenhase II",
+          "stage": 2,
+          "old": [
+            56,
+            21,
+            18
+          ],
+          "new": [
+            57,
+            21,
+            18
+          ],
+          "deltaToStageMedianPoints": -12.5,
+          "equalStageSample": 367
+        },
+        {
+          "id": 84,
+          "name": "Knochenhase I",
+          "stage": 1,
+          "old": [
+            39,
+            17,
+            15
+          ],
+          "new": [
+            40,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -12.37,
+          "equalStageSample": 766
+        },
+        {
+          "id": 18,
+          "name": "Kürbisgeist I",
+          "stage": 1,
+          "old": [
+            47,
+            16,
+            14
+          ],
+          "new": [
+            48,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -12.1,
+          "equalStageSample": 726
+        },
+        {
+          "id": 147,
+          "name": "Dornschatten",
+          "stage": 1,
+          "old": [
+            38,
+            15,
+            13
+          ],
+          "new": [
+            39,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -11.87,
+          "equalStageSample": 702
+        },
+        {
+          "id": 44,
+          "name": "Mäusegeist II",
+          "stage": 2,
+          "old": [
+            57,
+            23,
+            20
+          ],
+          "new": [
+            56,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": 11.75,
+          "equalStageSample": 336
+        },
+        {
+          "id": 27,
+          "name": "Hirschgeist I",
+          "stage": 1,
+          "old": [
+            47,
+            15,
+            13
+          ],
+          "new": [
+            48,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -11.53,
+          "equalStageSample": 737
+        },
+        {
+          "id": 114,
+          "name": "Flutwirbel",
+          "stage": 1,
+          "old": [
+            38,
+            17,
+            15
+          ],
+          "new": [
+            37,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 10.99,
+          "equalStageSample": 703
+        }
+      ]
+    },
+    {
+      "round": 13,
+      "fights": 100000,
+      "wins": 50324,
+      "winPct": 50.32,
+      "losses": 49676,
+      "avgTurns": 6,
+      "timeouts": 0,
+      "fingerprint": "759123baa76520251421576cacf1f0934cee594b430cf4fa9f5a5c122845086d",
+      "sameStageMedians": {
+        "1": 51.93,
+        "2": 52.73,
+        "3": 46.5
+      },
+      "adjustments": [
+        {
+          "id": 134,
+          "name": "Gischtpiep",
+          "stage": 1,
+          "old": [
+            39,
+            17,
+            15
+          ],
+          "new": [
+            38,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": 13.59,
+          "equalStageSample": 710
+        },
+        {
+          "id": 125,
+          "name": "Phönixeule II",
+          "stage": 2,
+          "old": [
+            53,
+            24,
+            21
+          ],
+          "new": [
+            52,
+            24,
+            21
+          ],
+          "deltaToStageMedianPoints": 12.36,
+          "equalStageSample": 318
+        },
+        {
+          "id": 19,
+          "name": "Kürbisgeist II",
+          "stage": 2,
+          "old": [
+            54,
+            23,
+            20
+          ],
+          "new": [
+            55,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": -11.61,
+          "equalStageSample": 354
+        },
+        {
+          "id": 142,
+          "name": "Rosenlöffel",
+          "stage": 1,
+          "old": [
+            51,
+            18,
+            16
+          ],
+          "new": [
+            52,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": -11.52,
+          "equalStageSample": 714
+        },
+        {
+          "id": 58,
+          "name": "Waldhirsch II",
+          "stage": 2,
+          "old": [
+            53,
+            22,
+            19
+          ],
+          "new": [
+            54,
+            22,
+            19
+          ],
+          "deltaToStageMedianPoints": -11.36,
+          "equalStageSample": 349
+        },
+        {
+          "id": 79,
+          "name": "Knochenkatze I",
+          "stage": 1,
+          "old": [
+            43,
+            17,
+            15
+          ],
+          "new": [
+            44,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -10.94,
+          "equalStageSample": 742
+        },
+        {
+          "id": 9,
+          "name": "Schattenkatze III",
+          "stage": 3,
+          "old": [
+            72,
+            29,
+            25
+          ],
+          "new": [
+            71,
+            29,
+            25
+          ],
+          "deltaToStageMedianPoints": 10.87,
+          "equalStageSample": 94
+        }
+      ]
+    },
+    {
+      "round": 14,
+      "fights": 100000,
+      "wins": 50221,
+      "winPct": 50.22,
+      "losses": 49779,
+      "avgTurns": 6,
+      "timeouts": 0,
+      "fingerprint": "c0ccb806edb8f51c8b774f6478f9805969c9132dbcba6b47de0739778a556da7",
+      "sameStageMedians": {
+        "1": 51.41,
+        "2": 50.75,
+        "3": 50.34
+      },
+      "adjustments": [
+        {
+          "id": 88,
+          "name": "Einhorngeist II",
+          "stage": 2,
+          "old": [
+            56,
+            22,
+            19
+          ],
+          "new": [
+            55,
+            22,
+            19
+          ],
+          "deltaToStageMedianPoints": 13.25,
+          "equalStageSample": 360
+        },
+        {
+          "id": 67,
+          "name": "Zombiehase I",
+          "stage": 1,
+          "old": [
+            43,
+            15,
+            13
+          ],
+          "new": [
+            44,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -12.76,
+          "equalStageSample": 689
+        },
+        {
+          "id": 122,
+          "name": "Flammenhase II",
+          "stage": 2,
+          "old": [
+            57,
+            21,
+            18
+          ],
+          "new": [
+            58,
+            21,
+            18
+          ],
+          "deltaToStageMedianPoints": -11.61,
+          "equalStageSample": 354
+        },
+        {
+          "id": 14,
+          "name": "Engelsgeist II",
+          "stage": 2,
+          "old": [
+            50,
+            23,
+            20
+          ],
+          "new": [
+            49,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": 11.06,
+          "equalStageSample": 375
+        },
+        {
+          "id": 133,
+          "name": "Wolkenpiep",
+          "stage": 1,
+          "old": [
+            40,
+            16,
+            14
+          ],
+          "new": [
+            39,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": 10.88,
+          "equalStageSample": 748
+        },
+        {
+          "id": 82,
+          "name": "Schattenhase I",
+          "stage": 1,
+          "old": [
+            36,
+            15,
+            13
+          ],
+          "new": [
+            37,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -10.63,
+          "equalStageSample": 765
+        },
+        {
+          "id": 27,
+          "name": "Hirschgeist I",
+          "stage": 1,
+          "old": [
+            48,
+            15,
+            13
+          ],
+          "new": [
+            49,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -10.58,
+          "equalStageSample": 764
+        }
+      ]
+    },
+    {
+      "round": 15,
+      "fights": 100000,
+      "wins": 50350,
+      "winPct": 50.35,
+      "losses": 49650,
+      "avgTurns": 6,
+      "timeouts": 0,
+      "fingerprint": "9bcac64e28397718ac051890fcd506d7d0ff3da3cd8a32c8cc9aa804591dfdac",
+      "sameStageMedians": {
+        "1": 51.65,
+        "2": 52.79,
+        "3": 52.86
+      },
+      "adjustments": [
+        {
+          "id": 125,
+          "name": "Phönixeule II",
+          "stage": 2,
+          "old": [
+            52,
+            24,
+            21
+          ],
+          "new": [
+            51,
+            24,
+            21
+          ],
+          "deltaToStageMedianPoints": 13.37,
+          "equalStageSample": 333
+        },
+        {
+          "id": 19,
+          "name": "Kürbisgeist II",
+          "stage": 2,
+          "old": [
+            55,
+            23,
+            20
+          ],
+          "new": [
+            56,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": -11.09,
+          "equalStageSample": 365
+        },
+        {
+          "id": 18,
+          "name": "Kürbisgeist I",
+          "stage": 1,
+          "old": [
+            48,
+            16,
+            14
+          ],
+          "new": [
+            49,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -10.95,
+          "equalStageSample": 752
+        }
+      ]
+    },
+    {
+      "round": 16,
+      "fights": 100000,
+      "wins": 50636,
+      "winPct": 50.64,
+      "losses": 49364,
+      "avgTurns": 6,
+      "timeouts": 0,
+      "fingerprint": "868e284baace4323f8c1f5d77c7fc05d595dd42b0837911e0e80dd1edefb910c",
+      "sameStageMedians": {
+        "1": 51.85,
+        "2": 51.97,
+        "3": 51.47
+      },
+      "adjustments": [
+        {
+          "id": 92,
+          "name": "Lavendelflaum",
+          "stage": 1,
+          "old": [
+            39,
+            15,
+            13
+          ],
+          "new": [
+            40,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -12.65,
+          "equalStageSample": 715
+        },
+        {
+          "id": 93,
+          "name": "Stiergeist I",
+          "stage": 1,
+          "old": [
+            42,
+            16,
+            14
+          ],
+          "new": [
+            43,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -12.17,
+          "equalStageSample": 708
+        },
+        {
+          "id": 133,
+          "name": "Wolkenpiep",
+          "stage": 1,
+          "old": [
+            39,
+            16,
+            14
+          ],
+          "new": [
+            38,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": 10.57,
+          "equalStageSample": 766
+        }
+      ]
+    },
+    {
+      "round": 17,
+      "fights": 100000,
+      "wins": 49970,
+      "winPct": 49.97,
+      "losses": 50030,
+      "avgTurns": 5.99,
+      "timeouts": 0,
+      "fingerprint": "587c5fc6af49e5a563bb531230b377f27dae12aeff4e0d1f75d5dee559354492",
+      "sameStageMedians": {
+        "1": 51.95,
+        "2": 51.3,
+        "3": 46.39
+      },
+      "adjustments": [
+        {
+          "id": 15,
+          "name": "Lichtflämmchen",
+          "stage": 1,
+          "old": [
+            41,
+            18,
+            16
+          ],
+          "new": [
+            40,
+            18,
+            16
+          ],
+          "deltaToStageMedianPoints": 12.02,
+          "equalStageSample": 749
+        },
+        {
+          "id": 84,
+          "name": "Knochenhase I",
+          "stage": 1,
+          "old": [
+            40,
+            17,
+            15
+          ],
+          "new": [
+            41,
+            17,
+            15
+          ],
+          "deltaToStageMedianPoints": -10.57,
+          "equalStageSample": 715
+        }
+      ]
+    },
+    {
+      "round": 18,
+      "fights": 100000,
+      "wins": 50222,
+      "winPct": 50.22,
+      "losses": 49778,
+      "avgTurns": 6,
+      "timeouts": 0,
+      "fingerprint": "beb601e78c05db898d37e6e2238564eb3c01fa42c09961c7fec53a166ad4832c",
+      "sameStageMedians": {
+        "1": 52.34,
+        "2": 51.09,
+        "3": 42.97
+      },
+      "adjustments": [
+        {
+          "id": 106,
+          "name": "Knochenhirsch I",
+          "stage": 1,
+          "old": [
+            47,
+            14,
+            12
+          ],
+          "new": [
+            48,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -12.51,
+          "equalStageSample": 721
+        },
+        {
+          "id": 101,
+          "name": "Knocheneule I",
+          "stage": 1,
+          "old": [
+            39,
+            14,
+            12
+          ],
+          "new": [
+            40,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -11.68,
+          "equalStageSample": 759
+        },
+        {
+          "id": 90,
+          "name": "Schattenfledermaus II",
+          "stage": 2,
+          "old": [
+            57,
+            24,
+            21
+          ],
+          "new": [
+            56,
+            24,
+            21
+          ],
+          "deltaToStageMedianPoints": 11.43,
+          "equalStageSample": 372
+        },
+        {
+          "id": 14,
+          "name": "Engelsgeist II",
+          "stage": 2,
+          "old": [
+            49,
+            23,
+            20
+          ],
+          "new": [
+            48,
+            23,
+            20
+          ],
+          "deltaToStageMedianPoints": 10.85,
+          "equalStageSample": 368
+        }
+      ]
+    },
+    {
+      "round": 19,
+      "fights": 100000,
+      "wins": 50338,
+      "winPct": 50.34,
+      "losses": 49662,
+      "avgTurns": 6,
+      "timeouts": 0,
+      "fingerprint": "d1cc9605f0e48d998c1501fb4c3ec4e5f16afa6490b4834b482d96547d5f5ef1",
+      "sameStageMedians": {
+        "1": 52.02,
+        "2": 50.42,
+        "3": 42.35
+      },
+      "adjustments": [
+        {
+          "id": 97,
+          "name": "Geisterqualle III",
+          "stage": 3,
+          "old": [
+            70,
+            27,
+            23
+          ],
+          "new": [
+            69,
+            27,
+            23
+          ],
+          "deltaToStageMedianPoints": 11.93,
+          "equalStageSample": 76
+        },
+        {
+          "id": 33,
+          "name": "Eulengeist I",
+          "stage": 1,
+          "old": [
+            43,
+            16,
+            14
+          ],
+          "new": [
+            44,
+            16,
+            14
+          ],
+          "deltaToStageMedianPoints": -11.04,
+          "equalStageSample": 769
+        },
+        {
+          "id": 78,
+          "name": "Eichhörnchengeist II",
+          "stage": 2,
+          "old": [
+            55,
+            22,
+            19
+          ],
+          "new": [
+            56,
+            22,
+            19
+          ],
+          "deltaToStageMedianPoints": -11.01,
+          "equalStageSample": 343
+        },
+        {
+          "id": 88,
+          "name": "Einhorngeist II",
+          "stage": 2,
+          "old": [
+            55,
+            22,
+            19
+          ],
+          "new": [
+            54,
+            22,
+            19
+          ],
+          "deltaToStageMedianPoints": 10.99,
+          "equalStageSample": 332
+        },
+        {
+          "id": 75,
+          "name": "Eiswolf III",
+          "stage": 3,
+          "old": [
+            66,
+            30,
+            26
+          ],
+          "new": [
+            65,
+            30,
+            26
+          ],
+          "deltaToStageMedianPoints": 10.84,
+          "equalStageSample": 77
+        }
+      ]
+    },
+    {
+      "round": 20,
+      "fights": 100000,
+      "wins": 50255,
+      "winPct": 50.26,
+      "losses": 49745,
+      "avgTurns": 6,
+      "timeouts": 0,
+      "fingerprint": "86bb93bfe3eb5514aa995864b841def4ac2ce94482291b2b7cdb5a7f7e4c913e",
+      "sameStageMedians": {
+        "1": 51.84,
+        "2": 50.71,
+        "3": 43.91
+      },
+      "adjustments": [
+        {
+          "id": 101,
+          "name": "Knocheneule I",
+          "stage": 1,
+          "old": [
+            40,
+            14,
+            12
+          ],
+          "new": [
+            41,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -11.46,
+          "equalStageSample": 702
+        },
+        {
+          "id": 131,
+          "name": "Wiesenbimmel",
+          "stage": 1,
+          "old": [
+            43,
+            14,
+            12
+          ],
+          "new": [
+            44,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": -11.16,
+          "equalStageSample": 748
+        },
+        {
+          "id": 27,
+          "name": "Hirschgeist I",
+          "stage": 1,
+          "old": [
+            49,
+            15,
+            13
+          ],
+          "new": [
+            50,
+            15,
+            13
+          ],
+          "deltaToStageMedianPoints": -10.79,
+          "equalStageSample": 782
+        },
+        {
+          "id": 26,
+          "name": "Gischtflöckchen",
+          "stage": 1,
+          "old": [
+            43,
+            14,
+            12
+          ],
+          "new": [
+            42,
+            14,
+            12
+          ],
+          "deltaToStageMedianPoints": 10.69,
+          "equalStageSample": 731
+        }
+      ]
+    }
+  ],
+  "interpretation": "Progressive random samples vary by round, so winPct drift is not a controlled A/B comparison. Strong improvements must be validated on paired seeds."
+}

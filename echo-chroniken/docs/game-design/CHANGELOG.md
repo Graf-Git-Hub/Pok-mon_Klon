@@ -1,5 +1,11 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-05 - PC-Training mit 20 x 100.000 echten Engine-Duellen
+- Alle 20 Runden abgeschlossen, unabhängig zufällig gewählte Arten an beiden Seiten, 2.000.000 Kämpfe, 0 Timeouts. Nach jeder Runde gezielte bounded HP/ATK/DEF-Anpassungen, 141 Anpassungsaktionen, 42 Arten am Ende geändert; kein Eingriff in Save/ID/Story-Elemente und Starter-Familie #1–3 geschützt.
+- Unabhängige neue 100.000 Vorher- und 100.000 Nachher-Duelle mit identischen Paarungen: Abweichung zum Stufenmedian 6,953 → 6,346 Prozentpunkte, große Ausreißer 4 → 3. 0 Hänger.
+- Rohberichte und schneller struktureller Regressionstest archiviert, gesamtes Ergebnis und Grenzen in `ADAPTIVE_20X100K_20261105.md`. Weiteres Feinbalancing braucht gezielte kontrollierte Experimente statt bloß höherer Kampfzahlen.
+
+
 ## 2026-11-05 - Zweite Balancerunde mit 100.000 Zufallskämpfen
 - Nach PR #32 elf Arten gezielt durch sehr begrenzte HP-/ATK-/DEF-Anpassungen nachjustiert, darunter Hasengeist II, Katzengeist I/II, Skelett-Hund III und Robbengeist II; alle 150 IDs, Namen, Moves, Story und Save-Felder bleiben unverändert.
 - Drei vollständige Kalibriermatrizen zu jeweils 135.000 Kämpfen, alle ohne Timeout; die bislang sehr schwachen Zweitentwicklungen gewinnen nun über 40 % gegen Gleichstufige, Robbengeist II liegt statt 84,85 % bei 73,86 %.
