@@ -1,5 +1,8 @@
 # ECHO-CHRONIKEN — Verbindliches Projektprotokoll und Übergabe
 
+> **NEU 05.11.2026, Balance + 100.000 zufällige Kämpfe:** separater Branch `feature/echo-balanced-random100k-20261105`, Worktree `Echo_Random100k_Balance_20261105` auf Basis `aac847d` nach PR #32. Zehn schwache Wesen gezielt bei HP/ATK/DEF korrigiert, überstarkes Robbengeist II leicht gedämpft, Miora/Maternalis unverändert. Eine echte 135k-Matrix vor der Justierung sowie je eine Matrix nach zwei Kalibrierrunden (alle 0 Timeouts). Final Hasengeist II 20,83 → 42,80 %, Katzengeist II 23,86 → 40,53 %, Robbengeist II 84,85 → 73,86 % Siege gegen gleichstufige Gegner. **Danach** 100.000 seed-zufällige Kämpfe auf Laura mit unabhängig gezogenen Wesen auf beiden Seiten: 50.191 Siege, 49.809 Niederlagen, 0 Timeouts, 5,98 Runden Durchschnitt; SHA-256-Prüffingerabdruck `4de8470b3272ec428768b971cd3541503960734a51a4b1dd426e892fab07113a`. GitHub-Gegenprobe per eigener CI und vollständiger Bericht `echo-chroniken/docs/game-design/BALANCE_RANDOM100K_20261105.md`. Kein echter Controller-/Menschen-Spieltest, keine Save-/ID-/Signaturänderung. Bis Cloud- und Story-/Matrixprüfungen vollständig grün bleiben Änderungen nur im Branch.
+
+
 > **05.11.2026, neue Statusmechanik:** Separater Worktree `C:\\Users\\graf8\\Documents\\GitHub\\Echo_StatusEffects_20261105`, Branch `feature/echo-status-effects-20261105` auf Grundlage PR #28 + PR #30 Merge (`a3d2886`): 12 ausgewählte Attacken mit taktischen Zuständen, neue Tests, Battle-Lab mit allen 150 Arten, UI. Stand lokal: 46 Node-Tests plus Desktop/Touch-Browserprüfung erfolgreich. **Noch keine Aussage zu fertiger Hauptversion oder neuer APK**, vor Integration die GitHub-CI prüfen. Siehe `echo-chroniken/docs/game-design/COMBAT_STATUS_EFFECTS_20261105.md`.
 
 

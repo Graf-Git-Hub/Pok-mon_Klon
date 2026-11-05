@@ -1,5 +1,11 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-05 - Zweite Balancerunde mit 100.000 Zufallskämpfen
+- Nach PR #32 elf Arten gezielt durch sehr begrenzte HP-/ATK-/DEF-Anpassungen nachjustiert, darunter Hasengeist II, Katzengeist I/II, Skelett-Hund III und Robbengeist II; alle 150 IDs, Namen, Moves, Story und Save-Felder bleiben unverändert.
+- Drei vollständige Kalibriermatrizen zu jeweils 135.000 Kämpfen, alle ohne Timeout; die bislang sehr schwachen Zweitentwicklungen gewinnen nun über 40 % gegen Gleichstufige, Robbengeist II liegt statt 84,85 % bei 73,86 %.
+- Im finalen Stand 100.000 echte Engine-Kämpfe mit unabhängig zufällig gewählten Wesen beider Seiten ausgeführt: 50.191 Siege, 49.809 Niederlagen, 0 Timeouts. Unabhängige, identische GitHub-Kontrolle und ein fester Guardrail-Test ergänzt; mehr Details in `BALANCE_RANDOM100K_20261105.md`.
+
+
 ## 2026-11-05 - Taktische Zusatzeffekte für Elementattacken (separater Branch)
 - 12 ausgewählte Feuer-, Eis-, Blitz-, Psycho-, Natur- und Runenattacken mit Brand, Schwächung, Schutz oder Regeneration.
 - Effekte gelten pro Kampf und individuellem Wesen, Dauer begrenzt; keine Save-Schema-Migration oder Änderungen an Arten-IDs.

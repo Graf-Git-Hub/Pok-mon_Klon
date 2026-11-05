@@ -1,0 +1,39 @@
+name: Echo-Chroniken 100000 Fully Random Duels (PC-GitHub Parity)
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/tests/combat-100000-random.cjs'
+      - 'echo-chroniken/project/data/species.js'
+      - 'echo-chroniken/project/data/skills.js'
+      - 'echo-chroniken/project/src/game.js'
+      - '.github/workflows/echo-100000-random.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  one-hundred-thousand:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Reproduce 100000 fully random 150-species duels
+        run: node echo-chroniken/project/tests/combat-100000-random.cjs
+      - name: Compare GitHub outcomes to PC run
+        run: |
+          node -e "const r=require('./echo-chroniken/docs/visual-audit/battle-matrix/duel-100000-random-report.json');const hash='4de8470b3272ec428768b971cd3541503960734a51a4b1dd426e892fab07113a';if(r.count!==100000||r.timeouts!==0||r.fingerprint!==hash||r.wins!==50191||r.losses!==49809){console.error('PARITY_FAILURE',r.count,r.timeouts,r.fingerprint,r.wins);process.exit(1)}console.log('LAURA_GITHUB_100000_PARITY_OK',r.fingerprint);"
+      - name: Verify full per-species report is identical to PC evidence
+        run: git diff --exit-code -- echo-chroniken/docs/visual-audit/battle-matrix/duel-100000-random-report.json
+      - name: Keep full report for download
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-random100k-balance-report
+          path: echo-chroniken/docs/visual-audit/battle-matrix/duel-100000-random-report.json
+          retention-days: 14
+          if-no-files-found: error
