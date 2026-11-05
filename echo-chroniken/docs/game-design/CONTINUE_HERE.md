@@ -1,5 +1,8 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+> **NEUE BALANCING-RUNDE & 100K ZUFALLSKÄMPFE (05.11.2026):** Branch `feature/echo-balanced-random100k-20261105` auf Basis der gemergten PR #32. 10 schwächere Wesen durch kleine HP/ATK/DEF-Änderungen verbessert, Robbengeist II leicht reduziert. 135.000-Kämpfe-Kalibrierung: 0 Timeouts, Hasengeist II jetzt 42,80 %, Katzengeist II 40,53 % gegen gleiche Stufe, Robbengeist II 73,86 %. Danach 100.000 zufällige Doppelwesen-Kämpfe auf Laura: 50.191 Siege, 49.809 Niederlagen, 0 Timeouts; Gegenprobe auf GitHub folgt. Detailliert in `BALANCE_RANDOM100K_20261105.md`. Originalarbeitskopie nicht ändern; PR erst nach vollständiger CI mergen. Weitere Balanceausreißer kontrolliert und separat prüfen.
+
+
 > **NEU 05.11.2026: Taktische Zusatzeffekte als eigener PR-Zweig** `feature/echo-status-effects-20261105` auf Basis `a3d2886` (PR #28 inklusive gemergter Browser-Korrektur PR #30). 12 ausgewählte Attacken können Brand, Frost/Schock/Verwirrung (Schaden -20 %), einmaligen Schutz (-35 %) oder kurze Regeneration auslösen. Neuer statusisolierter Mechaniktest (46/46 lokales Node-Paket bestanden), tatsächliche Canvas-Attackenwahl im Desktop/Touch-Browser getestet; Battle Lab unterstützt nun alle 150 Wesen. Eigene GitHub-CI und natürliche Gesamtkampagne nach PR-Erstellung kontrollieren, bis dahin nicht in `main` mergen. Details in `COMBAT_STATUS_EFFECTS_20261105.md`. Alte Nutzerdateien im ursprünglichen Worktree nicht anfassen.
 
 
