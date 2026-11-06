@@ -1,0 +1,68 @@
+name: Echo-Chroniken Rune Economy and 2 Million Battles
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/src/game.js'
+      - 'echo-chroniken/project/tests/rune-two-million-battles.cjs'
+      - 'echo-chroniken/project/tests/rune-shop-flow.cjs'
+      - 'echo-chroniken/project/qa/rune-market-browser.py'
+      - '.github/workflows/echo-rune-economy-2m.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  store-and-special-runes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare browser
+        run: |
+          python -m pip install playwright==1.56.0
+          google-chrome --version
+      - name: Verify shop currency quest rune actual damage and save v2
+        run: |
+          node echo-chroniken/project/tests/rune-shop-flow.cjs
+          node echo-chroniken/project/tests/auto-equipment.cjs
+          node echo-chroniken/project/tests/ep-divider.cjs
+          node echo-chroniken/project/tests/save-compat.cjs
+      - name: Walk real village shop and hidden rune on Chrome desktop/touch
+        run: python echo-chroniken/project/qa/rune-market-browser.py
+      - name: Save merchant and hidden rune screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-rune-market-browser
+          path: echo-chroniken/docs/visual-audit/rune-market/
+          retention-days: 7
+
+  two-million-real-combat-rules:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      RUNE_FIGHTS: '2000000'
+      RUNE_SEED: '20261106'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Play 2 million randomized full duels with game engine damage and status rules
+        run: node echo-chroniken/project/tests/rune-two-million-battles.cjs
+      - name: Save full deterministic results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-rune-two-million-report
+          path: echo-chroniken/docs/visual-audit/rune-million/rune-2000000-report.json
+          retention-days: 14
+          if-no-files-found: warn

@@ -1,5 +1,12 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-06 - Echte Runen-Wirtschaft, seltene Funde und 2.000.000 Kampfduelle
+- Drei Wege fuer echte Runen: Wurzelheimer Dorfladen mit Echo-Muenzen, eine einmalige sichtbare versteckte Nebel-Rune und einmalige Ahnen-Runen-Questbelohnung nach dem Ruinenboss.
+- Kraft-Rune +12 % Schaden, Schutz-Rune -12 % erhaltenen Schaden, Nebel-Rune +7 % Kraft/-7 % Schaden, Ahnen-Rune +3 % Heilung je eigenen Schadenangriff. Alle wirken auch in Teamkaempfen, auf beiden Seiten, mit den weiterhin 1/2/3 evolutionsabhaengigen Ausruestungsslots und der bisherigen EP-Rune. Keine Mehrfachanlage derselben Rune pro Wesen.
+- Bestehender Dorfladen wurde zum echten Kaufmenue; Preise, 75 Startmuenzen, Wild- und Trainerbelohnungen, limitierte Angriffsrunen, absichernde Inventar-, Shop- und Fundspeicherung ohne v2-Schemaerhoehung.
+- Zwei Millionen vollstaendige seed-basierte Kampfsimulationen mit **44.286.407 Attacken**, 1.000.000 3v3, 800.000 1v1, 200.000 2v3, **keinen** Timeouts, ungueltigen HP-Werten oder Slot-Verstoessen. Bericht und Quelltest unter visual-audit/rune-million und tests/rune-two-million-battles.cjs.
+- Neue Desktop/Touch-Chrome-QA von Shop und verstecktem Fund, Node-Regressions- und Shop-Quest-Pruefung, GitHub-Workflow mit 2-Millionen-Test. Details: RUNE_WIRTSCHAFT_2M_20261106.md.
+
 ## 2026-11-06 - Klassisches START-Seitenmenue und HP-Anzeigen
 - START oeffnet ein schmales, rechtsseitiges Pixel-Menue ueber der Spielwelt (Seelenbuch, Team, Rucksack, Runen, Archiv, Speichern, Optionen, Zurueck); Navigation per Controller, Tastatur und Touch.
 - Neue Teamuebersicht mit HP-Balken sowie ein echtes Rucksack-Register mit Ausruestungs-Anbindung und bisheriger Teamheilung. Alte Runen-/Archiv- und Speichervorgaenge weiter nutzbar.

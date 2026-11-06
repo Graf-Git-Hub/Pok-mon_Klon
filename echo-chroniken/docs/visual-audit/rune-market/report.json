@@ -1,0 +1,44 @@
+{
+  "scope": "Real gameplay merchant buying, save, rare scroll one-time, hidden village find, desktop/touch",
+  "cases": [
+    {
+      "viewport": "desktop",
+      "scene": "merchant",
+      "screens": [
+        "desktop-merchant-shop-open.png",
+        "desktop-merchant-purchase.png",
+        "desktop-merchant-sold-out.png"
+      ],
+      "success": true
+    },
+    {
+      "viewport": "desktop",
+      "scene": "hidden",
+      "screens": [
+        "desktop-hidden-hidden-sparkle.png",
+        "desktop-hidden-found.png"
+      ],
+      "success": true
+    },
+    {
+      "viewport": "touch",
+      "scene": "merchant",
+      "screens": [
+        "touch-merchant-shop-open.png",
+        "touch-merchant-purchase.png",
+        "touch-merchant-sold-out.png"
+      ],
+      "success": true
+    },
+    {
+      "viewport": "touch",
+      "scene": "hidden",
+      "screens": [
+        "touch-hidden-hidden-sparkle.png",
+        "touch-hidden-found.png"
+      ],
+      "success": true
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,43 @@
+{
+  "seed": 20261106,
+  "requested": 2000000,
+  "completed": 2000000,
+  "byFormat": {
+    "1v1": 800000,
+    "2v3": 200000,
+    "3v3": 1000000
+  },
+  "wins": {
+    "left": 951648,
+    "right": 1048352,
+    "draw": 0
+  },
+  "equipmentInstances": {
+    "none": 160073,
+    "ep_teiler": 636162,
+    "rune_kraft": 1541763,
+    "rune_schutz": 1542512,
+    "rune_nebel": 1334378,
+    "rune_ahnen": 1334546
+  },
+  "epHolderFights": 636162,
+  "benchEpChecks": 636162,
+  "statusTriggers": 1125508,
+  "attacks": 44286407,
+  "lifestealHp": 50120948,
+  "maxTurns": 32,
+  "timeouts": 0,
+  "invalidHealth": 0,
+  "violatedSlots": 0,
+  "bothSidesWithRunes": 1249339,
+  "types": {},
+  "runeSideWins": 0,
+  "hash": 2884731669,
+  "elapsedSeconds": 216,
+  "equipmentDistribution": [
+    3981210,
+    3601266,
+    900639,
+    116885
+  ]
+}
