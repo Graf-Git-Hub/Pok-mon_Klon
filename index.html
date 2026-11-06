@@ -15,12 +15,25 @@ h2{font-size:19px;letter-spacing:-.025em;margin:25px 0 12px}.lanes,.cases{displa
 @media(min-width:700px){.top{grid-template-columns:1fr 1fr}.lanes,.cases{grid-template-columns:repeat(2,minmax(0,1fr))}.ring{width:165px;height:165px}}
 @media(min-width:990px){.lanes,.cases{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:370px){.overview{gap:10px}.ring{width:106px;height:106px}.ring:before{inset:9px}.ringText b{font-size:24px}.stat b{font-size:23px}}
+</style><style>
+.monitorWall{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.monitor{background:#121f33;border:1px solid #31506c;border-radius:15px;padding:8px;overflow:hidden;min-width:0}
+.monitorPicture{width:100%;height:140px;object-fit:contain;background:#06101e;border-radius:9px;display:block}
+.monitorNoPicture{height:140px;display:grid;place-items:center;background:#071221;border-radius:9px;color:#82a3bc;font-size:12px;text-align:center;padding:12px}
+.monitorText{display:flex;justify-content:space-between;gap:6px;align-items:center;font-size:11px;margin-top:7px;min-width:0}
+.monitorText strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.monitorText span{color:#91a6be;white-space:nowrap}
+.monitorHint{color:#99adc7;font-size:11px;line-height:1.5;margin:5px 0 13px}
+@media(min-width:760px){.monitorWall{grid-template-columns:repeat(4,minmax(0,1fr))}.monitorPicture,.monitorNoPicture{height:160px}}
 </style></head><body>
 <div class="app">
 <header><div class="brand">🎮 ECHO CHRONIKEN<small>Parallel-Labor · Laura PC</small></div><div id="live" class="live off"><span class="dot"></span><span id="liveText">Verbinde…</span></div></header>
 <div class="hero"><p class="eyebrow">Live · 100 Spielweisen</p><h1>Jeder spielt <em>anders.</em></h1><p class="subtitle">100 verschiedene Testläufe mit eigenen Fang-, Level- und Heilregeln. Alle Varianten haben getrennte Browser-Spielstände. Du siehst hier den echten Fortschritt direkt von Laura.</p></div>
 <div class="top"><div class="panel overview"><div class="ring" id="ring"><div class="ringText"><b id="pct">0%</b><small>Gesamtfortschritt</small></div></div><div><div class="done"><span id="done">0</span> <small>/ 100</small></div><p>Varianten abgeschlossen</p><p id="uptime">Bereit zum Start</p></div></div>
 <div class="panel stats"><div class="stat run"><b id="numRun">0</b><small>▶ Gerade aktiv</small></div><div class="stat pass"><b id="numPass">0</b><small>✓ Erfolgreich</small></div><div class="stat fail"><b id="numFail">0</b><small>! Fehler / blockiert</small></div><div class="stat wait"><b id="numQueue">100</b><small>◷ Wartend</small></div></div></div>
+<h2>📺 Spielmonitore</h2>
+<p class="monitorHint">Echte Screenshots der parallelen Spieltests. Neue Bilder werden etwa jede Minute über GitHub übertragen, also keine flüssige Videoübertragung. Tippe auf ein Spielbild für die größere Ansicht.</p>
+<div class="monitorWall" id="monitorWall"><div class="monitorNoPicture">Die ersten Spielbilder werden aufgenommen …</div></div>
 <h2>🟢 Aktive Spieltests</h2><div class="lanes" id="lanes"><div class="lane">Noch keine laufenden Tests.</div></div>
 <h2>🗺️ Alle 100 Varianten</h2><div class="tools"><input id="search" placeholder="🔎 Level 10, Heilung …"><select id="filter"><option value="all">Alle Status</option><option value="running">Gerade aktiv</option><option value="passed">Erfolgreich</option><option value="failed">Fehler</option><option value="blocked">Regel blockiert</option><option value="queued">Wartend</option></select></div>
 <div class="resultCount" id="count">100 Varianten</div><div class="cases" id="cases"></div>
@@ -40,6 +53,11 @@ function render(d){
  $('numRun').textContent=c.running;$('numPass').textContent=c.passed;$('numFail').textContent=c.failed+c.blocked;$('numQueue').textContent=c.queued;
  $('uptime').textContent='Aktiv seit '+elapsed(d.startedAt)+' · '+d.workerLimit+' parallele Spieler';
  var active=d.variants.filter(function(v){return v.status==='running'});
+ var visibleMonitors=active.length?active:d.variants.filter(function(v){return v.status==='passed'}).slice(-4);
+ $('monitorWall').innerHTML=visibleMonitors.length?visibleMonitors.map(function(v){
+ var frame=v.frame?'<a href="./'+esc(v.frame)+'?v='+Number(v.frameUpdated||0)+'" target="_blank" rel="noopener" title="Spielbild vergrößern"><img class="monitorPicture" loading="lazy" src="./'+esc(v.frame)+'?v='+Number(v.frameUpdated||0)+'" alt="Spielbild '+esc(v.id)+'"></a>':'<div class="monitorNoPicture">📺<br>Bild wird aufgenommen</div>';
+ return '<div class="monitor">'+frame+'<div class="monitorText"><strong>'+esc(v.id)+' · '+esc(v.device)+'</strong><span>'+Math.round(v.progress)+'%</span></div><div class="monitorText"><span>'+esc(v.stage)+'</span><span>'+(v.frameUpdated?'Bild '+clock(v.frameUpdated):'Noch kein Bild')+'</span></div></div>'
+ }).join(''):'<div class="monitorNoPicture">Aktuell laufen keine Spieltests.</div>';
  $('lanes').innerHTML=active.length?active.map(function(v){return '<div class="lane"><div class="line"><strong>'+esc(v.id)+' · '+esc(v.device)+'</strong><span class="tag">▶ AKTIV</span></div><small>'+esc(v.title)+'</small><small>🎯 '+esc(v.stage)+'</small><div class="track"><div class="fill" style="width:'+v.progress+'%"></div></div></div>'}).join(''):'<div class="lane"><strong>Kein Test aktiv</strong><small>Der Scheduler startet die nächsten Spielvarianten.</small></div>';
  var term=$('search').value.trim().toLowerCase(),sel=$('filter').value;
  var visible=d.variants.filter(function(v){return (sel==='all'||v.status===sel)&&(!term||(v.id+' '+v.title+' '+v.device+' '+v.stage).toLowerCase().indexOf(term)!==-1)});
