@@ -345,7 +345,7 @@
       talk: () => {
         if (!gameState.gymDefeated[0]) return ['Lyra: „Besiege zuerst Wächter Kael im Westen, bevor du mich herausforderst!“'];
         if (gameState.gymDefeated[1]) return ['Arenaleiterin Lyra: „Hörst du es auch? Die 150 Wesen flüstern mit den Stimmen unserer Ahnen.“'];
-        startTrainerBattle(1, 'Arenaleiterin Lyra', [{ id: 52, lv: 11 }, { id: 86, lv: 13 }]);
+        startTrainerBattle(1, 'Arenaleiterin Lyra', [{ id: 52, lv: 11 }, { id: 86, lv: 13, runes: ['rune_schutz'] }]);
         return null;
       }
     },
@@ -360,7 +360,7 @@
             '„Wandere weiter durch das Land und vervollständige das Erbe aller 150 Seelen!“'
           ];
         }
-        startTrainerBattle(2, 'Meister Vex', [{ id: 112, lv: 15 }, { id: 144, lv: 16 }, { id: 150, lv: 18 }]);
+        startTrainerBattle(2, 'Meister Vex', [{ id: 112, lv: 15, runes: ['rune_schutz'] }, { id: 144, lv: 16, runes: ['rune_kraft'] }, { id: 150, lv: 18, runes: ['rune_nebel'] }]);
         return null;
       }
     }
@@ -1009,7 +1009,18 @@
     function startTrainerBattle(gymIndex, trainerName, roster) {
     const queue = roster.map(r => {
       gameState.seenIds[r.id] = true;
-      return createMonsterInstance(r.id, r.lv);
+      const monster = createMonsterInstance(r.id, r.lv);
+      // Authored trainer runes use ordinary equipment and the exact same
+      // battle modifiers as player runes, without touching player inventory.
+      const assigned = Array.isArray(r.runes) ? r.runes : [];
+      const seen = new Set();
+      for (const runeId of assigned) {
+        if (!Object.prototype.hasOwnProperty.call(PASSIVE_RUNES, runeId) || seen.has(runeId)) continue;
+        if (monster.equipment.length >= gearLimit(monster)) break;
+        seen.add(runeId);
+        monster.equipment.push({id:runeId});
+      }
+      return monster;
     });
     sfx.confirm();
     gameState.mode = 'BATTLE';
@@ -1493,6 +1504,7 @@ function executeBattleAction(choice){
   // Keep the final opponent last: chapter victory is awarded only after it falls.
   function storyBossRoster(boss,species,level){
     const openerId={varekFirst:89,shaftGuardian:89,varekFinal:62}[boss];
+    // Story boss difficulty is balanced separately from optional trainer runes.
     return openerId?[{id:openerId,lv:Math.max(3,level-4)},{id:species,lv:level}]:
       [{id:species,lv:level}];
   }
@@ -2090,7 +2102,7 @@ function executeBattleAction(choice){
     setTimeout(() => toastEl.classList.remove('show'), 3500);
   });
 
-  let platformButtonA=false,platformButtonB=false,platformButtonStart=false;
+  let platformButtonA=false,platformButtonB=false,platformButtonStart=false,padStartHeld=false;
   function pollGamepad(now) {
     const pads = navigator.getGamepads ? navigator.getGamepads() : [];
     const gp = pads[0];
@@ -2107,12 +2119,16 @@ function executeBattleAction(choice){
       if(back&&!platformButtonB)handleCommand('B');
       if(pause&&!platformButtonStart)handleCommand('START');
       platformButtonA=jump;platformButtonB=back;platformButtonStart=pause;
+      padStartHeld=pause;
       if(gameState.mode==='PLATFORM'&&now-lastPadTime>=95){
         if(left!==right){handleCommand(left?'LEFT':'RIGHT');lastPadTime=now;}
       }
       return;
     }
     platformButtonA=false;platformButtonB=false;platformButtonStart=false;
+    // Only one START action per press. Holding Plus must not open then close
+    // the menu again on the controller's 155 ms repeat interval.
+    if(!gp?.buttons?.[9]?.pressed)padStartHeld=false;
     if (!gp || now - lastPadTime < 155) return;
 
     const axX = gp.axes[0] || 0;
@@ -2127,13 +2143,14 @@ function executeBattleAction(choice){
     else if (b(1) || b(0)) cmd = b(1) ? 'A' : 'B'; // Switch A (rechts) / B (unten)
     else if (b(4)) cmd = 'L';
     else if (b(5)) cmd = 'R';
-    else if (b(9)) cmd = 'START';   // Plus (+)
+    else if (b(9) && !padStartHeld) cmd = 'START';   // Plus (+), edge-triggered
     else if (b(8)) cmd = 'PALETTE'; // Minus (-)
     else if (b(6)) cmd = 'MOVES'; // ZL öffnet das Attackenbuch
     else if (b(7)) cmd = 'FULLSCREEN'; // ZR
 
     if (cmd) {
       lastPadTime = now;
+      if(cmd==='START')padStartHeld=true;
       handleCommand(cmd);
     }
   }
