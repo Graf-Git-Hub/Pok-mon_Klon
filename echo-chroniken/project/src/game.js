@@ -506,6 +506,27 @@
     m.equippedMoves=recommendedLoadout(m);
     return m;
   }
+  // EP-Teiler is passive equipment, never a learned move or one of four battle skills.
+  function availableRunes(){
+    const attackRunes=SKILLBOOK.RUNES.filter(x=>(gameState.runes[x.id]||0)>0);
+    return gameState.supportRuneUnlocked?
+      [{id:'ep_teiler',name:'EP-Teiler',kind:'support'},...attackRunes]:attackRunes;
+  }
+  function toggleSupportRune(monster){
+    if(!monster||!gameState.supportRuneUnlocked)return 'Die EP-Rune wurde noch nicht gefunden.';
+    if(monster.heldSupportRune==='ep_teiler'){
+      delete monster.heldSupportRune;
+      saveGame(true);
+      return 'Der EP-Teiler wurde abgelegt.';
+    }
+    // Only one copy exists. Moving it from the archive or a teammate cannot duplicate it.
+    for(const member of [...gameState.team,...(gameState.archive||[])])
+      if(member&&member.heldSupportRune==='ep_teiler')delete member.heldSupportRune;
+    monster.heldSupportRune='ep_teiler';
+    saveGame(true);
+    return SPECIES[monster.id-1].name+' traegt jetzt den EP-Teiler. Im Kampf kurz einsetzen reicht!';
+  }
+
   function teachRune(monster,runeId){
     ensureMonsterMoves(monster);
     const rune=SKILLBOOK.RUNES.find(x=>x.id===runeId);
@@ -557,6 +578,7 @@
     orbs: 12,
     runes: {},
     runeRewards: {},
+    supportRuneUnlocked: false,
     runeCursor: 0,
     runeTeamCursor: 0,
     attackBookTeamCursor: 0,
@@ -620,6 +642,7 @@
         orbs: gameState.orbs,
         runes: gameState.runes,
         runeRewards: gameState.runeRewards,
+        supportRuneUnlocked: gameState.supportRuneUnlocked,
         encounterGrace: gameState.encounterGrace,
         battleWins: gameState.battleWins,
         routeQuest: gameState.routeQuest,
@@ -706,6 +729,9 @@
        }
        if(!gameState.runes||typeof gameState.runes!=='object')gameState.runes={};
       if(!gameState.runeRewards||typeof gameState.runeRewards!=='object')gameState.runeRewards={};
+      // Grant the new passive rune retroactively to existing players who have won before.
+      gameState.supportRuneUnlocked=!!gameState.supportRuneUnlocked||
+        (Number(gameState.battleWins)||0)>0||(Number(gameState.badges)||0)>0;
       gameState.team.forEach(m=>{ensureMonsterMoves(m);if(!m.nextXp)m.nextXp=m.lv*18;});
       if((d.balanceVersion||0)<6){
         // Einmalige Wiedergutmachung für überharte frühe Kämpfe.
@@ -801,7 +827,7 @@
     gameState.battle={isTrainer:false,trainerName:null,gymIndex:null,
       enemyQueue:[enemy],enemy,cursor:0,attackCursor:0,attackTop:0,
       log:`Ein wildes ${SPECIES[wildId-1].name} (Lv.${wildLv}) erscheint!`,
-      animTimer:0,busy:false};
+      animTimer:0,busy:false,participants:[getActiveAlly()]};
     sfx.confirm();
   }
 
@@ -821,12 +847,20 @@
       cursor: 0,attackCursor:0,attackTop:0,
       log: `${trainerName} fordert dich heraus!`,
       animTimer: 0,
-      busy: false
+      busy: false,
+      participants: [getActiveAlly()]
     };
   }
 
   function getActiveAlly() {
     return gameState.team.find(m => m.hp > 0) || gameState.team[0];
+  }
+
+  function markBattleParticipant(monster){
+    const battle=gameState.battle;
+    if(!battle||!monster)return;
+    if(!Array.isArray(battle.participants))battle.participants=[];
+    if(!battle.participants.includes(monster))battle.participants.push(monster);
   }
 
   // A flat 36 KP potion stops being useful against late-story enemies.
@@ -974,6 +1008,7 @@ function executeBattleAction(choice){
       if (ally.hp <= 0) {
         const nextAlive = gameState.team.find(m => m.hp > 0);
         if (nextAlive) {
+          markBattleParticipant(nextAlive);
           b.log = `${allySp.name} zieht sich zurück! ${SPECIES[nextAlive.id - 1].name} springt ein!`;
           b.busy = false;
         } else {
@@ -1020,15 +1055,21 @@ function executeBattleAction(choice){
 
     const msgs = [`${b.enemyDisplayName||SPECIES[enemy.id - 1].name} wurde besänftigt! (+${xpGain} EP)`];
 
-    // The active fighter keeps 100% of its XP. Healthy reserves share one
-    // extra 40%-sized pool, never a full reward for every team slot.
-    const reserves=gameState.team.filter(member=>member!==ally&&member.hp>0);
-    const reserveXp=reserves.length?Math.floor(xpGain*.4/reserves.length):0;
-    const activeFighter=ally;
-    for(const member of [activeFighter,...reserves]){
-      const points=member===activeFighter?xpGain:reserveXp;
+    // Participants (including immediate switches) share 100% of the fight's XP.
+    // Unused healthy members split the existing 40% bonus reserve pool.
+    // A holder who actually entered this fight upgrades that bonus pool to 100%.
+    const participants=(Array.isArray(b.participants)?b.participants:[ally])
+      .filter((member,index,list)=>member?.hp>0&&gameState.team.includes(member)&&list.indexOf(member)===index);
+    if(ally.hp>0&&!participants.includes(ally))participants.push(ally);
+    const reserves=gameState.team.filter(member=>member.hp>0&&!participants.includes(member));
+    const runeActive=participants.some(member=>member.heldSupportRune==='ep_teiler');
+    const reservePool=Math.floor(xpGain*(runeActive?1:.4));
+    const reserveXp=reserves.length?Math.floor(reservePool/reserves.length):0;
+    for(let i=0;i<participants.length+reserves.length;i++){
+      const ally=i<participants.length?participants[i]:reserves[i-participants.length];
+      const points=i<participants.length?
+        Math.floor(xpGain/participants.length)+(i<xpGain%participants.length?1:0):reserveXp;
       if(points<=0)continue;
-      const ally=member;
       if(!Number.isFinite(ally.nextXp)||ally.nextXp<=0)
         ally.nextXp=ally.lv*18;
       ally.xp=Math.max(0,Number(ally.xp)||0)+points;
@@ -1061,6 +1102,9 @@ function executeBattleAction(choice){
       }
     }
     }
+    if(participants.length>1)
+      msgs.push('Kampf-EP werden auf '+participants.length+' eingesetzte Wesen verteilt.');
+    if(runeActive&&reserveXp>0)msgs.push('EP-Teiler aktiv: Alle gesunden Begleiter profitieren!');
     if(reserveXp>0)msgs.push(`Deine ${reserves.length} Begleiter erhalten jeweils +${reserveXp} EP.`);
 
     if(b.enemyQueue.length===1 && b.isTrainer){
@@ -1078,9 +1122,15 @@ function executeBattleAction(choice){
         }
       }
     }
+    // Win reward is once per enemy, even in multi-phase trainer fights.
+    if(!gameState.supportRuneUnlocked){
+      gameState.supportRuneUnlocked=true;
+      msgs.push('✧ EP-Teiler erhalten! Im Reisetagebuch unter Runenlehre anlegen.');
+    }
     b.enemyQueue.shift();
     if (b.enemyQueue.length > 0) {
       b.enemy = b.enemyQueue[0];
+      b.participants=[getActiveAlly()];
       b.enemyHealUsed=false;
       b.log = `${b.trainerName} schickt ${SPECIES[b.enemy.id - 1].name} in den Kampf!`;
       b.busy = false;
@@ -1586,6 +1636,7 @@ function executeBattleAction(choice){
         if(!other||other.hp<=0){sfx.cancel();return;}
         if(index===0){gameState.mode='BATTLE';sfx.cancel();return;}
         gameState.team.splice(index,1);gameState.team.unshift(other);
+        markBattleParticipant(other);
         gameState.mode='BATTLE';
         b.log=SPECIES[other.id-1].name+' kommt heraus!';
         b.busy=true;
@@ -1616,7 +1667,7 @@ function executeBattleAction(choice){
     }
 
     if (gameState.mode === 'RUNEBOOK') {
-      const items=SKILLBOOK.RUNES.filter(x=>(gameState.runes[x.id]||0)>0);
+      const items=availableRunes();
       const n=gameState.team.length;
       if(cmd==='B'||cmd==='START'){gameState.mode='MENU';sfx.cancel();return;}
       if(!n)return;
@@ -1627,7 +1678,7 @@ function executeBattleAction(choice){
       if(cmd==='A'&&items.length){
         const item=items[Math.min(gameState.runeCursor,items.length-1)];
         const ally=gameState.team[gameState.runeTeamCursor];
-        const result=teachRune(ally,item.id);
+        const result=item.kind==='support'?toggleSupportRune(ally):teachRune(ally,item.id);
         gameState.runeCursor=0;
         sfx.confirm();showDialog([result],()=>{gameState.mode='RUNEBOOK';});
       }
@@ -2549,13 +2600,19 @@ function executeBattleAction(choice){
       fText(SPECIES[m.id-1].name+'  Lv.'+m.lv,65,40,10,'#2c5555');
       fText('Runen '+(m.runeMoves?.length||0)+'/2',297,40,9,'#446d5f','right');
     }
-    const items=SKILLBOOK.RUNES.filter(r=>(gameState.runes[r.id]||0)>0);
+    const items=availableRunes();
     if(!items.length)fText('Gewinne besondere Kämpfe für Runen.',16,81,10,'#556e5e');
     const cursor=Math.min(gameState.runeCursor||0,Math.max(0,items.length-1));
     const first=Math.max(0,Math.min(cursor-3,Math.max(0,items.length-6)));
     for(let row=0;row<6&&first+row<items.length;row++){
       const item=items[first+row],i=first+row,y=60+row*16;
       if(i===cursor)pix(15,y-11,290,16,'#a6c9b0');
+      if(item.kind==='support'){
+        fText((i===cursor?'▶ ':' ')+'EP-TEILER',23,y,10,'#36564e');
+        fText(m?.heldSupportRune==='ep_teiler'?'AKTIV':'ANLEGEN',281,y,8,'#256f4b','right');
+        fText('∞',301,y,9,'#536962','right');
+        continue;
+      }
       drawTypeBadges(19,y-10,{affinities:[AFF.normalize(ATTACKS[item.id].type)]},11);
       fText((i===cursor?'▶ ':' ')+ATTACKS[item.id].name,37,y,10,'#36564e');
       const fits=m && AFF.compatible(m,ATTACKS[item.id].type)&&
@@ -2563,7 +2620,7 @@ function executeBattleAction(choice){
       fText(fits?'LERNSBAR':'GESPERRT',281,y,8,fits?'#256f4b':'#8f6663','right');
       fText('x'+gameState.runes[item.id],301,y,8,'#536962','right');
     }
-    fText('←→ GEIST  ↑↓ RUNE  A LERNEN  B ZUR.',160,169,8,'#49685e','center');
+    fText('←→ GEIST  ↑↓ RUNE  A LERNEN/ANLEGEN  B ZUR.',160,169,7,'#49685e','center');
   }
   function renderBattle(tick){
     const b=gameState.battle;if(!b)return;
@@ -2706,7 +2763,7 @@ function executeBattleAction(choice){
     fText('Vaters Seiten: '+gameState.pages.filter(Boolean).length+'/3   Orden: '+gameState.badges+'/3',66,55,9,'#557064');
     const items=['Buch der 150 Seelen','Team heilen ('+gameState.potions+' Traenke)',
       'Spielstand speichern','Echo-Archiv ('+gameState.archive.length+')',
-      'Runenlehre ('+Object.values(gameState.runes||{}).reduce((a,b)=>a+b,0)+')',
+      'Runenlehre ('+(Object.values(gameState.runes||{}).reduce((a,b)=>a+b,0)+(gameState.supportRuneUnlocked?1:0))+')',
       'Zurueck ins Abenteuer'];
     items.forEach((label,i)=>{
       const y=68+i*17;
@@ -2895,7 +2952,7 @@ function executeBattleAction(choice){
     gameState.hasStarter=true;
     gameState.mode='BATTLE';
     gameState.battle={isTrainer:false,trainerName:null,gymIndex:null,
-      enemyQueue:[enemy],enemy,cursor:0,log:`Ein wildes ${SPECIES[eId-1].name} erscheint!`,animTimer:0,busy:false};
+      enemyQueue:[enemy],enemy,cursor:0,log:`Ein wildes ${SPECIES[eId-1].name} erscheint!`,animTimer:0,busy:false,participants:[getActiveAlly()]};
     closeLabPanel();refreshLabButtons();sfx.confirm();
   });
   // Canvas-Buttons direkt antippen, ohne eine virtuelle A-Taste verwenden zu müssen.
@@ -2934,7 +2991,7 @@ function executeBattleAction(choice){
       return;
     }
     if(gameState.mode==='RUNEBOOK'){
-      const items=SKILLBOOK.RUNES.filter(r=>(gameState.runes[r.id]||0)>0);
+      const items=availableRunes();
       if(y<45&&x>160){handleCommand('RIGHT');return;}
       if(y>=49&&y<156&&items.length){
         const cursor=gameState.runeCursor||0,first=Math.max(0,Math.min(cursor-3,Math.max(0,items.length-6)));

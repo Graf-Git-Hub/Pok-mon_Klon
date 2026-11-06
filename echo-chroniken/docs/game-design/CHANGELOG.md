@@ -1,5 +1,10 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-06 - EP-Teiler, Teamwechsel und passive Rune
+- Eingesetzte Wesen teilen die regulaeren Kampf-EP. Nicht eingesetzte gesunde Wesen erhalten weiterhin zusammen 40 % Bonus-EP; mit tatsaechlich eingesetztem EP-Runen-Traeger steigt der Bonuspool auf 100 %. K.-o.-Wesen bekommen nichts.
+- Passive EP-Rune ist ab dem ersten Sieg verfuegbar, auf alte Sieg-/Arena-Spielstaende rueckwirkend freigeschaltet und ueber Runenlehre anlegbar. Keine der vier Kampfattacken oder Lernrunen wird blockiert.
+- Eigene Node- und echte Desktop-/Touch-Chrome-Tests, Screenshots und Dokumentation: EP_TEILER_20261106.md. Separate GitHub-CI; vollstaendiger Gegenstandsbaukasten bleibt spaeterer Task.
+
 ## 2026-11-06 - Gezielte Kampfentscheidungen statt blindes Massentesten
 - 12×12=144 Element-Kombinationen und 150×12=1.800 Art-/Element-Kombinationen mit Original-Typenlogik geprüft; 12 Statusregeln samt Grenzwerten, Dauer und Zielisolation kontrolliert.
 - 15.000 fixierte Kampfbegegnungen mit jeweils fünf Strategien, insgesamt 75.000 Kampfdurchläufe ohne Timeouts. Paarweise Siegquoten: Kraft 58,13 %, Element 62,00 %, Element+Heilung 62,05 %, Element+Status 62,00 %, Kombination 62,05 %.
