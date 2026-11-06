@@ -45,7 +45,7 @@ try:
     assert snap()["mode"]=="OVERWORLD",snap()
     cmd("START")
     assert snap()["mode"]=="MENU"
-    for _ in range(4):cmd("DOWN")
+    for _ in range(3):cmd("DOWN")
     cmd("A")
     assert snap()["mode"]=="RUNEBOOK"
     if mobile:tap(280,17)

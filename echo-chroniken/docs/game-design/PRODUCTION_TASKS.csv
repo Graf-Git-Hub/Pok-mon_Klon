@@ -37,3 +37,4 @@ M99-EP-01;M99;Track actual battle participants and equip passive EP-Teiler;M00-0
 M99-GEAR-02;M99;Evolution-based item slots and backpack architecture;M99-EP-01;src/game.js and tests/auto-equipment.cjs;Stage-dependent slots and unique items and backpack non-nesting and save migration tests;L;DONE
 M99-GEAR-03;M99;Loot and shop economy for recovery and antidote items;M99-GEAR-02;src/game.js and story rewards;Balanced stocking and earning without unlimited free items;M;TODO
 M99-GEAR-04;M99;Introduce real poison and paralysis attacks with balance audit;M99-GEAR-02;data/skills.js and tests/combat-status.cjs;Real infliction cure and boss/early game parity;M;TODO
+M99-UI-MENU-06;M99;Classic right-side Start menu and consistent HP text;M99-GEAR-02;src/game.js data/skills.js and qa/retro-start-menu-browser.py;All 8 items accessible via controller and touch while save v2 remains compatible;M;DONE

@@ -25,7 +25,7 @@ test.enemyCounterAttack();
 assert.equal(b.enemy.hp-before,24,'Healing should restore exactly 24 HP when wounded');
 assert.equal(ally.hp,startHp,'Healing must not deal damage');
 assert.equal(b.enemyHealUsed,true,'Only one heal is permitted for each enemy');
-assert.match(b.log,/Heilflimmern.*\+24 KP/);
+assert.match(b.log,/Heilflimmern.*\+24 HP/);
 while(timers.length)timers.shift()();
 test.enemyCounterAttack();
 assert(ally.hp<startHp,'After healing, enemy must return to attacking');

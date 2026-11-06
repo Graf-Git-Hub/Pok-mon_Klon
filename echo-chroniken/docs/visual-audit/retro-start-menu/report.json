@@ -1,0 +1,122 @@
+{
+  "scope": "Real Start/pause menu navigation, bag, team, options, save, HP HUD, old v2 save",
+  "cases": [
+    {
+      "view": "desktop",
+      "screens": [
+        "desktop-pause-menu.png",
+        "desktop-seelenbuch.png",
+        "desktop-team-hp.png",
+        "desktop-rucksack.png",
+        "desktop-options-before.png",
+        "desktop-options-changed.png"
+      ],
+      "routes": [
+        [
+          "MENU",
+          0,
+          "LEXICON"
+        ],
+        [
+          "MENU",
+          1,
+          "TEAM_OVERVIEW"
+        ],
+        [
+          "MENU",
+          2,
+          "BAG"
+        ],
+        [
+          "MENU",
+          3,
+          "RUNEBOOK"
+        ],
+        [
+          "MENU",
+          4,
+          "ARCHIVE"
+        ],
+        [
+          "MENU",
+          5,
+          "DIALOG"
+        ],
+        [
+          "MENU",
+          6,
+          "OPTIONS"
+        ],
+        [
+          "MENU",
+          7,
+          "OVERWORLD"
+        ]
+      ],
+      "success": true,
+      "preferences": {
+        "soundEnabled": false,
+        "paletteIdx": 1
+      }
+    },
+    {
+      "view": "touch",
+      "screens": [
+        "touch-pause-menu.png",
+        "touch-seelenbuch.png",
+        "touch-team-hp.png",
+        "touch-rucksack.png",
+        "touch-options-before.png",
+        "touch-options-changed.png"
+      ],
+      "routes": [
+        [
+          "MENU",
+          0,
+          "LEXICON"
+        ],
+        [
+          "MENU",
+          1,
+          "TEAM_OVERVIEW"
+        ],
+        [
+          "MENU",
+          2,
+          "BAG"
+        ],
+        [
+          "MENU",
+          3,
+          "RUNEBOOK"
+        ],
+        [
+          "MENU",
+          4,
+          "ARCHIVE"
+        ],
+        [
+          "MENU",
+          5,
+          "DIALOG"
+        ],
+        [
+          "MENU",
+          6,
+          "OPTIONS"
+        ],
+        [
+          "MENU",
+          7,
+          "OVERWORLD"
+        ]
+      ],
+      "success": true,
+      "preferences": {
+        "soundEnabled": false,
+        "paletteIdx": 1
+      }
+    }
+  ],
+  "errors": []
+}
