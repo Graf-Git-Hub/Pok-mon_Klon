@@ -1,5 +1,12 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-06 - Weltkarten-Umbau, Teil 1 von 60
+- Nordufer statt 24x17 nun 48x28 Felder: markierter, verschlungener Hauptweg, See/Steg, Nebenweg und klare Baumgrenzen.
+- Nebelhafen statt 26x18 nun 52x30 Felder: Markt, fünf Hausstandorte mit Zugangswegen, Hafenanlage, vernetzte Hauptstraße.
+- Im echten Tile-/Kollisionssystem umgesetzt, keine KI-Ersatzbilder. NPC- und Portalkennungen sind unverändert.
+- Kürzeste Eingang-zum-Ausgang-Route 47/49 Felder, begehbare Felder 848/1146. Belege unter docs/map-redesign-preview/ und MAP_REDESIGN_20261106.md.
+- Die übrigen 58 Karten bleiben vorerst unverändert; weitere Welt-Abschnitte sind noch offen.
+
 ## 2026-11-06 - Echte Runen-Wirtschaft, seltene Funde und 2.000.000 Kampfduelle
 - Drei Wege fuer echte Runen: Wurzelheimer Dorfladen mit Echo-Muenzen, eine einmalige sichtbare versteckte Nebel-Rune und einmalige Ahnen-Runen-Questbelohnung nach dem Ruinenboss.
 - Kraft-Rune +12 % Schaden, Schutz-Rune -12 % erhaltenen Schaden, Nebel-Rune +7 % Kraft/-7 % Schaden, Ahnen-Rune +3 % Heilung je eigenen Schadenangriff. Alle wirken auch in Teamkaempfen, auf beiden Seiten, mit den weiterhin 1/2/3 evolutionsabhaengigen Ausruestungsslots und der bisherigen EP-Rune. Keine Mehrfachanlage derselben Rune pro Wesen.
