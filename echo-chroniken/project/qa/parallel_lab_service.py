@@ -44,6 +44,7 @@ for idx,(bonus,capture,heal) in enumerate(itertools.product(LEVELS,CAPTURE,HEAL)
     ))
 assert len(profiles)==100
 lock=threading.RLock()
+worker_threads={}
 logLines=[]
 paused=False
 running=[]
@@ -70,9 +71,25 @@ def update(p,**kwargs):
         p.update(kwargs)
         p["lastUpdated"]=time.time()
 def persist():
-    tmp=OUT/"status.tmp"
-    tmp.write_text(json.dumps(snapshot(),ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
-    tmp.replace(OUT/"status.json")
+    """Serialize status writes; retries Windows file-lock collisions without killing tests."""
+    with lock:
+        target=OUT/"status.json"
+        tmp=OUT/f"status-{os.getpid()}-{threading.get_ident()}.tmp"
+        payload=json.dumps(snapshot(),ensure_ascii=False,indent=2)+"\n"
+        for attempt in range(30):
+            try:
+                tmp.write_text(payload,encoding="utf-8")
+                os.replace(tmp,target)
+                return True
+            except (PermissionError,OSError):
+                # Windows readers/antivirus can temporarily lock the destination.
+                time.sleep(min(.2,.025*(attempt+1)))
+        try:
+            tmp.unlink(missing_ok=True)
+        except OSError:
+            pass
+        print("STATUS_PERSIST_RETRY_EXHAUSTED",threading.current_thread().name,flush=True)
+        return False
 def handle_stdout(p,line):
     t=line.strip()
     if not t:return
@@ -139,6 +156,20 @@ def scheduler():
     persist()
     while True:
         with lock:
+            # Recover orphaned active rows from unexpected worker-thread death.
+            for entry in profiles:
+                if entry["status"]!="running":continue
+                worker=worker_threads.get(entry["id"])
+                if worker is not None and not worker.is_alive() and time.time()-(entry.get("startedAt") or started)>2:
+                    entry["attempts"]=entry.get("attempts",0)+1
+                    if entry["attempts"]>=3:
+                        entry.update(status="failed",stage="Worker mehrfach abgestürzt",endedAt=time.time(),
+                                     message="Der Testprozess wurde unerwartet beendet.")
+                    else:
+                        entry.update(status="queued",stage="Abgebrochenen Test neu eingeplant",
+                                     startedAt=None,progress=0)
+                    addlog(entry,"Worker abgestürzt; Test wird erneut gestartet" if entry["status"]=="queued" else "Worker mehrfach abgestürzt")
+                    persist()
             remaining=[x for x in profiles if x["status"]=="queued"]
             active=[x for x in profiles if x["status"]=="running"]
             if not remaining and not active:
@@ -149,7 +180,9 @@ def scheduler():
                 p=remaining[0]
                 # Mark before thread starts to avoid double queueing
                 p["status"]="running"
-                threading.Thread(target=run_one,args=(p,),daemon=True,name=p["id"]).start()
+                worker=threading.Thread(target=run_one,args=(p,),daemon=True,name=p["id"])
+                worker_threads[p["id"]]=worker
+                worker.start()
         time.sleep(0.5)
 class Handler(http.server.BaseHTTPRequestHandler):
     server_version="EchoParallelLab/1.0"

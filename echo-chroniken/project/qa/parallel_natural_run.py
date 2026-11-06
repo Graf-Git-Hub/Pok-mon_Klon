@@ -339,15 +339,20 @@ try:
     # Strict player-selected level gate. All currently owned spirits must gain
     # the required bonus through real wild fights BEFORE leaving starting village.
     # No XP editing and no forced wins. A fixed safety limit reports a BLOCKED rule.
+    from level_gate import make_requirements,meets_level_gate,summary as level_summary
     start_team=saved()["team"]
-    wanted={str(m["id"]):m["lv"]+LEVEL_BONUS for m in start_team}
-    case["levelRule"]={"plus":LEVEL_BONUS,"targets":wanted}
+    catalog=page.evaluate("window.ECHO_SPECIES.map(s=>({id:s.id,evolvesTo:s.evolvesTo}))")
+    requirements=make_requirements(start_team,catalog,LEVEL_BONUS)
+    wanted={str(r["slot"])+":"+str(r["id"]):r["goal"] for r in requirements}
+    case["levelRule"]={"plus":LEVEL_BONUS,"targets":wanted,
+                       "lineage":{str(r["slot"]):r["lineage"] for r in requirements}}
     print("PARALLEL_RULE",who,"level gate +",LEVEL_BONUS,wanted,flush=True)
     if LEVEL_BONUS:
      limit=120+LEVEL_BONUS*35
      for grind in range(limit):
-      owned={str(m["id"]):m["lv"] for m in saved()["team"]}
-      if all(owned.get(k,0)>=needed for k,needed in wanted.items()):
+      current_team=saved()["team"]
+      owned=level_summary(current_team)
+      if meets_level_gate(current_team,requirements):
        print("PARALLEL_GATE_PASSED",who,grind,owned,flush=True)
        case["levelRule"]["grindSteps"]=grind
        break
@@ -362,7 +367,7 @@ try:
       if (grind+1)%50==0:
        print("PARALLEL_GRIND",who,grind+1,owned,flush=True)
      else:
-      owned={str(m["id"]):m["lv"] for m in saved()["team"]}
+      owned=level_summary(saved()["team"])
       print("PARALLEL_GATE_BLOCKED",who,wanted,owned,flush=True)
       raise AssertionError(("PARALLEL_GATE_BLOCKED",wanted,owned,"limit",limit))
     stage("level gate passed")
