@@ -505,12 +505,42 @@
     if(!monster.manualLoadout)monster.equippedMoves=recommendedLoadout(monster);
     ensureMonsterMoves(monster);
   }
+  // Shared by both the playable engine and seeded two-million battle audit.
+  const PASSIVE_RUNES=Object.freeze({
+    rune_kraft:{name:'Kraft-Rune',attack:1.12,defense:1},
+    rune_schutz:{name:'Schutz-Rune',attack:1,defense:.88},
+    rune_nebel:{name:'Nebel-Rune',attack:1.07,defense:.93},
+    rune_ahnen:{name:'Ahnen-Rune',attack:1,defense:1,heal:.03}
+  });
+  function runeCombatModifiers(m){
+    let attack=1,defense=1,heal=0;
+    const seen=new Set();
+    for(const x of (Array.isArray(m?.equipment)?m.equipment:[])){
+      if(!x||seen.has(x.id))continue;
+      const rule=PASSIVE_RUNES[x.id];if(!rule)continue;
+      seen.add(x.id);
+      attack*=rule.attack;defense*=rule.defense;heal+=rule.heal||0;
+    }
+    return {attack,defense,heal};
+  }
+  function passiveHitHeal(m){
+    if(!m||m.hp<=0)return 0;
+    const rate=runeCombatModifiers(m).heal;
+    if(rate<=0)return 0;
+    const points=Math.min(m.maxHp-m.hp,Math.max(1,Math.ceil(m.maxHp*rate)));
+    m.hp+=points;return points;
+  }
+  function runeReserveXp(xpGain,holderActive,reserveCount){
+    if(!reserveCount)return 0;
+    return Math.floor(Math.floor(xpGain*(holderActive?1:.4))/reserveCount);
+  }
   function skillDamage(user,target,move){
     const us=SPECIES[user.id-1],ts=SPECIES[target.id-1];
     const match=AFF.effectiveness(move.type,ts);
     const same=AFF.stab(move.type,us);
     const raw=move.power*.205+user.lv*.48+us.atk*.17-ts.def*.14;
-    return Math.max(2,Math.floor(raw*(.92+Math.random()*.14)*match*same));
+    const boost=runeCombatModifiers(user).attack*runeCombatModifiers(target).defense;
+    return Math.max(2,Math.floor(raw*(.92+Math.random()*.14)*match*same*boost));
   }
   function createMonsterInstance(id,lv){
     const sp=SPECIES[id-1];
@@ -525,7 +555,11 @@
     {id:'antidot',name:'Gegengift'},
     {id:'schockloeser',name:'Entstoerer'},
     {id:'brandmittel',name:'Brandbalsam'},
-    {id:'rucksack',name:'Rucksack'}
+    {id:'rucksack',name:'Rucksack'},
+    {id:'rune_kraft',name:'Kraft-Rune'},
+    {id:'rune_schutz',name:'Schutz-Rune'},
+    {id:'rune_nebel',name:'Nebel-Rune'},
+    {id:'rune_ahnen',name:'Ahnen-Rune'}
   ]);
   const BAG_CAPACITY=2;
   const gearLimit=m=>Math.max(1,Math.min(3,Number(SPECIES[m.id-1]?.stage)||1));
@@ -567,12 +601,15 @@
       }
     }
     if(inventoryCount(id)<=0)return 'Kein Exemplar mehr im Inventar.';
+    if(PASSIVE_RUNES[id]&&eq.some(x=>x.id===id))
+      return 'Eine Rune derselben Art reicht fuer dieses Wesen.';
     if(occupiedSlots(m)<gearLimit(m)){
       addInventory(id,-1);
       eq.push(id==='rucksack'?{id,contents:[]}:{id});saveGame(true);
       return SPECIES[m.id-1].name+' hat '+GEAR_ITEMS.find(x=>x.id===id).name+' angelegt.';
     }
-    if(id==='rucksack')return 'Alle Ausruestungsplaetze sind belegt.';
+    if(id==='rucksack'||PASSIVE_RUNES[id])
+      return 'Kein freier Ausruestungsplatz fuer diese Rune / Tasche.';
     const bag=eq.find(x=>x.id==='rucksack'&&x.contents.length<BAG_CAPACITY);
     if(!bag)return 'Keine freien Plaetze (auch nicht im Rucksack).';
     addInventory(id,-1);bag.contents.push(id);saveGame(true);
@@ -688,6 +725,10 @@
     musicBoxDelivered: false,
     potions: 5,
     orbs: 12,
+    coins:75,
+    shopBought:{},
+    runeFinds:{mist:false,ancestor:false},
+    shopCursor:0,
     runes: {},
     runeRewards: {},
     gearStock:{antidot:1,schockloeser:1,brandmittel:1,rucksack:1},
@@ -760,6 +801,9 @@
         musicBoxDelivered: gameState.musicBoxDelivered,
         potions: gameState.potions,
         orbs: gameState.orbs,
+        coins:gameState.coins,
+        shopBought:gameState.shopBought,
+        runeFinds:gameState.runeFinds,
         runes: gameState.runes,
         runeRewards: gameState.runeRewards,
         gearStock: gameState.gearStock,
@@ -852,6 +896,10 @@
       if(!gameState.runeRewards||typeof gameState.runeRewards!=='object')gameState.runeRewards={};
       if(!gameState.gearStock||typeof gameState.gearStock!=='object')
         gameState.gearStock={antidot:1,schockloeser:1,brandmittel:1,rucksack:1};
+      gameState.coins=Number.isFinite(Number(gameState.coins))?
+        Math.max(0,Math.min(9999,Math.floor(Number(gameState.coins)))):75;
+      if(!gameState.shopBought||typeof gameState.shopBought!=='object')gameState.shopBought={};
+      if(!gameState.runeFinds||typeof gameState.runeFinds!=='object')gameState.runeFinds={mist:false,ancestor:false};
       if(!Array.isArray(gameState.team))gameState.team=[];
       for(const creature of [...gameState.team,...(gameState.archive||[])])
         ensureEquipment(creature);
@@ -1066,8 +1114,10 @@ function executeBattleAction(choice){
     b.log=SPECIES[ally.id-1].name+' nutzt '+move.name+'! ('+damage+' Schaden) · '+AFF.label(multiplier);
     const effect=STATUS.apply(b,ally,b.enemy,id);
     const ongoing=STATUS.endAction(b,ally);
+    const life=passiveHitHeal(ally);
     if(effect)b.log+=' / '+effect;
     if(ongoing)b.log+=' / '+ongoing;
+    if(life)b.log+=' / Ahnen-Rune +'+life+' HP';
     sfx.hit();
     battleTimeout(()=>{if(b.enemy.hp<=0)handleEnemyDefeated();else enemyCounterAttack();},650);
   }
@@ -1129,8 +1179,10 @@ function executeBattleAction(choice){
     b.log = `${b.enemyDisplayName||enemySp.name} nutzt ${move.name}! (${dmg} Schaden)`;
     const effect=STATUS.apply(b,enemy,ally,selected);
     const ongoing=STATUS.endAction(b,enemy);
+    const life=passiveHitHeal(enemy);
     if(effect)b.log+=' / '+effect;
     if(ongoing)b.log+=' / '+ongoing;
+    if(life)b.log+=' / Ahnen-Rune +'+life+' HP';
 
     autoUseGear(ally);
 
@@ -1193,8 +1245,7 @@ function executeBattleAction(choice){
     if(ally.hp>0&&!participants.includes(ally))participants.push(ally);
     const reserves=gameState.team.filter(member=>member.hp>0&&!participants.includes(member));
     const runeActive=participants.some(member=>member.heldSupportRune==='ep_teiler');
-    const reservePool=Math.floor(xpGain*(runeActive?1:.4));
-    const reserveXp=reserves.length?Math.floor(reservePool/reserves.length):0;
+    const reserveXp=runeReserveXp(xpGain,runeActive,reserves.length);
     for(let i=0;i<participants.length+reserves.length;i++){
       const ally=i<participants.length?participants[i]:reserves[i-participants.length];
       const points=i<participants.length?
@@ -1237,6 +1288,18 @@ function executeBattleAction(choice){
     if(runeActive&&reserveXp>0)msgs.push('EP-Teiler aktiv: Alle gesunden Begleiter profitieren!');
     if(reserveXp>0)msgs.push(`Deine ${reserves.length} Begleiter erhalten jeweils +${reserveXp} EP.`);
 
+    // A rare, non-purchasable heirloom comes from the ancient keeper quest.
+    if(b.ruinBoss&&!gameState.runeFinds?.ancestor){
+      gameState.runeFinds.ancestor=true;
+      addInventory('rune_ahnen',1);
+      msgs.push('✧ Ahnen-Rune: Ein seltenes Relikt des Erinnerungshueters!');
+    }
+    // Coins are finite and saved. A whole trainer battle pays once, not per enemy.
+    if(!b.isTrainer||b.enemyQueue.length===1){
+      const reward=b.isTrainer?40+Math.floor(enemy.lv/3):8+Math.floor(enemy.lv/4);
+      gameState.coins=Math.min(9999,(gameState.coins||0)+reward);
+      msgs.push('+'+reward+' Echo-Muenzen');
+    }
     if(b.enemyQueue.length===1 && b.isTrainer){
       const marker=String(b.trainerName||b.enemyDisplayName||'Trainer').slice(0,96);
       if(!gameState.runeRewards[marker]){
@@ -1556,6 +1619,15 @@ function executeBattleAction(choice){
       if(found){saveGame(true);showDialog(found);return;}
     }
 
+    // A shimmering fragment near the village path can be found exactly once.
+    if(gameState.scene==='OVERWORLD'&&gameState.currentMapId==='legacy_wurzeldorf'&&
+       tx===16&&ty===10&&!gameState.runeFinds.mist){
+      gameState.runeFinds.mist=true;
+      addInventory('rune_nebel',1);
+      saveGame(true);sfx.evolve();
+      showDialog(['Ein versteckter Schimmer im Gras!','Du findest die seltene Nebel-Rune (+7% Kraft, -7% Schaden).']);
+      return;
+    }
     // NPC oder Tagebuchseite vor dem Spieler?
     const door=window.EchoVillage?.doorAt(tx,ty);
     if(door){
@@ -1568,8 +1640,11 @@ function executeBattleAction(choice){
         kraeuter:['Aus dem Kräuterhaus duftet es nach Salbei und Minze.','„Bin im Garten!“ steht auf dem Schild.'],
         fischer:['Das Haus am See. An den Fenstern hängen kleine Geisterfisch-Bilder.','Die Bewohner sind gerade am Ufer.'],
         werkstatt:['Aus der Werkstatt klingt fröhliches Hämmern.','„Sphären-Reparatur bald geöffnet“ steht auf einer Holztafel.'],
-        laden:['Vor dem Dorfladen stehen bunte Töpfe.','„Heute Inventur. Morgen wieder geöffnet!“']
+        laden:['Vor dem Dorfladen stehen bunte Toepfe.','Der Laden ist jetzt geoeffnet!']
       };
+      if(door.id==='laden'){
+        gameState.mode='RUNE_SHOP';gameState.shopCursor=0;sfx.confirm();return;
+      }
       showDialog(descriptions[door.id]||[door.name]);return;
     }
     const npc = npcs.find(n => n.id!=='oma' && n.x === tx && n.y === ty);
@@ -1632,6 +1707,29 @@ function executeBattleAction(choice){
     {id:'runes',label:'Runen'}
   ];
   const OPTIONS_MENU=['Ton','Farbpalette','Steuerung','Zurueck'];
+  const SHOP_ITEMS=[
+    {id:'rune_kraft',name:'Kraft-Rune',price:120},
+    {id:'rune_schutz',name:'Schutz-Rune',price:120},
+    {id:'heiltrank',name:'Seelen-Trank',price:30},
+    {id:'antidot',name:'Gegengift',price:25},
+    {id:'schockloeser',name:'Entstoerer',price:25},
+    {id:'rucksack',name:'Rucksack',price:180},
+    {id:'kohlenregen',name:'Kohlenregen-Rune',price:210,unique:true}
+  ];
+  function purchaseShopItem(id){
+    const offer=SHOP_ITEMS.find(x=>x.id===id);
+    if(!offer)return 'Unbekanntes Angebot.';
+    if(offer.unique&&gameState.shopBought[id])return 'Diese seltene Rune ist ausverkauft.';
+    if(gameState.coins<offer.price)return 'Nicht genug Echo-Muenzen.';
+    if(!Number.isInteger(gameState.coins)||gameState.coins<0)return 'Ungueltiger Geldbestand.';
+    gameState.coins-=offer.price;
+    if(SKILLBOOK.RUNES.some(x=>x.id===id))
+      gameState.runes[id]=(gameState.runes[id]||0)+1;
+    else addInventory(id,1);
+    if(offer.unique)gameState.shopBought[id]=true;
+    saveGame(true);
+    return offer.name+' gekauft! -'+offer.price+' Echo-Muenzen';
+  }
   function openEquipment(origin,teamIndex=0,itemId=null){
     gameState.equipmentOrigin=origin;
     gameState.runeTeamCursor=Math.max(0,Math.min(gameState.team.length-1,teamIndex));
@@ -1902,6 +2000,18 @@ function executeBattleAction(choice){
         gameState.bagCursor=(gameState.bagCursor+(cmd==='UP'?-1:1)+BAG_MENU.length)%BAG_MENU.length;sfx.blip();return;
       }
       if(cmd==='A'){chooseBagItem();return;}
+      return;
+    }
+    if(gameState.mode==='RUNE_SHOP'){
+      if(cmd==='B'||cmd==='START'){gameState.mode='OVERWORLD';sfx.cancel();return;}
+      if(cmd==='UP'||cmd==='DOWN'){
+        gameState.shopCursor=(gameState.shopCursor+(cmd==='UP'?-1:1)+SHOP_ITEMS.length)%SHOP_ITEMS.length;
+        sfx.blip();return;
+      }
+      if(cmd==='A'){
+        const message=purchaseShopItem(SHOP_ITEMS[gameState.shopCursor].id);
+        sfx.confirm();showDialog([message],()=>{gameState.mode='RUNE_SHOP';});
+      }
       return;
     }
     if(gameState.mode==='OPTIONS'){
@@ -2722,6 +2832,13 @@ function executeBattleAction(choice){
     const homeX=3*16-camX,homeY=2*16-camY;
     drawCottage(homeX,homeY,tick);
     if(window.EchoVillage)window.EchoVillage.draw(ctx,camX,camY,tick,pix);
+    if(!gameState.runeFinds?.mist){
+      const x=16*16-camX,y=10*16-camY;
+      if(x>=-10&&x<=PW&&y>=-10&&y<=PH){
+        pix(x+6,y+4,5,7,Math.sin(tick*.012)>0?'#fff4b4':'#adccff');
+        pix(x+8,y+1,2,3,'#e6fbff');
+      }
+    }
     if(window.EchoRoute)window.EchoRoute.draw(ctx,tick,gameState,camX,camY,pix);
     if(window.EchoExplore)window.EchoExplore.drawWorld(ctx,tick,gameState,camX,camY,pix);
     if(window.EchoPlatformer)window.EchoPlatformer.drawPortal(ctx,tick,gameState,camX,camY,pix);
@@ -2838,18 +2955,38 @@ function executeBattleAction(choice){
       GEAR_ITEMS.find(g=>g.id===x.id)?.name||x.id);
     if(m.heldSupportRune==='ep_teiler')pieces.unshift('EP-Rune');
     fText(SPECIES[m.id-1].name+' Lv.'+m.lv+'  SLOT '+occupiedSlots(m)+'/'+gearLimit(m),17,39,9,'#315750');
-    const summary=pieces.join(' / ')||'leer';
-    fText(summary.slice(0,48),17,53,8,'#526956');
-    for(let i=0;i<GEAR_ITEMS.length;i++){
-      const item=GEAR_ITEMS[i],y=70+i*18;
-      if(i===gameState.gearCursor)pix(15,y-11,290,16,'#a6c9b0');
+    fText((pieces.join(' / ')||'leer').slice(0,45),17,53,8,'#526956');
+    const selected=Math.min(gameState.gearCursor||0,GEAR_ITEMS.length-1);
+    const first=Math.max(0,Math.min(selected-4,GEAR_ITEMS.length-5));
+    for(let row=0;row<5;row++){
+      const i=first+row,item=GEAR_ITEMS[i],y=70+row*18;
+      if(i===selected)pix(15,y-11,290,16,'#a6c9b0');
       const worn=eq.some(x=>x.id===item.id)||(pack?.contents||[]).includes(item.id);
-      fText((i===gameState.gearCursor?'▶ ':' ')+item.name,22,y,10,'#345850');
-      fText(worn?'ANGELEGT':'x'+inventoryCount(item.id),300,y,8,worn?'#256f4b':'#536962','right');
+      fText((i===selected?'▶ ':' ')+item.name,22,y,10,'#345850');
+      fText(worn?'AN':'x'+inventoryCount(item.id),300,y,8,worn?'#256f4b':'#536962','right');
     }
-    fText('B: RUNEN ←→ GEIST ↑↓ ITEM A: AN/AUS',160,169,7,'#49685e','center');
+    const info=GEAR_ITEMS[selected]?.id;
+    fText(info==='rune_kraft'?'+12% Schaden':
+      info==='rune_schutz'?'-12% erhaltener Schaden':
+      info==='rune_nebel'?'+7% Kraft & -7% Schaden':
+      info==='rune_ahnen'?'Heilt 3% HP nach Treffern':
+      '↑↓ ITEM  ←→ WESEN  A AN/AUS  B ZUR.',160,165,8,'#49685e','center');
   }
-
+  function renderRuneShop(){
+    pix(0,0,PW,PH,'#193e4099');
+    boxArt(9,6,302,168,'#f3e3bc','#345558','#fff0cc');
+    fText('DORFLADEN - RUNEN',160,24,14,'#2e4e4e','center');
+    fText('Echo-Muenzen: '+(gameState.coins||0),20,40,10,'#365f52');
+    for(let i=0;i<SHOP_ITEMS.length;i++){
+      const item=SHOP_ITEMS[i],y=54+i*14;
+      const selected=i===gameState.shopCursor;
+      if(selected){pix(15,y-10,289,14,'#b3d0ab');pix(15,y-10,3,14,'#3c6b55');}
+      const sold=item.unique&&gameState.shopBought[item.id];
+      fText((selected?'▶ ':' ')+item.name,20,y,9,'#35584d');
+      fText(sold?'AUS':item.price+' M',299,y,9,sold?'#996b63':'#566c56','right');
+    }
+    fText('A KAUFEN   B VERLASSEN',160,165,8,'#426959','center');
+  }
   function renderRuneBook(){
     pix(0,0,PW,PH,'#153b4799');
     boxArt(7,6,306,168,'#e9dcbf','#345458','#fff1d4');
@@ -3072,7 +3209,9 @@ function executeBattleAction(choice){
         id==='runes'?Object.values(gameState.runes||{}).reduce((n,v)=>n+v,0)+
           (gameState.supportRuneUnlocked?1:0):inventoryCount(id);
       fText((selected?'▶ ':' ')+item.label,21,y,10,selected?'#274e47':'#48645b');
-      fText('x'+qty,293,y,10,'#48645b','right');
+      fText('x'+(id==='runes'?qty+
+        ['rune_kraft','rune_schutz','rune_nebel','rune_ahnen'].reduce((n,r)=>n+inventoryCount(r),0):qty),
+        293,y,10,'#48645b','right');
     }
     const hints=[
       'Ein Traenk heilt das Team (1 Stueck).',
@@ -3307,6 +3446,13 @@ function executeBattleAction(choice){
       }
       return;
     }
+    if(gameState.mode==='RUNE_SHOP'){
+      if(x>=16&&x<=304&&y>=43&&y<43+SHOP_ITEMS.length*14){
+        gameState.shopCursor=Math.max(0,Math.min(SHOP_ITEMS.length-1,Math.floor((y-43)/14)));
+        handleCommand('A');
+      }
+      return;
+    }
     if(gameState.mode==='OPTIONS'){
       if(x>=18&&x<=303&&y>=44&&y<148){
         gameState.optionsCursor=Math.max(0,Math.min(OPTIONS_MENU.length-1,Math.floor((y-44)/25)));
@@ -3348,8 +3494,9 @@ function executeBattleAction(choice){
     }
     if(gameState.mode==='AUSRUESTUNG'){
       if(y<45&&x>160){handleCommand(x<230?'LEFT':'RIGHT');return;}
-      if(y>=56&&y<160){
-        gameState.gearCursor=Math.max(0,Math.min(GEAR_ITEMS.length-1,Math.floor((y-59)/18)));
+      if(y>=59&&y<149){
+        const top=Math.max(0,Math.min(gameState.gearCursor-4,GEAR_ITEMS.length-5));
+        gameState.gearCursor=Math.min(GEAR_ITEMS.length-1,top+Math.floor((y-59)/18));
         handleCommand('A');
       }
       return;
@@ -3464,6 +3611,8 @@ function executeBattleAction(choice){
       renderScene(tick);renderBag();
     } else if (gameState.mode === 'OPTIONS') {
       renderScene(tick);renderOptions();
+    } else if (gameState.mode === 'RUNE_SHOP') {
+      renderScene(tick);renderRuneShop();
     } else if (gameState.mode === 'MENU') {
       renderScene(tick);
       renderMenu();
