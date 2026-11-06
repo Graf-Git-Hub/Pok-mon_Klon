@@ -2102,7 +2102,7 @@ function executeBattleAction(choice){
     setTimeout(() => toastEl.classList.remove('show'), 3500);
   });
 
-  let platformButtonA=false,platformButtonB=false,platformButtonStart=false;
+  let platformButtonA=false,platformButtonB=false,platformButtonStart=false,padStartHeld=false;
   function pollGamepad(now) {
     const pads = navigator.getGamepads ? navigator.getGamepads() : [];
     const gp = pads[0];
@@ -2119,12 +2119,16 @@ function executeBattleAction(choice){
       if(back&&!platformButtonB)handleCommand('B');
       if(pause&&!platformButtonStart)handleCommand('START');
       platformButtonA=jump;platformButtonB=back;platformButtonStart=pause;
+      padStartHeld=pause;
       if(gameState.mode==='PLATFORM'&&now-lastPadTime>=95){
         if(left!==right){handleCommand(left?'LEFT':'RIGHT');lastPadTime=now;}
       }
       return;
     }
     platformButtonA=false;platformButtonB=false;platformButtonStart=false;
+    // Only one START action per press. Holding Plus must not open then close
+    // the menu again on the controller's 155 ms repeat interval.
+    if(!gp?.buttons?.[9]?.pressed)padStartHeld=false;
     if (!gp || now - lastPadTime < 155) return;
 
     const axX = gp.axes[0] || 0;
@@ -2139,13 +2143,14 @@ function executeBattleAction(choice){
     else if (b(1) || b(0)) cmd = b(1) ? 'A' : 'B'; // Switch A (rechts) / B (unten)
     else if (b(4)) cmd = 'L';
     else if (b(5)) cmd = 'R';
-    else if (b(9)) cmd = 'START';   // Plus (+)
+    else if (b(9) && !padStartHeld) cmd = 'START';   // Plus (+), edge-triggered
     else if (b(8)) cmd = 'PALETTE'; // Minus (-)
     else if (b(6)) cmd = 'MOVES'; // ZL öffnet das Attackenbuch
     else if (b(7)) cmd = 'FULLSCREEN'; // ZR
 
     if (cmd) {
       lastPadTime = now;
+      if(cmd==='START')padStartHeld=true;
       handleCommand(cmd);
     }
   }
