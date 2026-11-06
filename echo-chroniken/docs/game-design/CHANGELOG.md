@@ -5,6 +5,12 @@
 - 15.000 fixierte Kampfbegegnungen mit jeweils fünf Strategien, insgesamt 75.000 Kampfdurchläufe ohne Timeouts. Paarweise Siegquoten: Kraft 58,13 %, Element 62,00 %, Element+Heilung 62,05 %, Element+Status 62,00 %, Kombination 62,05 %.
 - Dokumentiert, dass Zusatzheuristiken aktuell kaum Vorteile liefern. In diesem Zweig bewusst **keine neuen HP/ATK/DEF-, KI- oder Save-Änderungen**, bis bessere Entscheidungen gezielt begründet und getestet sind. Rohbericht `docs/visual-audit/tactical-audit/paired-decisions.json`.
 
+## 2026-11-05 - Intelligente KI im echten Kampfsystem
+- Gegner entscheiden anhand des zu erwartenden Nutzens zwischen K.-o.-Treffer, Typvorteil, nicht erneut gestapelten Statuseffekten, Schutz und einmaliger sinnvoller Heilung; Gegner bis einschließlich Level 8 bleiben einsteigerfreundlich.
+- Neue testbare Entscheidungslogik mit konkreten Unit-Tests und unabhängigem gepaartem Engine-A/B-Test auf 12.000 identischen Ausgangspaarungen: 24.000 Kämpfe, null Timeouts; Spieler-Siegquote 61,48 → 58,29 %, bei frühen Leveln 62,50 → 60,47 %.
+- 52/52 Node-Tests, realistischer Desktop-/Touch-Storylauf bis Kapitel 4, Browser-Kampf-UI und 100.000 neue Zufallskämpfe ohne Hänger bestanden. Der 100k-PC-Fingerprint wurde im Cloud-Workflow aktualisiert.
+- Noch keine Freigabe für `main` oder neue APK, bis vollständige Cloud-CI inklusive Geschichte bis Postgame grün ist. Details `SMART_ENEMY_AI_20261105.md`.
+
 
 ## 2026-11-05 - Gezielte Kampfentscheidungs- und Statusprüfung
 - Alle 144 Elementpaare, 1.800 Art-Angriffstypkombinationen und 12 Statusregeln kontrolliert; 96.000 tatsächliche Effekt-Auslöseversuche mit erwarteten Wahrscheinlichkeiten.

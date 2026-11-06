@@ -4,83 +4,83 @@
   "equalStageFixtures": 7500,
   "policies": {
     "power": {
-      "wins": 8720,
-      "turns": 90972,
+      "wins": 8332,
+      "turns": 90148,
       "heals": 0,
-      "statusAttacks": 8978,
-      "offensive": 75972,
+      "statusAttacks": 8929,
+      "offensive": 75148,
       "timeout": 0
     },
     "element": {
-      "wins": 9300,
-      "turns": 89621,
+      "wins": 8892,
+      "turns": 88985,
       "heals": 0,
-      "statusAttacks": 7219,
-      "offensive": 74621,
+      "statusAttacks": 7240,
+      "offensive": 73985,
       "timeout": 0
     },
     "element_heal": {
-      "wins": 9307,
-      "turns": 92820,
-      "heals": 3372,
-      "statusAttacks": 10020,
-      "offensive": 74448,
+      "wins": 8871,
+      "turns": 92187,
+      "heals": 3512,
+      "statusAttacks": 10117,
+      "offensive": 73675,
       "timeout": 0
     },
     "status": {
-      "wins": 9300,
-      "turns": 89637,
+      "wins": 8893,
+      "turns": 88997,
       "heals": 0,
-      "statusAttacks": 7586,
-      "offensive": 74637,
+      "statusAttacks": 7588,
+      "offensive": 73997,
       "timeout": 0
     },
     "tactical": {
-      "wins": 9307,
-      "turns": 92820,
-      "heals": 3372,
-      "statusAttacks": 10020,
-      "offensive": 74448,
+      "wins": 8871,
+      "turns": 92187,
+      "heals": 3512,
+      "statusAttacks": 10117,
+      "offensive": 73675,
       "timeout": 0
     }
   },
   "winPct": {
-    "power": 58.13,
-    "element": 62,
-    "element_heal": 62.05,
-    "status": 62,
-    "tactical": 62.05
+    "power": 55.55,
+    "element": 59.28,
+    "element_heal": 59.14,
+    "status": 59.29,
+    "tactical": 59.14
   },
   "matched": {
     "element_vs_power": {
-      "otherOnly": 5,
-      "elementOnly": 585,
-      "both": 8715,
-      "neither": 5695
+      "otherOnly": 1,
+      "elementOnly": 561,
+      "both": 8331,
+      "neither": 6107
     },
     "element_vs_element_heal": {
-      "otherOnly": 105,
-      "elementOnly": 98,
-      "both": 9202,
-      "neither": 5595
+      "otherOnly": 91,
+      "elementOnly": 112,
+      "both": 8780,
+      "neither": 6017
     },
     "element_vs_status": {
-      "otherOnly": 2,
-      "elementOnly": 2,
-      "both": 9298,
-      "neither": 5698
+      "otherOnly": 1,
+      "elementOnly": 0,
+      "both": 8892,
+      "neither": 6107
     },
     "element_vs_tactical": {
-      "otherOnly": 105,
-      "elementOnly": 98,
-      "both": 9202,
-      "neither": 5595
+      "otherOnly": 91,
+      "elementOnly": 112,
+      "both": 8780,
+      "neither": 6017
     }
   },
   "moveChoiceCompare": {
-    "identicalMoveDecisions": 60892,
-    "nonidenticalMoveDecisions": 15080,
-    "totalMoves": 75972
+    "identicalMoveDecisions": 60604,
+    "nonidenticalMoveDecisions": 14544,
+    "totalMoves": 75148
   },
   "note": "Same pairs, levels and initial random seeds; RNG consumption diverges after choices differ. Element: effectiveness. Element-heal: same with limited healing. Status: chance-weighted damage. Tactical: both. All use four equipped moves and same enemy AI."
 }

@@ -26,7 +26,7 @@ jobs:
         run: node echo-chroniken/project/tests/combat-10000.cjs
       - name: Verify GitHub output matches Laura desktop run exactly
         run: |
-          node -e "const r=require('./echo-chroniken/docs/visual-audit/battle-matrix/duel-10000-report.json'); const expected='82296039944df4cc4f92f04a9a9ff2c518533002ea464ad52a5888df87e6fb49'; if(r.count!==10000||r.timeouts!==0||r.fingerprint!==expected){console.error('PC/CLOUD PARITY FAILURE',r.count,r.timeouts,r.fingerprint);process.exit(1)} console.log('LAURA_GITHUB_PARITY_OK',r.fingerprint,'wins',r.wins,'losses',r.losses)"
+          node -e "const r=require('./echo-chroniken/docs/visual-audit/battle-matrix/duel-10000-report.json'); const expected='d1638e97d6e3f8038bda2f42d562211e3eddc9a016f9e1ba89b33796290ecf54'; if(r.count!==10000||r.timeouts!==0||r.fingerprint!==expected){console.error('PC/CLOUD PARITY FAILURE',r.count,r.timeouts,r.fingerprint);process.exit(1)} console.log('LAURA_GITHUB_PARITY_OK',r.fingerprint,'wins',r.wins,'losses',r.losses)"
       - name: Preserve full 10000-duel results
         if: always()
         uses: actions/upload-artifact@v4
