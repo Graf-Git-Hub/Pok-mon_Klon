@@ -49,7 +49,9 @@ try:
     cmd("A")
     assert page.evaluate("window.echoQASnapshot().mode")=="OVERWORLD"
     cmd("START");assert page.evaluate("window.echoQASnapshot().mode")=="MENU"
-    for n in range(4):cmd("DOWN")
+    for n in range(3):cmd("DOWN")
+    cmd("A");assert page.evaluate("window.echoQASnapshot().mode")=="RUNEBOOK"
+    cmd("B");assert page.evaluate("window.echoQASnapshot().mode")=="MENU"
     cmd("A");assert page.evaluate("window.echoQASnapshot().mode")=="RUNEBOOK"
     shot("inventory")
     initialMoves=saved()["team"][0]["moves"]

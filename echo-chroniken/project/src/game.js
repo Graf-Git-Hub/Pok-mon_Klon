@@ -11,10 +11,24 @@
     { name: 'DMG-Retro', filter: 'sepia(1) hue-rotate(42deg) saturate(1.7) contrast(1.15)' }
   ];
   let paletteIdx = 0;
+  const PREFS_KEY='echo_chroniken_tv_preferences';
+  function storePrefs(){
+    try{localStorage.setItem(PREFS_KEY,JSON.stringify({soundEnabled,paletteIdx}));}catch(_){}
+  }
 
   // --- WEB AUDIO 8-BIT SYNTHESIZER ---
   let audioCtx = null;
   let soundEnabled = true;
+  try{
+    const data=JSON.parse(localStorage.getItem(PREFS_KEY)||'null');
+    if(data&&typeof data==='object'){
+      if(typeof data.soundEnabled==='boolean')soundEnabled=data.soundEnabled;
+      if(Number.isInteger(data.paletteIdx)&&data.paletteIdx>=0&&data.paletteIdx<PALETTES.length){
+        paletteIdx=data.paletteIdx;
+        canvas.style.filter=PALETTES[paletteIdx].filter;
+      }
+    }
+  }catch(_){}
 
   function ensureAudio() {
     if (!audioCtx) {
@@ -386,7 +400,7 @@
     mondschein:{name:'Mondschein',type:'LICHT',power:36,desc:'Ein Lichtstrahl in der Nacht.',fx:'#fff0af'},
     sternenfall:{name:'Sternenfall',type:'LICHT',power:48,desc:'Leuchtende Sterne treffen das Ziel.',fx:'#f4dfaa'},
     sonnenchor:{name:'Sonnenchor',type:'LICHT',power:65,desc:'Eine machtvolle Lichtmelodie.',fx:'#fff5c5'},
-    heilflimmern:{name:'Heilflimmern',type:'LICHT',power:0,heal:24,desc:'Stellt eigene KP wieder her.'},
+    heilflimmern:{name:'Heilflimmern',type:'LICHT',power:0,heal:24,desc:'Stellt eigene HP wieder her.'},
     schattentipp:{name:'Schattentipp',type:'SCHATTEN',power:26,desc:'Eine leise Berührung.',fx:'#aa78d9'},
     nebelbiss:{name:'Nebelbiss',type:'SCHATTEN',power:37,desc:'Geisternebel wird zu Zähnen.',fx:'#8462c2'},
     nachthieb:{name:'Nachthieb',type:'SCHATTEN',power:49,desc:'Ein schneller Hieb im Dunkeln.',fx:'#7653b5'},
@@ -593,7 +607,7 @@
     }
     if(m.hp>0&&m.hp/Math.max(1,m.maxHp)<=.30&&consumeEquipped(m,'heiltrank')){
       const healed=Math.min(m.maxHp-m.hp,potionHealAmount(m));
-      m.hp+=healed;used.push('Seelen-Trank heilt '+healed+' KP');
+      m.hp+=healed;used.push('Seelen-Trank heilt '+healed+' HP');
     }
     if(used.length){
       b.log+=' / '+SPECIES[m.id-1].name+': '+used.join(', ')+' (automatisch)';
@@ -714,6 +728,12 @@
     dialogCallback: null,
     lexiconCursor: 1,
     menuCursor: 0,
+    bagCursor: 0,
+    teamMenuCursor: 0,
+    optionsCursor: 0,
+    lexiconOrigin:'OVERWORLD',
+    runeOrigin:'MENU',
+    equipmentOrigin:'RUNEBOOK',
     battle: null
   };
 
@@ -971,8 +991,8 @@
     if(!battle.participants.includes(monster))battle.participants.push(monster);
   }
 
-  // A flat 36 KP potion stops being useful against late-story enemies.
-  // Scale its in-battle healing with max KP; it still costs one full turn.
+  // A flat 36 HP potion stops being useful against late-story enemies.
+  // Scale its in-battle healing with max HP; it still costs one full turn.
   function potionHealAmount(ally) {
     return Math.max(36, Math.ceil(ally.maxHp * .30));
   }
@@ -997,9 +1017,9 @@ function executeBattleAction(choice){
     }else if(choice===2){
       if(b.isTrainer){
         if(gameState.potions<=0){b.log='Keine Seelen-Tränke mehr!';sfx.cancel();return;}
-        if(ally.hp>=ally.maxHp){b.log='Dein Geist hat bereits volle KP!';sfx.cancel();return;}
+        if(ally.hp>=ally.maxHp){b.log='Dein Geist hat bereits volle HP!';sfx.cancel();return;}
         const healed=Math.min(ally.maxHp-ally.hp,potionHealAmount(ally));
-        gameState.potions--;ally.hp+=healed;b.log=`${SPECIES[ally.id-1].name} erhält +${healed} KP durch den Seelen-Trank!`;
+        gameState.potions--;ally.hp+=healed;b.log=`${SPECIES[ally.id-1].name} erhält +${healed} HP durch den Seelen-Trank!`;
         b.busy=true;sfx.heal();battleTimeout(enemyCounterAttack,600);
       }else{
         if(gameState.orbs<=0){b.log='Keine Seelen-Sphären mehr!';sfx.cancel();return;}
@@ -1031,7 +1051,7 @@ function executeBattleAction(choice){
     gameState.mode='BATTLE';b.busy=true;
     if(move.heal){
       const healed=Math.min(move.heal,ally.maxHp-ally.hp);
-      ally.hp+=healed;b.log=`${SPECIES[ally.id-1].name} nutzt ${move.name}! +${healed} KP`;
+      ally.hp+=healed;b.log=`${SPECIES[ally.id-1].name} nutzt ${move.name}! +${healed} HP`;
       const effect=STATUS.apply(b,ally,b.enemy,id);
       const ongoing=STATUS.endAction(b,ally);
       if(effect)b.log+=' / '+effect;
@@ -1090,7 +1110,7 @@ function executeBattleAction(choice){
       const ongoing=STATUS.endAction(b,enemy);
       b.enemyHealUsed=true;
       b.animTimer=18;b.fxTarget='enemy';
-      b.log=`${b.enemyDisplayName||enemySp.name} nutzt ${move.name}! (+${healed} KP)`;
+      b.log=`${b.enemyDisplayName||enemySp.name} nutzt ${move.name}! (+${healed} HP)`;
       if(effect)b.log+=' / '+effect;
       if(ongoing)b.log+=' / '+ongoing;
       sfx.heal();
@@ -1592,6 +1612,61 @@ function executeBattleAction(choice){
     }
   }
 
+  const START_MENU=[
+    {id:'seelenbuch',label:'Seelenbuch'},
+    {id:'team',label:'Team'},
+    {id:'bag',label:'Rucksack'},
+    {id:'runes',label:'Runen'},
+    {id:'archive',label:'Archiv'},
+    {id:'save',label:'Speichern'},
+    {id:'options',label:'Optionen'},
+    {id:'exit',label:'Zurueck'}
+  ];
+  const BAG_MENU=[
+    {id:'heiltrank',label:'Seelen-Trank'},
+    {id:'orbs',label:'Seelen-Sphaeren'},
+    {id:'rucksack',label:'Rucksack'},
+    {id:'antidot',label:'Gegengift'},
+    {id:'schockloeser',label:'Entstoerer'},
+    {id:'brandmittel',label:'Brandbalsam'},
+    {id:'runes',label:'Runen'}
+  ];
+  const OPTIONS_MENU=['Ton','Farbpalette','Steuerung','Zurueck'];
+  function openEquipment(origin,teamIndex=0,itemId=null){
+    gameState.equipmentOrigin=origin;
+    gameState.runeTeamCursor=Math.max(0,Math.min(gameState.team.length-1,teamIndex));
+    gameState.gearCursor=Math.max(0,GEAR_ITEMS.findIndex(item=>item.id===itemId));
+    gameState.mode='AUSRUESTUNG';sfx.confirm();
+  }
+  function healTeamFromBag(){
+    if(!gameState.team.length||gameState.potions<=0){
+      sfx.cancel();
+      showDialog(['Keine Seelen-Traenke verfuegbar.'],()=>{gameState.mode='BAG';});
+      return;
+    }
+    if(gameState.team.every(m=>m.hp>=m.maxHp)){
+      sfx.cancel();
+      showDialog(['Dein Team ist bereits vollstaendig gesund!'],()=>{gameState.mode='BAG';});
+      return;
+    }
+    gameState.potions--;
+    gameState.team.forEach(m=>{m.hp=m.maxHp;});
+    saveGame(true);sfx.heal();
+    showDialog(['Dein Team wurde mit einem Seelen-Trank geheilt!'],()=>{gameState.mode='BAG';});
+  }
+  function chooseBagItem(){
+    const selected=BAG_MENU[gameState.bagCursor]?.id;
+    if(selected==='heiltrank'){healTeamFromBag();return;}
+    if(selected==='orbs'){
+      sfx.blip();
+      showDialog(['Seelen-Sphaeren nutzt du zum Fangen im wilden Kampf.'],()=>{gameState.mode='BAG';});
+      return;
+    }
+    if(selected==='runes'){gameState.runeOrigin='BAG';gameState.mode='RUNEBOOK';gameState.runeCursor=0;gameState.runeTeamCursor=0;sfx.confirm();return;}
+    if(selected&&gameState.team.length){openEquipment('BAG',0,selected);return;}
+    sfx.cancel();showDialog(['Erst ein Wesen im Team kann Gegenstaende tragen.'],()=>{gameState.mode='BAG';});
+  }
+
   // --- EINGABE-STEUERUNG (TASTATUR + NINTENDO SWITCH GAMEPAD API) ---
   function handleCommand(cmd) {
     ensureAudio();
@@ -1659,6 +1734,7 @@ function executeBattleAction(choice){
     if (cmd === 'PALETTE') {
       paletteIdx = (paletteIdx + 1) % PALETTES.length;
       canvas.style.filter = PALETTES[paletteIdx].filter;
+      storePrefs();
       document.getElementById('btn-palette').textContent = '🎨 ' + PALETTES[paletteIdx].name;
       sfx.blip();
       return;
@@ -1696,7 +1772,7 @@ function executeBattleAction(choice){
       else if (cmd === 'LEFT') movePlayer(-1, 0, 'left');
       else if (cmd === 'RIGHT') movePlayer(1, 0, 'right');
       else if (cmd === 'A') interactFront();
-      else if (cmd === 'R') { gameState.mode = 'LEXICON'; sfx.confirm(); }
+      else if (cmd === 'R') { gameState.lexiconOrigin='OVERWORLD';gameState.mode = 'LEXICON'; sfx.confirm(); }
       else if (cmd === 'START') { gameState.mode = 'MENU'; gameState.menuCursor = 0; sfx.blip(); }
       else if (cmd === 'L') {
         if (gameState.team.length > 1) {
@@ -1769,7 +1845,7 @@ function executeBattleAction(choice){
 
     
       if (gameState.mode === 'LEXICON') {
-      if (cmd === 'B' || cmd === 'R' || cmd === 'START') { gameState.mode = 'OVERWORLD'; sfx.cancel(); }
+      if (cmd === 'B' || cmd === 'R' || cmd === 'START') { gameState.mode = gameState.lexiconOrigin==='MENU'?'MENU':'OVERWORLD'; gameState.lexiconOrigin='OVERWORLD'; sfx.cancel(); }
       else if (cmd === 'UP') { gameState.lexiconCursor = Math.max(1, gameState.lexiconCursor - 1); sfx.blip(); }
       else if (cmd === 'DOWN') { gameState.lexiconCursor = Math.min(150, gameState.lexiconCursor + 1); sfx.blip(); }
       else if (cmd === 'LEFT') { gameState.lexiconCursor = Math.max(1, gameState.lexiconCursor - 10); sfx.blip(); }
@@ -1779,7 +1855,7 @@ function executeBattleAction(choice){
 
     if (gameState.mode === 'AUSRUESTUNG') {
       const size=gameState.team.length;
-      if(cmd==='B'||cmd==='R'||cmd==='START'){gameState.mode='RUNEBOOK';sfx.cancel();return;}
+      if(cmd==='B'||cmd==='R'||cmd==='START'){gameState.mode=gameState.equipmentOrigin||'RUNEBOOK';gameState.equipmentOrigin='RUNEBOOK';sfx.cancel();return;}
       if(!size)return;
       if(cmd==='LEFT'){gameState.runeTeamCursor=(gameState.runeTeamCursor-1+size)%size;sfx.blip();return;}
       if(cmd==='RIGHT'){gameState.runeTeamCursor=(gameState.runeTeamCursor+1)%size;sfx.blip();return;}
@@ -1792,10 +1868,10 @@ function executeBattleAction(choice){
       return;
     }
     if (gameState.mode === 'RUNEBOOK') {
-      if(cmd==='R'){gameState.mode='AUSRUESTUNG';gameState.gearCursor=0;sfx.confirm();return;}
+      if(cmd==='R'){openEquipment('RUNEBOOK',gameState.runeTeamCursor||0);return;}
       const items=availableRunes();
       const n=gameState.team.length;
-      if(cmd==='B'||cmd==='START'){gameState.mode='MENU';sfx.cancel();return;}
+      if(cmd==='B'||cmd==='START'){gameState.mode=gameState.runeOrigin==='BAG'?'BAG':'MENU';gameState.runeOrigin='MENU';sfx.cancel();return;}
       if(!n)return;
       if(cmd==='LEFT'){gameState.runeTeamCursor=(gameState.runeTeamCursor-1+n)%n;sfx.blip();return;}
       if(cmd==='RIGHT'){gameState.runeTeamCursor=(gameState.runeTeamCursor+1)%n;sfx.blip();return;}
@@ -1810,38 +1886,72 @@ function executeBattleAction(choice){
       }
       return;
     }
-    if (gameState.mode === 'MENU') {
-      if (cmd === 'B' || cmd === 'START') { gameState.mode = 'OVERWORLD'; sfx.cancel(); }
-      else if (cmd === 'UP') { gameState.menuCursor = (gameState.menuCursor + 5) % 6; sfx.blip(); }
-      else if (cmd === 'DOWN') { gameState.menuCursor = (gameState.menuCursor + 1) % 6; sfx.blip(); }
-      else if (cmd === 'A') {
-        if (gameState.menuCursor === 0) { gameState.mode = 'LEXICON'; sfx.confirm(); }
-        else if (gameState.menuCursor === 1) {
-          if (gameState.team.length === 0 || gameState.potions <= 0) {
-            sfx.cancel();
-            showDialog(['Keine Seelen-Traenke verfuegbar.']);
-          } else if (gameState.team.every(m => m.hp >= m.maxHp)) {
-            sfx.cancel();
-            showDialog(['Dein Team ist bereits vollstaendig gesund!']);
-          } else {
-            gameState.potions--;
-            gameState.team.forEach(m => { m.hp = m.maxHp; });
-            saveGame(true); // A paid rest must persist before a reload.
-            sfx.heal();
-            showDialog(['✨ Dein gesamtes Team wurde mit einem Seelen-Trank geheilt!']);
-          }
+    if(gameState.mode==='TEAM_OVERVIEW'){
+      const n=gameState.team.length;
+      if(cmd==='B'||cmd==='START'){gameState.mode='MENU';sfx.cancel();return;}
+      if(!n)return;
+      if(cmd==='UP'||cmd==='DOWN'){
+        gameState.teamMenuCursor=(gameState.teamMenuCursor+(cmd==='UP'?-1:1)+n)%n;sfx.blip();return;
+      }
+      if(cmd==='A'){openEquipment('TEAM_OVERVIEW',gameState.teamMenuCursor);return;}
+      return;
+    }
+    if(gameState.mode==='BAG'){
+      if(cmd==='B'||cmd==='START'){gameState.mode='MENU';sfx.cancel();return;}
+      if(cmd==='UP'||cmd==='DOWN'){
+        gameState.bagCursor=(gameState.bagCursor+(cmd==='UP'?-1:1)+BAG_MENU.length)%BAG_MENU.length;sfx.blip();return;
+      }
+      if(cmd==='A'){chooseBagItem();return;}
+      return;
+    }
+    if(gameState.mode==='OPTIONS'){
+      if(cmd==='B'||cmd==='START'){gameState.mode='MENU';sfx.cancel();return;}
+      if(cmd==='UP'||cmd==='DOWN'){
+        gameState.optionsCursor=(gameState.optionsCursor+(cmd==='UP'?-1:1)+OPTIONS_MENU.length)%OPTIONS_MENU.length;sfx.blip();return;
+      }
+      if(cmd==='A'||cmd==='LEFT'||cmd==='RIGHT'){
+        switch(gameState.optionsCursor){
+          case 0:
+            soundEnabled=!soundEnabled;
+            document.getElementById('touch-sound').textContent=soundEnabled?'🔊 Ton':'🔇 Ton';
+            storePrefs();if(soundEnabled)ensureAudio();break;
+          case 1:
+            paletteIdx=(paletteIdx+PALETTES.length+(cmd==='LEFT'?-1:1))%PALETTES.length;
+            canvas.style.filter=PALETTES[paletteIdx].filter;
+            document.getElementById('btn-palette').textContent='🎨 '+PALETTES[paletteIdx].name;
+            storePrefs();break;
+          case 2:
+            showDialog(['START: Menue   Steuerkreuz: Auswahl','A: OK   B: Zurueck','Handy: Eintraege direkt antippen.'],()=>{gameState.mode='OPTIONS';});return;
+          case 3:gameState.mode='MENU';break;
         }
-        else if (gameState.menuCursor === 2) { saveGame(); }
-        else if (gameState.menuCursor === 3) {
+        sfx.blip();
+      }
+      return;
+    }
+    if(gameState.mode==='MENU'){
+      if(cmd==='B'||cmd==='START'){gameState.mode='OVERWORLD';sfx.cancel();return;}
+      if(cmd==='UP'||cmd==='DOWN'){
+        gameState.menuCursor=(gameState.menuCursor+(cmd==='UP'?-1:1)+START_MENU.length)%START_MENU.length;
+        sfx.blip();return;
+      }
+      if(cmd!=='A')return;
+      switch(START_MENU[gameState.menuCursor].id){
+        case 'seelenbuch':gameState.lexiconOrigin='MENU';gameState.mode='LEXICON';break;
+        case 'team':gameState.teamMenuCursor=0;gameState.mode='TEAM_OVERVIEW';break;
+        case 'bag':gameState.bagCursor=0;gameState.mode='BAG';break;
+        case 'runes':gameState.runeOrigin='MENU';gameState.runeCursor=0;gameState.runeTeamCursor=0;gameState.mode='RUNEBOOK';break;
+        case 'archive':
           window.EchoArchive.ensure(gameState);
           gameState.archiveCursor=0;gameState.archiveTeamCursor=0;
-          gameState.mode='ARCHIVE';sfx.confirm();
-        }
-        else if (gameState.menuCursor === 4) {
-          gameState.mode='RUNEBOOK';gameState.runeCursor=0;gameState.runeTeamCursor=0;sfx.confirm();
-        }
-        else if (gameState.menuCursor === 5) { gameState.mode = 'OVERWORLD'; sfx.cancel(); }
+          gameState.mode='ARCHIVE';break;
+        case 'save':
+          saveGame();
+          if(gameState.mode==='DIALOG')gameState.dialogCallback=()=>{gameState.mode='MENU';};
+          return;
+        case 'options':gameState.optionsCursor=0;gameState.mode='OPTIONS';break;
+        case 'exit':gameState.mode='OVERWORLD';break;
       }
+      sfx.confirm();return;
     }
   }
 
@@ -2138,7 +2248,7 @@ function executeBattleAction(choice){
     ctx.fillStyle = '#ffd166';
     ctx.fillRect(121, 87, Math.floor(102 * (ally.hp / ally.maxHp)), 6);
     ctx.fillStyle = '#adb5bd';
-    ctx.fillText(`KP: ${ally.hp}/${ally.maxHp}`, 121, 101);
+    ctx.fillText(`HP: ${ally.hp}/${ally.maxHp}`, 121, 101);
 
     // Untere GBA-Kampf-Box
     ctx.fillStyle = '#0b0e1a';
@@ -2225,7 +2335,7 @@ function executeBattleAction(choice){
     ctx.font = '8px monospace';
     ctx.fillText(`Element : ${sp.type}`, 88, 54);
     ctx.fillText(`Stufe   : Entwicklungsstufe ${sp.stage}`, 88, 66);
-    ctx.fillText(`Werte   : KP ${sp.hp} | ANG ${sp.atk} | VER ${sp.def}`, 88, 78);
+    ctx.fillText(`Werte   : HP ${sp.hp} | ANG ${sp.atk} | VER ${sp.def}`, 88, 78);
     ctx.fillText(`Status  : ${gameState.caughtIds[id] ? '★ Verbunden' : (seen ? 'Gesehen' : 'Unbekannt')}`, 88, 90);
 
     ctx.fillStyle = '#e0c3fc';
@@ -2700,7 +2810,7 @@ function executeBattleAction(choice){
     pix(0,0,PW,PH,'#213b4299');
     boxArt(8,7,304,168,'#ede0c5','#2b5459','#fdf4de');
     fText('GEISTER WECHSELN',160,25,14,'#294d51','center');
-    fText('KP · ELEMENTE · BESTE ATTACKE',160,37,8,'#607967','center');
+    fText('HP · ELEMENTE · BESTE ATTACKE',160,37,8,'#607967','center');
     const selected=gameState.teamCursor||0;
     for(let i=0;i<Math.min(6,gameState.team.length);i++){
       const m=gameState.team[i],sp=SPECIES[m.id-1],y=55+i*18;
@@ -2825,7 +2935,7 @@ function executeBattleAction(choice){
       pix(143,20,Math.min(90,enemyStatus.length*5+8),13,'#f5e5c8');
       fText(enemyStatus,147,30,7,'#733e37');
     }
-    // Eigene Leiste rechts unten; mit genauen KP
+    // Eigene Leiste rechts unten; mit genauen HP
     boxArt(176,79,140,38,'#f8efd6','#365456','#fff9e7');
     fText(allySp.name,182,91,9,'#263f43');
     fText('Lv.'+ally.lv,309,91,8,'#456459','right');
@@ -2836,7 +2946,7 @@ function executeBattleAction(choice){
       pix(175,65,Math.min(90,allyStatus.length*5+8),13,'#f5e5c8');
       fText(allyStatus,179,75,7,'#713b44');
     }
-    fText(`${ally.hp}/${ally.maxHp} KP`,305,112,8,'#456459','right');
+    fText(`${ally.hp}/${ally.maxHp} HP`,305,112,8,'#456459','right');
     // Klassische Game-Boy-Kampfleiste: Text links und die 4 Tasten rechts.
     pix(0,117,320,63,'#294346');pix(3,120,314,57,'#fff2ce');
     pix(5,122,155,53,'#304750');pix(8,125,150,47,'#263741');
@@ -2907,22 +3017,86 @@ function executeBattleAction(choice){
     const blink=Math.floor(performance.now()/420)%2;
     if(blink)fText('▼  A',277,168,9,'#906b4b');
   }
+  // The village remains visible under the pause overlay, like classic 16-bit RPGs.
   function renderMenu(){
-    pix(0,0,PW,PH,'#1c393e95');
-    boxArt(47,14,226,153,'#ecdcb8','#2d514d');
-    fText('REISETAGEBUCH',160,37,15,'#345851','center');
-    fText('Vaters Seiten: '+gameState.pages.filter(Boolean).length+'/3   Orden: '+gameState.badges+'/3',66,55,9,'#557064');
-    const items=['Buch der 150 Seelen','Team heilen ('+gameState.potions+' Traenke)',
-      'Spielstand speichern','Echo-Archiv ('+gameState.archive.length+')',
-      'Runen & Ausruestung',
-      'Zurueck ins Abenteuer'];
-    items.forEach((label,i)=>{
-      const y=68+i*17;
-      if(gameState.menuCursor===i){pix(62,y-11,197,16,'#93b6a0');pix(62,y-11,3,16,'#ebcc78');}
-      fText((gameState.menuCursor===i?'> ':'  ')+label,68,y,9,
-        gameState.menuCursor===i?'#244a43':'#526759');
-    });
-    fText('A: Auswaehlen  B: Schliessen',160,168,8,'#5c7466','center');
+    pix(0,0,PW,PH,'#14273522');
+    // A narrow, high-contrast right-hand panel with hand-drawn pixel borders.
+    pix(195,7,120,163,'#263943');
+    pix(198,10,114,157,'#ead9ac');
+    pix(201,13,108,151,'#fff0c8');
+    pix(200,12,2,152,'#a38d63');
+    pix(307,12,2,152,'#a38d63');
+    fText('ECHO-MENUE',255,27,10,'#2a4c52','center');
+    pix(206,31,97,2,'#a99a70');
+    for(let i=0;i<START_MENU.length;i++){
+      const y=46+i*14.3,selected=i===gameState.menuCursor;
+      if(selected){
+        pix(205,y-10,102,13,'#afd1a9');
+        pix(205,y-10,3,13,'#456f59');
+      }
+      fText((selected?'▶ ':'  ')+START_MENU[i].label,208,y,10,
+        selected?'#244c3c':'#4c594c');
+    }
+    fText('START/B: ZU',255,162,7,'#587166','center');
+  }
+  function renderTeamOverview(){
+    pix(0,0,PW,PH,'#163b4199');
+    boxArt(8,6,304,167,'#f0e3c4','#305454','#fff5d9');
+    fText('DEIN TEAM',160,24,15,'#305a53','center');
+    fText('A: Ausruesten   B: Zurueck',160,37,8,'#628171','center');
+    if(!gameState.team.length){
+      fText('Noch kein Wesen im Team.',18,75,11,'#44675d');
+      return;
+    }
+    for(let i=0;i<Math.min(6,gameState.team.length);i++){
+      const m=gameState.team[i],y=52+i*18;
+      const selected=i===gameState.teamMenuCursor;
+      if(selected){pix(15,y-11,291,18,'#a8cbb4');pix(15,y-11,3,18,'#416b5e');}
+      fText((selected?'▶ ':' ')+SPECIES[m.id-1].name.slice(0,14),20,y,9,'#345750');
+      fText('Lv.'+m.lv,179,y,9,'#4c6b57','right');
+      hpbar(186,y-9,112,m.hp/Math.max(1,m.maxHp),'#70ad69');
+      fText(m.hp+'/'+m.maxHp+' HP',295,y+4,7,'#476458','right');
+    }
+    fText('↑↓ WESEN   A AUSRUESTUNG   B ZURUECK',160,167,7,'#56796e','center');
+  }
+  function renderBag(){
+    pix(0,0,PW,PH,'#153d4399');
+    boxArt(8,6,304,167,'#f0e3c4','#305454','#fff5d9');
+    fText('DEIN RUCKSACK',160,24,14,'#305a53','center');
+    fText('A: Benutzen / Anlegen    B: Zurueck',160,37,8,'#628171','center');
+    for(let i=0;i<BAG_MENU.length;i++){
+      const item=BAG_MENU[i],id=item.id,y=51+i*15;
+      const selected=i===gameState.bagCursor;
+      if(selected){pix(16,y-11,287,15,'#acd1b2');pix(16,y-11,3,15,'#456c57');}
+      const qty=id==='orbs'?gameState.orbs:
+        id==='runes'?Object.values(gameState.runes||{}).reduce((n,v)=>n+v,0)+
+          (gameState.supportRuneUnlocked?1:0):inventoryCount(id);
+      fText((selected?'▶ ':' ')+item.label,21,y,10,selected?'#274e47':'#48645b');
+      fText('x'+qty,293,y,10,'#48645b','right');
+    }
+    const hints=[
+      'Ein Traenk heilt das Team (1 Stueck).',
+      'Zum Fangen in wilden Kaempfen.',
+      'Bietet 2 Extra-Plaetze fuer Items.',
+      'Gegen GIFT. Einem Wesen mitgeben.',
+      'Gegen SCHOCK. Einem Wesen mitgeben.',
+      'Gegen BRAND. Einem Wesen mitgeben.',
+      'Erlernte und passive Runen verwalten.'
+    ];
+    fText(hints[gameState.bagCursor]||'',160,166,8,'#546f62','center');
+  }
+  function renderOptions(){
+    pix(0,0,PW,PH,'#153d4399');
+    boxArt(9,7,302,166,'#f0e3c4','#305454','#fff5d9');
+    fText('OPTIONEN',160,26,16,'#305a53','center');
+    const values=[soundEnabled?'AN':'AUS',PALETTES[paletteIdx].name,'ANZEIGEN',''];
+    for(let i=0;i<OPTIONS_MENU.length;i++){
+      const y=57+i*25,selected=i===gameState.optionsCursor;
+      if(selected){pix(19,y-13,282,21,'#acd1b2');pix(19,y-13,3,21,'#456c57');}
+      fText((selected?'▶ ':' ')+OPTIONS_MENU[i],24,y,12,'#355851');
+      if(values[i])fText(values[i],291,y,10,'#416b5f','right');
+    }
+    fText('A/←→ ANPASSEN   B ZURUECK',160,169,8,'#526f64','center');
   }
   function renderArchive(){
     pix(0,0,PW,PH,'#254c50');
@@ -2965,7 +3139,7 @@ function executeBattleAction(choice){
       fText(AFF.typesFor(sp).map(t=>AFF.INFO[t].name).join('/'),214,82,8,'#455e5a');
     }
     fText(seen ? `Form ${sp.stage}/${sp.stageCount}   ${sp.evolvesTo ? '→ Nr.'+String(sp.evolvesTo).padStart(3,'0')+' ab Lv.'+sp.evolveLv : '· Endform'}` : 'Form unbekannt',122,96,9,'#5c7363');
-    fText(`KP ${seen?sp.hp:'--'}   ANG ${seen?sp.atk:'--'}   VER ${seen?sp.def:'--'}`,122,110,9,'#5c7363');
+    fText(`HP ${seen?sp.hp:'--'}   ANG ${seen?sp.atk:'--'}   VER ${seen?sp.def:'--'}`,122,110,9,'#5c7363');
     fText(gameState.caughtIds[id]?'✦ VERBUNDEN':seen?'◈ GESEHEN':'◇ NICHT ENTDECKT',122,122,9,'#9d7b51');
     pix(17,133,284,1,'#b3986a');
     const whisper=seen?sp.whisper:'Diese Seele wartet noch darauf, gefunden zu werden.';
@@ -3040,13 +3214,16 @@ function executeBattleAction(choice){
   touchSound.addEventListener('click', () => {
     soundEnabled = !soundEnabled;
     touchSound.textContent = soundEnabled ? '🔊 Ton' : '🔇 Ton';
+    storePrefs();
     if (soundEnabled) ensureAudio();
   });
+  touchSound.textContent=soundEnabled?'🔊 Ton':'🔇 Ton';
+  document.getElementById('btn-palette').textContent='🎨 '+PALETTES[paletteIdx].name;
   let lastTouchMode = '';
   function updateTouchLabel() {
     if (lastTouchMode === gameState.mode) return;
     lastTouchMode = gameState.mode;
-    touchALabel.textContent = ({TITLE: 'Starten', DIALOG: 'Weiter', OVERWORLD: 'Aktion', PLATFORM:'Springen', BATTLE: 'Wählen', ATTACKS:'Angriff', TEAM_SELECT:'Wechseln', RUNEBOOK:'Lernen', LEXICON: 'Info', ARCHIVE: 'Tauschen', MENU: 'Wählen'})[gameState.mode] || 'OK';
+    touchALabel.textContent = ({TITLE: 'Starten', DIALOG: 'Weiter', OVERWORLD: 'Aktion', PLATFORM:'Springen', BATTLE: 'Wählen', ATTACKS:'Angriff', TEAM_SELECT:'Wechseln', RUNEBOOK:'Lernen', LEXICON: 'Info', ARCHIVE: 'Tauschen', MENU: 'Wählen', TEAM_OVERVIEW:'Team', BAG:'Rucksack', OPTIONS:'Ändern', AUSRUESTUNG:'Anlegen'})[gameState.mode] || 'OK';
   }
 
 
@@ -3109,6 +3286,34 @@ function executeBattleAction(choice){
   // Canvas-Buttons direkt antippen, ohne eine virtuelle A-Taste verwenden zu müssen.
   canvas.addEventListener('pointerdown',e=>{
     const r=canvas.getBoundingClientRect();const x=(e.clientX-r.left)/r.width*PW,y=(e.clientY-r.top)/r.height*PH;
+    if(gameState.mode==='MENU'){
+      if(x>=202&&x<=310&&y>=35&&y<161){
+        gameState.menuCursor=Math.max(0,Math.min(START_MENU.length-1,Math.floor((y-36)/14.3)));
+        handleCommand('A');
+      }
+      return;
+    }
+    if(gameState.mode==='TEAM_OVERVIEW'){
+      if(x>=16&&x<=306&&y>=41&&y<41+gameState.team.length*18){
+        gameState.teamMenuCursor=Math.min(gameState.team.length-1,Math.floor((y-41)/18));
+        handleCommand('A');
+      }
+      return;
+    }
+    if(gameState.mode==='BAG'){
+      if(x>=16&&x<=304&&y>=40&&y<40+BAG_MENU.length*15){
+        gameState.bagCursor=Math.max(0,Math.min(BAG_MENU.length-1,Math.floor((y-40)/15)));
+        handleCommand('A');
+      }
+      return;
+    }
+    if(gameState.mode==='OPTIONS'){
+      if(x>=18&&x<=303&&y>=44&&y<148){
+        gameState.optionsCursor=Math.max(0,Math.min(OPTIONS_MENU.length-1,Math.floor((y-44)/25)));
+        handleCommand('A');
+      }
+      return;
+    }
     if(gameState.mode==='ARCHIVE'){
       if(y>=34&&y<=56){handleCommand(x<120?'LEFT':'RIGHT');return;}
       if(x>=16&&x<304&&y>=76&&y<151){
@@ -3253,6 +3458,12 @@ function executeBattleAction(choice){
       renderRuneBook();
     } else if (gameState.mode === 'AUSRUESTUNG') {
       renderEquipment();
+    } else if (gameState.mode === 'TEAM_OVERVIEW') {
+      renderScene(tick);renderTeamOverview();
+    } else if (gameState.mode === 'BAG') {
+      renderScene(tick);renderBag();
+    } else if (gameState.mode === 'OPTIONS') {
+      renderScene(tick);renderOptions();
     } else if (gameState.mode === 'MENU') {
       renderScene(tick);
       renderMenu();

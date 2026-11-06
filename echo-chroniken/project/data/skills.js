@@ -120,17 +120,17 @@
     const s=state(b,monster),events=[];
     if(s.poison>0){
       const lost=Math.min(Math.max(0,monster.hp-1),Math.max(1,Math.floor(monster.maxHp*.05)));
-      monster.hp-=lost;s.poison--;if(lost)events.push('GIFT -'+lost+' KP');
+      monster.hp-=lost;s.poison--;if(lost)events.push('GIFT -'+lost+' HP');
     }
     if(s.paralysis>0)s.paralysis--;
     if(s.burn>0){
       // Periodic damage is capped so a status alone never KOs a creature.
       const lost=Math.min(Math.max(0,monster.hp-1),Math.max(1,Math.floor(monster.maxHp*.05)));
-      monster.hp-=lost;s.burn--;if(lost)events.push('BRAND -'+lost+' KP');
+      monster.hp-=lost;s.burn--;if(lost)events.push('BRAND -'+lost+' HP');
     }
     if(s.regen>0){
       const healed=Math.min(monster.maxHp-monster.hp,Math.max(1,Math.ceil(monster.maxHp*.05)));
-      monster.hp+=healed;s.regen--;if(healed)events.push('NACHKLANG +'+healed+' KP');
+      monster.hp+=healed;s.regen--;if(healed)events.push('NACHKLANG +'+healed+' HP');
     }
     if(s.weak>0){s.weak--;if(s.weak===0)s.weakLabel='';}
     return events.join(' / ');

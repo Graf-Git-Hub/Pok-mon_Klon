@@ -29,6 +29,6 @@ press('DOWN','LEFT','LEFT','LEFT','LEFT','LEFT','LEFT','DOWN','LEFT','A');
 assert.equal(snap().introStage,3);finish();
 press('RIGHT','RIGHT','DOWN','DOWN','DOWN');assert.equal(snap().scene,'OVERWORLD');assert.equal(snap().introStage,4);finish();
 press('UP','UP');assert.equal(snap().scene,'HOUSE');
-press('START','DOWN','DOWN','A');assert.equal(snap().mode,'DIALOG');
+press('START','DOWN','DOWN','DOWN','DOWN','DOWN','A');assert.equal(snap().mode,'DIALOG');
 const saved=JSON.parse(store.echo_chroniken_tv_save);assert.equal(saved.scene,'HOUSE');assert.equal(saved.introStage,4);
 console.log('PASS: Grandma -> parcel -> Miora -> Grandma -> exit -> reentry -> saved stage');

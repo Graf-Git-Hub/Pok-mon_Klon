@@ -1,5 +1,12 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-06 - Klassisches START-Seitenmenue und HP-Anzeigen
+- START oeffnet ein schmales, rechtsseitiges Pixel-Menue ueber der Spielwelt (Seelenbuch, Team, Rucksack, Runen, Archiv, Speichern, Optionen, Zurueck); Navigation per Controller, Tastatur und Touch.
+- Neue Teamuebersicht mit HP-Balken sowie ein echtes Rucksack-Register mit Ausruestungs-Anbindung und bisheriger Teamheilung. Alte Runen-/Archiv- und Speichervorgaenge weiter nutzbar.
+- Optionen fuer Ton, Palette und Steuerung, separate dauerhafte Benutzereinstellungen (kein Save-Schema-Bump).
+- Sichtbare Kampf-, Lexikon- und Statusanzeigen nutzen nun HP statt der deutschen Bezeichnung KP, ohne Lebenswerte zu aendern.
+- Neue Browser-QA mit acht Menueeintraegen auf Desktop/Touch, Screenshots unter visual-audit/retro-start-menu, Dokumentation RETRO_START_MENU_20261106.md.
+
 ## 2026-11-06 - Automatische Kampfitems und Ausruestungsplaetze
 - Entwicklungsstufen 1/2/3 geben 1/2/3 Ausruestungsplaetze; EP-Teiler zaehlt als passiver Gegenstand, nicht als Attacke.
 - Rucksack belegt einen Slot und bietet 2 separate Verbrauchsitem-Plätze; keine Rucksack-Verschachtelung. Alte Save-v2-Daten bleiben lesbar.

@@ -14,10 +14,10 @@ const creature=(name,hp=100)=>({name,hp,maxHp:100});
 const burnBattle={},fire=creature('fire'),grass=creature('grass');
 assert.equal(FX.apply(burnBattle,fire,grass,'kohlenregen',()=>0),'BRAND');
 assert.match(FX.labels(burnBattle,grass),/BRAND/);
-assert.equal(FX.endAction(burnBattle,grass),'BRAND -5 KP');
+assert.equal(FX.endAction(burnBattle,grass),'BRAND -5 HP');
 assert.equal(grass.hp,95);
-assert.equal(FX.endAction(burnBattle,grass),'BRAND -5 KP');
-assert.equal(FX.endAction(burnBattle,grass),'BRAND -5 KP');
+assert.equal(FX.endAction(burnBattle,grass),'BRAND -5 HP');
+assert.equal(FX.endAction(burnBattle,grass),'BRAND -5 HP');
 assert.equal(FX.endAction(burnBattle,grass),'');
 assert.equal(grass.hp,85);
 // Damage-over-time alone may not KO: no unexpected skip of boss/quest callbacks.
@@ -49,8 +49,8 @@ assert.equal(FX.apply(lightningBattle,ice,target,'gewitterherz',()=>0),'SCHOCK')
 assert.match(FX.labels(lightningBattle,target),/SCHOCK/);
 const healBattle={},nature=creature('nature',50);
 assert.equal(FX.apply(healBattle,nature,foe,'waldsegen',()=>0),'NACHKLANG');
-assert.equal(FX.endAction(healBattle,nature),'NACHKLANG +5 KP');
-assert.equal(FX.endAction(healBattle,nature),'NACHKLANG +5 KP');
+assert.equal(FX.endAction(healBattle,nature),'NACHKLANG +5 HP');
+assert.equal(FX.endAction(healBattle,nature),'NACHKLANG +5 HP');
 assert.equal(FX.endAction(healBattle,nature),'');
 assert.equal(nature.hp,60);
 const full=creature('full',99),b4={};

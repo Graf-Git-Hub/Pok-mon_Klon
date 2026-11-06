@@ -162,9 +162,14 @@ try:
     if not any(m["hp"]<maxhp.get(m["id"],m["hp"])*.6 for m in state["team"]):return
     press("START")
     assert snap()["mode"]=="MENU",(who,"rest menu could not open")
-    press("DOWN");press("A")
+    press("DOWN");press("DOWN");press("A")
+    assert snap()["mode"]=="BAG",(who,"Rucksack not accessible")
+    press("A")
     assert snap()["mode"]=="DIALOG",(who,"menu potion not used")
     dismiss()
+    assert snap()["mode"]=="BAG"
+    press("B");assert snap()["mode"]=="MENU"
+    press("B");assert snap()["mode"]=="OVERWORLD"
     assert stored()["potions"]==original["potions"]-1
     case["potions_spent"]+=1
    # Always select an offensive move. Lv11 Miora has healing move in slot 0,

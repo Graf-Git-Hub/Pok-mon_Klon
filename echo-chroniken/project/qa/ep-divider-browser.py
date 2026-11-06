@@ -48,7 +48,7 @@ try:
     if snap()['mode'] in ('TITLE','DIALOG'):cmd('A')
     assert snap()["mode"]=="OVERWORLD"
     cmd("START")
-    for _ in range(4):cmd("DOWN")
+    for _ in range(3):cmd("DOWN")
     cmd("A")
     assert snap()["mode"]=="RUNEBOOK"
     shot("ep-rune-unlocked")

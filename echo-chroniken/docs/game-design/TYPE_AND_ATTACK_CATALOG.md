@@ -196,7 +196,7 @@ Dieses Verzeichnis wird aus den tatsächlich verwendeten Spielregeln erzeugt. Di
 | Mondschein | Licht | 36 | Level | Ein Lichtstrahl in der Nacht. |
 | Sternenfall | Licht | 48 | Level | Leuchtende Sterne treffen das Ziel. |
 | Sonnenchor | Licht | 65 | Level | Eine machtvolle Lichtmelodie. |
-| Heilflimmern | Licht | Heilung +24 | Level | Stellt eigene KP wieder her. |
+| Heilflimmern | Licht | Heilung +24 | Level | Stellt eigene HP wieder her. |
 | Schattentipp | Schatten | 26 | Level | Eine leise Berührung. |
 | Nebelbiss | Schatten | 37 | Level | Geisternebel wird zu Zähnen. |
 | Nachthieb | Schatten | 49 | Level | Ein schneller Hieb im Dunkeln. |
