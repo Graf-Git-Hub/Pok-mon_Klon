@@ -1,5 +1,11 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-06 - Gezielte Kampfentscheidungen statt blindes Massentesten
+- 12×12=144 Element-Kombinationen und 150×12=1.800 Art-/Element-Kombinationen mit Original-Typenlogik geprüft; 12 Statusregeln samt Grenzwerten, Dauer und Zielisolation kontrolliert.
+- 15.000 fixierte Kampfbegegnungen mit jeweils fünf Strategien, insgesamt 75.000 Kampfdurchläufe ohne Timeouts. Paarweise Siegquoten: Kraft 58,13 %, Element 62,00 %, Element+Heilung 62,05 %, Element+Status 62,00 %, Kombination 62,05 %.
+- Dokumentiert, dass Zusatzheuristiken aktuell kaum Vorteile liefern. In diesem Zweig bewusst **keine neuen HP/ATK/DEF-, KI- oder Save-Änderungen**, bis bessere Entscheidungen gezielt begründet und getestet sind. Rohbericht `docs/visual-audit/tactical-audit/paired-decisions.json`.
+
+
 ## 2026-11-05 - Gezielte Kampfentscheidungs- und Statusprüfung
 - Alle 144 Elementpaare, 1.800 Art-Angriffstypkombinationen und 12 Statusregeln kontrolliert; 96.000 tatsächliche Effekt-Auslöseversuche mit erwarteten Wahrscheinlichkeiten.
 - 15.000 gleiche Startpaarungen dreimal als echte Engine-Kämpfe wiederholt: 45.000 Kämpfe, 0 Timeouts, rohe Kraft 58,13 %, Elementwahl 62,00 %, taktische Heil-/Statusheuristik 62,05 %.

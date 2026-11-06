@@ -24,7 +24,7 @@ jobs:
           node-version: '22'
       - name: Exhaustive type combinations and rare status effects
         run: node echo-chroniken/project/tests/tactical-elements-and-status.cjs
-      - name: Compare 15000 matched fights under three real choices
+      - name: Compare 15000 matched fixtures under five real choices (75000 fights)
         run: node echo-chroniken/project/qa/paired-tactical-duels.cjs
       - name: Compare complete paired outcome report with PC evidence
         run: git diff --exit-code -- echo-chroniken/docs/visual-audit/tactical-audit/paired-decisions.json
