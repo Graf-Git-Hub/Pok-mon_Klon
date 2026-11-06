@@ -345,7 +345,7 @@
       talk: () => {
         if (!gameState.gymDefeated[0]) return ['Lyra: „Besiege zuerst Wächter Kael im Westen, bevor du mich herausforderst!“'];
         if (gameState.gymDefeated[1]) return ['Arenaleiterin Lyra: „Hörst du es auch? Die 150 Wesen flüstern mit den Stimmen unserer Ahnen.“'];
-        startTrainerBattle(1, 'Arenaleiterin Lyra', [{ id: 52, lv: 11 }, { id: 86, lv: 13 }]);
+        startTrainerBattle(1, 'Arenaleiterin Lyra', [{ id: 52, lv: 11 }, { id: 86, lv: 13, runes: ['rune_schutz'] }]);
         return null;
       }
     },
@@ -360,7 +360,7 @@
             '„Wandere weiter durch das Land und vervollständige das Erbe aller 150 Seelen!“'
           ];
         }
-        startTrainerBattle(2, 'Meister Vex', [{ id: 112, lv: 15 }, { id: 144, lv: 16 }, { id: 150, lv: 18 }]);
+        startTrainerBattle(2, 'Meister Vex', [{ id: 112, lv: 15, runes: ['rune_schutz'] }, { id: 144, lv: 16, runes: ['rune_kraft'] }, { id: 150, lv: 18, runes: ['rune_nebel'] }]);
         return null;
       }
     }
@@ -1009,7 +1009,18 @@
     function startTrainerBattle(gymIndex, trainerName, roster) {
     const queue = roster.map(r => {
       gameState.seenIds[r.id] = true;
-      return createMonsterInstance(r.id, r.lv);
+      const monster = createMonsterInstance(r.id, r.lv);
+      // Authored trainer runes use ordinary equipment and the exact same
+      // battle modifiers as player runes, without touching player inventory.
+      const assigned = Array.isArray(r.runes) ? r.runes : [];
+      const seen = new Set();
+      for (const runeId of assigned) {
+        if (!Object.prototype.hasOwnProperty.call(PASSIVE_RUNES, runeId) || seen.has(runeId)) continue;
+        if (monster.equipment.length >= gearLimit(monster)) break;
+        seen.add(runeId);
+        monster.equipment.push({id:runeId});
+      }
+      return monster;
     });
     sfx.confirm();
     gameState.mode = 'BATTLE';
@@ -1493,6 +1504,7 @@ function executeBattleAction(choice){
   // Keep the final opponent last: chapter victory is awarded only after it falls.
   function storyBossRoster(boss,species,level){
     const openerId={varekFirst:89,shaftGuardian:89,varekFinal:62}[boss];
+    // Story boss difficulty is balanced separately from optional trainer runes.
     return openerId?[{id:openerId,lv:Math.max(3,level-4)},{id:species,lv:level}]:
       [{id:species,lv:level}];
   }
