@@ -1,6 +1,6 @@
 {
   "fixtureCount": 15000,
-  "engineFights": 45000,
+  "engineFights": 75000,
   "equalStageFixtures": 7500,
   "policies": {
     "power": {
@@ -19,6 +19,22 @@
       "offensive": 73985,
       "timeout": 0
     },
+    "element_heal": {
+      "wins": 8871,
+      "turns": 92187,
+      "heals": 3512,
+      "statusAttacks": 10117,
+      "offensive": 73675,
+      "timeout": 0
+    },
+    "status": {
+      "wins": 8893,
+      "turns": 88997,
+      "heals": 0,
+      "statusAttacks": 7588,
+      "offensive": 73997,
+      "timeout": 0
+    },
     "tactical": {
       "wins": 8871,
       "turns": 92187,
@@ -31,18 +47,32 @@
   "winPct": {
     "power": 55.55,
     "element": 59.28,
+    "element_heal": 59.14,
+    "status": 59.29,
     "tactical": 59.14
   },
   "matched": {
-    "power_vs_element": {
-      "element_only": 561,
-      "power_only": 1,
+    "element_vs_power": {
+      "otherOnly": 1,
+      "elementOnly": 561,
       "both": 8331,
       "neither": 6107
     },
+    "element_vs_element_heal": {
+      "otherOnly": 91,
+      "elementOnly": 112,
+      "both": 8780,
+      "neither": 6017
+    },
+    "element_vs_status": {
+      "otherOnly": 1,
+      "elementOnly": 0,
+      "both": 8892,
+      "neither": 6107
+    },
     "element_vs_tactical": {
-      "tactical_only": 91,
-      "element_only": 112,
+      "otherOnly": 91,
+      "elementOnly": 112,
       "both": 8780,
       "neither": 6017
     }
@@ -52,5 +82,5 @@
     "nonidenticalMoveDecisions": 14544,
     "totalMoves": 75148
   },
-  "note": "Same pairs, levels, and initial random seeds; RNG consumption can diverge after actions differ. Same four equipped moves for all strategies; tactical may heal and prioritize status, opponent AI unchanged."
+  "note": "Same pairs, levels and initial random seeds; RNG consumption diverges after choices differ. Element: effectiveness. Element-heal: same with limited healing. Status: chance-weighted damage. Tactical: both. All use four equipped moves and same enemy AI."
 }

@@ -1,5 +1,10 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-06 - Gezielte Kampfentscheidungen statt blindes Massentesten
+- 12×12=144 Element-Kombinationen und 150×12=1.800 Art-/Element-Kombinationen mit Original-Typenlogik geprüft; 12 Statusregeln samt Grenzwerten, Dauer und Zielisolation kontrolliert.
+- 15.000 fixierte Kampfbegegnungen mit jeweils fünf Strategien, insgesamt 75.000 Kampfdurchläufe ohne Timeouts. Paarweise Siegquoten: Kraft 58,13 %, Element 62,00 %, Element+Heilung 62,05 %, Element+Status 62,00 %, Kombination 62,05 %.
+- Dokumentiert, dass Zusatzheuristiken aktuell kaum Vorteile liefern. In diesem Zweig bewusst **keine neuen HP/ATK/DEF-, KI- oder Save-Änderungen**, bis bessere Entscheidungen gezielt begründet und getestet sind. Rohbericht `docs/visual-audit/tactical-audit/paired-decisions.json`.
+
 ## 2026-11-05 - Intelligente KI im echten Kampfsystem
 - Gegner entscheiden anhand des zu erwartenden Nutzens zwischen K.-o.-Treffer, Typvorteil, nicht erneut gestapelten Statuseffekten, Schutz und einmaliger sinnvoller Heilung; Gegner bis einschließlich Level 8 bleiben einsteigerfreundlich.
 - Neue testbare Entscheidungslogik mit konkreten Unit-Tests und unabhängigem gepaartem Engine-A/B-Test auf 12.000 identischen Ausgangspaarungen: 24.000 Kämpfe, null Timeouts; Spieler-Siegquote 61,48 → 58,29 %, bei frühen Leveln 62,50 → 60,47 %.
