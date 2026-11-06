@@ -502,10 +502,106 @@
     const sp=SPECIES[id-1];
     const maxHp=Math.floor(sp.hp+lv*4.5);
     const m={uid:Math.random().toString(36).slice(2),id,lv,xp:0,nextXp:lv*18,
-      maxHp,hp:maxHp,moves:learnedFor(sp,lv),runeMoves:[],equippedMoves:[]};
+      maxHp,hp:maxHp,moves:learnedFor(sp,lv),runeMoves:[],equippedMoves:[],equipment:[]};
     m.equippedMoves=recommendedLoadout(m);
     return m;
   }
+  const GEAR_ITEMS=Object.freeze([
+    {id:'heiltrank',name:'Seelen-Trank'},
+    {id:'antidot',name:'Gegengift'},
+    {id:'schockloeser',name:'Entstoerer'},
+    {id:'brandmittel',name:'Brandbalsam'},
+    {id:'rucksack',name:'Rucksack'}
+  ]);
+  const BAG_CAPACITY=2;
+  const gearLimit=m=>Math.max(1,Math.min(3,Number(SPECIES[m.id-1]?.stage)||1));
+  const inventoryCount=id=>id==='heiltrank'?(gameState.potions||0):
+    (gameState.gearStock?.[id]||0);
+  function ensureEquipment(m){
+    if(!Array.isArray(m.equipment))m.equipment=[];
+    const clean=m.equipment.filter(x=>x&&GEAR_ITEMS.some(item=>item.id===x.id));
+    m.equipment.splice(0,m.equipment.length,...clean);
+    for(const x of m.equipment){
+      if(x.id!=='rucksack')continue;
+      if(!Array.isArray(x.contents))x.contents=[];
+      x.contents=x.contents.filter(item=>item!=='rucksack'&&GEAR_ITEMS.some(g=>g.id===item))
+        .slice(0,BAG_CAPACITY);
+    }
+    return m.equipment;
+  }
+  function addInventory(id,count=1){
+    if(id==='heiltrank')gameState.potions=(gameState.potions||0)+count;
+    else gameState.gearStock[id]=(gameState.gearStock[id]||0)+count;
+  }
+  function occupiedSlots(m){
+    return ensureEquipment(m).length+(m.heldSupportRune==='ep_teiler'?1:0);
+  }
+  function toggleGear(m,id){
+    if(!m||!GEAR_ITEMS.some(item=>item.id===id))return 'Unbekannter Gegenstand.';
+    const eq=ensureEquipment(m),index=eq.findIndex(x=>x.id===id);
+    if(index>=0){
+      const found=eq.splice(index,1)[0];
+      if(id==='rucksack')for(const cargo of found.contents||[])addInventory(cargo);
+      addInventory(id);saveGame(true);
+      return 'Gegenstand ins Inventar zurueckgelegt.';
+    }
+    for(const bag of eq.filter(x=>x.id==='rucksack')){
+      const idx=bag.contents.indexOf(id);
+      if(idx>=0){
+        bag.contents.splice(idx,1);addInventory(id);saveGame(true);
+        return 'Gegenstand aus dem Rucksack zurueckgelegt.';
+      }
+    }
+    if(inventoryCount(id)<=0)return 'Kein Exemplar mehr im Inventar.';
+    if(occupiedSlots(m)<gearLimit(m)){
+      addInventory(id,-1);
+      eq.push(id==='rucksack'?{id,contents:[]}:{id});saveGame(true);
+      return SPECIES[m.id-1].name+' hat '+GEAR_ITEMS.find(x=>x.id===id).name+' angelegt.';
+    }
+    if(id==='rucksack')return 'Alle Ausruestungsplaetze sind belegt.';
+    const bag=eq.find(x=>x.id==='rucksack'&&x.contents.length<BAG_CAPACITY);
+    if(!bag)return 'Keine freien Plaetze (auch nicht im Rucksack).';
+    addInventory(id,-1);bag.contents.push(id);saveGame(true);
+    return SPECIES[m.id-1].name+' hat '+GEAR_ITEMS.find(x=>x.id===id).name+' eingepackt.';
+  }
+  function consumeEquipped(m,id){
+    const eq=ensureEquipment(m);
+    const index=eq.findIndex(x=>x.id===id);
+    if(index>=0){eq.splice(index,1);return true;}
+    for(const bag of eq.filter(x=>x.id==='rucksack')){
+      const index=bag.contents.indexOf(id);
+      if(index>=0){bag.contents.splice(index,1);return true;}
+    }
+    return false;
+  }
+  // Emergency equipment triggers automatically, without consuming a turn.
+  // Cures have priority; one healing potion can trigger on each damaging action.
+  function autoUseGear(m){
+    const b=gameState.battle;
+    if(!b||!m||m.hp<=0)return [];
+    const fx=STATUS.state(b,m),used=[];
+    if(fx.poison>0&&consumeEquipped(m,'antidot')){
+      fx.poison=0;used.push('Gegengift hebt Vergiftung auf');
+    }
+    if((fx.paralysis>0||(fx.weak>0&&['SCHOCK','PARALYSE'].includes(fx.weakLabel)))&&consumeEquipped(m,'schockloeser')){
+      fx.paralysis=0;
+      if(['SCHOCK','PARALYSE'].includes(fx.weakLabel)){fx.weak=0;fx.weakLabel='';}
+      used.push('Entstoerer hebt Laehmung/Schock auf');
+    }
+    if(fx.burn>0&&consumeEquipped(m,'brandmittel')){
+      fx.burn=0;used.push('Brandbalsam loescht Brand');
+    }
+    if(m.hp>0&&m.hp/Math.max(1,m.maxHp)<=.30&&consumeEquipped(m,'heiltrank')){
+      const healed=Math.min(m.maxHp-m.hp,potionHealAmount(m));
+      m.hp+=healed;used.push('Seelen-Trank heilt '+healed+' KP');
+    }
+    if(used.length){
+      b.log+=' / '+SPECIES[m.id-1].name+': '+used.join(', ')+' (automatisch)';
+      sfx.heal();saveGame(true);
+    }
+    return used;
+  }
+
   // EP-Teiler is passive equipment, never a learned move or one of four battle skills.
   function availableRunes(){
     const attackRunes=SKILLBOOK.RUNES.filter(x=>(gameState.runes[x.id]||0)>0);
@@ -519,6 +615,8 @@
       saveGame(true);
       return 'Der EP-Teiler wurde abgelegt.';
     }
+    if(occupiedSlots(monster)>=gearLimit(monster))
+      return 'Kein freier Ausruestungsplatz fuer die EP-Rune.';
     // Only one copy exists. Moving it from the archive or a teammate cannot duplicate it.
     for(const member of [...gameState.team,...(gameState.archive||[])])
       if(member&&member.heldSupportRune==='ep_teiler')delete member.heldSupportRune;
@@ -578,6 +676,8 @@
     orbs: 12,
     runes: {},
     runeRewards: {},
+    gearStock:{antidot:1,schockloeser:1,brandmittel:1,rucksack:1},
+    gearCursor:0,
     supportRuneUnlocked: false,
     runeCursor: 0,
     runeTeamCursor: 0,
@@ -642,6 +742,7 @@
         orbs: gameState.orbs,
         runes: gameState.runes,
         runeRewards: gameState.runeRewards,
+        gearStock: gameState.gearStock,
         supportRuneUnlocked: gameState.supportRuneUnlocked,
         encounterGrace: gameState.encounterGrace,
         battleWins: gameState.battleWins,
@@ -729,6 +830,11 @@
        }
        if(!gameState.runes||typeof gameState.runes!=='object')gameState.runes={};
       if(!gameState.runeRewards||typeof gameState.runeRewards!=='object')gameState.runeRewards={};
+      if(!gameState.gearStock||typeof gameState.gearStock!=='object')
+        gameState.gearStock={antidot:1,schockloeser:1,brandmittel:1,rucksack:1};
+      if(!Array.isArray(gameState.team))gameState.team=[];
+      for(const creature of [...gameState.team,...(gameState.archive||[])])
+        ensureEquipment(creature);
       // Grant the new passive rune retroactively to existing players who have won before.
       gameState.supportRuneUnlocked=!!gameState.supportRuneUnlocked||
         (Number(gameState.battleWins)||0)>0||(Number(gameState.badges)||0)>0;
@@ -828,6 +934,7 @@
       enemyQueue:[enemy],enemy,cursor:0,attackCursor:0,attackTop:0,
       log:`Ein wildes ${SPECIES[wildId-1].name} (Lv.${wildLv}) erscheint!`,
       animTimer:0,busy:false,participants:[getActiveAlly()]};
+    autoUseGear(getActiveAlly());
     sfx.confirm();
   }
 
@@ -850,6 +957,7 @@
       busy: false,
       participants: [getActiveAlly()]
     };
+    autoUseGear(getActiveAlly());
   }
 
   function getActiveAlly() {
@@ -1003,6 +1111,8 @@ function executeBattleAction(choice){
     const ongoing=STATUS.endAction(b,enemy);
     if(effect)b.log+=' / '+effect;
     if(ongoing)b.log+=' / '+ongoing;
+
+    autoUseGear(ally);
 
     battleTimeout(() => {
       if (ally.hp <= 0) {
@@ -1637,6 +1747,7 @@ function executeBattleAction(choice){
         if(index===0){gameState.mode='BATTLE';sfx.cancel();return;}
         gameState.team.splice(index,1);gameState.team.unshift(other);
         markBattleParticipant(other);
+        autoUseGear(other);
         gameState.mode='BATTLE';
         b.log=SPECIES[other.id-1].name+' kommt heraus!';
         b.busy=true;
@@ -1666,7 +1777,22 @@ function executeBattleAction(choice){
       return;
     }
 
+    if (gameState.mode === 'AUSRUESTUNG') {
+      const size=gameState.team.length;
+      if(cmd==='B'||cmd==='R'||cmd==='START'){gameState.mode='RUNEBOOK';sfx.cancel();return;}
+      if(!size)return;
+      if(cmd==='LEFT'){gameState.runeTeamCursor=(gameState.runeTeamCursor-1+size)%size;sfx.blip();return;}
+      if(cmd==='RIGHT'){gameState.runeTeamCursor=(gameState.runeTeamCursor+1)%size;sfx.blip();return;}
+      if(cmd==='UP'){gameState.gearCursor=(gameState.gearCursor-1+GEAR_ITEMS.length)%GEAR_ITEMS.length;sfx.blip();return;}
+      if(cmd==='DOWN'){gameState.gearCursor=(gameState.gearCursor+1)%GEAR_ITEMS.length;sfx.blip();return;}
+      if(cmd==='A'){
+        const result=toggleGear(gameState.team[gameState.runeTeamCursor],GEAR_ITEMS[gameState.gearCursor].id);
+        sfx.confirm();showDialog([result],()=>{gameState.mode='AUSRUESTUNG';});
+      }
+      return;
+    }
     if (gameState.mode === 'RUNEBOOK') {
+      if(cmd==='R'){gameState.mode='AUSRUESTUNG';gameState.gearCursor=0;sfx.confirm();return;}
       const items=availableRunes();
       const n=gameState.team.length;
       if(cmd==='B'||cmd==='START'){gameState.mode='MENU';sfx.cancel();return;}
@@ -2549,7 +2675,7 @@ function executeBattleAction(choice){
   
     function hpbar(x,y,w,v,color='#70ad69'){
     pix(x,y,w,8,'#283b45');pix(x+1,y+1,w-2,6,'#8d8272');
-    pix(x+2,y+2,Math.max(0,Math.round((w-4)*Math.max(0,Math.min(1,v)))),4,v<.25?'#cb715d':v<.5?'#dbaf5e':color);
+    pix(x+2,y+2,Math.max(0,Math.round((w-4)*Math.max(0,Math.min(1,v)))),4,v<=.30?'#d95050':v<=.60?'#dfb23e':color);
     pix(x+3,y+2,Math.max(0,Math.round((w-4)*Math.max(0,Math.min(1,v)))-3),1,'#f1edb8');
   }
   function drawTypeBadges(x,y,creature,size=13){
@@ -2590,6 +2716,30 @@ function executeBattleAction(choice){
     }
     fText('A WECHSELN   B ZURUECK   ↑↓',160,169,9,'#365e59','center');
   }
+  function renderEquipment(){
+    pix(0,0,PW,PH,'#163b4199');
+    boxArt(7,6,306,168,'#e9dcbf','#345458','#fff1d4');
+    const m=gameState.team[gameState.runeTeamCursor||0];
+    fText('AUSRUESTUNG',160,23,15,'#304f52','center');
+    if(!m){fText('Kein Wesen im Team.',20,60,10,'#344f4b');return;}
+    const eq=ensureEquipment(m);
+    const pack=eq.find(x=>x.id==='rucksack');
+    const pieces=eq.map(x=>x.id==='rucksack'?'Rucksack['+(x.contents||[]).length+'/'+BAG_CAPACITY+']':
+      GEAR_ITEMS.find(g=>g.id===x.id)?.name||x.id);
+    if(m.heldSupportRune==='ep_teiler')pieces.unshift('EP-Rune');
+    fText(SPECIES[m.id-1].name+' Lv.'+m.lv+'  SLOT '+occupiedSlots(m)+'/'+gearLimit(m),17,39,9,'#315750');
+    const summary=pieces.join(' / ')||'leer';
+    fText(summary.slice(0,48),17,53,8,'#526956');
+    for(let i=0;i<GEAR_ITEMS.length;i++){
+      const item=GEAR_ITEMS[i],y=70+i*18;
+      if(i===gameState.gearCursor)pix(15,y-11,290,16,'#a6c9b0');
+      const worn=eq.some(x=>x.id===item.id)||(pack?.contents||[]).includes(item.id);
+      fText((i===gameState.gearCursor?'▶ ':' ')+item.name,22,y,10,'#345850');
+      fText(worn?'ANGELEGT':'x'+inventoryCount(item.id),300,y,8,worn?'#256f4b':'#536962','right');
+    }
+    fText('B: RUNEN ←→ GEIST ↑↓ ITEM A: AN/AUS',160,169,7,'#49685e','center');
+  }
+
   function renderRuneBook(){
     pix(0,0,PW,PH,'#153b4799');
     boxArt(7,6,306,168,'#e9dcbf','#345458','#fff1d4');
@@ -2620,7 +2770,8 @@ function executeBattleAction(choice){
       fText(fits?'LERNSBAR':'GESPERRT',281,y,8,fits?'#256f4b':'#8f6663','right');
       fText('x'+gameState.runes[item.id],301,y,8,'#536962','right');
     }
-    fText('←→ GEIST  ↑↓ RUNE  A LERNEN/ANLEGEN  B ZUR.',160,169,7,'#49685e','center');
+    fText('R: AUSRUESTUNG  ←→ GEIST  A RUNE  B ZUR.',160,169,7,'#49685e','center');
+    fText('R >',285,23,8,'#326656');
   }
   function renderBattle(tick){
     const b=gameState.battle;if(!b)return;
@@ -2763,7 +2914,7 @@ function executeBattleAction(choice){
     fText('Vaters Seiten: '+gameState.pages.filter(Boolean).length+'/3   Orden: '+gameState.badges+'/3',66,55,9,'#557064');
     const items=['Buch der 150 Seelen','Team heilen ('+gameState.potions+' Traenke)',
       'Spielstand speichern','Echo-Archiv ('+gameState.archive.length+')',
-      'Runenlehre ('+(Object.values(gameState.runes||{}).reduce((a,b)=>a+b,0)+(gameState.supportRuneUnlocked?1:0))+')',
+      'Runen & Ausruestung',
       'Zurueck ins Abenteuer'];
     items.forEach((label,i)=>{
       const y=68+i*17;
@@ -2990,7 +3141,16 @@ function executeBattleAction(choice){
       }
       return;
     }
+    if(gameState.mode==='AUSRUESTUNG'){
+      if(y<45&&x>160){handleCommand(x<230?'LEFT':'RIGHT');return;}
+      if(y>=56&&y<160){
+        gameState.gearCursor=Math.max(0,Math.min(GEAR_ITEMS.length-1,Math.floor((y-59)/18)));
+        handleCommand('A');
+      }
+      return;
+    }
     if(gameState.mode==='RUNEBOOK'){
+      if(y<27&&x>260){handleCommand('R');return;}
       const items=availableRunes();
       if(y<45&&x>160){handleCommand('RIGHT');return;}
       if(y>=49&&y<156&&items.length){
@@ -3091,6 +3251,8 @@ function executeBattleAction(choice){
       renderArchive();
     } else if (gameState.mode === 'RUNEBOOK') {
       renderRuneBook();
+    } else if (gameState.mode === 'AUSRUESTUNG') {
+      renderEquipment();
     } else if (gameState.mode === 'MENU') {
       renderScene(tick);
       renderMenu();

@@ -1,5 +1,11 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-06 - Automatische Kampfitems und Ausruestungsplaetze
+- Entwicklungsstufen 1/2/3 geben 1/2/3 Ausruestungsplaetze; EP-Teiler zaehlt als passiver Gegenstand, nicht als Attacke.
+- Rucksack belegt einen Slot und bietet 2 separate Verbrauchsitem-Plätze; keine Rucksack-Verschachtelung. Alte Save-v2-Daten bleiben lesbar.
+- Ein ausgeruesteter Seelen-Trank wird bei maximal 30 % KP automatisch ohne Zugverlust getrunken. Schock, Brand und spaetere Gift-/Paralyse-Zustaende haben passende sofortige Gegenmittel; der Spieler kann anschliessend normal handeln.
+- KP-Ampel einheitlich: gruen ueber 60 %, gelb bis 60 %, rot ab 30 %. Neue Desktop/Touch-Menues, Node-/Browser-QA und Screenshots in AUTO_AUSRUESTUNG_20261106.md. Kein automatischer Android-Release.
+
 ## 2026-11-06 - EP-Teiler, Teamwechsel und passive Rune
 - Eingesetzte Wesen teilen die regulaeren Kampf-EP. Nicht eingesetzte gesunde Wesen erhalten weiterhin zusammen 40 % Bonus-EP; mit tatsaechlich eingesetztem EP-Runen-Traeger steigt der Bonuspool auf 100 %. K.-o.-Wesen bekommen nichts.
 - Passive EP-Rune ist ab dem ersten Sieg verfuegbar, auf alte Sieg-/Arena-Spielstaende rueckwirkend freigeschaltet und ueber Runenlehre anlegbar. Keine der vier Kampfattacken oder Lernrunen wird blockiert.

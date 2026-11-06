@@ -93,7 +93,7 @@
     pfotentanz:{kind:'guard',chance:1,turns:1,label:'SCHUTZ',self:true},
     waldsegen:{kind:'regen',chance:1,turns:2,label:'NACHKLANG',self:true}
   });
-  const newState=()=>({burn:0,weak:0,weakLabel:'',guard:0,regen:0});
+  const newState=()=>({burn:0,poison:0,paralysis:0,weak:0,weakLabel:'',guard:0,regen:0});
   function state(b,monster){
     if(!b.effects)b.effects=[];
     let slot=b.effects.find(x=>x.monster===monster);
@@ -118,6 +118,11 @@
   }
   function endAction(b,monster){
     const s=state(b,monster),events=[];
+    if(s.poison>0){
+      const lost=Math.min(Math.max(0,monster.hp-1),Math.max(1,Math.floor(monster.maxHp*.05)));
+      monster.hp-=lost;s.poison--;if(lost)events.push('GIFT -'+lost+' KP');
+    }
+    if(s.paralysis>0)s.paralysis--;
     if(s.burn>0){
       // Periodic damage is capped so a status alone never KOs a creature.
       const lost=Math.min(Math.max(0,monster.hp-1),Math.max(1,Math.floor(monster.maxHp*.05)));
@@ -136,6 +141,8 @@
     if(!s)return '';
     const parts=[];
     if(s.burn>0)parts.push('BRAND');
+    if(s.poison>0)parts.push('GIFT');
+    if(s.paralysis>0)parts.push('PARALYSE');
     if(s.weak>0)parts.push(s.weakLabel||'SCHWACH');
     if(s.guard>0)parts.push('SCHUTZ');
     if(s.regen>0)parts.push('REGEN');

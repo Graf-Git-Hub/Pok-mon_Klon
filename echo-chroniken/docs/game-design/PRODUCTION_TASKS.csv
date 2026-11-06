@@ -34,4 +34,6 @@ M07-04;M7;End-to-end Android phone + TV test and signed release;M07-03;android/*
 M07-05;M7;Localization and accessibility second pass;M07-04;localizations/*, UI;Legible UI, configurable controls, language fallback;M;TODO
 QA-ARCHIVE;M7;Full-team archive repair and regression audit;M07-01;project/src/archive.js, project/tests/save-compat.cjs;Captures and swaps persist, browser and hardware acceptance pending;M;IN_PROGRESS
 M99-EP-01;M99;Track actual battle participants and equip passive EP-Teiler;M00-02;src/game.js and tests/ep-divider.cjs and qa/ep-divider-browser.py;Battle participants and bonus XP bounded and legacy saves preserved;M;DONE
-M99-GEAR-02;M99;Evolution-based item slots and backpack architecture;M99-EP-01;src/game.js and data/equipment.js;Stage-dependent slots and unique items and backpack non-nesting and save migration tests;L;TODO
+M99-GEAR-02;M99;Evolution-based item slots and backpack architecture;M99-EP-01;src/game.js and tests/auto-equipment.cjs;Stage-dependent slots and unique items and backpack non-nesting and save migration tests;L;DONE
+M99-GEAR-03;M99;Loot and shop economy for recovery and antidote items;M99-GEAR-02;src/game.js and story rewards;Balanced stocking and earning without unlimited free items;M;TODO
+M99-GEAR-04;M99;Introduce real poison and paralysis attacks with balance audit;M99-GEAR-02;data/skills.js and tests/combat-status.cjs;Real infliction cure and boss/early game parity;M;TODO
