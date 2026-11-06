@@ -1,0 +1,49 @@
+name: Echo-Chroniken Auto-Items und Ausruestung
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/src/game.js'
+      - 'echo-chroniken/project/data/skills.js'
+      - 'echo-chroniken/project/tests/auto-equipment.cjs'
+      - 'echo-chroniken/project/qa/auto-equipment-browser.py'
+      - '.github/workflows/echo-auto-equipment.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  automatic-items:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Prepare headless Chrome
+        run: |
+          python -m pip install playwright==1.56.0
+          google-chrome --version
+      - name: Test automatic equipment and preserve EP divider and old saves
+        run: |
+          node echo-chroniken/project/tests/auto-equipment.cjs
+          node echo-chroniken/project/tests/ep-divider.cjs
+          node echo-chroniken/project/tests/reserve-experience.cjs
+          node echo-chroniken/project/tests/combat-status.cjs
+          node echo-chroniken/project/tests/save-compat.cjs
+          node echo-chroniken/project/tests/elemental-types-and-runes.cjs
+      - name: Test equipment menu on real desktop and touch browser
+        run: python echo-chroniken/project/qa/auto-equipment-browser.py
+      - name: Archive screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-auto-equipment-qa
+          path: echo-chroniken/docs/visual-audit/auto-equipment/
+          retention-days: 7
+          if-no-files-found: warn

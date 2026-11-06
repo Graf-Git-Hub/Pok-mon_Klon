@@ -1,0 +1,38 @@
+{
+  "scope": "old v2 save, equipment menu, touch and desktop bag with potion, reload",
+  "cases": [
+    {
+      "view": "desktop",
+      "screens": [
+        "desktop-first-gear-menu.png",
+        "desktop-potion-in-backpack.png"
+      ],
+      "success": true,
+      "equipment": [
+        {
+          "id": "rucksack",
+          "contents": [
+            "heiltrank"
+          ]
+        }
+      ]
+    },
+    {
+      "view": "touch",
+      "screens": [
+        "touch-first-gear-menu.png",
+        "touch-potion-in-backpack.png"
+      ],
+      "success": true,
+      "equipment": [
+        {
+          "id": "rucksack",
+          "contents": [
+            "heiltrank"
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}
