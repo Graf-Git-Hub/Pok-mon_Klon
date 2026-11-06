@@ -2,6 +2,7 @@
 Contains only game-rule/status metadata, never saves, local paths or user data.
 """
 import json
+import shutil
 import pathlib
 import subprocess
 import sys
@@ -27,6 +28,19 @@ def safe_status():
         "mobile","device","status","stage","step","progress","startedAt","endedAt",
         "exitCode","lastUpdated")
     variants=[{k:v[k] for k in allowed if k in v} for v in source["variants"]]
+    # Every publicly mirrored frame is a screenshot of the isolated GAME browser page.
+    # The source and output filenames are fixed by RUN-001..RUN-100, no untrusted paths.
+    frame_root=PAGES/"frames"
+    frame_root.mkdir(exist_ok=True)
+    for v in variants:
+        frame_source=ROOT/"docs"/"visual-audit"/"parallel-lab"/v["id"]/"live.jpg"
+        if not frame_source.exists():continue
+        if not 0<frame_source.stat().st_size<500_000:continue
+        destination=frame_root/(v["id"]+".jpg")
+        if not destination.exists() or frame_source.stat().st_mtime>destination.stat().st_mtime:
+            shutil.copy2(frame_source,destination)
+        v["frame"]="frames/"+v["id"]+".jpg"
+        v["frameUpdated"]=int(frame_source.stat().st_mtime)
     log=[]
     for item in source.get("log",[])[-50:]:
         msg=str(item.get("text",""))
@@ -47,7 +61,7 @@ def publish():
     data=json.dumps(payload,ensure_ascii=False,separators=(",",":"))+"\n"
     # Only files in the dedicated public Pages worktree are touched.
     DEST.write_text(data,encoding="utf8")
-    if not cmd("git","add","status.json"):return False
+    if not cmd("git","add","status.json","frames"):return False
     if not cmd("git","commit","-m","live: update game simulation progress"):return False
     if not cmd("git","-c","credential.interactive=never","push","origin","gh-pages"):
         return False
@@ -69,6 +83,6 @@ def main():
             print("PUBLIC_SYNC_WAITING_FOR_TEST_SERVICE",flush=True)
             last_missing=True
         if once:raise SystemExit(3)
-        time.sleep(80)
+        time.sleep(60)
 
 if __name__=="__main__":main()

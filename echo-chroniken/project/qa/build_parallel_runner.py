@@ -66,5 +66,28 @@ add='''     # Strict player-selected level gate. All currently owned spirits mus
 '''
 add='\n'.join(line[1:] if line.startswith(' ') else line for line in add.split('\n'))
 replace(anchor,add+anchor)
+# Add game-only JPEG frames. Browser screenshots never include the desktop, user files or tabs.
+replace("import functools,http.server,json,pathlib,threading,heapq,sys,traceback,time,os",
+        "import functools,http.server,json,pathlib,threading,heapq,sys,traceback,time,os,io\nfrom PIL import Image")
+replace('   def press(cmd):\n    if touch:page.locator(f\'[data-cmd="{cmd}"]\').tap()\n    else:page.keyboard.press({"UP":"ArrowUp","DOWN":"ArrowDown","LEFT":"ArrowLeft","RIGHT":"ArrowRight","A":"Enter","B":"Backspace","START":"Escape"}[cmd])',
+        """   last_preview=[0.0]
+   def make_preview(force=False):
+    if not force and time.monotonic()-last_preview[0]<6:return
+    try:
+     raw=page.screenshot(type="jpeg",quality=52,timeout=6000)
+     image=Image.open(io.BytesIO(raw))
+     image.thumbnail((640,500))
+     temp=OUT/"preview.tmp"
+     image.save(temp,format="JPEG",quality=51,optimize=True)
+     temp.replace(OUT/"live.jpg")
+     last_preview[0]=time.monotonic()
+    except Exception as ex:print("PARALLEL_PREVIEW_WARN",str(ex)[:90],flush=True)
+   make_preview(force=True)
+   def press(cmd):
+    if touch:page.locator(f'[data-cmd="{cmd}"]').tap()
+    else:page.keyboard.press({"UP":"ArrowUp","DOWN":"ArrowDown","LEFT":"ArrowLeft","RIGHT":"ArrowRight","A":"Enter","B":"Backspace","START":"Escape"}[cmd])
+    make_preview()""")
+replace('   def stage(label):\n    case["stage"]=label',
+        '   def stage(label):\n    case["stage"]=label\n    make_preview(force=True)')
 (p/"parallel_natural_run.py").write_text(s,encoding="utf8")
 print("RUNNER_BUILT",p/"parallel_natural_run.py","bytes",len(s.encode("utf8")))

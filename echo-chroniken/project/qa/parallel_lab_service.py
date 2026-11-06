@@ -135,7 +135,7 @@ def run_one(p):
     finally:
         persist()
 def scheduler():
-    addlog(None,"100 unterschiedliche Varianten vorbereitet; zwei echte Browser-Spieltests parallel")
+    addlog(None,f"100 Varianten; {MAX_WORKERS} echte Browser-Spieltests parallel")
     persist()
     while True:
         with lock:
@@ -178,15 +178,38 @@ class Handler(http.server.BaseHTTPRequestHandler):
             self.send(200,"application/json",json.dumps({"ok":True,"active":snapshot()["active"]}))
         else:
             self.send(404,"text/plain","Nicht gefunden")
+def restore_completed_progress():
+    """On service restart preserve terminal results; restart only interrupted active cases."""
+    global started
+    f=OUT/"status.json"
+    if not f.exists():return
+    try:
+        old=json.loads(f.read_text(encoding="utf8"))
+        if old.get("total")!=100:return
+        lookup={x["id"]:x for x in old.get("variants",[])}
+        restored=0
+        for item in profiles:
+            prior=lookup.get(item["id"],{})
+            if prior.get("status") in ("passed","failed","blocked"):
+                for key in ("status","stage","progress","startedAt","endedAt","exitCode","lastUpdated","message"):
+                    if key in prior:item[key]=prior[key]
+                restored+=1
+            elif prior.get("status")=="running":
+                item["stage"]="Nach Neustart neu eingeplant"
+        started=old.get("startedAt",started)
+        print("RESTORED_TERMINAL_RUNS",restored,"of 100",flush=True)
+    except Exception as ex:
+        print("RESTORE_WARNING",type(ex).__name__,str(ex)[:100],flush=True)
 def main():
     global MAX_WORKERS
     parser=argparse.ArgumentParser()
     parser.add_argument("--port",type=int,default=PORT)
-    parser.add_argument("--workers",type=int,default=2)
+    parser.add_argument("--workers",type=int,default=4)
     parser.add_argument("--no-start",action="store_true")
     args=parser.parse_args()
     MAX_WORKERS=max(1,min(args.workers,4))
     assert DASH.exists(),DASH
+    restore_completed_progress()
     if not args.no_start:
         threading.Thread(target=scheduler,daemon=True,name="parallel-test-scheduler").start()
     server=http.server.ThreadingHTTPServer(("0.0.0.0",args.port),Handler)

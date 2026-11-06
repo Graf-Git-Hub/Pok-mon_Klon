@@ -2,7 +2,8 @@
 No fixture, save injection, chapter flags, level edits or combat callbacks.
 Real random encounters are left enabled, combat uses actual keyboard/touch.
 """
-import functools,http.server,json,pathlib,threading,heapq,sys,traceback,time,os
+import functools,http.server,json,pathlib,threading,heapq,sys,traceback,time,os,io
+from PIL import Image
 from playwright.sync_api import sync_playwright
 
 PROJECT=pathlib.Path(__file__).resolve().parent.parent
@@ -46,9 +47,23 @@ try:
    def saved():
     result=page.evaluate("JSON.parse(localStorage.getItem('echo_chroniken_tv_save')||'null')")
     return result or {}
+   last_preview=[0.0]
+   def make_preview(force=False):
+    if not force and time.monotonic()-last_preview[0]<6:return
+    try:
+     raw=page.screenshot(type="jpeg",quality=52,timeout=6000)
+     image=Image.open(io.BytesIO(raw))
+     image.thumbnail((640,500))
+     temp=OUT/"preview.tmp"
+     image.save(temp,format="JPEG",quality=51,optimize=True)
+     temp.replace(OUT/"live.jpg")
+     last_preview[0]=time.monotonic()
+    except Exception as ex:print("PARALLEL_PREVIEW_WARN",str(ex)[:90],flush=True)
+   make_preview(force=True)
    def press(cmd):
     if touch:page.locator(f'[data-cmd="{cmd}"]').tap()
     else:page.keyboard.press({"UP":"ArrowUp","DOWN":"ArrowDown","LEFT":"ArrowLeft","RIGHT":"ArrowRight","A":"Enter","B":"Backspace","START":"Escape"}[cmd])
+    make_preview()
    def dismiss():
     for i in range(65):
      if snap()["mode"]!="DIALOG":return
@@ -267,6 +282,7 @@ try:
     raise AssertionError((who,"trainer fight exhausted",snap()))
    def stage(label):
     case["stage"]=label
+    make_preview(force=True)
     s=saved()
     case["lastSave"]={"map":s.get("currentMapId"),"lv":[m["lv"] for m in s.get("team",[])],"potions":s.get("potions"),"orbs":s.get("orbs")}
     case.setdefault("milestones",[]).append({"stage":label,"map":s.get("currentMapId"),"team":[{"id":m["id"],"lv":m["lv"],"xp":m.get("xp"),"hp":m["hp"],"maxHp":m["maxHp"]} for m in s.get("team",[])],
