@@ -52,7 +52,7 @@ try:
                     page.keyboard.press({"A":"Enter","B":"x","START":"m","UP":"ArrowUp","DOWN":"ArrowDown"}.get(action,action))
             def open_archive():
                 cmd("START")
-                for _ in range(3):
+                for _ in range(4):
                     cmd("DOWN")
                 cmd("A")
                 assert snapshot()["mode"] == "ARCHIVE", snapshot()

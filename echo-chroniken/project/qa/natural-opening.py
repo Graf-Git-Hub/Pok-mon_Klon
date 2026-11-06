@@ -103,10 +103,14 @@ try:
     max_by_id={m["id"]:m["maxHp"] for m in inventory.get("team",[])}
     if not any(m["hp"]<max_by_id.get(m["id"],m["hp"])*.75 for m in state["team"]):return
     original=inventory["potions"]
-    # Normal travel menu: Start -> Heal (slot 1) -> A; no save edits.
+    # Classic travel menu: START -> Rucksack (slot 2) -> Seelen-Trank (slot 0).
     press("START");assert snap()["mode"]=="MENU",(who,"healing menu inaccessible")
-    press("DOWN");press("A");assert snap()["mode"]=="DIALOG"
+    press("DOWN");press("DOWN");press("A");assert snap()["mode"]=="BAG"
+    press("A");assert snap()["mode"]=="DIALOG"
     dismiss()
+    assert snap()["mode"]=="BAG"
+    press("B");assert snap()["mode"]=="MENU"
+    press("B");assert snap()["mode"]=="OVERWORLD"
     assert saved()["potions"]==original-1,(who,"travel potion did not deduct",original,saved())
     case["potionsSpent"]+=1
    def walk_cmd(cmd,expect=None):
