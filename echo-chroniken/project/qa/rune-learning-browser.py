@@ -51,6 +51,8 @@ try:
     cmd("START");assert page.evaluate("window.echoQASnapshot().mode")=="MENU"
     for n in range(3):cmd("DOWN")
     cmd("A");assert page.evaluate("window.echoQASnapshot().mode")=="RUNEBOOK"
+    cmd("B");assert page.evaluate("window.echoQASnapshot().mode")=="MENU"
+    cmd("A");assert page.evaluate("window.echoQASnapshot().mode")=="RUNEBOOK"
     shot("inventory")
     initialMoves=saved()["team"][0]["moves"]
     canvas(65,76)
