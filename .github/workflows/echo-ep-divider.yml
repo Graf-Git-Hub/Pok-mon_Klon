@@ -1,0 +1,47 @@
+name: Echo-Chroniken EP-Teiler und passive Rune
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/src/game.js'
+      - 'echo-chroniken/project/tests/ep-divider.cjs'
+      - 'echo-chroniken/project/qa/ep-divider-browser.py'
+      - 'echo-chroniken/project/qa/rune-learning-browser.py'
+      - '.github/workflows/echo-ep-divider.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ep-divider:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Set up headless Chrome automation
+        run: |
+          python -m pip install playwright==1.56.0
+          google-chrome --version
+      - name: Real engine EP sharing and legacy saves
+        run: |
+          node echo-chroniken/project/tests/ep-divider.cjs
+          node echo-chroniken/project/tests/reserve-experience.cjs
+          node echo-chroniken/project/tests/save-compat.cjs
+          node echo-chroniken/project/tests/elemental-types-and-runes.cjs
+      - name: Equip and move EP rune in real desktop and touch browser
+        run: python echo-chroniken/project/qa/ep-divider-browser.py
+      - name: Archive browser screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-ep-divider-evidence
+          path: echo-chroniken/docs/visual-audit/ep-divider/
+          retention-days: 7
+          if-no-files-found: warn

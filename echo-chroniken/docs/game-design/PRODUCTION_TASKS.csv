@@ -33,3 +33,5 @@ M07-03;M7;Full balance pass with playthrough reports;M07-01;tests/balance/*;No i
 M07-04;M7;End-to-end Android phone + TV test and signed release;M07-03;android/*;One app ID, stable signer, save update works;XL;TODO
 M07-05;M7;Localization and accessibility second pass;M07-04;localizations/*, UI;Legible UI, configurable controls, language fallback;M;TODO
 QA-ARCHIVE;M7;Full-team archive repair and regression audit;M07-01;project/src/archive.js, project/tests/save-compat.cjs;Captures and swaps persist, browser and hardware acceptance pending;M;IN_PROGRESS
+M99-EP-01;M99;Track actual battle participants and equip passive EP-Teiler;M00-02;src/game.js and tests/ep-divider.cjs and qa/ep-divider-browser.py;Battle participants and bonus XP bounded and legacy saves preserved;M;DONE
+M99-GEAR-02;M99;Evolution-based item slots and backpack architecture;M99-EP-01;src/game.js and data/equipment.js;Stage-dependent slots and unique items and backpack non-nesting and save migration tests;L;TODO

@@ -53,7 +53,7 @@ try:
     cmd("A");assert page.evaluate("window.echoQASnapshot().mode")=="RUNEBOOK"
     shot("inventory")
     initialMoves=saved()["team"][0]["moves"]
-    canvas(65,60)
+    canvas(65,76)
     assert page.evaluate("window.echoQASnapshot().mode")=="DIALOG"
     cmd("A")
     assert page.evaluate("window.echoQASnapshot().mode")=="RUNEBOOK"
@@ -61,7 +61,7 @@ try:
     assert after["runes"]["kohlenregen"]==natural["runes"]["kohlenregen"]-1
     assert "kohlenregen" in after["team"][0]["moves"]
     # Learn 2nd rune using same interface; permanent learned book, prepared only 4.
-    canvas(60,60)
+    canvas(60,76)
     assert page.evaluate("window.echoQASnapshot().mode")=="DIALOG"
     cmd("A")
     assert page.evaluate("window.echoQASnapshot().mode")=="RUNEBOOK"

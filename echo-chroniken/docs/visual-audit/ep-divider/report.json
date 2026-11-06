@@ -1,0 +1,23 @@
+{
+  "cases": [
+    {
+      "view": "desktop",
+      "screens": [
+        "desktop-ep-rune-unlocked.png",
+        "desktop-ep-rune-transferred.png"
+      ],
+      "success": true,
+      "runeHolder": 5
+    },
+    {
+      "view": "touch",
+      "screens": [
+        "touch-ep-rune-unlocked.png",
+        "touch-ep-rune-transferred.png"
+      ],
+      "success": true,
+      "runeHolder": 5
+    }
+  ],
+  "errors": []
+}
