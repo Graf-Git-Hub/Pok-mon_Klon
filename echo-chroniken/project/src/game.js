@@ -234,6 +234,7 @@
   worldMap[13][16] = 6; // Kreuzungs-Heilstein
   worldMap[21][30] = 6; // Heiligtum-Altar
   if(window.EchoVillage){window.EchoVillage.map=worldMap;window.EchoVillage.build(worldMap);}
+  window.EchoSOULS?.apply("legacy_wurzeldorf",worldMap);
   if(window.EchoRoute)window.EchoRoute.build(worldMap);
   if(window.EchoRuins)window.EchoRuins.prepareWorld(worldMap);
 
@@ -704,6 +705,7 @@
     window.EchoEndgame?.register();
      window.EchoFinale?.register();
     window.EchoPostgame?.register();
+    window.EchoSOULS?.applyAll(window.EchoMaps);
 
     const gameState = {
     mode: 'OVERWORLD', // OVERWORLD, DIALOG, BATTLE, LEXICON, MENU
@@ -2829,6 +2831,7 @@ function executeBattleAction(choice){
         window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
         window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3;
      painter.draw(ctx,tick,gameState,camX,camY,pix,fText,drawChar16);
+      window.EchoSOULS?.renderProps(gameState.currentMapId,camX,camY,pix);
      // Decorative homes in the newly expanded districts. Drawn from the
      // very same 3x3 impassable tile footprints, so artwork and collision
      // never drift apart, including on mobile and the clean-map exports.
@@ -2853,6 +2856,7 @@ function executeBattleAction(choice){
        ctx.drawImage(companion,px*16-camX+13,py*16-camY-11+Math.sin(tick*.005)*2,18,18);
      }
      drawChar16(px*16-camX,py*16-camY,'#e06e59',gameState.player.stepPhase,'player',gameState.player.dir);
+      window.EchoSOULS?.foreground(gameState.currentMapId,map.tiles,px,py,camX,camY,pix);
    }
    function renderOverworld(tick){
     pix(0,0,PW,PH,'#80b985');
@@ -2868,6 +2872,7 @@ function executeBattleAction(choice){
     const homeX=3*16-camX,homeY=2*16-camY;
     drawCottage(homeX,homeY,tick);
     if(window.EchoVillage)window.EchoVillage.draw(ctx,camX,camY,tick,pix);
+     window.EchoSOULS?.renderProps("legacy_wurzeldorf",camX,camY,pix);
     if(!gameState.runeFinds?.mist){
       const x=16*16-camX,y=10*16-camY;
       if(x>=-10&&x<=PW&&y>=-10&&y<=PH){
@@ -2910,6 +2915,7 @@ function executeBattleAction(choice){
       pix(CX+offset[0]+5,CY+offset[1]+16,8,1,'#529c83');
     }
     drawChar16(CX,CY,'#e06e59',gameState.player.stepPhase,'player',gameState.player.dir);
+    window.EchoSOULS?.foreground('legacy_wurzeldorf',worldMap,px,py,camX,camY,pix);
     if(Math.sin(tick/25000)>0.65){
       pix(0,0,PW,PH,'#243c5240');
       fireflies.forEach((f,i)=>{

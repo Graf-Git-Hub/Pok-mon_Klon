@@ -1,0 +1,2 @@
+/* Generated from real SOULS editor; safe tile diffs only. */
+window.EchoSoulsEditedData={"schema":1,"format":"ECHO_SOULS_DIFF_V1","source":"SOULS V7/8 editor","regions":{"legacy_wurzeldorf":{"w":36,"h":28,"changes":[[15,20,8,3],[15,21,0,3],[16,21,8,3],[17,21,8,3],[15,22,0,3],[17,22,0,3],[20,22,8,9],[18,23,8,9],[19,23,3,9]],"props":[{"id":"lamp","x":16,"y":23},{"id":"smallflowers","x":20,"y":23}]}}};

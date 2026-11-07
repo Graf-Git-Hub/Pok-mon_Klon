@@ -1,0 +1,49 @@
+{
+  "cases": [
+    {
+      "viewport": "desktop",
+      "souls": {
+        "count": 60,
+        "active": "legacy_wurzeldorf",
+        "w": 36,
+        "h": 28,
+        "hasLegacy": true,
+        "found": "path"
+      },
+      "echo": {
+        "after": 3,
+        "after2": 3,
+        "wild": 2,
+        "applied": [
+          "legacy_wurzeldorf"
+        ],
+        "props": 2,
+        "registered": 3
+      },
+      "success": true
+    },
+    {
+      "viewport": "phone",
+      "souls": {
+        "count": 60,
+        "active": "legacy_wurzeldorf",
+        "w": 36,
+        "h": 28,
+        "hasLegacy": true,
+        "found": "path"
+      },
+      "echo": {
+        "after": 3,
+        "after2": 3,
+        "wild": 2,
+        "applied": [
+          "legacy_wurzeldorf"
+        ],
+        "props": 2,
+        "registered": 3
+      },
+      "success": true
+    }
+  ],
+  "errors": []
+}

@@ -1,5 +1,13 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-07 - SOULS 3.46 Kartenwerkstatt mit 60 echten Echo-Karten und sicherem Import
+- Separater, mobil nutzbarer SOULS-Karteneditor mit eigenem Speicher und echtem 60-Karten-Projekt.
+- Validierter Import als diffs in den wirklichen Spiel- und Kollisionsdaten, keine Bildattrappen oder Save-Schema-Änderung.
+- Wurzelheim-Pilot: verbundener Weg, Begrünung, Leuchte und Blumen sowie korrekte Gras-Überlagerung.
+- Versehentlich bepflasterte, storyrelevante Wildgrasfelder (13/14,23) im Startdorf korrigiert und als Schutzfelder fixiert.
+- Echte Browserprüfungen auf Desktop/Handy, negative Story-/Kollisionstests, neue eigene CI.
+- Details: SOULS_BRIDGE_20261107.md.
+
 ## 2026-11-07 - Alle 60 Weltkarten: 58 letzte Gebiete begehbar erweitert
 - 57 bisher winzige Regionen um jeweils mindestens 22 Spalten und 13 Zeilen größer gemacht, verbunden durch neue Straßen/Rundwege und thematische Landschaftsbereiche, im echten Karten-/Kollisionscode.
 - Startdorf Wurzelheim mit zusätzlichen Rundwegen im bestehenden 36x28-Raster statt riskanter Verschiebung seiner Quest-/Häuser-Koordinaten. Nordufer/Nebelhafen sind bereits zuvor individuell umgebaut.

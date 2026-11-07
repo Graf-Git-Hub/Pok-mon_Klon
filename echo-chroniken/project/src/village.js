@@ -123,6 +123,9 @@ function build(map){
   }
   // Any remaining tile type 5 outside the new buildings must be removed.
   for(let y=1;y<H-1;y++)for(let x=1;x<W-1;x++)if(map[y][x]===5&&!allHomes.some(h=>x>=h.x&&x<h.x+5&&y>=h.y&&y<h.y+3))set(x,y,0);
+  // Keep the chapter-opening wild meadow intact. Earlier route polishing
+  // accidentally paved these two story-critical battle tiles.
+  set(13,23,2);set(14,23,2);
   safeMap.clear();
   for(let y=1;y<=18;y++)for(let x=1;x<=28;x++)if(map[y][x]!==1&&map[y][x]!==4&&map[y][x]!==5)safeMap.add(x+','+y);
   return map;
