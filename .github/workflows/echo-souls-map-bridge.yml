@@ -1,0 +1,49 @@
+name: Echo-Chroniken SOULS Map Editor Bridge
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/src/maps/souls-bridge.js'
+      - 'echo-chroniken/project/data/echo-souls-edits.js'
+      - 'echo-chroniken/project/tools/souls-bridge/**'
+      - 'echo-chroniken/project/qa/souls-*'
+      - 'echo-chroniken/project/tests/souls-editor-bridge.cjs'
+      - 'echo-chroniken/docs/souls-editor/**'
+      - '.github/workflows/echo-souls-map-bridge.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  safe-import-and-60-maps:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test full 60 map editor project and protected imports
+        working-directory: echo-chroniken/project
+        run: |
+          node --check src/maps/souls-bridge.js
+          node --check data/echo-souls-edits.js
+          node tests/souls-editor-bridge.cjs
+          node tests/map-registry.cjs
+          node tests/all-60-world-layout.cjs
+          node tests/save-compat.cjs
+      - name: Install Chrome automation
+        run: |
+          python -m pip install playwright==1.56.0
+          google-chrome --version
+      - name: Test real SOULS 3.46 editor with Echo on desktop and phone
+        run: python echo-chroniken/project/qa/souls-editor-bridge-browser.py
+      - name: Upload real editor screenshots and test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-souls-editor-visual-proof
+          path: echo-chroniken/docs/visual-audit/souls-bridge/
+          retention-days: 14
+          if-no-files-found: warn
