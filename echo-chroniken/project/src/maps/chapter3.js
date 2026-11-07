@@ -24,21 +24,84 @@ function rect(a,x0,y0,x1,y1,tile){
   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)
     if(a[y]&&a[y][x]!==undefined)a[y][x]=tile;
 }
+// Hand-authored, traversable layouts. The area is deliberately larger than a
+// single game screen, with an explicit walkable route, small optional branches
+// and a coherent shoreline/town plan. Story IDs and exit links are unchanged.
+function outdoor(w,h,kind){
+  const a=Array.from({length:h},(_,y)=>Array.from({length:w},(_,x)=>{
+    if(x===0||y===0||x===w-1||y===h-1)return 1;
+    const n=(x*29+y*43+x*y*7)%71;
+    return n<7?2:0;
+  }));
+  // Natural boundaries and patches: trees are obstacles, tall grass is passable.
+  const groves=kind==='lake'?[
+    [2,2,8,4],[2,23,10,26],[40,2,45,6],[42,23,46,26],
+    [2,20,6,22],[32,22,35,25]
+  ]:[
+    [2,2,5,5],[44,2,49,5],[2,25,5,28],[45,24,49,28],
+    [12,23,15,26],[26,3,28,5]
+  ];
+  for(const [x0,y0,x1,y1] of groves)rect(a,x0,y0,x1,y1,1);
+  return a;
+}
+function trail(a,points,halfWidth=1){
+  const carve=(x,y)=>{
+    // Width 3: the old Game Boy's readable walkable trunk/path.
+    rect(a,x-halfWidth,y-halfWidth,x+halfWidth,y+halfWidth,3);
+  };
+  for(let i=0;i<points.length-1;i++){
+    let [x,y]=points[i];
+    const [gx,gy]=points[i+1];
+    carve(x,y);
+    while(x!==gx){x+=Math.sign(gx-x);carve(x,y);}
+    while(y!==gy){y+=Math.sign(gy-y);carve(x,y);}
+  }
+}
 function makeMaps(){
-  const lake=terrain(24,17,'lake');
-  rect(lake,1,8,22,10,3);rect(lake,9,6,11,10,3);
-  rect(lake,13,10,15,13,2);rect(lake,1,9,2,9,3);
-  rect(lake,21,9,22,9,3);
-  const harbor=terrain(26,18,'harbor');
-  rect(harbor,1,8,23,10,3);
-  rect(harbor,10,6,20,14,3);
-  rect(harbor,17,6,23,8,3);
-  rect(harbor,13,4,15,6,3);
-  rect(harbor,6,10,8,12,3);
-  // Decorative harbor buildings also occupy solid map tiles.
-  rect(harbor,3,12,5,14,5);
-  rect(harbor,19,3,21,5,5);
-  rect(harbor,2,3,4,5,5);
+  // NORDUFER: 48x28 (old: 24x17). A winding lakeside route with a small
+  // southern loop, visible pier, and an uninterrupted way back to the village.
+  const lake=outdoor(48,28,'lake');
+  rect(lake,9,2,39,8,4);rect(lake,12,9,24,10,4);
+  rect(lake,22,7,25,12,3); // timber pier meets the approach trail
+  trail(lake,[[1,14],[10,14],[10,18],[21,18],
+              [21,13],[32,13],[32,17],[46,17]]);
+  trail(lake,[[14,18],[16,23],[38,23],[38,17]],1);
+  trail(lake,[[23,13],[23,11],[24,11]],1);
+  rect(lake,1,13,2,15,3);rect(lake,45,16,46,18,3);
+  // The shore is passable, while long-grass patches invite exploration.
+  rect(lake,28,19,31,20,2);rect(lake,6,17,8,20,2);
+
+  // NEBELHAFEN: 52x30 (old: 26x18). Main street links the two exits,
+  // market square is centrally placed; houses have their own approach paths.
+  const harbor=outdoor(52,30,'harbor');
+  rect(harbor,29,2,49,8,4);
+  rect(harbor,32,8,36,11,3); // quay / bridge
+  trail(harbor,[[1,17],[13,17],[13,15],[25,15],
+                [25,18],[39,18],[50,18]],1);
+  trail(harbor,[[20,15],[20,10],[30,10],[30,13]],1);
+  trail(harbor,[[8,17],[8,12],[8,11]],1);
+  trail(harbor,[[18,15],[18,10],[18,9]],1);
+  trail(harbor,[[41,18],[41,12],[41,11]],1);
+  trail(harbor,[[5,17],[5,26],[9,26]],1);
+  trail(harbor,[[29,18],[29,26],[35,26]],1);
+  trail(harbor,[[37,18],[37,23],[43,23]],1);
+  rect(harbor,23,13,28,19,3); // market plaza
+  rect(harbor,1,16,2,18,3);rect(harbor,49,17,50,19,3);
+  // Five meaningful building lots, no buildings dumped onto paths.
+  for(const [hx,hy] of [[7,7],[17,5],[40,8],[7,22],[32,22]])
+    rect(harbor,hx,hy,hx+2,hy+2,5);
+  // The entrance to every building touches a path; no blocking decorations.
+  rect(harbor,7,10,9,11,3);
+  rect(harbor,17,8,19,10,3);
+  rect(harbor,40,11,42,12,3);
+  rect(harbor,7,25,9,26,3);
+  rect(harbor,32,25,34,26,3);
+  // House solids restored: the walkable apron begins in front of the door.
+  for(const [hx,hy] of [[7,7],[17,5],[40,8],[7,22],[32,22]])
+    rect(harbor,hx,hy,hx+2,hy+2,5);
+  rect(harbor,25,21,28,22,2);
+  rect(harbor,12,9,15,11,2);
+
   const pump=terrain(20,16,'inside');
   rect(pump,1,7,18,9,3);rect(pump,4,4,17,12,3);
   rect(pump,6,11,16,13,4);rect(pump,6,11,8,11,3);rect(pump,12,10,13,10,3);
@@ -48,16 +111,16 @@ function makeMaps(){
   rect(control,1,6,3,6,3);
   const maps=[
     {mapId:'lake_north_path',tiles:lake,
-     spawns:{from_village:{x:2,y:9},from_harbor:{x:21,y:9}},
+     spawns:{from_village:{x:2,y:14},from_harbor:{x:45,y:17}},
      exits:[
-       {exitId:'to_village',x:1,y:9,toMapId:LEGACY,toSpawnId:'north_shore',returnExitId:'to_lake'},
-       {exitId:'to_harbor',x:22,y:9,toMapId:'nebelhafen_town',toSpawnId:'west_gate',returnExitId:'to_lake_path'}
+       {exitId:'to_village',x:1,y:14,toMapId:LEGACY,toSpawnId:'north_shore',returnExitId:'to_lake'},
+       {exitId:'to_harbor',x:46,y:17,toMapId:'nebelhafen_town',toSpawnId:'west_gate',returnExitId:'to_lake_path'}
      ]},
     {mapId:'nebelhafen_town',tiles:harbor,
-     spawns:{west_gate:{x:2,y:9},pump_approach:{x:21,y:8}},
+     spawns:{west_gate:{x:2,y:17},pump_approach:{x:49,y:18}},
      exits:[
-       {exitId:'to_lake_path',x:1,y:9,toMapId:'lake_north_path',toSpawnId:'from_harbor',returnExitId:'to_harbor'},
-       {exitId:'to_pumpworks',x:23,y:8,toMapId:'pumpworks_floor1',toSpawnId:'entry',returnExitId:'to_town',requiredFlag:'chapter3.witnessesReady'}
+       {exitId:'to_lake_path',x:1,y:17,toMapId:'lake_north_path',toSpawnId:'from_harbor',returnExitId:'to_harbor'},
+       {exitId:'to_pumpworks',x:50,y:18,toMapId:'pumpworks_floor1',toSpawnId:'entry',returnExitId:'to_town',requiredFlag:'chapter3.witnessesReady'}
      ]},
     {mapId:'pumpworks_floor1',tiles:pump,
      spawns:{entry:{x:2,y:8},control_approach:{x:17,y:8}},
@@ -73,17 +136,18 @@ function makeMaps(){
   ];
   return maps;
 }
+
 const markers={
   lake_north_path:[
-    {x:10,y:7,label:'Alter Steg',type:'note'},
-    {x:15,y:12,label:'Uferlicht',type:'note'}
+    {x:23,y:10,label:'Alter Steg',type:'note'},
+    {x:30,y:14,label:'Uferlicht',type:'note'}
   ],
   nebelhafen_town:[
-    {x:10,y:8,label:'Lotsin Sera',type:'sera'},
-    {x:7,y:11,label:'Fischer Jaro',type:'witness0'},
-    {x:14,y:5,label:'Archivarin Nemi',type:'witness1'},
-    {x:18,y:13,label:'Bootsbauer Taro',type:'witness2'},
-    {x:20,y:9,label:'Heilbrunnen',type:'heal'}
+    {x:21,y:15,label:'Lotsin Sera',type:'sera'},
+    {x:11,y:18,label:'Fischer Jaro',type:'witness0'},
+    {x:20,y:10,label:'Archivarin Nemi',type:'witness1'},
+    {x:39,y:23,label:'Bootsbauer Taro',type:'witness2'},
+    {x:35,y:18,label:'Heilbrunnen',type:'heal'}
   ],
   pumpworks_floor1:[
     {x:5,y:5,label:'Strompult',type:'power'},
@@ -252,23 +316,24 @@ function drawScenery(id,tick,camX,camY,pix){
     pix(sx+35,sy+25,8,10,'#79a8b7');
   };
   if(id==='nebelhafen_town'){
-    house(3,12,'#bd705d');house(19,3,'#55768c');house(2,3,'#9279a7');
-    let [x,y]=cell(11,3);
+    house(7,7,'#bd705d');house(17,5,'#55768c');
+    house(40,8,'#9279a7');house(7,22,'#a28368');house(32,22,'#718c8e');
+    let [x,y]=cell(32,8);
     pix(x+7,y,18,79,'#695845');pix(x+9,y,14,79,'#d1ae70');
     for(let n=0;n<5;n++)pix(x+8,y+n*15,16,2,'#f1ca83');
-    [x,y]=cell(12,2);
+    [x,y]=cell(33,5);
     pix(x,y+8,57,9,'#5d4047');pix(x+7,y+16,43,5,'#dca771');
     pix(x+26,y-7,2,16,'#efe8bf');pix(x+29,y-5,12,10,'#f4e4c0');
-    for(const [lx,ly] of [[9,7],[17,11],[22,10]]){
+    for(const [lx,ly] of [[12,16],[27,17],[45,17],[20,12]]){
       [x,y]=cell(lx,ly);
       pix(x+7,y-12,2,23,'#5a5a54');pix(x+3,y-16,10,6,'#f0d995');
       pix(x+5,y-14,6,3,'#fff1bc');
     }
   }else if(id==='lake_north_path'){
-    let [x,y]=cell(9,4);
+    let [x,y]=cell(22,7);
     pix(x+4,y,35,63,'#87684f');
     for(let i=0;i<5;i++)pix(x+5,y+3+i*12,33,4,'#d1a36f');
-    [x,y]=cell(15,12);
+    [x,y]=cell(30,14);
     pix(x+4,y+6,13,8,'#627f81');pix(x+8,y+2,6,7,'#a9d9c8');
   }else if(id==='pumpworks_floor1'){
     let [x,y]=cell(9,3);

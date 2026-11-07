@@ -1,0 +1,30 @@
+name: Echo-Chroniken World Map Walkability
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/src/maps/**'
+      - 'echo-chroniken/project/tests/map-walkability-redesign.cjs'
+      - '.github/workflows/echo-world-walkability.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chapter-3-expanded-world:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check expanded routes and all reachable NPCs and exits
+        run: node echo-chroniken/project/tests/map-walkability-redesign.cjs
+      - name: Check real chapter 3 story, reversible portals, save, battles and puzzles
+        run: node echo-chroniken/project/tests/chapter3.cjs
+      - name: Check full interconnected campaign and save compatibility
+        run: |
+          node echo-chroniken/project/tests/continuous-campaign.cjs
+          node echo-chroniken/project/tests/save-compat.cjs
