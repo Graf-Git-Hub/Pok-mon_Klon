@@ -26,13 +26,14 @@ jobs:
         with:
           python-version: '3.11'
       - name: Full portal graph, quest markers, long distances and legacy saves
+        working-directory: echo-chroniken/project
         run: |
-          node echo-chroniken/project/tests/all-60-world-layout.cjs
-          node echo-chroniken/project/tests/map-registry.cjs
-          node echo-chroniken/project/tests/chapter3.cjs
-          node echo-chroniken/project/tests/chapter4.cjs
-          node echo-chroniken/project/tests/village.cjs
-          node echo-chroniken/project/tests/continuous-campaign.cjs
+          node tests/all-60-world-layout.cjs
+          node tests/map-registry.cjs
+          node tests/chapter3.cjs
+          node tests/chapter4.cjs
+          node tests/village.cjs
+          node tests/continuous-campaign.cjs
       - name: Install Chrome automation
         run: |
           python -m pip install playwright==1.56.0
