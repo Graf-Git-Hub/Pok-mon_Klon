@@ -1,0 +1,973 @@
+{
+  "kind": "Echte aus Echo-Chroniken gerenderte Weltkarten, ohne Spielfiguren/NPC/HUD",
+  "git_sha": "feature/echo-map-all58-20261107 (unmerged working tree)",
+  "tile_size": 16,
+  "map_count": 60,
+  "maps": [
+    {
+      "id": "legacy_wurzeldorf",
+      "width": 36,
+      "height": 28,
+      "displayName": "legacy_wurzeldorf",
+      "filename": "einzelkarten/01_legacy_wurzeldorf.png",
+      "nativePixels": [
+        576,
+        448
+      ],
+      "exportPixels": [
+        1152,
+        896
+      ],
+      "viewportFrames": 6
+    },
+    {
+      "id": "lake_north_path",
+      "width": 48,
+      "height": 28,
+      "displayName": "lake_north_path",
+      "filename": "einzelkarten/02_lake_north_path.png",
+      "nativePixels": [
+        768,
+        448
+      ],
+      "exportPixels": [
+        1536,
+        896
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "nebelhafen_town",
+      "width": 52,
+      "height": 30,
+      "displayName": "nebelhafen_town",
+      "filename": "einzelkarten/03_nebelhafen_town.png",
+      "nativePixels": [
+        832,
+        480
+      ],
+      "exportPixels": [
+        1664,
+        960
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "pumpworks_floor1",
+      "width": 42,
+      "height": 29,
+      "displayName": "pumpworks_floor1",
+      "filename": "einzelkarten/04_pumpworks_floor1.png",
+      "nativePixels": [
+        672,
+        464
+      ],
+      "exportPixels": [
+        1344,
+        928
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "pumpworks_controlroom",
+      "width": 36,
+      "height": 25,
+      "displayName": "pumpworks_controlroom",
+      "filename": "einzelkarten/05_pumpworks_controlroom.png",
+      "nativePixels": [
+        576,
+        400
+      ],
+      "exportPixels": [
+        1152,
+        800
+      ],
+      "viewportFrames": 6
+    },
+    {
+      "id": "root_tunnel",
+      "width": 42,
+      "height": 27,
+      "displayName": "WURZELTUNNEL",
+      "filename": "einzelkarten/06_root_tunnel.png",
+      "nativePixels": [
+        672,
+        432
+      ],
+      "exportPixels": [
+        1344,
+        864
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "station_wurzelheim",
+      "width": 44,
+      "height": 27,
+      "displayName": "BAHNHOF WURZELHEIM",
+      "filename": "einzelkarten/07_station_wurzelheim.png",
+      "nativePixels": [
+        704,
+        432
+      ],
+      "exportPixels": [
+        1408,
+        864
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "rail_switchyard",
+      "width": 44,
+      "height": 29,
+      "displayName": "WEICHENHOF",
+      "filename": "einzelkarten/08_rail_switchyard.png",
+      "nativePixels": [
+        704,
+        464
+      ],
+      "exportPixels": [
+        1408,
+        928
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "station_moorglas",
+      "width": 44,
+      "height": 27,
+      "displayName": "BAHNHOF MOORGLAS",
+      "filename": "einzelkarten/09_station_moorglas.png",
+      "nativePixels": [
+        704,
+        432
+      ],
+      "exportPixels": [
+        1408,
+        864
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "moorglas_bog",
+      "width": 46,
+      "height": 31,
+      "displayName": "MOORGLAS-SENKE",
+      "filename": "einzelkarten/10_moorglas_bog.png",
+      "nativePixels": [
+        736,
+        496
+      ],
+      "exportPixels": [
+        1472,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "moor_to_stillwater",
+      "width": 46,
+      "height": 29,
+      "displayName": "NEBELPFAD",
+      "filename": "einzelkarten/11_moor_to_stillwater.png",
+      "nativePixels": [
+        736,
+        464
+      ],
+      "exportPixels": [
+        1472,
+        928
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "stillwasser_town",
+      "width": 49,
+      "height": 32,
+      "displayName": "STILLWASSER",
+      "filename": "einzelkarten/12_stillwasser_town.png",
+      "nativePixels": [
+        784,
+        512
+      ],
+      "exportPixels": [
+        1568,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "stillwater_archive",
+      "width": 42,
+      "height": 27,
+      "displayName": "ARCHIV DER ERINNERUNGEN",
+      "filename": "einzelkarten/13_stillwater_archive.png",
+      "nativePixels": [
+        672,
+        432
+      ],
+      "exportPixels": [
+        1344,
+        864
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "stillwater_tower",
+      "width": 40,
+      "height": 29,
+      "displayName": "RESONANZTURM",
+      "filename": "einzelkarten/14_stillwater_tower.png",
+      "nativePixels": [
+        640,
+        464
+      ],
+      "exportPixels": [
+        1280,
+        928
+      ],
+      "viewportFrames": 6
+    },
+    {
+      "id": "station_stillwasser",
+      "width": 45,
+      "height": 27,
+      "displayName": "BAHNHOF STILLWASSER",
+      "filename": "einzelkarten/15_station_stillwasser.png",
+      "nativePixels": [
+        720,
+        432
+      ],
+      "exportPixels": [
+        1440,
+        864
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "ashrail_approach",
+      "width": 47,
+      "height": 31,
+      "displayName": "ASCHEWEG",
+      "filename": "einzelkarten/16_ashrail_approach.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "aschenruh_town",
+      "width": 48,
+      "height": 32,
+      "displayName": "ASCHENRUH",
+      "filename": "einzelkarten/17_aschenruh_town.png",
+      "nativePixels": [
+        768,
+        512
+      ],
+      "exportPixels": [
+        1536,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "glut_forge",
+      "width": 45,
+      "height": 30,
+      "displayName": "ALTE SCHMIEDE",
+      "filename": "einzelkarten/18_glut_forge.png",
+      "nativePixels": [
+        720,
+        480
+      ],
+      "exportPixels": [
+        1440,
+        960
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "glut_chasm",
+      "width": 47,
+      "height": 31,
+      "displayName": "GLUTSCHACHT",
+      "filename": "einzelkarten/19_glut_chasm.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "garden_road",
+      "width": 47,
+      "height": 31,
+      "displayName": "LICHTERPFAD",
+      "filename": "einzelkarten/20_garden_road.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "lichterhain_grove",
+      "width": 48,
+      "height": 32,
+      "displayName": "LICHTERHAIN",
+      "filename": "einzelkarten/21_lichterhain_grove.png",
+      "nativePixels": [
+        768,
+        512
+      ],
+      "exportPixels": [
+        1536,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "name_library",
+      "width": 45,
+      "height": 30,
+      "displayName": "NAMENSARCHIV",
+      "filename": "einzelkarten/22_name_library.png",
+      "nativePixels": [
+        720,
+        480
+      ],
+      "exportPixels": [
+        1440,
+        960
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "echo_garden",
+      "width": 47,
+      "height": 31,
+      "displayName": "ECHO-GARTEN",
+      "filename": "einzelkarten/23_echo_garden.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "capital_outer_gate",
+      "width": 47,
+      "height": 31,
+      "displayName": "STADTTOR",
+      "filename": "einzelkarten/24_capital_outer_gate.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "kronenstadt_upper",
+      "width": 48,
+      "height": 32,
+      "displayName": "KRONENSTADT",
+      "filename": "einzelkarten/25_kronenstadt_upper.png",
+      "nativePixels": [
+        768,
+        512
+      ],
+      "exportPixels": [
+        1536,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "central_archive",
+      "width": 45,
+      "height": 30,
+      "displayName": "ZENTRALARCHIV",
+      "filename": "einzelkarten/26_central_archive.png",
+      "nativePixels": [
+        720,
+        480
+      ],
+      "exportPixels": [
+        1440,
+        960
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "station_kronenstadt",
+      "width": 47,
+      "height": 30,
+      "displayName": "BAHNHOF KRONENSTADT",
+      "filename": "einzelkarten/27_station_kronenstadt.png",
+      "nativePixels": [
+        752,
+        480
+      ],
+      "exportPixels": [
+        1504,
+        960
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "research_hall",
+      "width": 45,
+      "height": 30,
+      "displayName": "FORSCHUNGSHOF",
+      "filename": "einzelkarten/28_research_hall.png",
+      "nativePixels": [
+        720,
+        480
+      ],
+      "exportPixels": [
+        1440,
+        960
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "frost_approach",
+      "width": 48,
+      "height": 31,
+      "displayName": "FROSTGRAT-PASS",
+      "filename": "einzelkarten/29_frost_approach.png",
+      "nativePixels": [
+        768,
+        496
+      ],
+      "exportPixels": [
+        1536,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "frost_station",
+      "width": 46,
+      "height": 31,
+      "displayName": "FORSCHUNGSSTATION",
+      "filename": "einzelkarten/30_frost_station.png",
+      "nativePixels": [
+        736,
+        496
+      ],
+      "exportPixels": [
+        1472,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "ice_caverns",
+      "width": 49,
+      "height": 32,
+      "displayName": "EISHOEHLEN",
+      "filename": "einzelkarten/31_ice_caverns.png",
+      "nativePixels": [
+        784,
+        512
+      ],
+      "exportPixels": [
+        1568,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "station_frost",
+      "width": 46,
+      "height": 30,
+      "displayName": "BAHNHOF FROSTGRAT",
+      "filename": "einzelkarten/32_station_frost.png",
+      "nativePixels": [
+        736,
+        480
+      ],
+      "exportPixels": [
+        1472,
+        960
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "under_city_station",
+      "width": 47,
+      "height": 31,
+      "displayName": "BAHNHOF UNTERSTADT",
+      "filename": "einzelkarten/33_under_city_station.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "under_city_homes",
+      "width": 48,
+      "height": 32,
+      "displayName": "DIE ALTE WOHNSTADT",
+      "filename": "einzelkarten/34_under_city_homes.png",
+      "nativePixels": [
+        768,
+        512
+      ],
+      "exportPixels": [
+        1536,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "resonance_mainring",
+      "width": 47,
+      "height": 31,
+      "displayName": "ZENTRALRING",
+      "filename": "einzelkarten/35_resonance_mainring.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "continuum_vault",
+      "width": 46,
+      "height": 31,
+      "displayName": "KONTINUUM-ARCHIV",
+      "filename": "einzelkarten/36_continuum_vault.png",
+      "nativePixels": [
+        736,
+        496
+      ],
+      "exportPixels": [
+        1472,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "star_ridge",
+      "width": 48,
+      "height": 31,
+      "displayName": "STERNENPFAD",
+      "filename": "einzelkarten/37_star_ridge.png",
+      "nativePixels": [
+        768,
+        496
+      ],
+      "exportPixels": [
+        1536,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "observatory_hall",
+      "width": 47,
+      "height": 31,
+      "displayName": "STERNENHALLE",
+      "filename": "einzelkarten/38_observatory_hall.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "observatory_telescope",
+      "width": 46,
+      "height": 31,
+      "displayName": "FERNROHR-KUPPEL",
+      "filename": "einzelkarten/39_observatory_telescope.png",
+      "nativePixels": [
+        736,
+        496
+      ],
+      "exportPixels": [
+        1472,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "observatory_roof",
+      "width": 48,
+      "height": 31,
+      "displayName": "STERNENDACH",
+      "filename": "einzelkarten/40_observatory_roof.png",
+      "nativePixels": [
+        768,
+        496
+      ],
+      "exportPixels": [
+        1536,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "martha_house",
+      "width": 47,
+      "height": 31,
+      "displayName": "MARTHAS ERINNERUNG",
+      "filename": "einzelkarten/41_martha_house.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "memory_room",
+      "width": 46,
+      "height": 31,
+      "displayName": "DAS ERINNERUNGSZIMMER",
+      "filename": "einzelkarten/42_memory_room.png",
+      "nativePixels": [
+        736,
+        496
+      ],
+      "exportPixels": [
+        1472,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "old_family_garden",
+      "width": 48,
+      "height": 32,
+      "displayName": "DER ALTE FAMILIENGARTEN",
+      "filename": "einzelkarten/43_old_family_garden.png",
+      "nativePixels": [
+        768,
+        512
+      ],
+      "exportPixels": [
+        1536,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "shaft_entry",
+      "width": 47,
+      "height": 31,
+      "displayName": "RESONANZSCHACHT",
+      "filename": "einzelkarten/44_shaft_entry.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "shaft_level1",
+      "width": 47,
+      "height": 31,
+      "displayName": "SCHACHT: WURZEL",
+      "filename": "einzelkarten/45_shaft_level1.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "shaft_level2",
+      "width": 47,
+      "height": 31,
+      "displayName": "SCHACHT: WASSER",
+      "filename": "einzelkarten/46_shaft_level2.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "shaft_anchors",
+      "width": 47,
+      "height": 31,
+      "displayName": "SCHACHT: STERN",
+      "filename": "einzelkarten/47_shaft_anchors.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "father_chamber",
+      "width": 47,
+      "height": 31,
+      "displayName": "VATERS SIGNALKAMMER",
+      "filename": "einzelkarten/48_father_chamber.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "core_access",
+      "width": 47,
+      "height": 31,
+      "displayName": "KERNZUGANG",
+      "filename": "einzelkarten/49_core_access.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "memory_reflections",
+      "width": 47,
+      "height": 31,
+      "displayName": "DREI ERINNERUNGEN",
+      "filename": "einzelkarten/50_memory_reflections.png",
+      "nativePixels": [
+        752,
+        496
+      ],
+      "exportPixels": [
+        1504,
+        992
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "resonance_core",
+      "width": 48,
+      "height": 32,
+      "displayName": "RESONANZKERN",
+      "filename": "einzelkarten/51_resonance_core.png",
+      "nativePixels": [
+        768,
+        512
+      ],
+      "exportPixels": [
+        1536,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "epilogue_wurzelheim",
+      "width": 49,
+      "height": 32,
+      "displayName": "WURZELHEIM: EIN NEUER MORGEN",
+      "filename": "einzelkarten/52_epilogue_wurzelheim.png",
+      "nativePixels": [
+        784,
+        512
+      ],
+      "exportPixels": [
+        1568,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "optional_echo_garden_annex",
+      "width": 50,
+      "height": 33,
+      "displayName": "ECHO-GARTEN: FREIE WEGE",
+      "filename": "einzelkarten/53_optional_echo_garden_annex.png",
+      "nativePixels": [
+        800,
+        528
+      ],
+      "exportPixels": [
+        1600,
+        1056
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "rail_heritage_museum",
+      "width": 48,
+      "height": 32,
+      "displayName": "MUSEUM DER ECHO-BAHN",
+      "filename": "einzelkarten/54_rail_heritage_museum.png",
+      "nativePixels": [
+        768,
+        512
+      ],
+      "exportPixels": [
+        1536,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "postgame_meadow_01",
+      "width": 47,
+      "height": 32,
+      "displayName": "FREIE WIESE 1/6",
+      "filename": "einzelkarten/55_postgame_meadow_01.png",
+      "nativePixels": [
+        752,
+        512
+      ],
+      "exportPixels": [
+        1504,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "postgame_meadow_02",
+      "width": 47,
+      "height": 32,
+      "displayName": "FREIE WIESE 2/6",
+      "filename": "einzelkarten/56_postgame_meadow_02.png",
+      "nativePixels": [
+        752,
+        512
+      ],
+      "exportPixels": [
+        1504,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "postgame_meadow_03",
+      "width": 47,
+      "height": 32,
+      "displayName": "FREIE WIESE 3/6",
+      "filename": "einzelkarten/57_postgame_meadow_03.png",
+      "nativePixels": [
+        752,
+        512
+      ],
+      "exportPixels": [
+        1504,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "postgame_meadow_04",
+      "width": 47,
+      "height": 32,
+      "displayName": "FREIE WIESE 4/6",
+      "filename": "einzelkarten/58_postgame_meadow_04.png",
+      "nativePixels": [
+        752,
+        512
+      ],
+      "exportPixels": [
+        1504,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "postgame_meadow_05",
+      "width": 47,
+      "height": 32,
+      "displayName": "FREIE WIESE 5/6",
+      "filename": "einzelkarten/59_postgame_meadow_05.png",
+      "nativePixels": [
+        752,
+        512
+      ],
+      "exportPixels": [
+        1504,
+        1024
+      ],
+      "viewportFrames": 9
+    },
+    {
+      "id": "postgame_meadow_06",
+      "width": 47,
+      "height": 32,
+      "displayName": "FREIE WIESE 6/6",
+      "filename": "einzelkarten/60_postgame_meadow_06.png",
+      "nativePixels": [
+        752,
+        512
+      ],
+      "exportPixels": [
+        1504,
+        1024
+      ],
+      "viewportFrames": 9
+    }
+  ],
+  "overview_filename": "Echo-Chroniken_ALLE_MAPS_GROSSES_BILD.png",
+  "overview_pixels": [
+    2704,
+    8690
+  ]
+}

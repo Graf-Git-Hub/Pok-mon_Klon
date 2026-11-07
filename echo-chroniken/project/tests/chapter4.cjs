@@ -13,7 +13,8 @@ function state(){return {scene:'OVERWORLD',currentMapId:'pumpworks_controlroom',
  chapter3:{completed:true,maintenance_token:true},
  team:[{id:1,lv:13,hp:64,maxHp:64}],orbs:8,potions:3};}
 const s=state();
-assert.equal(m.getExitAt('pumpworks_controlroom',12,6).exitId,'to_tunnel');
+const tunnelPortal=m.get('pumpworks_controlroom').exits.find(e=>e.exitId==='to_tunnel');
+assert.equal(m.getExitAt('pumpworks_controlroom',tunnelPortal.x,tunnelPortal.y).exitId,'to_tunnel');
 assert.equal(m.travel(s,'to_tunnel'),true);
 assert.equal(s.currentMapId,'root_tunnel');
 assert.equal(m.travel(s,'to_pump'),true);

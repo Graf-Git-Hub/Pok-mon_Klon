@@ -1,0 +1,613 @@
+{
+  "registered": 60,
+  "improvedThisPass": 58,
+  "proceduralExpanded": 57,
+  "villagePathsRevised": true,
+  "alreadyCompleted": 2,
+  "exitsChecked": 118,
+  "spawnsChecked": 125,
+  "markersChecked": 238,
+  "shortestWestEast": 39,
+  "regions": [
+    {
+      "id": "legacy_wurzeldorf",
+      "width": 36,
+      "height": 28,
+      "reachable": 1008,
+      "exits": 1,
+      "markers": 0,
+      "expanded": false,
+      "kind": "manual"
+    },
+    {
+      "id": "lake_north_path",
+      "width": 48,
+      "height": 28,
+      "reachable": 848,
+      "exits": 2,
+      "markers": 2,
+      "expanded": false,
+      "kind": "manual"
+    },
+    {
+      "id": "nebelhafen_town",
+      "width": 52,
+      "height": 30,
+      "reachable": 1146,
+      "exits": 2,
+      "markers": 5,
+      "expanded": false,
+      "kind": "manual"
+    },
+    {
+      "id": "pumpworks_floor1",
+      "width": 42,
+      "height": 29,
+      "reachable": 986,
+      "exits": 2,
+      "markers": 4,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "pumpworks_controlroom",
+      "width": 36,
+      "height": 25,
+      "reachable": 733,
+      "exits": 2,
+      "markers": 2,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "root_tunnel",
+      "width": 42,
+      "height": 27,
+      "reachable": 949,
+      "exits": 2,
+      "markers": 2,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "station_wurzelheim",
+      "width": 44,
+      "height": 27,
+      "reachable": 991,
+      "exits": 2,
+      "markers": 2,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "rail_switchyard",
+      "width": 44,
+      "height": 29,
+      "reachable": 1067,
+      "exits": 1,
+      "markers": 3,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "station_moorglas",
+      "width": 44,
+      "height": 27,
+      "reachable": 994,
+      "exits": 1,
+      "markers": 2,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "moorglas_bog",
+      "width": 46,
+      "height": 31,
+      "reachable": 1217,
+      "exits": 2,
+      "markers": 4,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "moor_to_stillwater",
+      "width": 46,
+      "height": 29,
+      "reachable": 1116,
+      "exits": 2,
+      "markers": 2,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "stillwasser_town",
+      "width": 49,
+      "height": 32,
+      "reachable": 1344,
+      "exits": 4,
+      "markers": 6,
+      "expanded": true,
+      "kind": "town"
+    },
+    {
+      "id": "stillwater_archive",
+      "width": 42,
+      "height": 27,
+      "reachable": 945,
+      "exits": 1,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "stillwater_tower",
+      "width": 40,
+      "height": 29,
+      "reachable": 968,
+      "exits": 1,
+      "markers": 4,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "station_stillwasser",
+      "width": 45,
+      "height": 27,
+      "reachable": 1008,
+      "exits": 2,
+      "markers": 2,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "ashrail_approach",
+      "width": 47,
+      "height": 31,
+      "reachable": 1257,
+      "exits": 2,
+      "markers": 2,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "aschenruh_town",
+      "width": 48,
+      "height": 32,
+      "reachable": 1318,
+      "exits": 2,
+      "markers": 5,
+      "expanded": true,
+      "kind": "town"
+    },
+    {
+      "id": "glut_forge",
+      "width": 45,
+      "height": 30,
+      "reachable": 1137,
+      "exits": 2,
+      "markers": 8,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "glut_chasm",
+      "width": 47,
+      "height": 31,
+      "reachable": 1231,
+      "exits": 2,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "garden_road",
+      "width": 47,
+      "height": 31,
+      "reachable": 1255,
+      "exits": 2,
+      "markers": 2,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "lichterhain_grove",
+      "width": 48,
+      "height": 32,
+      "reachable": 1342,
+      "exits": 3,
+      "markers": 5,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "name_library",
+      "width": 45,
+      "height": 30,
+      "reachable": 1118,
+      "exits": 1,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "echo_garden",
+      "width": 47,
+      "height": 31,
+      "reachable": 1259,
+      "exits": 2,
+      "markers": 7,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "capital_outer_gate",
+      "width": 47,
+      "height": 31,
+      "reachable": 1258,
+      "exits": 3,
+      "markers": 2,
+      "expanded": true,
+      "kind": "town"
+    },
+    {
+      "id": "kronenstadt_upper",
+      "width": 48,
+      "height": 32,
+      "reachable": 1292,
+      "exits": 4,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "central_archive",
+      "width": 45,
+      "height": 30,
+      "reachable": 1132,
+      "exits": 1,
+      "markers": 9,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "station_kronenstadt",
+      "width": 47,
+      "height": 30,
+      "reachable": 1174,
+      "exits": 1,
+      "markers": 2,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "research_hall",
+      "width": 45,
+      "height": 30,
+      "reachable": 1137,
+      "exits": 1,
+      "markers": 4,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "frost_approach",
+      "width": 48,
+      "height": 31,
+      "reachable": 1265,
+      "exits": 2,
+      "markers": 4,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "frost_station",
+      "width": 46,
+      "height": 31,
+      "reachable": 1201,
+      "exits": 3,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "ice_caverns",
+      "width": 49,
+      "height": 32,
+      "reachable": 1312,
+      "exits": 2,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "station_frost",
+      "width": 46,
+      "height": 30,
+      "reachable": 1151,
+      "exits": 1,
+      "markers": 3,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "under_city_station",
+      "width": 47,
+      "height": 31,
+      "reachable": 1268,
+      "exits": 2,
+      "markers": 4,
+      "expanded": true,
+      "kind": "town"
+    },
+    {
+      "id": "under_city_homes",
+      "width": 48,
+      "height": 32,
+      "reachable": 1338,
+      "exits": 2,
+      "markers": 4,
+      "expanded": true,
+      "kind": "town"
+    },
+    {
+      "id": "resonance_mainring",
+      "width": 47,
+      "height": 31,
+      "reachable": 1231,
+      "exits": 2,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "continuum_vault",
+      "width": 46,
+      "height": 31,
+      "reachable": 1200,
+      "exits": 2,
+      "markers": 4,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "star_ridge",
+      "width": 48,
+      "height": 31,
+      "reachable": 1282,
+      "exits": 2,
+      "markers": 2,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "observatory_hall",
+      "width": 47,
+      "height": 31,
+      "reachable": 1242,
+      "exits": 3,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "observatory_telescope",
+      "width": 46,
+      "height": 31,
+      "reachable": 1190,
+      "exits": 1,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "observatory_roof",
+      "width": 48,
+      "height": 31,
+      "reachable": 1243,
+      "exits": 2,
+      "markers": 6,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "martha_house",
+      "width": 47,
+      "height": 31,
+      "reachable": 1217,
+      "exits": 3,
+      "markers": 4,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "memory_room",
+      "width": 46,
+      "height": 31,
+      "reachable": 1186,
+      "exits": 1,
+      "markers": 5,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "old_family_garden",
+      "width": 48,
+      "height": 32,
+      "reachable": 1353,
+      "exits": 3,
+      "markers": 4,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "shaft_entry",
+      "width": 47,
+      "height": 31,
+      "reachable": 1269,
+      "exits": 2,
+      "markers": 4,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "shaft_level1",
+      "width": 47,
+      "height": 31,
+      "reachable": 1220,
+      "exits": 2,
+      "markers": 3,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "shaft_level2",
+      "width": 47,
+      "height": 31,
+      "reachable": 1217,
+      "exits": 2,
+      "markers": 3,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "shaft_anchors",
+      "width": 47,
+      "height": 31,
+      "reachable": 1216,
+      "exits": 2,
+      "markers": 3,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "father_chamber",
+      "width": 47,
+      "height": 31,
+      "reachable": 1218,
+      "exits": 2,
+      "markers": 4,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "core_access",
+      "width": 47,
+      "height": 31,
+      "reachable": 1221,
+      "exits": 2,
+      "markers": 3,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "memory_reflections",
+      "width": 47,
+      "height": 31,
+      "reachable": 1220,
+      "exits": 2,
+      "markers": 4,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "resonance_core",
+      "width": 48,
+      "height": 32,
+      "reachable": 1291,
+      "exits": 2,
+      "markers": 6,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "epilogue_wurzelheim",
+      "width": 49,
+      "height": 32,
+      "reachable": 1366,
+      "exits": 3,
+      "markers": 5,
+      "expanded": true,
+      "kind": "town"
+    },
+    {
+      "id": "optional_echo_garden_annex",
+      "width": 50,
+      "height": 33,
+      "reachable": 1451,
+      "exits": 8,
+      "markers": 8,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "rail_heritage_museum",
+      "width": 48,
+      "height": 32,
+      "reachable": 1304,
+      "exits": 1,
+      "markers": 6,
+      "expanded": true,
+      "kind": "interior"
+    },
+    {
+      "id": "postgame_meadow_01",
+      "width": 47,
+      "height": 32,
+      "reachable": 1314,
+      "exits": 1,
+      "markers": 3,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "postgame_meadow_02",
+      "width": 47,
+      "height": 32,
+      "reachable": 1295,
+      "exits": 1,
+      "markers": 3,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "postgame_meadow_03",
+      "width": 47,
+      "height": 32,
+      "reachable": 1320,
+      "exits": 1,
+      "markers": 3,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "postgame_meadow_04",
+      "width": 47,
+      "height": 32,
+      "reachable": 1302,
+      "exits": 1,
+      "markers": 3,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "postgame_meadow_05",
+      "width": 47,
+      "height": 32,
+      "reachable": 1309,
+      "exits": 1,
+      "markers": 3,
+      "expanded": true,
+      "kind": "nature"
+    },
+    {
+      "id": "postgame_meadow_06",
+      "width": 47,
+      "height": 32,
+      "reachable": 1311,
+      "exits": 1,
+      "markers": 3,
+      "expanded": true,
+      "kind": "nature"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+name: Echo-Chroniken Complete 60 Map Walkability
+
+on:
+  pull_request:
+    paths:
+      - 'echo-chroniken/project/src/maps/registry.js'
+      - 'echo-chroniken/project/src/village.js'
+      - 'echo-chroniken/project/src/game.js'
+      - 'echo-chroniken/project/tests/all-60-world-layout.cjs'
+      - '.github/workflows/echo-all60-world-layout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  all-60-world-maps:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Full portal graph, quest markers, long distances and legacy saves
+        working-directory: echo-chroniken/project
+        run: |
+          node tests/all-60-world-layout.cjs
+          node tests/map-registry.cjs
+          node tests/chapter3.cjs
+          node tests/chapter4.cjs
+          node tests/village.cjs
+          node tests/continuous-campaign.cjs
+      - name: Install Chrome automation
+        run: |
+          python -m pip install playwright==1.56.0
+          google-chrome --version
+      - name: Browser-load every map and selected smartphone maps
+        run: python echo-chroniken/project/qa/cloud-map-coverage.py
+      - name: Preserve complete map and route proofs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: echo-all60-map-proof
+          path: |
+            echo-chroniken/docs/visual-audit/world-redesign/all60-layout-report.json
+            echo-chroniken/docs/visual-audit/cloud-map-coverage/
+          retention-days: 14
+          if-no-files-found: warn

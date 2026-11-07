@@ -1,5 +1,13 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-07 - Alle 60 Weltkarten: 58 letzte Gebiete begehbar erweitert
+- 57 bisher winzige Regionen um jeweils mindestens 22 Spalten und 13 Zeilen größer gemacht, verbunden durch neue Straßen/Rundwege und thematische Landschaftsbereiche, im echten Karten-/Kollisionscode.
+- Startdorf Wurzelheim mit zusätzlichen Rundwegen im bestehenden 36x28-Raster statt riskanter Verschiebung seiner Quest-/Häuser-Koordinaten. Nordufer/Nebelhafen sind bereits zuvor individuell umgebaut.
+- In der Kartenregistry bleiben Portal-, Storyflag-, Quest- und Spawneinträge kompatibel, östliche/südliche/ausgewählte nördliche Ausgänge werden an die neuen Ränder verlegt.
+- Einfache zusätzliche Dorfhäuser mit passenden soliden Kollisionsflächen; im Spielrenderer ebenso sichtbar wie im Export.
+- Neue 60er-BFS-Validierung: 118 Ausgänge, 125 Spawns, 238 Quest-/NPC-Punkte erreichbar, kürzeste West-Ost-Portaldistanz 39 Felder; 59 lokale Node-Tests + 64 Browser-Kartenaufrufe grün.
+- 60 echte PNG-Einzelkarten (2x) plus XXL-Übersicht und ZIP aus dem echten Renderer, ohne Spielfiguren/NPCs/HUD. Details: MAP_ALL_60_20261107.md.
+
 ## 2026-11-06 - Weltkarten-Umbau, Teil 1 von 60
 - Nordufer statt 24x17 nun 48x28 Felder: markierter, verschlungener Hauptweg, See/Steg, Nebenweg und klare Baumgrenzen.
 - Nebelhafen statt 26x18 nun 52x30 Felder: Markt, fünf Hausstandorte mit Zugangswegen, Hafenanlage, vernetzte Hauptstraße.

@@ -2829,6 +2829,25 @@ function executeBattleAction(choice){
         window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
         window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3;
      painter.draw(ctx,tick,gameState,camX,camY,pix,fText,drawChar16);
+     // Decorative homes in the newly expanded districts. Drawn from the
+     // very same 3x3 impassable tile footprints, so artwork and collision
+     // never drift apart, including on mobile and the clean-map exports.
+     for(const [i,house] of (map.worldLayout?.houses||[]).entries()){
+       const x=house.x*16-camX,y=house.y*16-camY;
+       if(x<-60||x>PW+20||y<-60||y>PH+20)continue;
+       const roofs=['#a76b60','#5c8090','#7c986b','#a58b72'];
+       const roof=roofs[(i+gameState.currentMapId.length)%roofs.length];
+       pix(x-3,y+11,54,35,'#b29d81');
+       pix(x,y+13,48,30,'#e2cfac');
+       pix(x-5,y-3,58,19,'#354a55');
+       pix(x-3,y,54,13,roof);
+       pix(x+5,y+20,10,10,'#658e98');
+       pix(x+33,y+20,10,10,'#658e98');
+       pix(x+19,y+29,13,17,'#564a42');
+       pix(x+22,y+32,7,14,'#a78764');
+       pix(x+26,y+38,2,2,'#f0d9a7');
+       pix(x-1,y+44,50,3,'#90785a');
+     }
      if(gameState.hasStarter&&gameState.team.length){
        const companion=getMonsterSprite(gameState.team[0].id,16);
        ctx.drawImage(companion,px*16-camX+13,py*16-camY-11+Math.sin(tick*.005)*2,18,18);
