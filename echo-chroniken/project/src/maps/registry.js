@@ -171,6 +171,177 @@ function expandRealRegion(spec){
  return {...spec,tiles,spawns,exits,
    worldLayout:{sourceWidth,sourceHeight,expanded:true,kind,houses}};
 }
+
+// World-design pass V2: replace the mechanically repeated extension rectangles.
+// Keep the original story/puzzle footprint and the original portal IDs intact.
+function designExpandedRegion(spec){
+ const L=spec.worldLayout;
+ if(!L?.expanded)return spec;
+ const {sourceWidth:sw,sourceHeight:sh,kind}=L;
+ const {width:w,height:h}= {width:spec.tiles[0].length,height:spec.tiles.length};
+ const t=spec.tiles, id=spec.mapId;
+ const seed=[...id].reduce((v,c)=>(Math.imul(v,37)+c.charCodeAt(0))|0,13);
+ const rnd=(x,y,n=0)=>mapHash(x,y,seed+n*313);
+ const extra=(x,y)=>x>=sw||y>=sh;
+ const allowed=(x,y)=>x>0&&y>0&&x<w-1&&y<h-1&&extra(x,y);
+ const mark=(x,y,value)=>{if(allowed(x,y))t[y][x]=value;};
+ const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+ // Natural edges, coherent material. No 3-pixel dice speckling.
+ for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++)if(extra(x,y))
+  t[y][x]=kind==='interior'?8:kind==='town'?0:0;
+ const biome=/frost|ice|ridge|cavern/.test(id)?'frost':
+  /moor|bog|lake|water|port|harbor|shaft|pump/.test(id)?'wet':
+  /ash|forge|glut|smelt/.test(id)?'ash':
+  /garden|grove|meadow|wood|forest/.test(id)?'grove':'open';
+ // Clusters represent forest slopes / geological ledges, not accidental debris.
+ if(kind==='nature'){
+  const centers=[
+   [sw+Math.floor((w-sw)*.37),4,5,3],
+   [w-8,Math.floor(sh*.55),5,4],
+   [Math.floor(sw*.44),h-7,6,3],
+   [w-8,h-8,4,4]
+  ];
+  for(let i=0;i<centers.length;i++){
+   const [cx,cy,rx,ry]=centers[i];
+   for(let y=cy-ry-2;y<=cy+ry+2;y++)for(let x=cx-rx-2;x<=cx+rx+2;x++){
+    if(!allowed(x,y))continue;
+    const d=((x-cx)/rx)**2+((y-cy)/ry)**2;
+    const wiggle=(rnd(x>>1,y>>1,i)-.5)*.32;
+    if(d<.72+wiggle)mark(x,y,1);
+    else if(d<1.28+wiggle&&t[y][x]===0)mark(x,y,2);
+   }
+  }
+  if(biome==='wet'){
+   const cx=w-11,cy=Math.min(h-10,Math.max(7,Math.floor(sh*.45)));
+   for(let y=cy-4;y<=cy+4;y++)for(let x=cx-7;x<=cx+7;x++){
+    const d=((x-cx)/7)**2+((y-cy)/4)**2;
+    if(d<.72)mark(x,y,4);
+    else if(d<1.1)mark(x,y,8);
+   }
+  }
+  if(biome==='grove'){
+   for(let cy=sh+5;cy<h-4;cy+=7)for(let cx=5;cx<w-5;cx+=10){
+    for(let y=cy-2;y<=cy+1;y++)for(let x=cx-3;x<=cx+2;x++){
+     if(allowed(x,y)&&rnd(cx,cy)<.75&&t[y][x]===0)mark(x,y,2);
+    }
+   }
+  }
+ }else if(kind==='interior'){
+  // Clearly composed connected chambers with pillars, not an endless grid.
+  const rooms=[
+   {x:sw+3,y:3,w:11,h:8},
+   {x:Math.max(sw+5,w-16),y:sh+3,w:12,h:9},
+   {x:Math.max(5,Math.floor(sw*.33)),y:sh+4,w:11,h:8}
+  ];
+  for(const room of rooms){
+   const {x:x0,y:y0,w:rw,h:rh}=room;
+   for(let y=y0;y<Math.min(h-2,y0+rh);y++)for(let x=x0;x<Math.min(w-2,x0+rw);x++){
+    if(!allowed(x,y))continue;
+    const edge=x===x0||x===x0+rw-1||y===y0||y===y0+rh-1;
+    mark(x,y,edge?1:3);
+   }
+   const doorX=clamp(x0+Math.floor(rw/2),1,w-2);
+   for(let dy=-1;dy<=1;dy++)mark(doorX,y0+rh-1+dy,3);
+   // Two fixed feature pedestals either side of the room axis.
+   for(const dx of [-3,3])mark(doorX+dx,y0+2,5);
+  }
+  // An inner court: different large floor materials rather than checkerboards.
+  for(let y=sh+2;y<h-4;y++)for(let x=sw+2;x<w-4;x++){
+   if(t[y][x]!==8)continue;
+   if(x>sw+6&&x<sw+14&&y>sh+5&&y<sh+11)mark(x,y,3);
+  }
+ }else{
+  // Settlements are districts: a plaza, two existing houses and ordered gardens.
+  const cx=sw+6,cy=sh+3;
+  for(let y=cy-3;y<=cy+3;y++)for(let x=cx-5;x<=cx+5;x++){
+   if(!allowed(x,y))continue;
+   const d=((x-cx)/6)**2+((y-cy)/4)**2;
+   if(d<1.0)mark(x,y,8);
+  }
+  for(const [cx2,cy2] of [[sw+3,5],[Math.floor(sw*.53),sh+6]]){
+   for(let y=cy2;y<cy2+3;y++)for(let x=cx2;x<cx2+7;x++){
+    if(allowed(x,y)&&t[y][x]===0)mark(x,y,9);
+   }
+  }
+ }
+ // Reconnect preserved original world and all moved exits/spawns.
+ // The master route has intentional bends rather than six identical rectangles.
+ const nodes=[{x:sw-2,y:Math.floor(sh*.52)},{x:Math.floor(sw*.56),y:sh-2},
+  ...Object.values(spec.spawns),...spec.exits].filter(p=>p?.x>=0&&p?.y>=0);
+ const hub={x:sw+5,y:sh+4};
+ const lay=(x,y,r=1)=>{
+  for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){
+   const xx=x+dx,yy=y+dy;
+   if(allowed(xx,yy))t[yy][xx]=3;
+  }
+ };
+ const link=(a,b,r=1)=>{
+  // 90-degree bends are broken into short shallow diagonal ramps.
+  const mid={x:clamp(Math.floor((a.x+b.x)/2+Math.sin(seed)*2),2,w-3),
+             y:clamp(Math.floor((a.y+b.y)/2+Math.cos(seed)*2),2,h-3)};
+  const segments=[[a,mid],[mid,b]];
+  for(const [p,q] of segments){
+   let x=p.x,y=p.y;lay(x,y,r);
+   while(x!==q.x||y!==q.y){
+    if(x!==q.x)x+=Math.sign(q.x-x);
+    if(y!==q.y&&Math.abs(q.y-y)>=Math.abs(q.x-x))y+=Math.sign(q.y-y);
+    lay(x,y,r);
+   }
+  }
+ };
+ for(const p of nodes)link(p,hub,1);
+ // Two sidepaths are purposeful loops, not a repetitive perimeter motorway.
+ link(hub,{x:w-7,y:sh+4},1);
+ link(hub,{x:sw+6,y:h-6},1);
+ link({x:w-7,y:sh+4},{x:w-7,y:h-6},0);
+ link({x:sw+6,y:h-6},{x:w-7,y:h-6},0);
+ // Original 3x3 shop footprints remain exactly paired with their live artwork.
+ if(kind==='town')for(const house of L.houses){
+  for(let yy=house.y;yy<house.y+3;yy++)for(let xx=house.x;xx<house.x+3;xx++)
+   mark(xx,yy,5);
+  for(let dy=0;dy<=2;dy++)for(let dx=-1;dx<=1;dx++)
+   mark(house.x+1+dx,house.y+3+dy,3);
+ }
+ // Avoid disconnected portals/softlocked spawns. Do not move any of them.
+ for(const p of nodes)if(allowed(p.x,p.y))t[p.y][p.x]=3;
+ L.designVersion=2;L.biome=biome;L.districtHub=hub;
+ return spec;
+}
+function paintWorldSurface(map,x,y,sx,sy,pix){
+ const L=map.worldLayout;
+ if(!L?.designVersion)return false;
+ const tile=map.tiles[y]?.[x];
+ if(![0,3,8,9].includes(tile))return false;
+ const biome=L.biome,kind=L.kind;
+ const sets={
+  grove:['#7cab82','#c6b18d','#a98d70','#90b98e'],
+  wet:['#75a49b','#c8bc9c','#a8a18a','#84b0a2'],
+  frost:['#abcbd1','#d6e5de','#96aebe','#c5dfe1'],
+  ash:['#a28a76','#c9a789','#836d68','#b9a18d'],
+  open:['#8cb29a','#d0ba94','#aa9984','#a0baa5']
+ };
+ const a=sets[biome]||sets.open;
+ const inner=kind==='interior';
+ const city=kind==='town';
+ const bg=inner?(tile===3?'#adb1b0':tile===8?'#7e9096':'#9aafb0'):
+   city?(tile===3?'#c1b39e':tile===8?'#b7a78f':tile===9?'#789985':'#91ae9b'):
+   tile===3?a[1]:tile===8?a[2]:tile===9?a[3]:a[0];
+ pix(sx,sy,16,16,bg);
+ const varied=mapHash(Math.floor(x/3),Math.floor(y/3),String(map.mapId).length*41);
+ if(tile===3){
+  // Wide recognizable paving slabs, short joints, no random checkerboard.
+  pix(sx+1,sy+2,14,1,inner?'#d4d1c7':'#ead7b6');
+  pix(sx+2,sy+12,12,1,inner?'#7c8b90':'#ad9981');
+  if((x+y)%3===0)pix(sx+10,sy+3,1,8,inner?'#88999c':'#b49c82');
+ }else if(tile===8){
+  if(varied>.55)pix(sx+3,sy+7,5,2,inner?'#a4adae':'#c5b296');
+ }else if(!inner && !city && varied>.64){
+  pix(sx+4,sy+8,2,3,biome==='frost'?'#dceeed':'#659b78');
+  pix(sx+9,sy+11,3,1,biome==='frost'?'#d7e9e7':'#afd0a3');
+ }
+ return true;
+}
+
 function register(spec){
  if(!obj(spec)||typeof spec.mapId!=='string'||!/^[a-z][a-z0-9_]{2,63}$/.test(spec.mapId)||maps.has(spec.mapId))
   throw Error('Invalid or duplicate mapId');
@@ -186,7 +357,7 @@ function register(spec){
    if(!obj(p)||!Number.isInteger(p.x)||!Number.isInteger(p.y)||
       p.y<0||p.y>=sourceTiles.length||p.x<0||p.x>=sourceTiles[0].length||
       blocked.has(sourceTiles[p.y][p.x]))throw Error('Invalid safe spawn: '+id);
- spec=expandRealRegion(spec);
+ spec=designExpandedRegion(expandRealRegion(spec));
  const tiles=spec.tiles;
  if(!Array.isArray(tiles)||!tiles.length||!Array.isArray(tiles[0])||!tiles[0].length||
     tiles.length>512||tiles[0].length>512||!tiles.every(r=>Array.isArray(r)&&r.length===tiles[0].length))
@@ -304,5 +475,5 @@ function travel(state,exitId){
 window.EchoMaps=Object.freeze({LEGACY,VERSION,SAVE_KEY,BACKUP_KEY,
  register,registerLegacy,addSpawn,addExit,getExitAt,validateNetwork,
  get:id=>maps.get(id)||null,has:id=>maps.has(id),
- migrateSave,backupLegacy,travel,list:()=>Array.from(maps.keys())});
+ paintWorldSurface,migrateSave,backupLegacy,travel,list:()=>Array.from(maps.keys())});
 })();
