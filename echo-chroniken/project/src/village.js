@@ -131,43 +131,43 @@ function build(map){
   return map;
 }
 function paintTile(tile,ctx,sx,sy,x,y,tick,pix){
-  // Loose, naturally eroded paving stones, never a full square tile of uniform bricks.
-  if(tile===3){
-    paintTile(8,ctx,sx,sy,x,y,tick,pix);
-    const tones=['#dec9a1','#edd6b0','#bba98c','#d0b68b'];
-    for(let i=0;i<7;i++){
-      const u=1+Math.floor(hash(x*17+i*13,y*23+i,17)*12);
-      const v=1+Math.floor(hash(x*11+i,y*19+i*9,31)*13);
-      const w=2+(i%3);
-      pix(sx+u,sy+v,w,2,tones[Math.floor(hash(x+i,y-i,45)*tones.length)]);
-      pix(sx+u,sy+v,w,1,'#f0dfb6');
+  // Wurzelheim reference style: restrained, coherent 16px Game Boy-like materials.
+  // A tile is a surface, not a bag of 26 unrelated coloured pixels.
+  if(tile!==3&&tile!==8&&tile!==9)return false;
+  if(tile===9){
+    const shades=['#79ac71','#7caf72','#7db176','#80b578'];
+    pix(sx,sy,16,16,shades[Math.floor(hash(x,y,10)*shades.length)]);
+    // Group three grass leaves into one readable clump. No confetti.
+    for(let i=0;i<3;i++){
+      const ox=2+i*5,oy=7+(i%2)*2;
+      pix(sx+ox,sy+oy,2,6,'#3f805d');
+      pix(sx+ox+1,sy+oy-3,2,6,'#65a971');
+      pix(sx+ox+2,sy+oy-2,1,2,'#b6d391');
     }
     return true;
   }
-  if(tile!==8&&tile!==9)return false;
-  const colors=tile===8?['#b99e78','#bca17b','#c1ab83','#b59c76']:['#68ad74','#70b67a','#65a675','#77b57b'];
-  pix(sx,sy,16,16,colors[Math.floor(hash(x,y,10)*colors.length)]);
-  for(let j=0;j<26;j++){
-    const a=Math.floor(hash(x*31+j,y*15+j,24)*16),b=Math.floor(hash(x+j*3,y*19+j,45)*16);
-    pix(sx+a,sy+b,1+(j%7===0?2:0),1,tile===8?(j%3?'#d6ba8d':'#8e8068'):(j%2?'#93c98a':'#458d65'));
+  // Path and packed earth use the same warm palette, so adjoining cells
+  // read as one continuous path. Stones have simple 1px shadows.
+  const earth=['#c2aa86','#bca581','#bea783','#c0a985'];
+  pix(sx,sy,16,16,earth[Math.floor(hash(x,y,8)*earth.length)]);
+  for(let i=0;i<4;i++){
+    const a=1+Math.floor(hash(x*13+i,y*17+i,17)*13);
+    const b=1+Math.floor(hash(x+i*9,y*11+i,31)*13);
+    pix(sx+a,sy+b,2,1,i%2?'#d4bd99':'#a98e6e');
   }
-  if(tile===8){
-    for(let i=0;i<5;i++){
-      const dx=Math.floor(hash(x*9+i,y*17,2)*13),dy=Math.floor(hash(x,y*11+i,4)*13);
-      pix(sx+dx,sy+dy,2+(i%2),1,i%2?'#e1cba2':'#958772');
-    }
-    // Irregular grass eroding the path edge, based on adjacent non-path tiles.
-    for(const [dx,dy,ax,ay,w,h] of [[-1,0,0,3,3,9],[1,0,13,1,3,10],[0,-1,2,0,11,3],[0,1,4,13,9,3]]){
-      if(!window.EchoVillage.map?.[y+dy] || ![0,9,2].includes(window.EchoVillage.map[y+dy][x+dx]))continue;
-      if(hash(x,y,dx+dy+19)>.3)pix(sx+ax,sy+ay,w,h,'#79ae77');
+  if(tile===3){
+    // Deliberate stepping stones instead of noisy random checkerboard paving.
+    const offset=hash(x,y,41)>.5?1:0;
+    for(const [px,py,w] of [[1+offset,2,6],[8-offset,8,7],[2+offset,12,4]]){
+      pix(sx+px+1,sy+py+3,w,1,'#96836d');
+      pix(sx+px,sy+py,w,3,'#dcc7a2');
+      pix(sx+px+1,sy+py,w-2,1,'#f0debb');
     }
   }else{
-    // Fluttering tall decorative grass, no random encounters in town.
-    const sway=Math.sin(tick*.0025+x*2+y)>.2?1:0;
-    for(let i=1;i<16;i+=4){
-      pix(sx+i,sy+10,2,6,'#3e845b');
-      pix(sx+i+sway,sy+4+i%3,2,9,'#63a879');
-      pix(sx+i+sway+1,sy+3+i%3,1,2,'#c9dda2');
+    // A coherent grassy rim only where dirt actually meets the lawn.
+    for(const [dx,dy,ax,ay,w,h] of [[-1,0,0,3,2,9],[1,0,14,2,2,9],[0,-1,3,0,10,2],[0,1,3,14,10,2]]){
+      if(!window.EchoVillage.map?.[y+dy]||![0,9,2].includes(window.EchoVillage.map[y+dy][x+dx]))continue;
+      if(hash(x,y,dx+dy+19)>.45)pix(sx+ax,sy+ay,w,h,'#82ae79');
     }
   }
   return true;
