@@ -1,5 +1,13 @@
 # Story-Roadmap Änderungsverlauf
 
+## 2026-11-08 - Karten-Sichtprüfung und Weltgestaltung V3 (Draft)
+- Alle 60 echten Karten aus dem Browser exportiert und systemische Mängel identifiziert. 57 prozedurale Erweiterungen neu modelliert, inklusive ihrer zuvor unangetasteten Kernböden.
+- Natur, Stadt- und Innenbereiche: weniger beliebige Flächen, stärker zusammenhängende Landschaften, verbundene Straßen, sechs variierende Raumpläne und besondere Formelemente für Wiesen, Archive, Stationen und Höhlen.
+- Bestehende Storykollisionen, Spawns, Quest-, Portal- und Save-IDs nicht verlegt. 62 von 62 lokale Node-Tests bestanden, 60 Karten per echtem Browserrenderer fehlerfrei exportiert.
+- Neue getrennte Vorschau unter docs/map-redesign-v3-preview; Qualitätsbericht MAP_VISUAL_AUDIT_20261108.md.
+- **Achtung:** noch keine individuelle manuelle Endgestaltung aller 60 Karten, keine vollständige Freigabe und keine neue APK.
+
+
 ## 2026-11-07 - SOULS 3.46 Kartenwerkstatt mit 60 echten Echo-Karten und sicherem Import
 - Separater, mobil nutzbarer SOULS-Karteneditor mit eigenem Speicher und echtem 60-Karten-Projekt.
 - Validierter Import als diffs in den wirklichen Spiel- und Kollisionsdaten, keine Bildattrappen oder Save-Schema-Änderung.
