@@ -2824,6 +2824,16 @@ function executeBattleAction(choice){
          pix(sx+3,sy+13,2,2,'#5a6f74');
        }
      }
+     // Shared 16px landscape material pass for redesigned regions only.
+     // Paint after themed base tiles, before characters and quest overlays.
+     // Walls and water retain the native game renderer and collision values.
+     if(map.worldLayout?.designVersion){
+       for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++){
+         const sx=x*16-camX,sy=y*16-camY;
+         if(sx<-17||sy<-17||sx>PW||sy>PH)continue;
+         window.EchoMaps.paintWorldSurface(map,x,y,sx,sy,pix);
+       }
+     }
      const painter=window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
           window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
         window.EchoEndgame?.names[gameState.currentMapId] ? window.EchoEndgame :
