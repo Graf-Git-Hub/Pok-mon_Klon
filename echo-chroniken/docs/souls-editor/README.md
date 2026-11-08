@@ -37,3 +37,17 @@ Der Befehl vergleicht mit `tools/souls-bridge/original-maps.json`, übernimmt nu
 - Unveränderte Save-Schema-Version v2, IDs aller 150 Wesen, Retro-START-Menü und Android-Paketname.
 
 Die 60 importierten Karten sind eine **Editiergrundlage**, kein bereits von Hand gezeichnetes neues Pixelart-Weltbild. Die spielbaren Grundkarten aus dem vorangegangenen Weltumbau bleiben erhalten.
+
+## Kartenwerkstatt V2 (08.11.2026): erstes sichtbares Wurzelheim-Redesign
+
+Die alte Adresse bleibt für bestehende Nutzerprojekte verfügbar. Die neue additive V2 liegt unter:
+
+https://graf-git-hub.github.io/Souls/echo-chroniken-editor-v2.html
+
+- Alle 60 Maps bleiben bearbeitbar. Die fünf Wurzelheimer 5×3-Häuser nutzen jetzt **75 echte Dach-, Wand-, Fenster- und Türkacheln** statt 75 identischer brauner Wandkacheln.
+- Keine Story-/Kollisionskoordinaten der Häuser geändert. Der Importer schützt nun auch Fenster und Türen der Baukastenhäuser als ursprüngliche Blockkacheln.
+- Neuer isolierter Editor-Speicherschlüssel `echo_chroniken_souls_workshop_20261108`. Vorherige V1-Daten bleiben im älteren Browser-Speicher; sie sind in V2 **nicht automatisch übernommen**. Bei Bedarf Projekt-JSON exportieren/importieren.
+- Im Spielcode: ruhigere Wege-, Erd- und Grastexturen in `project/src/village.js`.
+- Noch offen: umfassender Umbau aller Wurzelheimer Wege, Stadtzentrum und Randbewuchs; danach die 59 anderen Maps. V2 ist **ein erster visueller Fortschritt, keine vollständige Premium-Karte**.
+
+Prüfungen: `node tests/village.cjs`, `node tests/first-route.cjs`, `node tests/village-visual-style.cjs`, `node tests/souls-editor-bridge.cjs`, echter Desktop-/Telefon-Chromium-Test `python qa/souls-editor-bridge-browser.py`.
