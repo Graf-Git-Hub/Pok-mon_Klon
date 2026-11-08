@@ -182,6 +182,8 @@ function designExpandedRegion(spec){
  const t=spec.tiles, id=spec.mapId;
  const seed=[...id].reduce((v,c)=>(Math.imul(v,37)+c.charCodeAt(0))|0,13);
  const rnd=(x,y,n=0)=>mapHash(x,y,seed+n*313);
+ // Six different scene plans, not one reused map with a different colour.
+ const variant=((seed%6)+6)%6;
  const extra=(x,y)=>x>=sw||y>=sh;
  const allowed=(x,y)=>x>0&&y>0&&x<w-1&&y<h-1&&extra(x,y);
  const mark=(x,y,value)=>{if(allowed(x,y))t[y][x]=value;};
@@ -196,10 +198,10 @@ function designExpandedRegion(spec){
  // Clusters represent forest slopes / geological ledges, not accidental debris.
  if(kind==='nature'){
   const centers=[
-   [sw+Math.floor((w-sw)*.37),4,5,3],
-   [w-8,Math.floor(sh*.55),5,4],
-   [Math.floor(sw*.44),h-7,6,3],
-   [w-8,h-8,4,4]
+   [sw+4+(variant%3)*3,4+(variant%2)*3,4+(variant%2),3],
+   [w-8-(variant%2)*2,Math.floor(sh*.42)+(variant%3)*2,5,3+(variant%2)],
+   [Math.floor(sw*.38)+(variant%3)*3,h-7,4+(variant%2)*2,3],
+   [w-7-(variant%3),h-7-(variant%2)*2,4,3]
   ];
   for(let i=0;i<centers.length;i++){
    const [cx,cy,rx,ry]=centers[i];
@@ -220,19 +222,45 @@ function designExpandedRegion(spec){
    }
   }
   if(biome==='grove'){
-   for(let cy=sh+5;cy<h-4;cy+=7)for(let cx=5;cx<w-5;cx+=10){
+   const xShift=(variant%3)*3,yShift=(variant%2)*3;
+   for(let cy=sh+4+yShift;cy<h-4;cy+=8)for(let cx=4+xShift;cx<w-5;cx+=11){
     for(let y=cy-2;y<=cy+1;y++)for(let x=cx-3;x<=cx+2;x++){
-     if(allowed(x,y)&&rnd(cx,cy)<.75&&t[y][x]===0)mark(x,y,2);
+     if(allowed(x,y)&&rnd(cx,cy)<.82&&t[y][x]===0)mark(x,y,2);
+    }
+   }
+   // Six postgame meadows get six recognizable landmarks:
+   // pond, stone circle, winding hedge, meadow trail, ridge, clearing.
+   if(/postgame_meadow/.test(id)){
+    const focusX=sw+Math.floor((w-sw)*.47),focusY=sh+Math.floor((h-sh)*.45);
+    const form=Number(id.match(/\d+$/)?.[0]||variant+1)%6;
+    if(form===2||form===5){
+     for(let y=focusY-3;y<=focusY+3;y++)for(let x=focusX-5;x<=focusX+5;x++)
+      if(((x-focusX)/5)**2+((y-focusY)/3)**2<.76)mark(x,y,4);
+    }else if(form===1||form===4){
+     for(let y=focusY-4;y<=focusY+4;y++)for(let x=focusX-4;x<=focusX+4;x++){
+      const d=((x-focusX)/4)**2+((y-focusY)/4)**2;
+      if(d>.48&&d<1.08)mark(x,y,3);
+     }
+    }else{
+     for(let y=focusY-5;y<=focusY+5;y++)for(let x=focusX-6;x<=focusX+6;x++){
+      const d=((x-focusX)/6)**2+((y-focusY)/5)**2;
+      if(d<.4)mark(x,y,9);
+      else if(d>.7&&d<1.2)mark(x,y,form===0?1:2);
+     }
     }
    }
   }
  }else if(kind==='interior'){
   // Clearly composed connected chambers with pillars, not an endless grid.
-  const rooms=[
-   {x:sw+3,y:3,w:11,h:8},
-   {x:Math.max(sw+5,w-16),y:sh+3,w:12,h:9},
-   {x:Math.max(5,Math.floor(sw*.33)),y:sh+4,w:11,h:8}
+  const plans=[
+   [[sw+2,3,10,7],[w-15,sh+4,12,8],[Math.floor(sw*.33),sh+5,10,8]],
+   [[sw+5,5,12,8],[w-13,sh+2,9,7],[Math.floor(sw*.5),sh+4,10,7]],
+   [[sw+3,4,13,9],[w-15,sh+5,12,7],[Math.floor(sw*.25),sh+3,11,8]],
+   [[sw+2,7,11,8],[w-16,sh+3,13,9],[Math.floor(sw*.55),sh+6,9,7]],
+   [[sw+6,3,10,10],[w-13,sh+6,10,7],[Math.floor(sw*.4),sh+4,12,9]],
+   [[sw+4,6,12,7],[w-17,sh+3,13,8],[Math.floor(sw*.26),sh+7,11,7]]
   ];
+  const rooms=plans[variant].map(([x,y,w,h])=>({x,y,w,h}));
   for(const room of rooms){
    const {x:x0,y:y0,w:rw,h:rh}=room;
    for(let y=y0;y<Math.min(h-2,y0+rh);y++)for(let x=x0;x<Math.min(w-2,x0+rw);x++){
@@ -244,6 +272,33 @@ function designExpandedRegion(spec){
    for(let dy=-1;dy<=1;dy++)mark(doorX,y0+rh-1+dy,3);
    // Two fixed feature pedestals either side of the room axis.
    for(const dx of [-3,3])mark(doorX+dx,y0+2,5);
+  }
+  // The room purpose is visible even without text labels.
+  if(/library|archive|museum|research|records/.test(id)){
+   // Long separated bookshelf wings with aisles between them.
+   for(let y=sh+4;y<h-4;y+=5)for(let x=sw+4;x<w-6;x+=3){
+    for(let dy=0;dy<2;dy++)if(allowed(x,y+dy)&&t[y+dy][x]===8)
+     mark(x,y+dy,5);
+   }
+  }else if(/station|rail|platform/.test(id)){
+   // Two platforms rather than three indistinguishable empty rooms.
+   for(let y=sh+6;y<=sh+8;y+=2)for(let x=sw+3;x<w-4;x++)
+    if(allowed(x,y)&&t[y][x]===8)mark(x,y,1);
+  }else if(/cavern|shaft|chasm|tunnel|vault/.test(id)){
+   // Angular rock ribs and a spacious cavern chamber.
+   for(let j=0;j<3;j++){
+    const cx=sw+4+(j*7+variant)%Math.max(8,w-sw-6);
+    const cy=sh+4+j*3;
+    for(let y=cy-2;y<=cy+2;y++)for(let x=cx-3;x<=cx+3;x++)
+     if(allowed(x,y)&&t[y][x]===8&&((x-cx)/3)**2+((y-cy)/2)**2<.9)
+      mark(x,y,1);
+   }
+  }else if(/core|ring|observatory|resonance/.test(id)){
+   const cx=sw+7,cy=sh+5;
+   for(let y=cy-5;y<=cy+5;y++)for(let x=cx-5;x<=cx+5;x++){
+    const d=Math.abs(x-cx)+Math.abs(y-cy);
+    if(d>=5&&d<=6)mark(x,y,3);
+   }
   }
   // An inner court: different large floor materials rather than checkerboards.
   for(let y=sh+2;y<h-4;y++)for(let x=sw+2;x<w-4;x++){
@@ -304,7 +359,7 @@ function designExpandedRegion(spec){
  }
  // Avoid disconnected portals/softlocked spawns. Do not move any of them.
  for(const p of nodes)if(allowed(p.x,p.y))t[p.y][p.x]=3;
- L.designVersion=2;L.biome=biome;L.districtHub=hub;
+ L.designVersion=3;L.biome=biome;L.districtHub=hub;L.featureVariant=variant;
  return spec;
 }
 function paintWorldSurface(map,x,y,sx,sy,pix){
