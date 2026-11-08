@@ -191,6 +191,61 @@ function designExpandedRegion(spec){
  // Natural edges, coherent material. No 3-pixel dice speckling.
  for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++)if(extra(x,y))
   t[y][x]=kind==='interior'?8:kind==='town'?0:0;
+
+ // Restore readable purpose to the *original* (not just extended) map area.
+ // Only replace walkable empty floor values; preserve original walls,
+ // water, buildings, trigger tiles, and the exact marker coordinates.
+ const modules=[window.EchoChapter3,window.EchoChapter4,window.EchoChapter5,
+   window.EchoStoryRegions,window.EchoEndgame,window.EchoFinale,window.EchoPostgame];
+ const markers=modules.flatMap(m=>m?.markers?.[id]||[]);
+ const originalPoints=[...markers,...Object.values(spec.spawns),...spec.exits]
+  .filter(p=>p&&p.x>=1&&p.x<sw-1&&p.y>=1&&p.y<sh-1);
+ const sourceOpen=(x,y)=>x>0&&y>0&&x<sw-1&&y<sh-1&&![1,4,5,6,7].includes(t[y]?.[x]);
+ const sourceHub={x:Math.floor(sw*.52),y:Math.floor(sh*.54)};
+ // Every outdoor scene needs ground, pathways, and patches with readable scale.
+ for(let y=1;y<sh-1;y++)for(let x=1;x<sw-1;x++){
+  if(t[y][x]!==3)continue;
+  if(kind==='nature'||kind==='town'){
+    t[y][x]=0;
+    const cx=Math.floor((x+variant*2)/5),cy=Math.floor((y+variant)/5);
+    if(kind==='nature' && rnd(cx,cy,11)>.77)t[y][x]=9;
+  }else{
+    // Rooms retain all puzzle geometry; a restrained material change gives
+    // an inner floor and aisles instead of one unbroken grey square.
+    const sx=Math.floor((x+variant*2)/9),sy=Math.floor((y+variant)/7);
+    if((sx+sy)%3!==0)t[y][x]=8;
+  }
+ }
+ // Subtle border groves on the old safe lawn, never on markers or buildings.
+ if(kind==='nature'){
+  for(const [cx,cy] of [[4+variant%3,4],[sw-6,sh-5],[Math.floor(sw*.55),sh-5]]){
+   for(let y=cy-2;y<=cy+2;y++)for(let x=cx-3;x<=cx+3;x++){
+    if(!sourceOpen(x,y)||t[y][x]!==0)continue;
+    const d=((x-cx)/3)**2+((y-cy)/2)**2;
+    if(d<.67 && rnd(x,y,33)>.32)t[y][x]=9;
+   }
+  }
+ }
+ // Floor routes respect solids. There is no shortcut through a house/wall.
+ function sourceLine(a,b,radius){
+  let x=a.x,y=a.y,guard=sw*sh*2;
+  while(guard-- > 0){
+   for(let yy=y-radius;yy<=y+radius;yy++)for(let xx=x-radius;xx<=x+radius;xx++)
+    if(sourceOpen(xx,yy))t[yy][xx]=3;
+   if(x===b.x&&y===b.y)break;
+   const dx=b.x-x,dy=b.y-y;
+   if(Math.abs(dx)>=Math.abs(dy)&&dx)x+=Math.sign(dx);
+   else if(dy)y+=Math.sign(dy);
+  }
+ }
+ if(kind==='nature'||kind==='town'){
+  const links=[...originalPoints,sourceHub,
+    {x:sw-2,y:Math.floor(sh*.52)},{x:Math.floor(sw*.56),y:sh-2}];
+  for(const p of links)sourceLine(p,sourceHub,kind==='town'?1:0);
+  // A deliberate main street keeps buildings / primary story paths visible.
+  sourceLine({x:2,y:sourceHub.y},sourceHub,1);
+  sourceLine(sourceHub,{x:sw-2,y:sourceHub.y},1);
+ }
  const biome=/frost|ice|ridge|cavern/.test(id)?'frost':
   /moor|bog|lake|water|port|harbor|shaft|pump/.test(id)?'wet':
   /ash|forge|glut|smelt/.test(id)?'ash':
