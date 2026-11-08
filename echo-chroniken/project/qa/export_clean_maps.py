@@ -38,14 +38,11 @@ def patch_game(source):
     source=replace_once(source,
         "if(gameState.hasStarter&&gameState.team.length){\n       const companion=getMonsterSprite",
         "if(!window.__mapExportMode){\n      if(gameState.hasStarter&&gameState.team.length){\n        const companion=getMonsterSprite")
+    # Close the export-only player block before the foreground renderer.
+    # Foreground was added after the original exporter anchor.
     source=replace_once(source,
-        """     drawChar16(px*16-camX,py*16-camY,'#e06e59',gameState.player.stepPhase,'player',gameState.player.dir);
-   }
-   function renderOverworld(tick){""",
-        """     drawChar16(px*16-camX,py*16-camY,'#e06e59',gameState.player.stepPhase,'player',gameState.player.dir);
-     }
-   }
-   function renderOverworld(tick){""")
+        "     drawChar16(px*16-camX,py*16-camY,'#e06e59',gameState.player.stepPhase,'player',gameState.player.dir);",
+        "     drawChar16(px*16-camX,py*16-camY,'#e06e59',gameState.player.stepPhase,'player',gameState.player.dir);\\n     }")
     source=replace_once(source,
         """    npcs.forEach(n=>{
       if(n.id==='oma')return;""",
