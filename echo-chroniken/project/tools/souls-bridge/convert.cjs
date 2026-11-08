@@ -36,6 +36,28 @@ function createPilot(){
    if([1,4,5,6,7].includes(base.tiles[y][x]))fail('Pilot plant attempts a building');
    map.ground[y][x]='grass2';
  }
+ // Replace the 75 identical brown rectangles with real 16px house pieces
+ // provided by the SOULS 3.46 editor. The existing footprints and entry
+ // coordinates are absolutely unchanged: art parts, not new gameplay objects.
+ const housePlans=[
+   {x:3,y:2,type:'home',roof:'rot',wall:'gelb'},       // Oma
+   {x:12,y:2,type:'home',roof:'gruen',wall:'gelb'},    // Kräuterhaus
+   {x:25,y:2,type:'home',roof:'blau',wall:'grau'},     // Haus am See
+   {x:4,y:14,type:'smith',roof:'rot',wall:'braun'},    // Werkstatt
+   {x:20,y:14,type:'shop',roof:'blau',wall:'gelb'}     // Dorfladen
+ ];
+ for(const h of housePlans)for(let dy=0;dy<3;dy++)for(let dx=0;dx<5;dx++){
+   const x=h.x+dx,y=h.y+dy;
+   const found=map.objects.filter(o=>o.x===x&&o.y===y&&o.id==='bh_home_wall_braun');
+   if(found.length!==1)fail('Expected one original building cell at '+x+','+y);
+   let part='wall',color=h.wall;
+   if(dy===0){part=dx===0?'roofL':dx===4?'roofR':'roofM';color=h.roof}
+   else if(dx===0)part='wallL';
+   else if(dx===4)part='wallR';
+   else if(dy===2&&dx===2)part='door';
+   else if(dy===1&&(dx===1||dx===3))part='window';
+   found[0].id='bh_'+h.type+'_'+part+'_'+color;
+ }
  // A signpost and small flower patch live *above* the walkable tile.
  for(const entry of [
    {id:'lamp',x:16,y:23},{id:'smallflowers',x:20,y:23}
@@ -111,7 +133,7 @@ function makeEdits(file,selected=null,outfile=OUTPUT){
      if(!Object.hasOwn(GROUND,g))fail(id+': unsupported terrain '+g+' at '+x+','+y);
      const ids=objectsByCell.get(x+','+y)||[];
      let next=GROUND[g];
-     if(ids.some(v=>v.startsWith('bh_')&&(v.includes('_wall_')||v.includes('_roof'))))
+     if(ids.some(v=>v.startsWith('bh_')))
        next=5;
      for(const obj of ids)if(Object.hasOwn(OBJECT_TILE,obj))next=OBJECT_TILE[obj];
      const rule=edited.cellRules?.[y]?.[x];

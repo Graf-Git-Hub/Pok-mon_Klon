@@ -11,6 +11,19 @@ assert.equal(workshop.version,8);
 assert.equal(Object.keys(workshop.maps).length,60);
 assert.equal(Object.keys(initial.maps).length,60);
 assert.equal(Object.keys(manifest.regions).length,60);
+// New editor houses must be full graphic facades, not 75 brown wall rectangles.
+const homeObjects=workshop.maps.legacy_wurzeldorf.objects;
+const homes=[{x:3,y:2},{x:12,y:2},{x:25,y:2},{x:4,y:14},{x:20,y:14}];
+const houseTiles=homeObjects.filter(o=>o.id.startsWith('bh_'));
+assert.equal(houseTiles.length,75,'Each of five 5x3 houses must have exactly 15 art parts');
+assert.equal(houseTiles.filter(o=>o.id.includes('_roof')).length,25,'Roof has five visible tiles per house');
+assert.equal(houseTiles.filter(o=>o.id.includes('_door_')).length,5,'Each house needs its own visible door');
+assert.equal(houseTiles.filter(o=>o.id.includes('_window_')).length,10,'Each facade needs two windows');
+assert.equal(houseTiles.filter(o=>o.id==='bh_home_wall_braun').length,0,'No brown placeholder tiles remain');
+for(const h of homes)for(let dy=0;dy<3;dy++)for(let dx=0;dx<5;dx++){
+ const a=houseTiles.filter(o=>o.x===h.x+dx&&o.y===h.y+dy);
+ assert.equal(a.length,1,'Exactly one house art part per building coordinate');
+}
 for(const [id,source] of Object.entries(manifest.regions)){
  const m=workshop.maps[id];
  assert(m,id+' must exist in the editor');
