@@ -24,7 +24,7 @@ BLOCKED={"bush","tree","fence","rock","roof_l","roof_m","roof_r","wall","window"
          "room_wall","bookshelf","counter","table","chair","computer","heal_pod",
          "forge","anvil","crate","barrel","bed","workbench","plant","capsule","hedge"}
 OUT=Path(__file__).resolve().parents[2]/"assets"/"gb-classic"
-PREVIEW=Path(__file__).resolve().parents[4]/"docs"/"gb-classic"
+PREVIEW=Path(__file__).resolve().parents[3]/"docs"/"gb-classic"
 OUT.mkdir(exist_ok=True,parents=True);PREVIEW.mkdir(exist_ok=True,parents=True)
 
 def tile(name,frame=0):
