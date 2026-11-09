@@ -56,3 +56,18 @@ Echte alternative frei nutzbare Assets nach Quellenlizenz:
 **Noch nicht die Hauptspielgrafik.** Der Stiltest bleibt auf einem getrennten Feature-Branch und verändert kein bestehendes Spiel, keine APK und keine Save-Daten. Nach Freigabe dieses Baukastens wird zuerst **eine reale Storykarte** in die Laufzeit integriert, mit unveränderten Questpunkten und echten begehbaren Kollisionen. Danach werden die übrigen Maps umgestellt. Die zuletzt entwickelten großen 45×30 Schmiedebilder dürfen die gemeinsame Grafikpalette nicht verwässern.
 
 Die sieben Beispielkarten sind **keine Behauptung, dass alle 60 Karten schon umgesetzt wären**. Sie testen verbindliche Wiederverwendung und gut lesbare Raumtypen.
+
+## V2 · Kamera und plattformgerechte Bedienung (09.11.2026)
+
+- **Originale Palette bleibt eingefroren:** vier Graustufen und **39** Kacheln.
+- **Nur minimale Sprite-Verbesserung:** Spielerfigur klarere Mütze, Rucksack und Füße; Schmiede-Esse und Amboss mit besserer Silhouette. Keine neuen Farben, keine zusätzlichen Objekte.
+- **Kamera folgt der Spielfigur:** Canvas zeichnet statt der gesamten Welt nur den tatsächlichen Ausschnitt, geklemmt an den Kartenrändern. Im Innenraum bleibt eine feste Kameragröße mit erkennbar vergrößerten Möbeln.
+- **Handy:** standardmäßig 10×9 Felder, komfortables Touch-Steuerkreuz mit gedrückt halten und Aktionstaste A.
+- **TV:** standardmäßig 16×9 Felder, Gamepad API für linkes Analogkreuz/Steuerkreuz, A, B und Start; mobile Steuerung in TV-Breitbild ausgeblendet.
+- **Auto-Anpassung:** Größe und Orientierung erkannt; optionaler Umschalter Handy / TV für Tests, Vollbild im Browser bei Unterstützung.
+- **PC:** Pfeiltasten und WASD, Enter/Z/Aktion, P/Escape/Pause; Nearest-Neighbor-Pixel.
+- **Interaktion:** Schilder, Charaktere und Objekte können mit A/Enter untersucht werden. Türen verbinden die Beispielkarten.
+- **Tests:** `node tests/gb-classic-kit.cjs`; `python qa/gb-classic-browser.py` mit mobilem Chrome-Viewport und emuliertem TV-Controller, Kameraposition, Pixelgröße, Tastatur- und Touch-Bewegung sowie ohne JS-Fehler.
+- **Einschränkung:** Dies bleibt eine **eigenständige Spielgrafik-Vorschau**. Controller wurde im Browser simuliert, nicht an einem echten Smart-TV geprüft. Die endgültige Hauptspiel-Integration ist separat zu erledigen; keine Änderungen an gespeicherten Spielständen oder der APK.
+
+Die Demo befindet sich in `docs/gb-classic/klassik-demo.html`. Die Screenshots `GB_PHONE_REAL_BROWSER.png`, `GB_TV_REAL_BROWSER.png` und `GB_INTERIOR_REAL_BROWSER.png` stammen aus dem aktuellen Browserrenderer.
