@@ -4,7 +4,7 @@
  'use strict';
  const img=new Image();
  img.decoding='async';
- img.src='assets/maps/glut_forge_v1.png';
+ img.src='assets/maps/glut_forge_v2.png';
  window.EchoForgeArt=Object.freeze({image:img,
-  ready:()=>img.complete && img.naturalWidth===720 && img.naturalHeight===480});
+  ready:()=>img.complete && img.naturalWidth===368 && img.naturalHeight===272});
 })();
