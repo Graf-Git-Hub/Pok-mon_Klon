@@ -1,0 +1,175 @@
+{
+  "version": "1.0",
+  "name": "Echo-Chroniken GB-Klassik",
+  "license": "Original artwork, project-owned; inspired by constraints, not copied sprites",
+  "palette": [
+    "#f4f4ef",
+    "#c7c8c4",
+    "#777a7b",
+    "#24262b"
+  ],
+  "tileSize": 16,
+  "sprites": {
+    "floor": {
+      "atlasIndex": 0,
+      "collision": false
+    },
+    "path": {
+      "atlasIndex": 1,
+      "collision": false
+    },
+    "grass": {
+      "atlasIndex": 2,
+      "collision": false
+    },
+    "bush": {
+      "atlasIndex": 3,
+      "collision": true
+    },
+    "tree": {
+      "atlasIndex": 4,
+      "collision": true
+    },
+    "fence": {
+      "atlasIndex": 5,
+      "collision": true
+    },
+    "water_a": {
+      "atlasIndex": 6,
+      "collision": true
+    },
+    "water_b": {
+      "atlasIndex": 7,
+      "collision": true
+    },
+    "rock": {
+      "atlasIndex": 8,
+      "collision": true
+    },
+    "sign": {
+      "atlasIndex": 9,
+      "collision": false
+    },
+    "roof_l": {
+      "atlasIndex": 10,
+      "collision": true
+    },
+    "roof_m": {
+      "atlasIndex": 11,
+      "collision": true
+    },
+    "roof_r": {
+      "atlasIndex": 12,
+      "collision": true
+    },
+    "wall": {
+      "atlasIndex": 13,
+      "collision": true
+    },
+    "window": {
+      "atlasIndex": 14,
+      "collision": true
+    },
+    "door": {
+      "atlasIndex": 15,
+      "collision": false
+    },
+    "room_floor": {
+      "atlasIndex": 16,
+      "collision": false
+    },
+    "room_wall": {
+      "atlasIndex": 17,
+      "collision": true
+    },
+    "bookshelf": {
+      "atlasIndex": 18,
+      "collision": true
+    },
+    "counter": {
+      "atlasIndex": 19,
+      "collision": true
+    },
+    "table": {
+      "atlasIndex": 20,
+      "collision": true
+    },
+    "chair": {
+      "atlasIndex": 21,
+      "collision": true
+    },
+    "computer": {
+      "atlasIndex": 22,
+      "collision": true
+    },
+    "heal_pod": {
+      "atlasIndex": 23,
+      "collision": true
+    },
+    "forge": {
+      "atlasIndex": 24,
+      "collision": true
+    },
+    "anvil": {
+      "atlasIndex": 25,
+      "collision": true
+    },
+    "crate": {
+      "atlasIndex": 26,
+      "collision": true
+    },
+    "barrel": {
+      "atlasIndex": 27,
+      "collision": true
+    },
+    "bed": {
+      "atlasIndex": 28,
+      "collision": true
+    },
+    "stairs": {
+      "atlasIndex": 29,
+      "collision": false
+    },
+    "workbench": {
+      "atlasIndex": 30,
+      "collision": true
+    },
+    "plant": {
+      "atlasIndex": 31,
+      "collision": true
+    },
+    "capsule": {
+      "atlasIndex": 32,
+      "collision": true
+    },
+    "npc": {
+      "atlasIndex": 33,
+      "collision": false
+    },
+    "player": {
+      "atlasIndex": 34,
+      "collision": false
+    },
+    "water_edge": {
+      "atlasIndex": 35,
+      "collision": true
+    },
+    "hedge": {
+      "atlasIndex": 36,
+      "collision": true
+    },
+    "flower": {
+      "atlasIndex": 37,
+      "collision": false
+    },
+    "floor_stone": {
+      "atlasIndex": 38,
+      "collision": false
+    }
+  },
+  "sourceReferences": [
+    "https://www.peterhajas.com/blog/pokemon_rb_map_parsing/",
+    "https://opengameart.org/content/4-colour-interior-tileset",
+    "https://opengameart.org/content/4-colour-overworld-tileset"
+  ]
+}
