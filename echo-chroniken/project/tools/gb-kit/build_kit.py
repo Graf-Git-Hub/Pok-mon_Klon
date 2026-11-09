@@ -6,6 +6,7 @@ No third-party copyrighted sprites are copied. Every scene reuses this atlas.
 from PIL import Image,ImageDraw
 from pathlib import Path
 import json,math
+from gb_visual_upgrade import upgrade as art_upgrade
 
 C=["#f4f4ef","#c7c8c4","#777a7b","#24262b"]
 T=16
@@ -161,7 +162,7 @@ def tile(name,frame=0):
             b(6,5,2,2,0);b(11,8,2,3,2)
         else:
             b(6,2,4,2,2);b(6,5,2,2,3);b(9,5,2,2,3)
-    return im
+    return art_upgrade(name,im,frame)
 
 ATLAS_NAMES=list(K)
 atlas=Image.new("RGB",(8*T,math.ceil(len(ATLAS_NAMES)/8)*T),C[0])
@@ -188,14 +189,16 @@ def field(w,h,name):
                 if 0<=xx<w and 0<=yy<h: grid[yy][xx]=K[sym]
     def stamp(sym,x,y):fill(sym,x,y,1,1)
     def house(x,y,roofVariant=0):
-        # Exact repeatable 4x3 base house. One of only 3 reusable house types.
-        for xx in range(x,x+4):stamp("roof_m",xx,y)
-        stamp("roof_l",x,y);stamp("roof_r",x+3,y)
-        for xx in range(x,x+4):stamp("wall",xx,y+1)
-        for xx in range(x,x+4):stamp("wall",xx,y+2)
-        stamp("window",x+1,y+2);stamp("door",x+2,y+2)
-        if roofVariant==1:stamp("sign",x+3,y+2)
-        if roofVariant==2:stamp("window",x+3,y+2)
+        # CC0 hand-pixelled house: three 16px tiles wide, two high.
+        # Every village shares the exact same façade and 4-tone palette.
+        stamp("roof_l",x,y)
+        stamp("roof_m",x+1,y)
+        stamp("roof_r",x+2,y)
+        stamp("window",x,y+1)
+        stamp("door",x+1,y+1)
+        stamp("wall",x+2,y+1)
+        if roofVariant==1:stamp("sign",x+3,y+1)
+        if roofVariant==2:stamp("flower",x+3,y+1)
     if name=="Wurzelheim":
         for x in range(w):
             if x not in [9,10]:stamp("tree",x,0)
@@ -210,6 +213,10 @@ def field(w,h,name):
             stamp("fence",x,14)
         for x in [3,4,15,16]:stamp("bush",x,12)
         stamp("sign",10,8);stamp("flower",3,9);stamp("flower",16,11)
+        # Small deliberate grass patches, not a noisy texture over every tile.
+        for gx,gy in [(2,5),(6,5),(11,4),(17,5),(6,9),(12,9),
+                      (4,11),(11,12),(17,12),(5,15),(14,15),(3,16)]:
+            if grid[gy][gx]==K["floor"]:stamp("grass",gx,gy)
         fill("water_a",14,9,3,2)
         stamp("player",10,15)
     elif name=="Route":

@@ -71,3 +71,17 @@ Die sieben Beispielkarten sind **keine Behauptung, dass alle 60 Karten schon umg
 - **Einschränkung:** Dies bleibt eine **eigenständige Spielgrafik-Vorschau**. Controller wurde im Browser simuliert, nicht an einem echten Smart-TV geprüft. Die endgültige Hauptspiel-Integration ist separat zu erledigen; keine Änderungen an gespeicherten Spielständen oder der APK.
 
 Die Demo befindet sich in `docs/gb-classic/klassik-demo.html`. Die Screenshots `GB_PHONE_REAL_BROWSER.png`, `GB_TV_REAL_BROWSER.png` und `GB_INTERIOR_REAL_BROWSER.png` stammen aus dem aktuellen Browserrenderer.
+
+## Grafiküberarbeitung V3 · 09.11.2026
+
+Nutzerfeedback: Kamera und Bildausschnitt gefallen, aber Häuser, Bäume, Zaun und Möbel waren zu einfach. Der Stil bleibt bei **vier Graustufen und 39 Kacheln**. Kein modernes Licht oder zusätzliche Farbpalette.
+
+- Handpixelte Verbesserungen für Zimmergrafiken, Figuren, Gras, Wasser, Schilder, Esse und Amboss im separaten Grafikmodul.
+- Für Häuser, Bäume, Felsen und Zäune verwenden wir lizenzfrei nutzbare handgepixelte CC0-Bausteine von **ArMM1998, Gameboy Tileset**, OpenGameArt, 2017: https://opengameart.org/content/gameboy-tileset (CC0 1.0).
+- Die Originaldatei liegt unter assets/gb-classic/cc0-armm1998-original.png, mit Konvertierung im gb_cc0_assets.py auf die bereits festgelegten Graustufen.
+- Häuser werden aus einem einheitlichen 3×2-Baukasten zusammengesetzt, mit dunklem Dach und gut erkennbaren Fenstern/Tür. Wenige Grasbüschel strukturieren freie Flächen.
+- Die zuletzt akzeptierte Spieler-Kamera, Handy-/TV-Ansicht, Touch- und Controllersteuerung bleiben unverändert.
+- **Separater visueller Test**, keine Änderungen am Hauptspiel, an Spielständen oder der installierten APK.
+- Aktualisierte Browserbilder stammen aus der echten laufenden HTML-Vorschau.
+
+Tests: Gleichbleibender 39-Kachel-Baukasten, kontrollierte Kollision und Touch-/TV-/Gamepad-Browserprüfungen. Grafik stammt nicht aus Nintendo-Spielen.
