@@ -450,7 +450,7 @@ function draw(ctx,tick,s,camX,camY,pix,letter,drawChar){
    pix(u+7,v+5,2,8,'#55545b');pix(u+4,v+4,7,4,'#a8896d');
    pix(u+7,v+2+Math.sin(tick*.003+x)*2,3,2,'#e5a575');
   }
- }else if(theme==='forge'){
+ }else if(theme==='forge'&&id!=='glut_forge'){
   for(const [x,y] of [[4,5],[15,5]]){
    const [u,v]=at(x,y);
    pix(u,v,38,26,'#364954');pix(u+3,v+3,32,19,'#886f69');
