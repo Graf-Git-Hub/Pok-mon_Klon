@@ -12,9 +12,6 @@ PALETTE=("#f4f4ef","#c7c8c4","#777a7b","#24262b")
 # 3x2 top-down house: top 3 roof tiles / lower left, door, right facade.
 # Select one hand-crafted architectural kit and reuse it in every village.
 CROPS={
- "roof_l":(160,32,176,48),
- "roof_m":(176,32,192,48),
- "roof_r":(192,32,208,48),
  "window":(160,48,176,64),
  "door":(176,48,192,64),
  "wall":(192,48,208,64),
