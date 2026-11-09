@@ -64,7 +64,7 @@ def steel(x,y,w,h):
  shadow(x,y,x+w,y+h)
  rect(x,y,x+w,y+h,"#4b5660","#2c303c",3)
  rect(x+3,y+3,x+w-3,y+9,"#9ba8a8")
- rect(x+5,y+11,x+w-5,y+h-6,"#73808a")
+ rect(x+5,y+11,x+w-5,max(y+11,y+h-6),"#73808a")
 def ore(x,y,tone):
  ellipse((x,y+6,x+27,y+25),"#4a414a")
  poly([(x+1,y+15),(x+8,y+5),(x+19,y+3),(x+28,y+14),(x+22,y+25),(x+5,y+24)],tone,"#4b4650",2)
