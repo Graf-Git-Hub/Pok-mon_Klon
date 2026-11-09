@@ -29,7 +29,7 @@ for(const map of maps){
  for(let y=1;y<map.height-1;y++)for(let x=1;x<map.width-1;x++){
   if(x<sw&&y<sh)continue;
   const t=map.tiles[y][x];
-  if([0,8,9].includes(t))floor++;
+  if([0,8,9].includes(t)||(L.handDrawn&&t===3))floor++;
   if(t===3)road++;
   if([1,5].includes(t))solids++;
  }
