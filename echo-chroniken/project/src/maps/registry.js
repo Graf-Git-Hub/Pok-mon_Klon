@@ -452,6 +452,71 @@ function paintWorldSurface(map,x,y,sx,sy,pix){
  return true;
 }
 
+
+// Individually authored "Alte Schmiede" (45x30) from chapter 6.
+// No procedural room rectangles. Solids correspond to pixel-art furniture.
+function designHandmadeForge(spec){
+ if(spec.mapId!=='glut_forge')return spec;
+ const W=spec.tiles[0].length,H=spec.tiles.length;
+ if(W!==45||H!==30)throw Error('Forge art expects 45x30 map');
+ const tiles=Array.from({length:H},(_,y)=>Array.from({length:W},(_,x)=>
+  x<=1||x>=43||y<=2||y>=28?1:3));
+ const solidRect=(x0,y0,x1,y1)=>{
+  for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)
+   if(x>1&&x<43&&y>2&&y<28)tiles[y][x]=5;
+ };
+ // Physical objects shown on the forge illustration.
+ const objects=[
+  [3,3,17,4],  // north wall tool rack / steel cabinets
+  [29,5,41,15],// monumental active stone furnace
+  [4,11,17,13],// steel ingot preparation workbench
+  [21,15,27,19],// central anvil and timber pedestal
+  [28,19,32,21],// water cooling trough
+  [3,17,17,19],// tool display on the west wall
+  [4,21,16,25],// lower-left sales/repair counter
+  [34,19,42,25],// ore shelf and coal barrels
+  [29,23,33,26] // crystal and transport crates
+ ];
+ objects.forEach(r=>solidRect(...r));
+ // Two unambiguous gates, same original portal and spawn coordinates.
+ tiles[7][1]=3;tiles[7][2]=3;tiles[26][20]=3;tiles[26][21]=3;
+ for(let y=26;y<=29;y++)for(let x=20;x<=22;x++)tiles[y][x]=3;
+ // Preserve chapter 6 quest actors and every interaction exactly where
+ // the existing story system expects them, including in-workshop valve panels.
+ const actors=window.EchoStoryRegions?.markers?.glut_forge||[
+  {x:6,y:5},{x:10,y:5},{x:15,y:5},{x:7,y:10},
+  {x:14,y:10},{x:17,y:11},{x:11,y:12},{x:17,y:6}
+ ];
+ for(const p of actors){
+  tiles[p.y][p.x]=3;
+  // Access spot left/right/above the object must be visible and walkable.
+  const opts=[[p.x,p.y+1],[p.x+1,p.y],[p.x-1,p.y],[p.x,p.y-1]];
+  let clear=opts.find(([x,y])=>x>1&&y>2&&x<43&&y<27&&tiles[y][x]===3);
+  if(!clear){
+   const [x,y]=opts.find(([x,y])=>x>1&&y>2&&x<43&&y<27);
+   tiles[y][x]=3;
+  }
+ }
+ // Clear a continuous navigation spine with short secondary branches:
+ // side door -> quest actors -> anvil bypass -> south exit.
+ for(let x=2;x<=20;x++)tiles[7][x]=3;
+ for(let y=7;y<=26;y++)tiles[y][19]=3;
+ for(let x=19;x<=22;x++)tiles[26][x]=3;
+ // Side route around the anvil/furnace without crossing either solid.
+ for(let y=13;y<=25;y++)tiles[y][18]=3;
+ for(let x=18;x<=30;x++)tiles[24][x]=3;
+ for(let y=15;y<=25;y++)tiles[y][30]=3;
+ // Protect public portal ids and positions; no state migration required.
+ const spawns=Object.values(spec.spawns||{});
+ for(const p of [...spawns,...spec.exits]){
+  if(!Number.isInteger(p.x)||!Number.isInteger(p.y))continue;
+  tiles[p.y][p.x]=3;
+ }
+ return {...spec,tiles,worldLayout:{...spec.worldLayout,
+  handDrawn:true,designVersion:4,artAsset:'assets/maps/glut_forge_v1.png',
+  authoredObjectCount:objects.length,forgeMapSize:[W,H]}};
+}
+
 function register(spec){
  if(!obj(spec)||typeof spec.mapId!=='string'||!/^[a-z][a-z0-9_]{2,63}$/.test(spec.mapId)||maps.has(spec.mapId))
   throw Error('Invalid or duplicate mapId');
@@ -467,7 +532,7 @@ function register(spec){
    if(!obj(p)||!Number.isInteger(p.x)||!Number.isInteger(p.y)||
       p.y<0||p.y>=sourceTiles.length||p.x<0||p.x>=sourceTiles[0].length||
       blocked.has(sourceTiles[p.y][p.x]))throw Error('Invalid safe spawn: '+id);
- spec=designExpandedRegion(expandRealRegion(spec));
+ spec=designHandmadeForge(designExpandedRegion(expandRealRegion(spec)));
  const tiles=spec.tiles;
  if(!Array.isArray(tiles)||!tiles.length||!Array.isArray(tiles[0])||!tiles[0].length||
     tiles.length>512||tiles[0].length>512||!tiles.every(r=>Array.isArray(r)&&r.length===tiles[0].length))

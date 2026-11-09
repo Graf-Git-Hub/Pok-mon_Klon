@@ -18,7 +18,8 @@ for(const map of maps){
  const L=map.worldLayout;
  if(!L)continue;
  summary.expanded++;
- assert.equal(L.designVersion,3,'Unrevised world design: '+map.mapId);
+ assert(L.designVersion===3 || (map.mapId==='glut_forge'&&L.designVersion===4&&L.handDrawn),
+   'Unrevised world design: '+map.mapId);
  assert(Number.isInteger(L.featureVariant)&&L.featureVariant>=0&&L.featureVariant<6);
  variants.add(L.featureVariant);
  summary.biomes[L.biome]=(summary.biomes[L.biome]||0)+1;
@@ -28,7 +29,7 @@ for(const map of maps){
  for(let y=1;y<map.height-1;y++)for(let x=1;x<map.width-1;x++){
   if(x<sw&&y<sh)continue;
   const t=map.tiles[y][x];
-  if([0,8,9].includes(t))floor++;
+  if([0,8,9].includes(t)||(L.handDrawn&&t===3))floor++;
   if(t===3)road++;
   if([1,5].includes(t))solids++;
  }
