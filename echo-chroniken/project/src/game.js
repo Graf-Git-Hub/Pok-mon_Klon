@@ -2834,6 +2834,13 @@ function executeBattleAction(choice){
          window.EchoMaps.paintWorldSurface(map,x,y,sx,sy,pix);
        }
      }
+     // One handmade 45x30 map drawn by the REAL renderer, behind NPCs.
+     // Collision and quest positions remain defined in EchoMaps.
+     if(gameState.currentMapId==='glut_forge'){
+       const img=window.EchoForgeArt?.image;
+       if(img?.complete&&img.naturalWidth===map.width*16&&img.naturalHeight===map.height*16)
+         ctx.drawImage(img,-camX,-camY);
+     }
      const painter=window.EchoPostgame?.names[gameState.currentMapId] ? window.EchoPostgame :
           window.EchoFinale?.names[gameState.currentMapId] ? window.EchoFinale :
         window.EchoEndgame?.names[gameState.currentMapId] ? window.EchoEndgame :
