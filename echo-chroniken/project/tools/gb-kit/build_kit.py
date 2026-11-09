@@ -213,6 +213,10 @@ def field(w,h,name):
             stamp("fence",x,14)
         for x in [3,4,15,16]:stamp("bush",x,12)
         stamp("sign",10,8);stamp("flower",3,9);stamp("flower",16,11)
+        # Small deliberate grass patches, not a noisy texture over every tile.
+        for gx,gy in [(2,5),(6,5),(11,4),(17,5),(6,9),(12,9),
+                      (4,11),(11,12),(17,12),(5,15),(14,15),(3,16)]:
+            if grid[gy][gx]==K["floor"]:stamp("grass",gx,gy)
         fill("water_a",14,9,3,2)
         stamp("player",10,15)
     elif name=="Route":
