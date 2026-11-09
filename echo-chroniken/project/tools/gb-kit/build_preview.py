@@ -87,7 +87,7 @@ function screenTiles(){
  const landscape=window.innerWidth>window.innerHeight && window.innerWidth>=650;
  const tv=mode.value==="tv"||(mode.value==="auto"&&landscape&&
                    (window.innerWidth>=950||gamepadConnected));
- const cols=tv?16:landscape?14:10;
+ const cols=mode.value==="phone"?10:tv?16:landscape?14:10;
  return {w:cols,h:9};
 }
 function cameraFor(map){
