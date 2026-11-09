@@ -2,93 +2,251 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
 <title>Echo-Chroniken · Game Boy Klassik Stiltest</title>
 <style>
-:root{color-scheme:dark}*{box-sizing:border-box}
-body{background:#17191b;color:#e6e6de;font-family:system-ui,sans-serif;max-width:860px;margin:0 auto;padding:12px}
-h1{font-size:20px;margin:5px 0}.subtitle{font-size:12px;line-height:1.5;color:#acada9;margin-bottom:9px}
-.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:10px}
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{background:#17191b;color:#e6e6de;font-family:system-ui,sans-serif;max-width:1160px;margin:0 auto;padding:12px}
+h1{font-size:20px;margin:5px 0}
+.subtitle{font-size:12px;line-height:1.5;color:#acada9;margin-bottom:9px}
+.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:12px}
 select,button{border:2px solid #999;background:#303439;color:#f0f0eb;padding:10px 12px;border-radius:7px;font:600 15px system-ui}
-#view{display:block;image-rendering:pixelated;image-rendering:crisp-edges;background:#f4f4ef;margin:auto;border:4px solid #42474b;width:min(100%,720px);height:auto;touch-action:none}
-.pad{display:grid;grid-template-columns:repeat(3,60px);grid-template-rows:repeat(2,48px);justify-content:center;gap:6px;margin:12px auto}
-.pad button{padding:6px;font-size:21px;touch-action:manipulation}
-.pad .up{grid-column:2}.pad .left{grid-column:1;grid-row:2}.pad .down{grid-column:2;grid-row:2}.pad .right{grid-column:3;grid-row:2}
-footer{font-size:12px;color:#b8bbb6;text-align:center;margin-top:6px}
-#message{font-size:13px;min-height:42px;line-height:1.4;color:#d5d6c9;margin-top:8px}
-kbd{border:1px solid #737c80;padding:2px 4px;border-radius:4px}
+button:focus-visible,select:focus-visible{outline:3px solid #f4f4ef;outline-offset:2px}
+#game-frame{margin:0 auto;max-width:1100px;display:grid;justify-items:center}
+#view{display:block;image-rendering:pixelated;image-rendering:crisp-edges;background:#f4f4ef;border:4px solid #42474b;
+  max-width:100%;width:100%;height:auto;touch-action:none}
+#hud{font-size:13px;font-weight:600;align-self:start;margin:7px 0;color:#d1d1cc}
+#message{font-size:13px;min-height:34px;line-height:1.4;color:#d5d6c9;margin-top:7px;text-align:center}
+#controller-state{font-size:12px;color:#babdb7;text-align:center}
+.pad{display:grid;grid-template-columns:repeat(3,66px) 82px;grid-template-rows:repeat(2,55px);
+ justify-content:center;gap:7px;margin:12px auto}
+.pad button{padding:6px;font-size:22px;touch-action:none;user-select:none;-webkit-user-select:none}
+.pad .up{grid-column:2;grid-row:1}.pad .left{grid-column:1;grid-row:2}
+.pad .down{grid-column:2;grid-row:2}.pad .right{grid-column:3;grid-row:2}
+.pad .action{grid-column:4;grid-row:2;border-radius:30px}
+footer{font-size:12px;line-height:1.5;color:#b8bbb6;text-align:center;margin:10px auto;max-width:650px}
+body.gamepad .pad{display:none}
+@media (orientation:landscape) and (min-width:850px){body{padding:10px 24px}#game-frame{width:100%}.pad{display:none}}
+@media (max-width:480px){body{padding:9px}.pad{grid-template-columns:repeat(3,58px) 75px;grid-template-rows:repeat(2,53px);gap:5px}
+h1{font-size:18px}select,button{padding:9px 10px}}
+:fullscreen body{max-width:none;width:100vw;height:100vh}
+:fullscreen #view{max-height:76vh}
 </style></head><body>
 <h1>🎮 Echo-Chroniken · Game Boy Klassik</h1>
-<div class="subtitle">Stiltest, kein fertiges Hauptspiel · 4 Graustufen · eine feste Grafikbibliothek · 16px-Felder · keine Pokémon-Grafiken.</div>
-<div class="controls"><label for="scene">Karte:</label><select id="scene"></select>
-<button id="reset">↺ Neu starten</button></div>
-<canvas id="view" width="320" height="288" aria-label="Spielkarte"></canvas>
-<div id="message">Mit Steuerkreuz oder Pfeiltasten bewegen. Das Tor eines Hauses führt in ein Innenzimmer.</div>
-<div class="pad">
+<div class="subtitle">Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.</div>
+<div class="controls">
+<label for="scene">Karte:</label><select id="scene"></select>
+<label for="mode">Ansicht:</label><select id="mode" aria-label="Bildschirmansicht">
+<option value="auto">Automatisch</option><option value="phone">Handy</option><option value="tv">TV</option>
+</select>
+<button id="fullscreen" type="button">⛶ Vollbild</button>
+<button id="reset" type="button">↺ Neustart</button>
+</div>
+<div id="game-frame">
+<canvas id="view" width="160" height="144" aria-label="Ausschnitt der Spielwelt, folgt deiner Figur"></canvas>
+<div id="hud" aria-live="polite"></div>
+</div>
+<div id="message" role="status">Mit Steuerkreuz, Pfeiltasten oder Gamepad bewegen. Mit A oder Enter interagieren.</div>
+<div id="controller-state">Handy: Touch · TV: Controller (Steuerkreuz / Stick, A, B, Start) · PC: Pfeiltasten/WASD</div>
+<div class="pad" aria-label="Steuerung">
 <button class="up" data-move="0,-1" aria-label="Hoch">▲</button>
 <button class="left" data-move="-1,0" aria-label="Links">◀</button>
 <button class="down" data-move="0,1" aria-label="Runter">▼</button>
 <button class="right" data-move="1,0" aria-label="Rechts">▶</button>
+<button class="action" id="action" aria-label="Interagieren">A</button>
 </div>
-<footer>Grafik-Prototyp aus einem einzigen 39-Kachel-Baukasten. Kollisionen entsprechen den echten Felddaten. Keine Spielstände werden verändert.</footer>
+<footer>Handy: 10 × 9 Felder · TV: 16 × 9 Felder · Pixel bleiben scharf. Das Bild scrollt mit deiner Spielfigur, Spiellogik und alte Speicherstände werden nicht verändert.</footer>
 <script>
-const DATA={"version":"1.0","scenes":{"Wurzelheim":{"width":20,"height":18,"rows":["44444444400444444444","40000000000000000004","40000000000000000004","400abbc000000abbc004","400dddd000000dddd004","400defd000000def9004","40000000000000000004","40555500000055555004","40000000009000000004","400B0000000000666004","4000000abbc000666004","4000000dddd00000B004","4003300defe000033004","40000000000000000004","40555550000005555004","4000000000y000000004","40000000000000000004","44444444400444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[19,1],[0,2],[19,2],[0,3],[3,3],[4,3],[5,3],[6,3],[13,3],[14,3],[15,3],[16,3],[19,3],[0,4],[3,4],[4,4],[5,4],[6,4],[13,4],[14,4],[15,4],[16,4],[19,4],[0,5],[3,5],[4,5],[6,5],[13,5],[14,5],[19,5],[0,6],[19,6],[0,7],[2,7],[3,7],[4,7],[5,7],[12,7],[13,7],[14,7],[15,7],[16,7],[19,7],[0,8],[19,8],[0,9],[14,9],[15,9],[16,9],[19,9],[0,10],[7,10],[8,10],[9,10],[10,10],[14,10],[15,10],[16,10],[19,10],[0,11],[7,11],[8,11],[9,11],[10,11],[19,11],[0,12],[3,12],[4,12],[7,12],[8,12],[10,12],[15,12],[16,12],[19,12],[0,13],[19,13],[0,14],[2,14],[3,14],[4,14],[5,14],[6,14],[13,14],[14,14],[15,14],[16,14],[19,14],[0,15],[19,15],[0,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[8,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]]},"Route":{"width":20,"height":18,"rows":["44444444000444444444","44000000000000000044","44000000000000000044","44022220000002222044","44022220000002222044","44022220000002222044","44022220000002222044","44022220000002222044","44022220000002222044","4400000000000x000044","44000090000000000044","44000000000000000044","44022220000000000044","44022220000555550044","44022220000000000044","440000000y0000000044","44000000000000000044","44444444000444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[1,1],[18,1],[19,1],[0,2],[1,2],[18,2],[19,2],[0,3],[1,3],[18,3],[19,3],[0,4],[1,4],[18,4],[19,4],[0,5],[1,5],[18,5],[19,5],[0,6],[1,6],[18,6],[19,6],[0,7],[1,7],[18,7],[19,7],[0,8],[1,8],[18,8],[19,8],[0,9],[1,9],[18,9],[19,9],[0,10],[1,10],[18,10],[19,10],[0,11],[1,11],[18,11],[19,11],[0,12],[1,12],[18,12],[19,12],[0,13],[1,13],[11,13],[12,13],[13,13],[14,13],[15,13],[18,13],[19,13],[0,14],[1,14],[18,14],[19,14],[0,15],[1,15],[18,15],[19,15],[0,16],[1,16],[18,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]]},"Laden":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiiiiiggxgh","hggggggjjjjh","hggggggggggh","hggiiggiiggh","hggggggggggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[3,1],[4,1],[5,1],[6,1],[11,1],[0,2],[7,2],[8,2],[9,2],[10,2],[11,2],[0,3],[11,3],[0,4],[3,4],[4,4],[7,4],[8,4],[11,4],[0,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Heilstation":{"width":14,"height":9,"rows":["hhhhhhhhhhhhhh","hggggggngxgggh","hgvjjjjjjjjvgh","hggggggggggggh","hggggggggggggh","hggllggggllggh","hggggggygggggh","hggggggggggggh","hhhhhhhfhhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[0,1],[7,1],[13,1],[0,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[10,2],[11,2],[13,2],[0,3],[13,3],[0,4],[13,4],[0,5],[3,5],[4,5],[9,5],[10,5],[13,5],[0,6],[13,6],[0,7],[13,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,8],[8,8],[9,8],[10,8],[11,8],[12,8],[13,8]]},"Schmiede":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiggggggggh","hggugggxgogh","hggggggggggh","hgggggpggggh","hggggggggggh","hgjjjgyggqgh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[11,1],[0,2],[3,2],[9,2],[11,2],[0,3],[11,3],[0,4],[6,4],[11,4],[0,5],[11,5],[0,6],[2,6],[3,6],[4,6],[9,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Teamtausch":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hggmmgwwwggh","hggggggggggh","hgggggxggggh","hggggggggggh","hggjggggjggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[3,1],[4,1],[6,1],[7,1],[8,1],[11,1],[0,2],[11,2],[0,3],[11,3],[0,4],[11,4],[0,5],[3,5],[8,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Wohnhaus":{"width":10,"height":8,"rows":["hhhhhhhhhh","hgsggggigh","hggggggggh","hggggggggh","hggggkgggh","hgvggylggh","hggggggggh","hhhhhfhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,1],[2,1],[7,1],[9,1],[0,2],[9,2],[0,3],[9,3],[0,4],[5,4],[9,4],[0,5],[2,5],[6,5],[9,5],[0,6],[9,6],[0,7],[1,7],[2,7],[3,7],[4,7],[6,7],[7,7],[8,7],[9,7]]}},"symbols":{"0":"floor","1":"path","2":"grass","3":"bush","4":"tree","5":"fence","6":"water_a","7":"water_b","8":"rock","9":"sign","a":"roof_l","b":"roof_m","c":"roof_r","d":"wall","e":"window","f":"door","g":"room_floor","h":"room_wall","i":"bookshelf","j":"counter","k":"table","l":"chair","m":"computer","n":"heal_pod","o":"forge","p":"anvil","q":"crate","r":"barrel","s":"bed","t":"stairs","u":"workbench","v":"plant","w":"capsule","x":"npc","y":"player","z":"water_edge","A":"hedge","B":"flower","C":"floor_stone"}};
-const MANIFEST={"version":"1.0","name":"Echo-Chroniken GB-Klassik","license":"Original artwork, project-owned; inspired by constraints, not copied sprites","palette":["#f4f4ef","#c7c8c4","#777a7b","#24262b"],"tileSize":16,"sprites":{"floor":{"atlasIndex":0,"collision":false},"path":{"atlasIndex":1,"collision":false},"grass":{"atlasIndex":2,"collision":false},"bush":{"atlasIndex":3,"collision":true},"tree":{"atlasIndex":4,"collision":true},"fence":{"atlasIndex":5,"collision":true},"water_a":{"atlasIndex":6,"collision":true},"water_b":{"atlasIndex":7,"collision":true},"rock":{"atlasIndex":8,"collision":true},"sign":{"atlasIndex":9,"collision":false},"roof_l":{"atlasIndex":10,"collision":true},"roof_m":{"atlasIndex":11,"collision":true},"roof_r":{"atlasIndex":12,"collision":true},"wall":{"atlasIndex":13,"collision":true},"window":{"atlasIndex":14,"collision":true},"door":{"atlasIndex":15,"collision":false},"room_floor":{"atlasIndex":16,"collision":false},"room_wall":{"atlasIndex":17,"collision":true},"bookshelf":{"atlasIndex":18,"collision":true},"counter":{"atlasIndex":19,"collision":true},"table":{"atlasIndex":20,"collision":true},"chair":{"atlasIndex":21,"collision":true},"computer":{"atlasIndex":22,"collision":true},"heal_pod":{"atlasIndex":23,"collision":true},"forge":{"atlasIndex":24,"collision":true},"anvil":{"atlasIndex":25,"collision":true},"crate":{"atlasIndex":26,"collision":true},"barrel":{"atlasIndex":27,"collision":true},"bed":{"atlasIndex":28,"collision":true},"stairs":{"atlasIndex":29,"collision":false},"workbench":{"atlasIndex":30,"collision":true},"plant":{"atlasIndex":31,"collision":true},"capsule":{"atlasIndex":32,"collision":true},"npc":{"atlasIndex":33,"collision":false},"player":{"atlasIndex":34,"collision":false},"water_edge":{"atlasIndex":35,"collision":true},"hedge":{"atlasIndex":36,"collision":true},"flower":{"atlasIndex":37,"collision":false},"floor_stone":{"atlasIndex":38,"collision":false}},"sourceReferences":["https://www.peterhajas.com/blog/pokemon_rb_map_parsing/","https://opengameart.org/content/4-colour-interior-tileset","https://opengameart.org/content/4-colour-overworld-tileset"]};
-const ATLAS="data:image/png;base64,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";
-const atlas=new Image();atlas.src=ATLAS;
-const tileSize=16,view=document.getElementById("view"),ctx=view.getContext("2d");
-ctx.imageSmoothingEnabled=false;
-const sel=document.getElementById("scene"),msg=document.getElementById("message");
+'use strict';
+const DATA={"version":"1.0","scenes":{"Wurzelheim":{"width":20,"height":18,"rows":["44444444400444444444","40000000000000000004","40000000000000000004","400abbc000000abbc004","400dddd000000dddd004","400defd000000def9004","40000000000000000004","40555500000055555004","40000000009000000004","400B0000000000666004","4000000abbc000666004","4000000dddd00000B004","4003300defe000033004","40000000000000000004","40555550000005555004","4000000000y000000004","40000000000000000004","44444444400444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[19,1],[0,2],[19,2],[0,3],[3,3],[4,3],[5,3],[6,3],[13,3],[14,3],[15,3],[16,3],[19,3],[0,4],[3,4],[4,4],[5,4],[6,4],[13,4],[14,4],[15,4],[16,4],[19,4],[0,5],[3,5],[4,5],[6,5],[13,5],[14,5],[19,5],[0,6],[19,6],[0,7],[2,7],[3,7],[4,7],[5,7],[12,7],[13,7],[14,7],[15,7],[16,7],[19,7],[0,8],[19,8],[0,9],[14,9],[15,9],[16,9],[19,9],[0,10],[7,10],[8,10],[9,10],[10,10],[14,10],[15,10],[16,10],[19,10],[0,11],[7,11],[8,11],[9,11],[10,11],[19,11],[0,12],[3,12],[4,12],[7,12],[8,12],[10,12],[15,12],[16,12],[19,12],[0,13],[19,13],[0,14],[2,14],[3,14],[4,14],[5,14],[6,14],[13,14],[14,14],[15,14],[16,14],[19,14],[0,15],[19,15],[0,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[8,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]]},"Route":{"width":20,"height":18,"rows":["44444444000444444444","44000000000000000044","44000000000000000044","44022220000002222044","44022220000002222044","44022220000002222044","44022220000002222044","44022220000002222044","44022220000002222044","4400000000000x000044","44000090000000000044","44000000000000000044","44022220000000000044","44022220000555550044","44022220000000000044","440000000y0000000044","44000000000000000044","44444444000444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[1,1],[18,1],[19,1],[0,2],[1,2],[18,2],[19,2],[0,3],[1,3],[18,3],[19,3],[0,4],[1,4],[18,4],[19,4],[0,5],[1,5],[18,5],[19,5],[0,6],[1,6],[18,6],[19,6],[0,7],[1,7],[18,7],[19,7],[0,8],[1,8],[18,8],[19,8],[0,9],[1,9],[18,9],[19,9],[0,10],[1,10],[18,10],[19,10],[0,11],[1,11],[18,11],[19,11],[0,12],[1,12],[18,12],[19,12],[0,13],[1,13],[11,13],[12,13],[13,13],[14,13],[15,13],[18,13],[19,13],[0,14],[1,14],[18,14],[19,14],[0,15],[1,15],[18,15],[19,15],[0,16],[1,16],[18,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]]},"Laden":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiiiiiggxgh","hggggggjjjjh","hggggggggggh","hggiiggiiggh","hggggggggggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[3,1],[4,1],[5,1],[6,1],[11,1],[0,2],[7,2],[8,2],[9,2],[10,2],[11,2],[0,3],[11,3],[0,4],[3,4],[4,4],[7,4],[8,4],[11,4],[0,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Heilstation":{"width":14,"height":9,"rows":["hhhhhhhhhhhhhh","hggggggngxgggh","hgvjjjjjjjjvgh","hggggggggggggh","hggggggggggggh","hggllggggllggh","hggggggygggggh","hggggggggggggh","hhhhhhhfhhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[0,1],[7,1],[13,1],[0,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[10,2],[11,2],[13,2],[0,3],[13,3],[0,4],[13,4],[0,5],[3,5],[4,5],[9,5],[10,5],[13,5],[0,6],[13,6],[0,7],[13,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,8],[8,8],[9,8],[10,8],[11,8],[12,8],[13,8]]},"Schmiede":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiggggggggh","hggugggxgogh","hggggggggggh","hgggggpggggh","hggggggggggh","hgjjjgyggqgh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[11,1],[0,2],[3,2],[9,2],[11,2],[0,3],[11,3],[0,4],[6,4],[11,4],[0,5],[11,5],[0,6],[2,6],[3,6],[4,6],[9,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Teamtausch":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hggmmgwwwggh","hggggggggggh","hgggggxggggh","hggggggggggh","hggjggggjggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[3,1],[4,1],[6,1],[7,1],[8,1],[11,1],[0,2],[11,2],[0,3],[11,3],[0,4],[11,4],[0,5],[3,5],[8,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Wohnhaus":{"width":10,"height":8,"rows":["hhhhhhhhhh","hgsggggigh","hggggggggh","hggggggggh","hggggkgggh","hgvggylggh","hggggggggh","hhhhhfhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,1],[2,1],[7,1],[9,1],[0,2],[9,2],[0,3],[9,3],[0,4],[5,4],[9,4],[0,5],[2,5],[6,5],[9,5],[0,6],[9,6],[0,7],[1,7],[2,7],[3,7],[4,7],[6,7],[7,7],[8,7],[9,7]]}},"symbols":{"0":"floor","1":"path","2":"grass","3":"bush","4":"tree","5":"fence","6":"water_a","7":"water_b","8":"rock","9":"sign","a":"roof_l","b":"roof_m","c":"roof_r","d":"wall","e":"window","f":"door","g":"room_floor","h":"room_wall","i":"bookshelf","j":"counter","k":"table","l":"chair","m":"computer","n":"heal_pod","o":"forge","p":"anvil","q":"crate","r":"barrel","s":"bed","t":"stairs","u":"workbench","v":"plant","w":"capsule","x":"npc","y":"player","z":"water_edge","A":"hedge","B":"flower","C":"floor_stone"}},MANIFEST={"version":"1.0","name":"Echo-Chroniken GB-Klassik","license":"Original artwork, project-owned; inspired by constraints, not copied sprites","palette":["#f4f4ef","#c7c8c4","#777a7b","#24262b"],"tileSize":16,"sprites":{"floor":{"atlasIndex":0,"collision":false},"path":{"atlasIndex":1,"collision":false},"grass":{"atlasIndex":2,"collision":false},"bush":{"atlasIndex":3,"collision":true},"tree":{"atlasIndex":4,"collision":true},"fence":{"atlasIndex":5,"collision":true},"water_a":{"atlasIndex":6,"collision":true},"water_b":{"atlasIndex":7,"collision":true},"rock":{"atlasIndex":8,"collision":true},"sign":{"atlasIndex":9,"collision":false},"roof_l":{"atlasIndex":10,"collision":true},"roof_m":{"atlasIndex":11,"collision":true},"roof_r":{"atlasIndex":12,"collision":true},"wall":{"atlasIndex":13,"collision":true},"window":{"atlasIndex":14,"collision":true},"door":{"atlasIndex":15,"collision":false},"room_floor":{"atlasIndex":16,"collision":false},"room_wall":{"atlasIndex":17,"collision":true},"bookshelf":{"atlasIndex":18,"collision":true},"counter":{"atlasIndex":19,"collision":true},"table":{"atlasIndex":20,"collision":true},"chair":{"atlasIndex":21,"collision":true},"computer":{"atlasIndex":22,"collision":true},"heal_pod":{"atlasIndex":23,"collision":true},"forge":{"atlasIndex":24,"collision":true},"anvil":{"atlasIndex":25,"collision":true},"crate":{"atlasIndex":26,"collision":true},"barrel":{"atlasIndex":27,"collision":true},"bed":{"atlasIndex":28,"collision":true},"stairs":{"atlasIndex":29,"collision":false},"workbench":{"atlasIndex":30,"collision":true},"plant":{"atlasIndex":31,"collision":true},"capsule":{"atlasIndex":32,"collision":true},"npc":{"atlasIndex":33,"collision":false},"player":{"atlasIndex":34,"collision":false},"water_edge":{"atlasIndex":35,"collision":true},"hedge":{"atlasIndex":36,"collision":true},"flower":{"atlasIndex":37,"collision":false},"floor_stone":{"atlasIndex":38,"collision":false}},"sourceReferences":["https://www.peterhajas.com/blog/pokemon_rb_map_parsing/","https://opengameart.org/content/4-colour-interior-tileset","https://opengameart.org/content/4-colour-overworld-tileset"]};
+const atlas=new Image();
+atlas.src="data:image/png;base64,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";
+const TILE=16,view=document.getElementById("view"),ctx=view.getContext("2d");
+const sel=document.getElementById("scene"),mode=document.getElementById("mode");
+const msg=document.getElementById("message"),hud=document.getElementById("hud");
+const padStatus=document.getElementById("controller-state");
 const names=Object.keys(DATA.scenes),glyph=DATA.symbols;
-for(const name of names){let op=document.createElement("option");op.value=name;op.textContent=name;sel.appendChild(op)}
-let scene="Wurzelheim",px=10,py=15,prev="Wurzelheim",wave=0;
+for(const name of names){const op=document.createElement("option");op.value=name;op.textContent=name;sel.appendChild(op);}
+let scene="Wurzelheim",px=10,py=15,dir=[0,-1],wave=0,paused=false;
+let gamepadLastMove=0,gamepadLastButtons={},lastFrame=0,gamepadConnected=false;
+let lastCamera={x:0,y:0,w:10,h:9},lastLayout="";
+// This is one fixed tiled world. Only the camera dimensions change.
+function screenTiles(){
+ const landscape=window.innerWidth>window.innerHeight && window.innerWidth>=650;
+ const tv=mode.value==="tv"||(mode.value==="auto"&&landscape&&
+                   (window.innerWidth>=950||gamepadConnected));
+ const cols=mode.value==="phone"?10:tv?16:landscape?14:10;
+ return {w:cols,h:9};
+}
+function cameraFor(map){
+ const tiles=screenTiles(),w=Math.min(map.width,tiles.w),h=Math.min(map.height,tiles.h);
+ const x=Math.max(0,Math.min(map.width-w,px-Math.floor(w/2)));
+ const y=Math.max(0,Math.min(map.height-h,py-Math.floor(h/2)));
+ return {x,y,w,h};
+}
+function setStatus(message){msg.textContent=message;}
 function stage(name,returning=false){
- scene=name;sel.value=name;
+ if(!DATA.scenes[name])return;
+ scene=name;sel.value=name;paused=false;
  const m=DATA.scenes[name],found=[];
- for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++)if(glyph[m.rows[y][x]]==="player")found.push([x,y]);
+ for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++)
+  if(glyph[m.rows[y][x]]==="player")found.push([x,y]);
  [px,py]=found[0]||[Math.floor(m.width/2),m.height-3];
- if(returning){px=10;py=15}
- msg.textContent="Karte: "+name+". "+(name==="Wurzelheim"?"Haus betreten: an die Tür laufen.":"Tür unten führt zurück ins Dorf.");
+ if(returning){px=10;py=15;}
+ dir=[0,-1];
+ setStatus("Karte: "+name+". "+(name==="Wurzelheim"?"Geh zu einer Haustür und drücke Richtung Tür.":"A oder Enter: Objekte ansehen. Tür unten: zurück ins Dorf."));
  draw();
+}
+function tileAt(map,x,y){
+ return glyph[map.rows[y]?.[x]]||null;
 }
 function draw(){
  const map=DATA.scenes[scene];
- if(!atlas.complete||!atlas.naturalWidth)return;
- view.width=map.width*16;view.height=map.height*16;
- ctx.imageSmoothingEnabled=false;
- const x0=0,y0=0;
- for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++){
-  let id=glyph[map.rows[y][x]];
-  if(id==="player"||id==="npc")id=scene==="Wurzelheim"||scene==="Route"?"floor":"room_floor";
-  if(id==="water_a"&&wave%2===1)id="water_b";
-  const idx=MANIFEST.sprites[id].atlasIndex;
-  ctx.drawImage(atlas,(idx%8)*16,Math.floor(idx/8)*16,16,16,x*16,y*16,16,16);
+ if(!map||!atlas.complete||!atlas.naturalWidth)return;
+ const cam=cameraFor(map);
+ const layout=cam.w+"x"+cam.h;
+ if(lastLayout!==layout){
+  view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;
  }
- let actor=MANIFEST.sprites.player.atlasIndex;
- ctx.drawImage(atlas,(actor%8)*16,Math.floor(actor/8)*16,16,16,px*16,py*16,16,16);
+ ctx.imageSmoothingEnabled=false;
+ ctx.fillStyle=MANIFEST.palette[0];
+ ctx.fillRect(0,0,view.width,view.height);
+ for(let y=cam.y;y<cam.y+cam.h;y++)for(let x=cam.x;x<cam.x+cam.w;x++){
+  let id=tileAt(map,x,y);
+  if(id==="player"||id==="npc")
+   id=scene==="Wurzelheim"||scene==="Route"?"floor":"room_floor";
+  if(id==="water_a"&&wave%2)id="water_b";
+  const idx=MANIFEST.sprites[id]?.atlasIndex;
+  if(idx===undefined)continue;
+  ctx.drawImage(atlas,(idx%8)*16,Math.floor(idx/8)*16,16,16,
+                 (x-cam.x)*16,(y-cam.y)*16,16,16);
+ }
+ // NPCs use the same four-shade atlas and remain behind the player.
+ const npcIdx=MANIFEST.sprites.npc.atlasIndex;
+ for(let y=cam.y;y<cam.y+cam.h;y++)for(let x=cam.x;x<cam.x+cam.w;x++){
+  if(tileAt(map,x,y)!=="npc")continue;
+  ctx.drawImage(atlas,(npcIdx%8)*16,Math.floor(npcIdx/8)*16,16,16,
+                (x-cam.x)*16,(y-cam.y)*16,16,16);
+ }
+ const actor=MANIFEST.sprites.player.atlasIndex;
+ ctx.drawImage(atlas,(actor%8)*16,Math.floor(actor/8)*16,16,16,
+               (px-cam.x)*16,(py-cam.y)*16,16,16);
+ hud.textContent=scene+" · "+(px+1)+"/"+map.width+" × "+(py+1)+"/"+map.height+
+                 (paused?" · PAUSE":"");
+ lastCamera=cam;
+}
+function canWalk(m,x,y){
+ const id=tileAt(m,x,y);
+ return !!id&&!MANIFEST.sprites[id]?.collision;
 }
 function step(dx,dy){
+ if(paused)return;
+ dir=[dx,dy];
  const m=DATA.scenes[scene],x=px+dx,y=py+dy;
  if(x<0||y<0||x>=m.width||y>=m.height){
-  if(scene==="Wurzelheim"&&(y<0||y>=m.height)){stage("Route");return}
-  if(scene==="Route"&&(y<0||y>=m.height)){stage("Wurzelheim");return}
+  if(scene==="Wurzelheim"&&(y<0||y>=m.height)){stage("Route");return;}
+  if(scene==="Route"&&(y<0||y>=m.height)){stage("Wurzelheim");return;}
   return;
  }
- const id=glyph[m.rows[y][x]];
- if(MANIFEST.sprites[id]?.collision)return;
+ if(!canWalk(m,x,y))return;
+ const id=tileAt(m,x,y);
  if(id==="door"){
   if(scene==="Wurzelheim"){
-   const target=(x<=6)?"Wohnhaus":(y<=6)?"Laden":"Schmiede";
+   const target=x<=6?"Wohnhaus":y<=6?"Laden":"Schmiede";
    stage(target);return;
   }
   stage("Wurzelheim",true);return;
  }
  px=x;py=y;draw();
 }
+function action(){
+ if(paused){paused=false;draw();return;}
+ const m=DATA.scenes[scene],target=tileAt(m,px+dir[0],py+dir[1]);
+ if(target==="door"){step(...dir);return;}
+ const descriptions={sign:"Ein Wegweiser.",npc:"Eine Person grüßt dich.",
+  forge:"Eine kleine, heiße Schmiedeesse.",anvil:"Ein Amboss.",
+  heal_pod:"Hier kann dein Team geheilt werden.",computer:"Teamverwaltung.",
+  counter:"Eine Verkaufstheke.",bookshelf:"Ein Regal voller Gegenstände.",
+  bed:"Ein gemütliches Bett.",water_a:"Hier ist Wasser."};
+ setStatus(descriptions[target]||"Hier gibt es gerade nichts zu untersuchen.");
+}
+function pauseToggle(){paused=!paused;setStatus(paused?"Pause. Start/Enter zum Fortsetzen.":"Weiter geht's.");draw();}
+function fullscreenToggle(){
+ if(document.fullscreenElement){
+  if(document.exitFullscreen)document.exitFullscreen();
+ }else if(document.documentElement.requestFullscreen){
+  document.documentElement.requestFullscreen().catch(()=>setStatus("Dieser Browser bietet hier keinen Vollbildmodus."));
+ }else setStatus("Vollbild ist in diesem Browser nicht verfügbar.");
+}
+const keys={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],
+ w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
 window.addEventListener("keydown",e=>{
- let d={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[e.key];
- if(d){e.preventDefault();step(...d)}
+ const d=keys[e.key];
+ if(d){
+  e.preventDefault();
+  if(e.repeat)return;
+  step(...d);
+ }else if(["Enter"," ","z"].includes(e.key)){
+  e.preventDefault();if(!e.repeat)action();
+ }else if(["Escape","p"].includes(e.key)){
+  e.preventDefault();if(!e.repeat)pauseToggle();
+ }else if(e.key==="f"&&!e.repeat)fullscreenToggle();
 });
-document.querySelectorAll("button[data-move]").forEach(el=>el.addEventListener("click",()=>step(...el.dataset.move.split(",").map(Number))));
-sel.addEventListener("change",()=>stage(sel.value));
+let heldTimer=null;
+function stopHeld(){if(heldTimer!==null){clearInterval(heldTimer);heldTimer=null;}}
+for(const el of document.querySelectorAll("button[data-move]")){
+ const d=el.dataset.move.split(",").map(Number);
+ el.addEventListener("pointerdown",e=>{
+  if(el.setPointerCapture)el.setPointerCapture(e.pointerId);
+  e.preventDefault();stopHeld();step(...d);
+  heldTimer=setInterval(()=>step(...d),160);
+ });
+ ["pointerup","pointercancel","lostpointercapture","pointerleave"].forEach(name=>
+  el.addEventListener(name,stopHeld));
+ // Keyboard activation already moves via the global keyboard listener.
+}
+window.addEventListener("blur",stopHeld);
+document.getElementById("action").addEventListener("click",action);
+document.getElementById("fullscreen").addEventListener("click",fullscreenToggle);
 document.getElementById("reset").addEventListener("click",()=>stage(scene));
-atlas.onload=()=>stage("Wurzelheim");
-setInterval(()=>{wave++;draw()},500);
+sel.addEventListener("change",()=>stage(sel.value));
+mode.addEventListener("change",draw);
+window.addEventListener("resize",draw);
+window.addEventListener("orientationchange",draw);
+function readGamepad(now){
+ const pads=typeof navigator.getGamepads==="function"?Array.from(navigator.getGamepads()||[]):[];
+ const pad=pads.find(p=>p&&p.connected!==false);
+ const connected=!!pad;
+ if(connected!==gamepadConnected){
+  gamepadConnected=connected;
+  document.body.classList.toggle("gamepad",connected);
+  padStatus.textContent=connected?"🎮 Controller verbunden · Steuerkreuz/Stick, A: Aktion, B: Zurück, Start: Pause":
+   "Handy: Touch · TV: Controller (Steuerkreuz / Stick, A, B, Start) · PC: Pfeiltasten/WASD";
+  draw();
+ }
+ if(!pad)return;
+ const pressed=i=>!!pad.buttons?.[i]?.pressed;
+ let dx=0,dy=0;
+ if(pressed(14))dx=-1;else if(pressed(15))dx=1;
+ if(pressed(12))dy=-1;else if(pressed(13))dy=1;
+ const axes=pad.axes||[];
+ if(!dx&&Math.abs(axes[0]||0)>.5)dx=Math.sign(axes[0]);
+ if(!dy&&Math.abs(axes[1]||0)>.5)dy=Math.sign(axes[1]);
+ if(dx&&dy){
+  if(Math.abs(axes[0]||0)>=Math.abs(axes[1]||0))dy=0;
+  else dx=0;
+ }
+ if((dx||dy)&&now-gamepadLastMove>=165){
+  step(dx,dy);gamepadLastMove=now;
+ }
+ for(const [i,callback] of [[0,action],[1,()=>stage("Wurzelheim",true)],[9,pauseToggle]]){
+  const current=pressed(i),was=!!gamepadLastButtons[i];
+  if(current&&!was)callback();
+  gamepadLastButtons[i]=current;
+ }
+}
+function animate(now){
+ if(now-lastFrame>=380){wave++;lastFrame=now;draw();}
+ readGamepad(now);
+ requestAnimationFrame(animate);
+}
+atlas.onload=()=>{stage("Wurzelheim");requestAnimationFrame(animate);};
 </script></body></html>
