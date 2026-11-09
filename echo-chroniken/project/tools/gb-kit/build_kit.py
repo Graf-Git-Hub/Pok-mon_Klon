@@ -20,7 +20,7 @@ K={
  "water_edge":"z","hedge":"A","flower":"B","floor_stone":"C"
 }
 SYMBOL={v:k for k,v in K.items()}
-BLOCKED={"bush","tree","fence","rock","roof_l","roof_m","roof_r","wall","window",
+BLOCKED={"bush","tree","fence","rock","water_a","water_b","water_edge","roof_l","roof_m","roof_r","wall","window",
          "room_wall","bookshelf","counter","table","chair","computer","heal_pod",
          "forge","anvil","crate","barrel","bed","workbench","plant","capsule","hedge"}
 OUT=Path(__file__).resolve().parents[2]/"assets"/"gb-classic"
@@ -56,7 +56,7 @@ def tile(name,frame=0):
     elif name in ("water_a","water_b"):
         b(0,0,16,16,1)
         for y in [3,10]:
-            q=(frame*4+y*3)%7
+            q=((1 if name=="water_b" else frame)*4+y*3)%7
             b(q,y,7,1,3);b((q+5)%10,y+2,5,1,0)
     elif name=="water_edge":
         b(0,5,16,11,1);b(0,4,16,1,3)
@@ -202,6 +202,7 @@ def field(w,h,name):
             stamp("fence",x,14)
         for x in [3,4,15,16]:stamp("bush",x,12)
         stamp("sign",10,8);stamp("flower",3,9);stamp("flower",16,11)
+        fill("water_a",14,9,3,2)
         stamp("player",9,12)
     elif name=="Route":
         for y in range(h):
