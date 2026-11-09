@@ -52,13 +52,13 @@ ctx.imageSmoothingEnabled=false;
 const sel=document.getElementById("scene"),msg=document.getElementById("message");
 const names=Object.keys(DATA.scenes),glyph=DATA.symbols;
 for(const name of names){let op=document.createElement("option");op.value=name;op.textContent=name;sel.appendChild(op)}
-let scene="Wurzelheim",px=9,py=12,prev="Wurzelheim",wave=0;
+let scene="Wurzelheim",px=10,py=15,prev="Wurzelheim",wave=0;
 function stage(name,returning=false){
  scene=name;sel.value=name;
  const m=DATA.scenes[name],found=[];
  for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++)if(glyph[m.rows[y][x]]==="player")found.push([x,y]);
  [px,py]=found[0]||[Math.floor(m.width/2),m.height-3];
- if(returning){px=9;py=12}
+ if(returning){px=10;py=15}
  msg.textContent="Karte: "+name+". "+(name==="Wurzelheim"?"Haus betreten: an die Tür laufen.":"Tür unten führt zurück ins Dorf.");
  draw();
 }
