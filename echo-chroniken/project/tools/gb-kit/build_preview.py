@@ -26,7 +26,7 @@ select,button{border:2px solid #999;background:#303439;color:#f0f0eb;padding:10p
 button:focus-visible,select:focus-visible{outline:3px solid #f4f4ef;outline-offset:2px}
 #game-frame{margin:0 auto;max-width:1100px;display:grid;justify-items:center}
 #view{display:block;image-rendering:pixelated;image-rendering:crisp-edges;background:#f4f4ef;border:4px solid #42474b;
-  max-width:100%;width:auto;height:auto;touch-action:none}
+  max-width:100%;width:100%;height:auto;touch-action:none}
 #hud{font-size:13px;font-weight:600;align-self:start;margin:7px 0;color:#d1d1cc}
 #message{font-size:13px;min-height:34px;line-height:1.4;color:#d5d6c9;margin-top:7px;text-align:center}
 #controller-state{font-size:12px;color:#babdb7;text-align:center}
@@ -132,6 +132,13 @@ function draw(){
   if(idx===undefined)continue;
   ctx.drawImage(atlas,(idx%8)*16,Math.floor(idx/8)*16,16,16,
                  (x-cam.x)*16,(y-cam.y)*16,16,16);
+ }
+ // NPCs use the same four-shade atlas and remain behind the player.
+ const npcIdx=MANIFEST.sprites.npc.atlasIndex;
+ for(let y=cam.y;y<cam.y+cam.h;y++)for(let x=cam.x;x<cam.x+cam.w;x++){
+  if(tileAt(map,x,y)!=="npc")continue;
+  ctx.drawImage(atlas,(npcIdx%8)*16,Math.floor(npcIdx/8)*16,16,16,
+                (x-cam.x)*16,(y-cam.y)*16,16,16);
  }
  const actor=MANIFEST.sprites.player.atlasIndex;
  ctx.drawImage(atlas,(actor%8)*16,Math.floor(actor/8)*16,16,16,
