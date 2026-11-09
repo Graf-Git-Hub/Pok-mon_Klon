@@ -1,0 +1,94 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
+<title>Echo-Chroniken · Game Boy Klassik Stiltest</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}
+body{background:#17191b;color:#e6e6de;font-family:system-ui,sans-serif;max-width:860px;margin:0 auto;padding:12px}
+h1{font-size:20px;margin:5px 0}.subtitle{font-size:12px;line-height:1.5;color:#acada9;margin-bottom:9px}
+.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:10px}
+select,button{border:2px solid #999;background:#303439;color:#f0f0eb;padding:10px 12px;border-radius:7px;font:600 15px system-ui}
+#view{display:block;image-rendering:pixelated;image-rendering:crisp-edges;background:#f4f4ef;margin:auto;border:4px solid #42474b;width:min(100%,720px);height:auto;touch-action:none}
+.pad{display:grid;grid-template-columns:repeat(3,60px);grid-template-rows:repeat(2,48px);justify-content:center;gap:6px;margin:12px auto}
+.pad button{padding:6px;font-size:21px;touch-action:manipulation}
+.pad .up{grid-column:2}.pad .left{grid-column:1;grid-row:2}.pad .down{grid-column:2;grid-row:2}.pad .right{grid-column:3;grid-row:2}
+footer{font-size:12px;color:#b8bbb6;text-align:center;margin-top:6px}
+#message{font-size:13px;min-height:42px;line-height:1.4;color:#d5d6c9;margin-top:8px}
+kbd{border:1px solid #737c80;padding:2px 4px;border-radius:4px}
+</style></head><body>
+<h1>🎮 Echo-Chroniken · Game Boy Klassik</h1>
+<div class="subtitle">Stiltest, kein fertiges Hauptspiel · 4 Graustufen · eine feste Grafikbibliothek · 16px-Felder · keine Pokémon-Grafiken.</div>
+<div class="controls"><label for="scene">Karte:</label><select id="scene"></select>
+<button id="reset">↺ Neu starten</button></div>
+<canvas id="view" width="320" height="288" aria-label="Spielkarte"></canvas>
+<div id="message">Mit Steuerkreuz oder Pfeiltasten bewegen. Das Tor eines Hauses führt in ein Innenzimmer.</div>
+<div class="pad">
+<button class="up" data-move="0,-1" aria-label="Hoch">▲</button>
+<button class="left" data-move="-1,0" aria-label="Links">◀</button>
+<button class="down" data-move="0,1" aria-label="Runter">▼</button>
+<button class="right" data-move="1,0" aria-label="Rechts">▶</button>
+</div>
+<footer>Grafik-Prototyp aus einem einzigen 39-Kachel-Baukasten. Kollisionen entsprechen den echten Felddaten. Keine Spielstände werden verändert.</footer>
+<script>
+const DATA={"version":"1.0","scenes":{"Wurzelheim":{"width":20,"height":18,"rows":["44444444400444444444","40000000000000000004","40000000000000000004","400abbc000000abbc004","400dddd000000dddd004","400defd000000def9004","40000000000000000004","40555500000055555004","40000000009000000004","400B0000000000666004","4000000abbc000666004","4000000dddd00000B004","4003300defe000033004","40000000000000000004","40555550000005555004","4000000000y000000004","40000000000000000004","44444444400444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[19,1],[0,2],[19,2],[0,3],[3,3],[4,3],[5,3],[6,3],[13,3],[14,3],[15,3],[16,3],[19,3],[0,4],[3,4],[4,4],[5,4],[6,4],[13,4],[14,4],[15,4],[16,4],[19,4],[0,5],[3,5],[4,5],[6,5],[13,5],[14,5],[19,5],[0,6],[19,6],[0,7],[2,7],[3,7],[4,7],[5,7],[12,7],[13,7],[14,7],[15,7],[16,7],[19,7],[0,8],[19,8],[0,9],[14,9],[15,9],[16,9],[19,9],[0,10],[7,10],[8,10],[9,10],[10,10],[14,10],[15,10],[16,10],[19,10],[0,11],[7,11],[8,11],[9,11],[10,11],[19,11],[0,12],[3,12],[4,12],[7,12],[8,12],[10,12],[15,12],[16,12],[19,12],[0,13],[19,13],[0,14],[2,14],[3,14],[4,14],[5,14],[6,14],[13,14],[14,14],[15,14],[16,14],[19,14],[0,15],[19,15],[0,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[8,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]]},"Route":{"width":20,"height":18,"rows":["44444444000444444444","44000000000000000044","44000000000000000044","44022220000002222044","44022220000002222044","44022220000002222044","44022220000002222044","44022220000002222044","44022220000002222044","4400000000000x000044","44000090000000000044","44000000000000000044","44022220000000000044","44022220000555550044","44022220000000000044","440000000y0000000044","44000000000000000044","44444444000444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[1,1],[18,1],[19,1],[0,2],[1,2],[18,2],[19,2],[0,3],[1,3],[18,3],[19,3],[0,4],[1,4],[18,4],[19,4],[0,5],[1,5],[18,5],[19,5],[0,6],[1,6],[18,6],[19,6],[0,7],[1,7],[18,7],[19,7],[0,8],[1,8],[18,8],[19,8],[0,9],[1,9],[18,9],[19,9],[0,10],[1,10],[18,10],[19,10],[0,11],[1,11],[18,11],[19,11],[0,12],[1,12],[18,12],[19,12],[0,13],[1,13],[11,13],[12,13],[13,13],[14,13],[15,13],[18,13],[19,13],[0,14],[1,14],[18,14],[19,14],[0,15],[1,15],[18,15],[19,15],[0,16],[1,16],[18,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]]},"Laden":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiiiiiggxgh","hggggggjjjjh","hggggggggggh","hggiiggiiggh","hggggggggggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[3,1],[4,1],[5,1],[6,1],[11,1],[0,2],[7,2],[8,2],[9,2],[10,2],[11,2],[0,3],[11,3],[0,4],[3,4],[4,4],[7,4],[8,4],[11,4],[0,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Heilstation":{"width":14,"height":9,"rows":["hhhhhhhhhhhhhh","hggggggngxgggh","hgvjjjjjjjjvgh","hggggggggggggh","hggggggggggggh","hggllggggllggh","hggggggygggggh","hggggggggggggh","hhhhhhhfhhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[0,1],[7,1],[13,1],[0,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[10,2],[11,2],[13,2],[0,3],[13,3],[0,4],[13,4],[0,5],[3,5],[4,5],[9,5],[10,5],[13,5],[0,6],[13,6],[0,7],[13,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,8],[8,8],[9,8],[10,8],[11,8],[12,8],[13,8]]},"Schmiede":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiggggggggh","hggugggxgogh","hggggggggggh","hgggggpggggh","hggggggggggh","hgjjjgyggqgh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[11,1],[0,2],[3,2],[9,2],[11,2],[0,3],[11,3],[0,4],[6,4],[11,4],[0,5],[11,5],[0,6],[2,6],[3,6],[4,6],[9,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Teamtausch":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hggmmgwwwggh","hggggggggggh","hgggggxggggh","hggggggggggh","hggjggggjggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[3,1],[4,1],[6,1],[7,1],[8,1],[11,1],[0,2],[11,2],[0,3],[11,3],[0,4],[11,4],[0,5],[3,5],[8,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Wohnhaus":{"width":10,"height":8,"rows":["hhhhhhhhhh","hgsggggigh","hggggggggh","hggggggggh","hggggkgggh","hgvggylggh","hggggggggh","hhhhhfhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,1],[2,1],[7,1],[9,1],[0,2],[9,2],[0,3],[9,3],[0,4],[5,4],[9,4],[0,5],[2,5],[6,5],[9,5],[0,6],[9,6],[0,7],[1,7],[2,7],[3,7],[4,7],[6,7],[7,7],[8,7],[9,7]]}},"symbols":{"0":"floor","1":"path","2":"grass","3":"bush","4":"tree","5":"fence","6":"water_a","7":"water_b","8":"rock","9":"sign","a":"roof_l","b":"roof_m","c":"roof_r","d":"wall","e":"window","f":"door","g":"room_floor","h":"room_wall","i":"bookshelf","j":"counter","k":"table","l":"chair","m":"computer","n":"heal_pod","o":"forge","p":"anvil","q":"crate","r":"barrel","s":"bed","t":"stairs","u":"workbench","v":"plant","w":"capsule","x":"npc","y":"player","z":"water_edge","A":"hedge","B":"flower","C":"floor_stone"}};
+const MANIFEST={"version":"1.0","name":"Echo-Chroniken GB-Klassik","license":"Original artwork, project-owned; inspired by constraints, not copied sprites","palette":["#f4f4ef","#c7c8c4","#777a7b","#24262b"],"tileSize":16,"sprites":{"floor":{"atlasIndex":0,"collision":false},"path":{"atlasIndex":1,"collision":false},"grass":{"atlasIndex":2,"collision":false},"bush":{"atlasIndex":3,"collision":true},"tree":{"atlasIndex":4,"collision":true},"fence":{"atlasIndex":5,"collision":true},"water_a":{"atlasIndex":6,"collision":true},"water_b":{"atlasIndex":7,"collision":true},"rock":{"atlasIndex":8,"collision":true},"sign":{"atlasIndex":9,"collision":false},"roof_l":{"atlasIndex":10,"collision":true},"roof_m":{"atlasIndex":11,"collision":true},"roof_r":{"atlasIndex":12,"collision":true},"wall":{"atlasIndex":13,"collision":true},"window":{"atlasIndex":14,"collision":true},"door":{"atlasIndex":15,"collision":false},"room_floor":{"atlasIndex":16,"collision":false},"room_wall":{"atlasIndex":17,"collision":true},"bookshelf":{"atlasIndex":18,"collision":true},"counter":{"atlasIndex":19,"collision":true},"table":{"atlasIndex":20,"collision":true},"chair":{"atlasIndex":21,"collision":true},"computer":{"atlasIndex":22,"collision":true},"heal_pod":{"atlasIndex":23,"collision":true},"forge":{"atlasIndex":24,"collision":true},"anvil":{"atlasIndex":25,"collision":true},"crate":{"atlasIndex":26,"collision":true},"barrel":{"atlasIndex":27,"collision":true},"bed":{"atlasIndex":28,"collision":true},"stairs":{"atlasIndex":29,"collision":false},"workbench":{"atlasIndex":30,"collision":true},"plant":{"atlasIndex":31,"collision":true},"capsule":{"atlasIndex":32,"collision":true},"npc":{"atlasIndex":33,"collision":false},"player":{"atlasIndex":34,"collision":false},"water_edge":{"atlasIndex":35,"collision":true},"hedge":{"atlasIndex":36,"collision":true},"flower":{"atlasIndex":37,"collision":false},"floor_stone":{"atlasIndex":38,"collision":false}},"sourceReferences":["https://www.peterhajas.com/blog/pokemon_rb_map_parsing/","https://opengameart.org/content/4-colour-interior-tileset","https://opengameart.org/content/4-colour-overworld-tileset"]};
+const ATLAS="data:image/png;base64,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";
+const atlas=new Image();atlas.src=ATLAS;
+const tileSize=16,view=document.getElementById("view"),ctx=view.getContext("2d");
+ctx.imageSmoothingEnabled=false;
+const sel=document.getElementById("scene"),msg=document.getElementById("message");
+const names=Object.keys(DATA.scenes),glyph=DATA.symbols;
+for(const name of names){let op=document.createElement("option");op.value=name;op.textContent=name;sel.appendChild(op)}
+let scene="Wurzelheim",px=10,py=15,prev="Wurzelheim",wave=0;
+function stage(name,returning=false){
+ scene=name;sel.value=name;
+ const m=DATA.scenes[name],found=[];
+ for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++)if(glyph[m.rows[y][x]]==="player")found.push([x,y]);
+ [px,py]=found[0]||[Math.floor(m.width/2),m.height-3];
+ if(returning){px=10;py=15}
+ msg.textContent="Karte: "+name+". "+(name==="Wurzelheim"?"Haus betreten: an die Tür laufen.":"Tür unten führt zurück ins Dorf.");
+ draw();
+}
+function draw(){
+ const map=DATA.scenes[scene];
+ if(!atlas.complete||!atlas.naturalWidth)return;
+ view.width=map.width*16;view.height=map.height*16;
+ ctx.imageSmoothingEnabled=false;
+ const x0=0,y0=0;
+ for(let y=0;y<map.height;y++)for(let x=0;x<map.width;x++){
+  let id=glyph[map.rows[y][x]];
+  if(id==="player"||id==="npc")id=scene==="Wurzelheim"||scene==="Route"?"floor":"room_floor";
+  if(id==="water_a"&&wave%2===1)id="water_b";
+  const idx=MANIFEST.sprites[id].atlasIndex;
+  ctx.drawImage(atlas,(idx%8)*16,Math.floor(idx/8)*16,16,16,x*16,y*16,16,16);
+ }
+ let actor=MANIFEST.sprites.player.atlasIndex;
+ ctx.drawImage(atlas,(actor%8)*16,Math.floor(actor/8)*16,16,16,px*16,py*16,16,16);
+}
+function step(dx,dy){
+ const m=DATA.scenes[scene],x=px+dx,y=py+dy;
+ if(x<0||y<0||x>=m.width||y>=m.height){
+  if(scene==="Wurzelheim"&&(y<0||y>=m.height)){stage("Route");return}
+  if(scene==="Route"&&(y<0||y>=m.height)){stage("Wurzelheim");return}
+  return;
+ }
+ const id=glyph[m.rows[y][x]];
+ if(MANIFEST.sprites[id]?.collision)return;
+ if(id==="door"){
+  if(scene==="Wurzelheim"){
+   const target=(x<=6)?"Wohnhaus":(y<=6)?"Laden":"Schmiede";
+   stage(target);return;
+  }
+  stage("Wurzelheim",true);return;
+ }
+ px=x;py=y;draw();
+}
+window.addEventListener("keydown",e=>{
+ let d={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[e.key];
+ if(d){e.preventDefault();step(...d)}
+});
+document.querySelectorAll("button[data-move]").forEach(el=>el.addEventListener("click",()=>step(...el.dataset.move.split(",").map(Number))));
+sel.addEventListener("change",()=>stage(sel.value));
+document.getElementById("reset").addEventListener("click",()=>stage(scene));
+atlas.onload=()=>stage("Wurzelheim");
+setInterval(()=>{wave++;draw()},500);
+</script></body></html>
