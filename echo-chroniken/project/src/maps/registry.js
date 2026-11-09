@@ -453,68 +453,36 @@ function paintWorldSurface(map,x,y,sx,sy,pix){
 }
 
 
-// Individually authored "Alte Schmiede" (45x30) from chapter 6.
-// No procedural room rectangles. Solids correspond to pixel-art furniture.
+// A true Gen-1-scale interior, not a 45x30 procedural dungeon.
+// The chapter originally authored it at 23x17; we keep those exact
+// source coordinates for all eight quest interactions and both portals.
 function designHandmadeForge(spec){
  if(spec.mapId!=='glut_forge')return spec;
- const W=spec.tiles[0].length,H=spec.tiles.length;
- if(W!==45||H!==30)throw Error('Forge art expects 45x30 map');
+ const W=23,H=17;
+ if(spec.tiles[0].length!==W||spec.tiles.length!==H)
+  throw Error('The retro forge expects its original 23x17 story tilemap');
  const tiles=Array.from({length:H},(_,y)=>Array.from({length:W},(_,x)=>
-  x<=1||x>=43||y<=2||y>=28?1:3));
- const solidRect=(x0,y0,x1,y1)=>{
-  for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)
-   if(x>1&&x<43&&y>2&&y<28)tiles[y][x]=5;
- };
- // Physical objects shown on the forge illustration.
+  x===0||y===0||x===W-1||y===H-1||y===1?1:3));
  const objects=[
-  [3,3,17,4],  // north wall tool rack / steel cabinets
-  [29,5,41,15],// monumental active stone furnace
-  [4,11,17,13],// steel ingot preparation workbench
-  [21,15,27,19],// central anvil and timber pedestal
-  [28,19,32,21],// water cooling trough
-  [3,17,17,19],// tool display on the west wall
-  [4,21,16,25],// lower-left sales/repair counter
-  [34,19,42,25],// ore shelf and coal barrels
-  [29,23,33,26] // crystal and transport crates
+  [2,2,5,4], [7,2,9,4], [12,2,14,4], [17,2,20,5],
+  [4,8,7,9], [10,8,11,9], [14,8,18,9],
+  [2,13,6,14], [15,13,18,14]
  ];
- objects.forEach(r=>solidRect(...r));
- // Two unambiguous gates, same original portal and spawn coordinates.
- tiles[7][1]=3;tiles[7][2]=3;tiles[26][20]=3;tiles[26][21]=3;
- for(let y=26;y<=29;y++)for(let x=20;x<=22;x++)tiles[y][x]=3;
- // Preserve chapter 6 quest actors and every interaction exactly where
- // the existing story system expects them, including in-workshop valve panels.
- const actors=window.EchoStoryRegions?.markers?.glut_forge||[
-  {x:6,y:5},{x:10,y:5},{x:15,y:5},{x:7,y:10},
-  {x:14,y:10},{x:17,y:11},{x:11,y:12},{x:17,y:6}
- ];
- for(const p of actors){
-  tiles[p.y][p.x]=3;
-  // Access spot left/right/above the object must be visible and walkable.
-  const opts=[[p.x,p.y+1],[p.x+1,p.y],[p.x-1,p.y],[p.x,p.y-1]];
-  let clear=opts.find(([x,y])=>x>1&&y>2&&x<43&&y<27&&tiles[y][x]===3);
-  if(!clear){
-   const [x,y]=opts.find(([x,y])=>x>1&&y>2&&x<43&&y<27);
-   tiles[y][x]=3;
-  }
- }
- // Clear a continuous navigation spine with short secondary branches:
- // side door -> quest actors -> anvil bypass -> south exit.
- for(let x=2;x<=20;x++)tiles[7][x]=3;
- for(let y=7;y<=26;y++)tiles[y][19]=3;
- for(let x=19;x<=22;x++)tiles[26][x]=3;
- // Side route around the anvil/furnace without crossing either solid.
- for(let y=13;y<=25;y++)tiles[y][18]=3;
- for(let x=18;x<=30;x++)tiles[24][x]=3;
- for(let y=15;y<=25;y++)tiles[y][30]=3;
- // Protect public portal ids and positions; no state migration required.
- const spawns=Object.values(spec.spawns||{});
- for(const p of [...spawns,...spec.exits]){
-  if(!Number.isInteger(p.x)||!Number.isInteger(p.y))continue;
+ for(const [x0,y0,x1,y1] of objects)
+  for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)tiles[y][x]=5;
+ // Preserve exact original left and right entrances.
+ for(const [x,y] of [[1,7],[2,7],[20,13],[21,13]])tiles[y][x]=3;
+ // Story markers remain unshifted and approachable from the floor.
+ for(const p of window.EchoStoryRegions?.markers?.glut_forge||[]){
   tiles[p.y][p.x]=3;
  }
- return {...spec,tiles,worldLayout:{...spec.worldLayout,
-  handDrawn:true,designVersion:4,artAsset:'assets/maps/glut_forge_v1.png',
-  authoredObjectCount:objects.length,forgeMapSize:[W,H]}};
+ // On return from an older large-room save, the migration below clamps
+ // any coordinates outside this compact room back to the safe entrance.
+ return {...spec,tiles,worldLayout:{
+  handDrawn:true,designVersion:5,kind:'interior',biome:'ash',
+  featureVariant:5,expanded:false,sourceWidth:W,sourceHeight:H,
+  artAsset:'assets/maps/glut_forge_v2.png',authoredObjectCount:objects.length,
+  forgeMapSize:[W,H]}};
 }
 
 function register(spec){
@@ -532,7 +500,7 @@ function register(spec){
    if(!obj(p)||!Number.isInteger(p.x)||!Number.isInteger(p.y)||
       p.y<0||p.y>=sourceTiles.length||p.x<0||p.x>=sourceTiles[0].length||
       blocked.has(sourceTiles[p.y][p.x]))throw Error('Invalid safe spawn: '+id);
- spec=designHandmadeForge(designExpandedRegion(expandRealRegion(spec)));
+ spec=spec.mapId==='glut_forge'?designHandmadeForge(spec):designExpandedRegion(expandRealRegion(spec));
  const tiles=spec.tiles;
  if(!Array.isArray(tiles)||!tiles.length||!Array.isArray(tiles[0])||!tiles[0].length||
     tiles.length>512||tiles[0].length>512||!tiles.every(r=>Array.isArray(r)&&r.length===tiles[0].length))
@@ -610,6 +578,12 @@ function migrateSave(save){
   }
  }else if(typeof next.safeSpawnId!=='string'||!next.safeSpawnId){
   next.safeSpawnId='legacy_current_position';
+ }
+ if(next.currentMapId==='glut_forge' && obj(next.player) &&
+   (!Number.isInteger(next.player.x)||!Number.isInteger(next.player.y)||
+    next.player.x<1||next.player.x>21||next.player.y<2||next.player.y>15)){
+   next.player={...next.player,x:2,y:7,dir:'right',stepPhase:0};
+   next.safeSpawnId='from_town';
  }
  next.saveSchemaVersion=VERSION;
  return next;
