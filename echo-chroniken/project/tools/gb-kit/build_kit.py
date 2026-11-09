@@ -203,7 +203,7 @@ def field(w,h,name):
         for x in [3,4,15,16]:stamp("bush",x,12)
         stamp("sign",10,8);stamp("flower",3,9);stamp("flower",16,11)
         fill("water_a",14,9,3,2)
-        stamp("player",9,12)
+        stamp("player",10,15)
     elif name=="Route":
         for y in range(h):
             for x in (0,1,w-2,w-1):stamp("tree",x,y)
