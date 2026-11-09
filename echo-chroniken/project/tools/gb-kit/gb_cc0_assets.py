@@ -4,7 +4,7 @@ The source graphics are authored by ArMM1998, not Nintendo.
 Recolor only to the established 4-tone Echo-Chroniken palette.
 Kept here as a separate extraction layer so all atlas tiles remain reusable.
 """
-from PIL import Image
+from PIL import Image,ImageColor
 from pathlib import Path
 SOURCE=Path(__file__).resolve().parents[2]/"assets"/"gb-classic"/"cc0-armm1998-original.png"
 PALETTE=("#f4f4ef","#c7c8c4","#777a7b","#24262b")
@@ -31,7 +31,7 @@ def crop_recolor(box):
             if a<64: continue
             level=(r+g+b)/3
             idx=min(range(4),key=lambda i:abs(level-(255,168,96,0)[i]))
-            out.putpixel((x,y),PALETTE[idx])
+            out.putpixel((x,y),ImageColor.getrgb(PALETTE[idx]))
     return out
 
 def apply_cc0(name, fallback):
