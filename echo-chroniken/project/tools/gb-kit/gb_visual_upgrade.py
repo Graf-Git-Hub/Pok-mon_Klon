@@ -6,6 +6,7 @@ This is intentionally small-scale Game Boy-like sprite craft, not a rasterized
 modern illustration or Nintendo sprite extraction.
 """
 from PIL import Image,ImageDraw
+from gb_cc0_assets import apply_cc0
 
 WHITE="#f4f4ef"
 LIGHT="#c7c8c4"
@@ -197,4 +198,4 @@ def upgrade(name,old,frame=0):
             b(11,8,2,4,1);b(6,9,3,1,1)
         else:
             b(5,2,6,2,2);b(3,9,2,3,1)
-    return im
+    return apply_cc0(name,im)
