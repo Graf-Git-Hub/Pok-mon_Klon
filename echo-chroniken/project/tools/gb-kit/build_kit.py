@@ -114,11 +114,16 @@ def tile(name,frame=0):
         b(1,3,14,11,3);b(3,4,10,8,1)
         b(7,5,2,6,3);b(5,7,6,2,3);b(4,12,8,2,2)
     elif name=="forge":
-        b(1,1,14,15,3);b(3,4,10,9,2)
-        b(4,6,8,6,0);b(7,4,3,8,0);b(5,12,7,2,1)
+        # Two small decorative chimney slots and a stepped four-tone flame.
+        b(1,0,14,16,3);b(4,1,8,2,2)
+        b(3,4,10,9,2);b(4,5,8,7,0)
+        b(5,9,6,3,1);b(6,6,2,5,0);b(8,5,2,6,0)
+        b(5,12,7,2,1);b(3,14,10,1,2)
     elif name=="anvil":
-        b(1,5,14,4,3);b(3,4,10,2,1)
-        b(6,8,5,5,2);b(4,13,9,2,3)
+        # A distinct projecting horn, narrow stem and sturdy base.
+        b(0,6,15,3,3);b(3,4,11,2,1)
+        b(1,9,5,1,2);b(6,9,5,4,2);b(4,13,9,2,3)
+        b(8,10,2,3,1)
     elif name=="workbench":
         b(1,4,14,10,3);b(2,4,12,4,1)
         b(3,6,10,1,0);b(4,11,4,3,2);b(10,11,3,3,2)
@@ -146,13 +151,16 @@ def tile(name,frame=0):
         b(0,5,16,10,3);b(1,3,14,10,2)
         for x in [3,9]:b(x,5,3,3,1)
     elif name in ("npc","player"):
-        # 1-tile people, small readable silhouette and no borrowed character art
-        b(4,1,8,5,3);b(5,3,6,5,1);b(3,7,10,7,3)
-        b(5,7,6,6,1)
-        b(5,11,2,4,3);b(9,11,2,4,3)
+        # Readable 16px person: cap, face, two hands, small backpack, boots.
+        b(4,2,8,5,3);b(5,4,6,3,1)
+        b(3,7,10,6,3);b(5,8,6,5,1)
+        b(2,9,2,4,2);b(12,9,2,4,2)
+        b(5,12,3,3,3);b(9,12,3,3,3)
         if name=="player":
-            b(3,2,10,2,3);b(7,4,3,2,0)
-        else:b(7,4,2,2,3)
+            b(3,1,10,3,3);b(2,4,8,2,3)
+            b(6,5,2,2,0);b(11,8,2,3,2)
+        else:
+            b(6,2,4,2,2);b(6,5,2,2,3);b(9,5,2,2,3)
     return im
 
 ATLAS_NAMES=list(K)
