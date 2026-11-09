@@ -189,14 +189,16 @@ def field(w,h,name):
                 if 0<=xx<w and 0<=yy<h: grid[yy][xx]=K[sym]
     def stamp(sym,x,y):fill(sym,x,y,1,1)
     def house(x,y,roofVariant=0):
-        # Exact repeatable 4x3 base house. One of only 3 reusable house types.
-        for xx in range(x,x+4):stamp("roof_m",xx,y)
-        stamp("roof_l",x,y);stamp("roof_r",x+3,y)
-        for xx in range(x,x+4):stamp("wall",xx,y+1)
-        for xx in range(x,x+4):stamp("wall",xx,y+2)
-        stamp("window",x+1,y+2);stamp("door",x+2,y+2)
-        if roofVariant==1:stamp("sign",x+3,y+2)
-        if roofVariant==2:stamp("window",x+3,y+2)
+        # CC0 hand-pixelled house: three 16px tiles wide, two high.
+        # Every village shares the exact same façade and 4-tone palette.
+        stamp("roof_l",x,y)
+        stamp("roof_m",x+1,y)
+        stamp("roof_r",x+2,y)
+        stamp("window",x,y+1)
+        stamp("door",x+1,y+1)
+        stamp("wall",x+2,y+1)
+        if roofVariant==1:stamp("sign",x+3,y+1)
+        if roofVariant==2:stamp("flower",x+3,y+1)
     if name=="Wurzelheim":
         for x in range(w):
             if x not in [9,10]:stamp("tree",x,0)
