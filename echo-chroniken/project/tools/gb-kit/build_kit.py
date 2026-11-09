@@ -6,6 +6,7 @@ No third-party copyrighted sprites are copied. Every scene reuses this atlas.
 from PIL import Image,ImageDraw
 from pathlib import Path
 import json,math
+from gb_visual_upgrade import upgrade as art_upgrade
 
 C=["#f4f4ef","#c7c8c4","#777a7b","#24262b"]
 T=16
@@ -161,7 +162,7 @@ def tile(name,frame=0):
             b(6,5,2,2,0);b(11,8,2,3,2)
         else:
             b(6,2,4,2,2);b(6,5,2,2,3);b(9,5,2,2,3)
-    return im
+    return art_upgrade(name,im,frame)
 
 ATLAS_NAMES=list(K)
 atlas=Image.new("RGB",(8*T,math.ceil(len(ATLAS_NAMES)/8)*T),C[0])
