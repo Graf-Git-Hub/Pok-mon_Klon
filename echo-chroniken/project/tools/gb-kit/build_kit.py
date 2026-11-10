@@ -9,6 +9,7 @@ import json,math
 from gb_visual_upgrade import upgrade as art_upgrade
 from gb_art_v5 import upgrade as v5_upgrade, build_layers
 from gb_art_v6 import upgrade as v6_upgrade, build as build_houses
+from gb_grass import build_rustle
 from gb_interiors import build_boundaries, interior_tile
 
 C=["#f4f4ef","#c7c8c4","#777a7b","#24262b"]
@@ -167,6 +168,7 @@ def tile(name,frame=0):
             b(6,2,4,2,2);b(6,5,2,2,3);b(9,5,2,2,3)
     return interior_tile(name,v6_upgrade(name,v5_upgrade(name,art_upgrade(name,im,frame))))
 
+build_rustle(OUT, tile("grass"))
 build_houses(OUT)
 build_boundaries(OUT)
 build_layers(OUT,{name:tile(name) for name in K})
@@ -232,32 +234,33 @@ def field(w,h,name):
         stamp("sign",18,12)
         stamp("player",9,9)
     elif name=="Route":
-        # A classic route is a short corridor carved by terrain, not dirt
-        # zigzags or a large empty map with random obstacles.
-        for y in range(h):
-            for x in (0,1,w-2,w-1):stamp("tree",x,y)
+        # A clear trail links both town gates. Openings lead into two forest clearings.
+        fill("tree",0,0,2,h)
+        fill("tree",w-2,0,2,h)
         for x in range(2,w-2):
             if x not in (9,10):
                 stamp("tree",x,0);stamp("tree",x,h-1)
-        # Forest edges create two distinct pockets of tall grass.
-        for y in (2,3,4):
-            for x in (2,3,4,5,14,15,16,17):
-                stamp("tree",x,y)
-        for y in (12,13,14):
-            for x in (2,3,4,16,17):
-                stamp("tree",x,y)
-        for x0,y0,ww,hh in ((5,5,3,3),(12,6,4,3),
-                            (5,10,3,2),(12,12,3,3)):
-            fill("grass",x0,y0,ww,hh)
-        for x in (12,13,14):
-            stamp("fence",x,10)
+        fill("tree",2,1,5,3)
+        fill("tree",13,1,5,4)
+        fill("tree",2,10,3,5)
+        fill("tree",15,13,3,4)
+        fill("tree",3,16,4,1)
+        fill("path",9,0,2,h)
+        fill("path",6,7,3,2)
+        fill("path",11,11,4,2)
+        fill("grass",3,5,4,2)
+        fill("grass",4,7,2,2)
+        fill("grass",6,10,3,3)
+        fill("grass",12,6,4,3)
+        fill("grass",12,13,3,3)
+        fill("grass",7,14,2,2)
+        fill("water_a",15,9,3,3)
+        fill("fence",14,10,1,3)
+        for x,y in ((3,9),(5,4),(7,5),(7,13),(11,16),(16,6)):
+            stamp("flower",x,y)
         stamp("sign",7,9)
         stamp("npc",13,9)
-        stamp("rock",16,11)
-        # Protected walk corridor in same horizontal position as the town.
-        for y in range(h):
-            for x in (9,10):
-                stamp("floor",x,y)
+        stamp("rock",16,12)
         stamp("player",10,15)
     else:
         fill("room_floor",1,1,w-2,h-2)

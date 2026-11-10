@@ -14,13 +14,14 @@ tile=json.loads((root/"assets"/"gb-classic"/"tile_manifest.json").read_text(enco
 atlas_data=base64.b64encode((root/"assets"/"gb-classic"/"gb_classic_atlas.png").read_bytes()).decode()
 actor_data=base64.b64encode((root/'assets/gb-classic/actors.png').read_bytes()).decode()
 foreground_data=base64.b64encode((root/'assets/gb-classic/foreground.png').read_bytes()).decode()
+grass_data=base64.b64encode((root/'assets/gb-classic/grass_rustle.png').read_bytes()).decode()
 edge_data=base64.b64encode((root/'assets/gb-classic/interior_edges.png').read_bytes()).decode()
 house_data=base64.b64encode((root/'assets/gb-classic/houses.png').read_bytes()).decode()
 payload=json.dumps(js,ensure_ascii=False,separators=(",",":"))
 manifest=json.dumps(tile,ensure_ascii=False,separators=(",",":"))
 html="""<!doctype html><html lang="de"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
-<title>Echo-Chroniken · Game Boy Grafiktest V11</title>
+<title>Echo-Chroniken · Game Boy Grafiktest V12</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -50,7 +51,7 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 :fullscreen body{max-width:none;width:100vw;height:100vh}
 :fullscreen #view{max-height:76vh}
 </style></head><body>
-<h1>🎮 Echo-Chroniken · Game Boy · Grafik V11</h1>
+<h1>🎮 Echo-Chroniken · Game Boy · Grafik V12</h1>
 <div class="subtitle">Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.</div>
 <div class="controls">
 <label for="scene">Karte:</label><select id="scene"></select>
@@ -79,11 +80,12 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 const DATA=__PAYLOAD__,MANIFEST=__MANIFEST__;
 const atlas=new Image();
 atlas.src="data:image/png;base64,__ATLAS__";
-const actors=new Image(),foreground=new Image(),houses=new Image(),edges=new Image();
+const actors=new Image(),foreground=new Image(),houses=new Image(),edges=new Image(),rustleSheet=new Image();
 houses.src="data:image/png;base64,__HOUSES__";
 actors.src="data:image/png;base64,__ACTORS__";
 foreground.src="data:image/png;base64,__FOREGROUND__";
 edges.src="data:image/png;base64,__EDGES__";
+rustleSheet.src="data:image/png;base64,__GRASS__";
 const TILE=16,view=document.getElementById("view"),ctx=view.getContext("2d");
 const sel=document.getElementById("scene"),mode=document.getElementById("mode");
 const msg=document.getElementById("message"),hud=document.getElementById("hud");
@@ -91,7 +93,16 @@ const padStatus=document.getElementById("controller-state");
 const names=Object.keys(DATA.scenes),glyph=DATA.symbols;
 for(const name of names){const op=document.createElement("option");op.value=name;op.textContent=name;sel.appendChild(op);}
 let scene="Wurzelheim",px=10,py=15,dir=[0,-1],wave=0,paused=false;
-const WALK_MS=150;
+const WALK_MS=150, RUSTLE_MS=320;
+const rustles=new Map();
+function grassPose(x,y,now){
+ const key=x+','+y, entry=rustles.get(key);
+ if(!entry)return -1;
+ const elapsed=now-entry.start;
+ if(elapsed<0)return -1;
+ if(elapsed>=RUSTLE_MS){rustles.delete(key);return -1;}
+ return elapsed<120?entry.first:1-entry.first;
+}
 let motion=null,walkFoot=0,pendingDirection=null;
 function actorPose(now=performance.now()){
  const direction=dir[0]<0?'left':dir[0]>0?'right':dir[1]<0?'up':'down';
@@ -120,7 +131,7 @@ function cameraFor(map,pos=actorPose()){
 function setStatus(message){msg.textContent=message;}
 function stage(name,returning=false,entry=null){
  if(!DATA.scenes[name])return;
- scene=name;sel.value=name;paused=false;motion=null;pendingDirection=null;stopHeld();
+ scene=name;sel.value=name;paused=false;motion=null;pendingDirection=null;rustles.clear();stopHeld();
  const m=DATA.scenes[name],found=[];
  for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++)
   if(glyph[m.rows[y][x]]==="player")found.push([x,y]);
@@ -135,7 +146,7 @@ function stage(name,returning=false,entry=null){
  dir=[0,-1];
  setStatus("Karte: "+name+". "+(name==="Wurzelheim"?
   "Dorfplatz: vier verschiedene Häuser, zwei Verbindungen zur Route.":
-  name==="Route"?"Folge der freien Waldgasse. Im hohen Gras gibt es später Begegnungen.":
+  name==="Route"?"Folge der freien Waldgasse. Seitlich findest du Waldlichtungen, einen Teich und raschelndes Gras.":
   "A oder Enter: Objekte ansehen. Tür unten: zurück vor das Gebäude."));
  draw();
 }
@@ -146,7 +157,7 @@ const objectNames=__OBJECTS__, roomFloors=__ROOM_FLOORS__;
 function draw(now=performance.now()){
  if(typeof now!=='number')now=performance.now();
  const map=DATA.scenes[scene];
- if(!map||![atlas,actors,foreground,houses,edges].every(im=>im.complete&&im.naturalWidth))return;
+ if(!map||![atlas,actors,foreground,houses,edges,rustleSheet].every(im=>im.complete&&im.naturalWidth))return;
  const pose=actorPose(now),cam=cameraFor(map,pose),layout=cam.w+"x"+cam.h;
  if(lastLayout!==layout){view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;}
  ctx.imageSmoothingEnabled=false;
@@ -184,7 +195,14 @@ function draw(now=performance.now()){
     tile(ground,x,y);
     continue;
    }
-   if(id==='player'||id==='npc'||object>=0)tile(id==='player'&&scene==='Wurzelheim'?'path':ground,x,y);
+   if(id==='grass'){
+    const frame=grassPose(x,y,now);
+    if(frame<0)tile(id,x,y);
+    else ctx.drawImage(rustleSheet,frame*TILE,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+    grass.push([x,y,frame]);
+    continue;
+   }
+   if(id==='player'||id==='npc'||object>=0)tile(id==='player'&&['Wurzelheim','Route'].includes(scene)?'path':ground,x,y);
    else {
     if(id==='water_a'&&wave%2)id='water_b';
     tile(id,x,y);
@@ -216,7 +234,6 @@ function draw(now=performance.now()){
     const kind=['Schmiede','Laden'].includes(scene)?1:0;
     ctx.drawImage(actors,kind*16,64,16,16,sx(x),sy(y),16,16);
    }});
-   if(id==='grass')grass.push([x,y]);
   }
  }
  depth.push({y:pose.y*16+16,draw:()=>{
@@ -224,7 +241,11 @@ function draw(now=performance.now()){
   ctx.drawImage(actors,pose.frame*16,row*16,16,16,sx(pose.x),sy(pose.y),16,16);
  }});
  depth.sort((a,b)=>a.y-b.y).forEach(item=>item.draw());
- for(const [x,y] of grass)ctx.drawImage(foreground,112,0,16,16,sx(x),sy(y),16,16);
+ for(const [x,y,frame] of grass){
+  const sheet=frame<0?foreground:rustleSheet;
+  const sourceX=frame<0?112:32+frame*TILE;
+  ctx.drawImage(sheet,sourceX,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+ }
  hud.textContent=scene+" · "+(px+1)+"/"+map.width+" × "+(py+1)+"/"+map.height+(paused?" · PAUSE":"");
  lastCamera=cam;
 }
@@ -260,7 +281,9 @@ function step(dx,dy){
   stage("Wurzelheim",true);return;
  }
  const from=actorPose();
- walkFoot=1-walkFoot;motion={x:from.x,y:from.y,start:performance.now(),frame:walkFoot+1};
+ const start=performance.now();
+ walkFoot=1-walkFoot;motion={x:from.x,y:from.y,start,frame:walkFoot+1};
+ if(id==='grass')rustles.set(x+','+y,{start:start+WALK_MS*0.45,first:dx<0?0:dx>0?1:walkFoot});
  px=x;py=y;draw();
 }
 function action(){
@@ -362,9 +385,9 @@ function animate(now){
  readGamepad(now);
  requestAnimationFrame(animate);
 }
-Promise.all([atlas,actors,foreground,houses,edges].map(im=>im.decode())).then(()=>{stage("Wurzelheim");requestAnimationFrame(animate);});
+Promise.all([atlas,actors,foreground,houses,edges,rustleSheet].map(im=>im.decode())).then(()=>{stage("Wurzelheim");requestAnimationFrame(animate);});
 </script></body></html>
 """
 out.parent.mkdir(parents=True,exist_ok=True)
-out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data).replace("__ACTORS__",actor_data).replace("__FOREGROUND__",foreground_data).replace("__HOUSES__",house_data).replace("__EDGES__",edge_data).replace("__OBJECTS__",json.dumps(OBJECTS)).replace("__ROOM_FLOORS__",json.dumps(ROOM_FLOORS)),encoding="utf-8")
+out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data).replace("__ACTORS__",actor_data).replace("__FOREGROUND__",foreground_data).replace("__HOUSES__",house_data).replace("__EDGES__",edge_data).replace("__GRASS__",grass_data).replace("__OBJECTS__",json.dumps(OBJECTS)).replace("__ROOM_FLOORS__",json.dumps(ROOM_FLOORS)),encoding="utf-8")
 print("GB_PLAYABLE_PREVIEW",out,out.stat().st_size)
