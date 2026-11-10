@@ -80,6 +80,7 @@ const padStatus=document.getElementById("controller-state");
 const names=Object.keys(DATA.scenes),glyph=DATA.symbols;
 for(const name of names){const op=document.createElement("option");op.value=name;op.textContent=name;sel.appendChild(op);}
 let scene="Wurzelheim",px=10,py=15,dir=[0,-1],wave=0,paused=false;
+let outsideDoor={x:10,y:15};
 let gamepadLastMove=0,gamepadLastButtons={},lastFrame=0,gamepadConnected=false;
 let lastCamera={x:0,y:0,w:10,h:9},lastLayout="";
 // This is one fixed tiled world. Only the camera dimensions change.
@@ -97,16 +98,25 @@ function cameraFor(map){
  return {x,y,w,h};
 }
 function setStatus(message){msg.textContent=message;}
-function stage(name,returning=false){
+function stage(name,returning=false,entry=null){
  if(!DATA.scenes[name])return;
  scene=name;sel.value=name;paused=false;
  const m=DATA.scenes[name],found=[];
  for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++)
   if(glyph[m.rows[y][x]]==="player")found.push([x,y]);
  [px,py]=found[0]||[Math.floor(m.width/2),m.height-3];
- if(returning){px=10;py=15;}
+ if(returning){
+  px=outsideDoor.x;py=outsideDoor.y;
+ }
+ if(entry){
+  px=Math.max(0,Math.min(m.width-1,entry.x));
+  py=Math.max(0,Math.min(m.height-1,entry.y));
+ }
  dir=[0,-1];
- setStatus("Karte: "+name+". "+(name==="Wurzelheim"?"Geh zu einer Haustür und drücke Richtung Tür.":"A oder Enter: Objekte ansehen. Tür unten: zurück ins Dorf."));
+ setStatus("Karte: "+name+". "+(name==="Wurzelheim"?
+  "Dorfplatz: vier verschiedene Häuser, zwei Verbindungen zur Route.":
+  name==="Route"?"Folge der freien Waldgasse. Im hohen Gras gibt es später Begegnungen.":
+  "A oder Enter: Objekte ansehen. Tür unten: zurück vor das Gebäude."));
  draw();
 }
 function tileAt(map,x,y){
@@ -156,15 +166,23 @@ function step(dx,dy){
  dir=[dx,dy];
  const m=DATA.scenes[scene],x=px+dx,y=py+dy;
  if(x<0||y<0||x>=m.width||y>=m.height){
-  if(scene==="Wurzelheim"&&(y<0||y>=m.height)){stage("Route");return;}
-  if(scene==="Route"&&(y<0||y>=m.height)){stage("Wurzelheim");return;}
+  if((scene==="Wurzelheim"||scene==="Route") &&
+     (y<0||y>=m.height) && (px===9||px===10)){
+   const target=scene==="Wurzelheim"?"Route":"Wurzelheim";
+   const other=DATA.scenes[target];
+   // Keep the same horizontal cell when crossing a north/south edge.
+   stage(target,false,{x:px,y:y<0?other.height-2:1});
+  }
   return;
  }
  if(!canWalk(m,x,y))return;
  const id=tileAt(m,x,y);
  if(id==="door"){
   if(scene==="Wurzelheim"){
-   const target=x<=6?"Wohnhaus":y<=6?"Laden":"Schmiede";
+   const target=m.doorLinks?.[x+","+y];
+   if(!target){setStatus("Diese Tür hat noch keinen Innenraum.");return;}
+   // Remember the walkable tile immediately outside THIS entrance.
+   outsideDoor={x:px,y:py};
    stage(target);return;
   }
   stage("Wurzelheim",true);return;
@@ -251,7 +269,10 @@ function readGamepad(now){
  if((dx||dy)&&now-gamepadLastMove>=165){
   step(dx,dy);gamepadLastMove=now;
  }
- for(const [i,callback] of [[0,action],[1,()=>stage("Wurzelheim",true)],[9,pauseToggle]]){
+ for(const [i,callback] of [[0,action],[1,()=>{
+    if(scene!=="Wurzelheim"&&scene!=="Route")stage("Wurzelheim",true);
+    else setStatus("B: Zurück funktioniert innerhalb eines Hauses.");
+   }],[9,pauseToggle]]){
   const current=pressed(i),was=!!gamepadLastButtons[i];
   if(current&&!was)callback();
   gamepadLastButtons[i]=current;

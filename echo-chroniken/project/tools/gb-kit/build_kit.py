@@ -200,38 +200,85 @@ def field(w,h,name):
         if roofVariant==1:stamp("sign",x+3,y+1)
         if roofVariant==2:stamp("flower",x+3,y+1)
     if name=="Wurzelheim":
+        # Deliberately designed 20x18 Game Boy town, not a random tile scatter.
+        # Two exits are aligned at x=9,10 with the neighbouring route.
+        # The center line stays open; buildings sit in four separate yards.
         for x in range(w):
-            if x not in [9,10]:stamp("tree",x,0)
-            if x not in [9,10]:stamp("tree",x,h-1)
+            if x not in (9,10):
+                stamp("tree",x,0);stamp("tree",x,h-1)
         for y in range(1,h-1):
             stamp("tree",0,y);stamp("tree",w-1,y)
-        house(3,3,0);house(13,3,1);house(7,10,2)
-        # Fences are actual path constraints, no beige squiggles.
-        for x in [2,3,4,5,12,13,14,15,16]:
-            stamp("fence",x,7)
-        for x in [2,3,4,5,6,13,14,15,16]:
+        for x,y in [(1,2),(1,3),(18,3),(18,4),
+                    (1,10),(18,13),(18,14)]:
+            stamp("tree",x,y)
+        # Standard-house 1: family home; 2: healing and team services;
+        # 3: blacksmith; 4: general store. All share one modular facade.
+        house(3,3,0)     # entry at 4,4
+        house(13,3,1)    # entry at 14,4
+        house(3,10,2)    # entry at 4,11
+        house(13,10,0)   # entry at 14,11
+        # Fenced yards with distinct openings: each front door stays reachable.
+        for x in (2,3,5,6,12,13,15,16):
+            stamp("fence",x,6)
             stamp("fence",x,14)
-        for x in [3,4,15,16]:stamp("bush",x,12)
-        stamp("sign",10,8);stamp("flower",3,9);stamp("flower",16,11)
-        # Small deliberate grass patches, not a noisy texture over every tile.
-        for gx,gy in [(2,5),(6,5),(11,4),(17,5),(6,9),(12,9),
-                      (4,11),(11,12),(17,12),(5,15),(14,15),(3,16)]:
-            if grid[gy][gx]==K["floor"]:stamp("grass",gx,gy)
-        fill("water_a",14,9,3,2)
+        # Two short side boundaries make the houses feel placed, not scattered.
+        for x,y in [(2,5),(6,5),(12,5),(16,5),
+                    (2,13),(6,13),(12,13),(16,13)]:
+            if grid[y][x]==K["floor"]:stamp("bush",x,y)
+        # Modest two-by-two village square: paved symbol + sign, not a maze.
+        fill("floor_stone",8,8,4,2)
+        stamp("sign",11,8)
+        stamp("npc",7,9)
+        for x,y in [(7,8),(12,8),(7,10),(12,10),
+                    (2,8),(17,7)]:
+            if grid[y][x]==K["floor"]:stamp("flower",x,y)
+        # Pond in a side garden, completely outside the central passage.
+        fill("water_a",16,9,2,2)
+        stamp("sign",17,11)
+        # Small grass patches: separate clear lawn and wildlife, no confetti.
+        for x,y in [(2,2),(6,2),(11,3),(17,3),(3,8),
+                    (14,8),(2,11),(17,12),(7,15),(13,15)]:
+            if grid[y][x]==K["floor"]:stamp("grass",x,y)
+        # Keep a visible open spine from the north gate through the town
+        # square to the southern gate, and corridors to each actual door.
+        for y in range(1,h-1):
+            for x in (9,10):
+                if grid[y][x]!=K["floor_stone"]:stamp("floor",x,y)
+        for doorx,doory in ((4,4),(14,4),(4,11),(14,11)):
+            # A small front step, then the next public row. Fences have a gap
+            # exactly in line with the entrance.
+            for y in (doory+1,doory+2):
+                if grid[y][doorx] not in (K["door"],K["player"]):
+                    stamp("floor",doorx,y)
         stamp("player",10,15)
     elif name=="Route":
+        # A classic route is a short corridor carved by terrain, not dirt
+        # zigzags or a large empty map with random obstacles.
         for y in range(h):
             for x in (0,1,w-2,w-1):stamp("tree",x,y)
         for x in range(2,w-2):
-            if x not in (8,9,10):stamp("tree",x,0)
-            if x not in (8,9,10):stamp("tree",x,h-1)
-        for y in range(3,9):
-            for x in range(3,7):stamp("grass",x,y)
-            for x in range(13,17):stamp("grass",x,y)
-        for y in range(12,15):
-            for x in range(3,7):stamp("grass",x,y)
-        for x in range(11,16):stamp("fence",x,13)
-        stamp("sign",6,10);stamp("npc",13,9);stamp("player",9,15)
+            if x not in (9,10):
+                stamp("tree",x,0);stamp("tree",x,h-1)
+        # Forest edges create two distinct pockets of tall grass.
+        for y in (2,3,4):
+            for x in (2,3,4,5,14,15,16,17):
+                stamp("tree",x,y)
+        for y in (12,13,14):
+            for x in (2,3,4,16,17):
+                stamp("tree",x,y)
+        for x0,y0,ww,hh in ((5,5,3,3),(12,6,4,3),
+                            (5,10,3,2),(12,12,3,3)):
+            fill("grass",x0,y0,ww,hh)
+        for x in (12,13,14):
+            stamp("fence",x,10)
+        stamp("sign",7,9)
+        stamp("npc",13,9)
+        stamp("rock",16,11)
+        # Protected walk corridor in same horizontal position as the town.
+        for y in range(h):
+            for x in (9,10):
+                stamp("floor",x,y)
+        stamp("player",10,15)
     else:
         fill("room_floor",1,1,w-2,h-2)
         fill("room_wall",0,0,w,1)
@@ -288,6 +335,10 @@ for name,w,h in SPECS:
       "rows":["".join(row) for row in grid],
       "blocked":[[x,y] for y,row in enumerate(grid) for x,z in enumerate(row)
                  if SYMBOL[z] in BLOCKED]}
+    if name=="Wurzelheim":
+        scenes[name]["doorLinks"]={"4,4":"Wohnhaus","14,4":"Heilstation",
+                                  "4,11":"Schmiede","14,11":"Laden"}
+        scenes[name]["worldExits"]={"north":"Route","south":"Route"}
     print("GB_SCENE",name,w,h,"blocked",len(scenes[name]["blocked"]))
 with open(OUT/"scene_maps.json","w",encoding="utf-8") as f:
     json.dump({"version":"1.0","scenes":scenes,"symbols":SYMBOL},f,indent=2,ensure_ascii=False)
