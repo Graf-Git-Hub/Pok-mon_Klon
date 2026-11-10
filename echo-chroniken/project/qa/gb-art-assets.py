@@ -19,6 +19,6 @@ assert any(p[:3]==ImageColor.getrgb(m['palette'][0]) and p[3]==255 for p in (im.
 print('GB_ART_ASSETS_PASS: 12 distinct directional poses, two NPCs, 39 stable tiles, exact palette and binary alpha')
 
 houses=Image.open(root/'houses.png')
-assert houses.size==(192,40)
-assert len({houses.crop((i*48,0,(i+1)*48,40)).tobytes() for i in range(4)})==4
-print('GB_HOUSES_PASS: four original coherent facades, unchanged footprint')
+assert houses.size==(320,48)
+assert len({houses.crop((i*80,0,(i+1)*80,48)).tobytes() for i in range(4)})==4
+print('GB_HOUSES_PASS: four original coherent facades, five-cell footprints')

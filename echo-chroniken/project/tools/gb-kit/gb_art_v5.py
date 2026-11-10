@@ -89,10 +89,11 @@ def upgrade(name,old):
  else:return old
  return im
 
-OBJECTS=['tree','table','counter','bookshelf','workbench','forge','plant']
+OBJECTS=['tree','table','counter','bookshelf','workbench','forge','plant',None,'anvil','crate']
 def build_layers(out,tiles):
- sheet=Image.new('RGBA',(128,32))
+ sheet=Image.new('RGBA',(160,32))
  for i,name in enumerate(OBJECTS):
+  if name is None:continue
   obj=tree_v6() if name=='tree' else transparent_edge(tiles[name])
   sheet.paste(obj,(i*16,0))
  # Blade overlay occupies only bottom six pixels, preserving the actor's head.

@@ -17,7 +17,7 @@ payload=json.dumps(js,ensure_ascii=False,separators=(",",":"))
 manifest=json.dumps(tile,ensure_ascii=False,separators=(",",":"))
 html="""<!doctype html><html lang="de"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
-<title>Echo-Chroniken · Game Boy Grafiktest V7</title>
+<title>Echo-Chroniken · Game Boy Grafiktest V8</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -47,7 +47,7 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 :fullscreen body{max-width:none;width:100vw;height:100vh}
 :fullscreen #view{max-height:76vh}
 </style></head><body>
-<h1>🎮 Echo-Chroniken · Game Boy · Grafik V7</h1>
+<h1>🎮 Echo-Chroniken · Game Boy · Grafik V8</h1>
 <div class="subtitle">Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.</div>
 <div class="controls">
 <label for="scene">Karte:</label><select id="scene"></select>
@@ -137,7 +137,7 @@ function stage(name,returning=false,entry=null){
 function tileAt(map,x,y){
  return glyph[map.rows[y]?.[x]]||null;
 }
-const objectNames=['tree','table','counter','bookshelf','workbench','forge','plant'];
+const objectNames=['tree','table','counter','bookshelf','workbench','forge','plant',null,'anvil','crate'];
 function draw(now=performance.now()){
  if(typeof now!=='number')now=performance.now();
  const map=DATA.scenes[scene];
@@ -155,36 +155,23 @@ function draw(now=performance.now()){
  }
  const buildings=Object.entries(map.doorLinks||{}).map(([key,room])=>{
   const [x,y]=key.split(',').map(Number);
-  return {left:x-1,top:y-1,kind:['Wohnhaus','Heilstation','Schmiede','Laden'].indexOf(room)};
+  return {left:x-2,top:y-2,kind:['Wohnhaus','Heilstation','Schmiede','Laden'].indexOf(room)};
  });
  for(const {left,top,kind} of buildings){
-  depth.push({y:(top+2)*16,draw:()=>ctx.drawImage(houses,kind*48,0,48,40,sx(left),sy(top)-8,48,40)});
+  depth.push({y:(top+3)*16,draw:()=>ctx.drawImage(houses,kind*80,0,80,48,sx(left),sy(top),80,48)});
  }
  for(let y=Math.max(0,Math.floor(cam.y));y<Math.min(map.height,Math.ceil(cam.y+cam.h)+1);y++){
   for(let x=Math.max(0,Math.floor(cam.x));x<Math.min(map.width,Math.ceil(cam.x+cam.w));x++){
    let id=tileAt(map,x,y);
    const object=objectNames.indexOf(id);
-   if(buildings.some(({left,top})=>x>=left&&x<left+3&&y>=top&&y<top+2)){
+   if(buildings.some(({left,top})=>x>=left&&x<left+5&&y>=top&&y<top+3)){
     tile(ground,x,y);
     continue;
    }
-   if(id==='player'||id==='npc'||object>=0)tile(id==='player'&&scene==='Wurzelheim'?'floor_stone':ground,x,y);
+   if(id==='player'||id==='npc'||object>=0)tile(id==='player'&&scene==='Wurzelheim'?'path':ground,x,y);
    else {
     if(id==='water_a'&&wave%2)id='water_b';
     tile(id,x,y);
-    if(id==='path' && scene==='Wurzelheim'){
-     // Break the perfect grid along lawn edges. Keep shared path borders flush.
-     const X=sx(x),Y=sy(y);
-     const connected=(dx,dy)=>['path','floor_stone','player','door'].includes(tileAt(map,x+dx,y+dy));
-     ctx.fillStyle=MANIFEST.palette[0];
-     for(let offset=0;offset<16;offset++){
-      const width=1+((x*11+y*7+(offset>>2)*3)%4);
-      if(!connected(-1,0))ctx.fillRect(X,Y+offset,width,1);
-      if(!connected(1,0))ctx.fillRect(X+16-width,Y+offset,width,1);
-      if(!connected(0,-1))ctx.fillRect(X+offset,Y,1,width);
-      if(!connected(0,1))ctx.fillRect(X+offset,Y+16-width,1,width);
-     }
-    }
     if(id==='fence'){
      // One modular post with neighbour-aware rails: no rails dangling into gates.
      tile(ground,x,y);

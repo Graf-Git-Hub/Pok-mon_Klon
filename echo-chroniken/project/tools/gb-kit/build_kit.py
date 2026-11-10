@@ -192,75 +192,42 @@ def field(w,h,name):
             for xx in range(x,x+ww):
                 if 0<=xx<w and 0<=yy<h: grid[yy][xx]=K[sym]
     def stamp(sym,x,y):fill(sym,x,y,1,1)
-    def house(x,y,roofVariant=0):
-        # CC0 hand-pixelled house: three 16px tiles wide, two high.
-        # Every village shares the exact same façade and 4-tone palette.
-        stamp("roof_l",x,y)
-        stamp("roof_m",x+1,y)
-        stamp("roof_r",x+2,y)
-        stamp("window",x,y+1)
-        stamp("door",x+1,y+1)
-        stamp("wall",x+2,y+1)
-        if roofVariant==1:stamp("sign",x+3,y+1)
-        if roofVariant==2:stamp("flower",x+3,y+1)
+    def house(door_x,door_y):
+        # Five cells wide. The facade and collision footprint share the door anchor.
+        fill("wall",door_x-2,door_y,5,1)
+        fill("roof_m",door_x-2,door_y-2,5,2)
+        for row in (door_y-2,door_y-1):
+            stamp("roof_l",door_x-2,row)
+            stamp("roof_r",door_x+2,row)
+        stamp("window",door_x-1,door_y)
+        stamp("window",door_x+1,door_y)
+        stamp("door",door_x,door_y)
     if name=="Wurzelheim":
-        # Deliberately designed 20x18 Game Boy town, not a random tile scatter.
-        # Two exits are aligned at x=9,10 with the neighbouring route.
-        # The center line stays open; buildings sit in four separate yards.
         for x in range(w):
             if x not in (9,10):
                 stamp("tree",x,0);stamp("tree",x,h-1)
         for y in range(1,h-1):
             stamp("tree",0,y);stamp("tree",w-1,y)
-        for x,y in [(1,2),(1,3),(18,3),(18,4),
-                    (1,10),(18,13),(18,14)]:
-            stamp("tree",x,y)
-        # Standard-house 1: family home; 2: healing and team services;
-        # 3: blacksmith; 4: general store. All share one modular facade.
-        house(3,3,0)     # entry at 4,4
-        house(13,3,1)    # entry at 14,4
-        house(3,10,2)    # entry at 4,11
-        house(13,10,0)   # entry at 14,11
-        # Fenced yards with distinct openings: each front door stays reachable.
-        for x in (2,3,5,6,12,13,15,16):
-            stamp("fence",x,6)
-            stamp("fence",x,14)
-        # Two short side boundaries make the houses feel placed, not scattered.
-        for x,y in [(2,5),(6,5),(12,5),(16,5),
-                    (2,13),(6,13),(12,13),(16,13)]:
-            if grid[y][x]==K["floor"]:stamp("bush",x,y)
-        # Modest two-by-two village square: paved symbol + sign, not a maze.
-        fill("floor_stone",8,8,4,2)
+        for x,y,ww,hh in ((1,2,1,5),(18,1,1,7),(1,10,1,6),
+                          (2,12,1,4),(17,13,2,3),(3,16,4,1),(13,16,4,1)):
+            fill("tree",x,y,ww,hh)
+        for x,y in ((4,4),(14,4),(4,11),(14,11)):house(x,y)
+        # One open court between the north houses and the lower lane.
+        fill("path",8,0,4,18)
+        for y in (0,h-1):
+            stamp("tree",8,y);stamp("tree",11,y)
+        fill("path",2,5,16,3)
+        fill("path",3,12,13,2)
+        fill("floor_stone",7,7,6,2)
         stamp("sign",11,8)
         stamp("npc",7,9)
-        for x,y in [(7,8),(12,8),(7,10),(12,10),
-                    (2,8),(17,7)]:
-            if grid[y][x]==K["floor"]:stamp("flower",x,y)
-        # Pond in a side garden, completely outside the central passage.
-        fill("water_a",16,9,2,2)
-        stamp("sign",17,11)
-        # Small grass patches: separate clear lawn and wildlife, no confetti.
-        for x,y in [(2,2),(6,2),(11,3),(17,3),(3,8),
-                    (14,8),(2,11),(17,12),(7,15),(13,15)]:
-            if grid[y][x]==K["floor"]:stamp("grass",x,y)
-        # Keep a visible open spine from the north gate through the town
-        # square to the southern gate, and corridors to each actual door.
-        for y in range(1,h-1):
-            for x in (9,10):
-                if grid[y][x]!=K["floor_stone"]:stamp("path",x,y)
-        # Village lanes connect front gates to the square and forest spine.
-        for yy in (7,12):
-            for xx in range(4,15):
-                if grid[yy][xx] in (K["floor"],K["grass"],K["flower"]):stamp("path",xx,yy)
-        for xx,top,bottom in ((4,5,7),(14,5,7),(4,12,14),(14,12,14)):
-            for yy in range(top,bottom+1):
-                if grid[yy][xx] in (K["floor"],K["grass"]):stamp("path",xx,yy)
-        for doorx,doory in ((4,4),(14,4),(4,11),(14,11)):
-            # A small front step, then the next public row. Fences have a gap
-            # exactly in line with the entrance.
-            for y in (doory+1,doory+2):
-                if grid[y][doorx] not in (K["door"],K["player"]):
-                    stamp("path",doorx,y)
+        fill("fence",13,14,3,1)
+        for x,y in ((2,8),(3,8),(2,7),(17,7),(18,8),(7,15),(13,15)):
+            stamp("grass",x,y)
+        for x,y in ((6,5),(7,5),(16,12),(16,13),(5,14),(6,14)):
+            stamp("flower",x,y)
+        fill("water_a",16,12,2,2)
+        stamp("sign",18,12)
         stamp("player",9,9)
     elif name=="Route":
         # A classic route is a short corridor carved by terrain, not dirt
@@ -311,10 +278,10 @@ def field(w,h,name):
             fill("chair",w-5,5,2,1)
             stamp("plant",2,2);stamp("plant",w-3,2)
         elif name=="Schmiede":
-            stamp("bookshelf",2,1);stamp("workbench",3,2)
-            stamp("forge",w-3,2);stamp("anvil",w//2,4)
-            stamp("bookshelf",3,1);stamp("crate",w-3,6)
-            stamp("npc",w-5,2)
+            fill("bookshelf",2,1,3,1)
+            stamp("workbench",3,2);stamp("workbench",4,2)
+            stamp("forge",w-3,1);stamp("anvil",w//2+1,4)
+            stamp("crate",w-2,2);stamp("npc",w-5,3)
         elif name=="Teamtausch":
             fill("computer",3,1,2,1)
             fill("capsule",w-6,1,3,1)

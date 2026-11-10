@@ -75,9 +75,13 @@ with sync_playwright() as p:
  reset(6,5,'Schmiede');shot('schmiede-handy')
  reset(6,3,'Schmiede');shot('amboss-nah')
  # Water changes while idle, with exactly the fixed four canvas colors.
- reset(15,8)
- def pond():return page.evaluate('''()=>Array.from(ctx.getImageData(16*16-Math.round(lastCamera.x*16),9*16-Math.round(lastCamera.y*16),16,16).data).join()''')
- before=pond();page.clock.run_for(390);assert pond()!=before
+ reset(15,12)
+ def pond():return page.evaluate('''()=>Array.from(ctx.getImageData(16*16-Math.round(lastCamera.x*16),12*16-Math.round(lastCamera.y*16),16,16).data).join()''')
+ before=pond()
+ for _ in range(25):
+  if pond()!=before:break
+  page.clock.run_for(20)
+ assert pond()!=before
  colors=page.evaluate('''()=>{const p=ctx.getImageData(0,0,view.width,view.height).data,s=new Set();for(let i=0;i<p.length;i+=4)s.add('#'+Array.from(p.slice(i,i+3)).map(v=>v.toString(16).padStart(2,'0')).join(''));return [...s].sort()}''')
  assert colors==sorted(['#f4f4ef','#c7c8c4','#777a7b','#24262b']),colors
  # TV controller uses the identical pose machinery, with axes in all directions.
