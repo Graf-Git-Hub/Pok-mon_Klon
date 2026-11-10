@@ -9,6 +9,7 @@ import json,math
 from gb_visual_upgrade import upgrade as art_upgrade
 from gb_art_v5 import upgrade as v5_upgrade, build_layers
 from gb_art_v6 import upgrade as v6_upgrade, build as build_houses
+from gb_interiors import build_boundaries, workshop_tile
 
 C=["#f4f4ef","#c7c8c4","#777a7b","#24262b"]
 T=16
@@ -164,9 +165,10 @@ def tile(name,frame=0):
             b(6,5,2,2,0);b(11,8,2,3,2)
         else:
             b(6,2,4,2,2);b(6,5,2,2,3);b(9,5,2,2,3)
-    return v6_upgrade(name,v5_upgrade(name,art_upgrade(name,im,frame)))
+    return workshop_tile(name,v6_upgrade(name,v5_upgrade(name,art_upgrade(name,im,frame))))
 
 build_houses(OUT)
+build_boundaries(OUT)
 build_layers(OUT,{name:tile(name) for name in K})
 ATLAS_NAMES=list(K)
 atlas=Image.new("RGB",(8*T,math.ceil(len(ATLAS_NAMES)/8)*T),C[0])

@@ -12,12 +12,13 @@ tile=json.loads((root/"assets"/"gb-classic"/"tile_manifest.json").read_text(enco
 atlas_data=base64.b64encode((root/"assets"/"gb-classic"/"gb_classic_atlas.png").read_bytes()).decode()
 actor_data=base64.b64encode((root/'assets/gb-classic/actors.png').read_bytes()).decode()
 foreground_data=base64.b64encode((root/'assets/gb-classic/foreground.png').read_bytes()).decode()
+edge_data=base64.b64encode((root/'assets/gb-classic/interior_edges.png').read_bytes()).decode()
 house_data=base64.b64encode((root/'assets/gb-classic/houses.png').read_bytes()).decode()
 payload=json.dumps(js,ensure_ascii=False,separators=(",",":"))
 manifest=json.dumps(tile,ensure_ascii=False,separators=(",",":"))
 html="""<!doctype html><html lang="de"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
-<title>Echo-Chroniken · Game Boy Grafiktest V9</title>
+<title>Echo-Chroniken · Game Boy Grafiktest V10</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -47,7 +48,7 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 :fullscreen body{max-width:none;width:100vw;height:100vh}
 :fullscreen #view{max-height:76vh}
 </style></head><body>
-<h1>🎮 Echo-Chroniken · Game Boy · Grafik V9</h1>
+<h1>🎮 Echo-Chroniken · Game Boy · Grafik V10</h1>
 <div class="subtitle">Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.</div>
 <div class="controls">
 <label for="scene">Karte:</label><select id="scene"></select>
@@ -76,10 +77,11 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 const DATA=__PAYLOAD__,MANIFEST=__MANIFEST__;
 const atlas=new Image();
 atlas.src="data:image/png;base64,__ATLAS__";
-const actors=new Image(),foreground=new Image(),houses=new Image();
+const actors=new Image(),foreground=new Image(),houses=new Image(),edges=new Image();
 houses.src="data:image/png;base64,__HOUSES__";
 actors.src="data:image/png;base64,__ACTORS__";
 foreground.src="data:image/png;base64,__FOREGROUND__";
+edges.src="data:image/png;base64,__EDGES__";
 const TILE=16,view=document.getElementById("view"),ctx=view.getContext("2d");
 const sel=document.getElementById("scene"),mode=document.getElementById("mode");
 const msg=document.getElementById("message"),hud=document.getElementById("hud");
@@ -142,7 +144,7 @@ const objectNames=['tree','table','counter','bookshelf','workbench','forge','pla
 function draw(now=performance.now()){
  if(typeof now!=='number')now=performance.now();
  const map=DATA.scenes[scene];
- if(!map||![atlas,actors,foreground,houses].every(im=>im.complete&&im.naturalWidth))return;
+ if(!map||![atlas,actors,foreground,houses,edges].every(im=>im.complete&&im.naturalWidth))return;
  const pose=actorPose(now),cam=cameraFor(map,pose),layout=cam.w+"x"+cam.h;
  if(lastLayout!==layout){view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;}
  ctx.imageSmoothingEnabled=false;
@@ -164,6 +166,13 @@ function draw(now=performance.now()){
  for(let y=Math.max(0,Math.floor(cam.y));y<Math.min(map.height,Math.ceil(cam.y+cam.h)+1);y++){
   for(let x=Math.max(0,Math.floor(cam.x));x<Math.min(map.width,Math.ceil(cam.x+cam.w));x++){
    let id=tileAt(map,x,y);
+   if(id==='room_wall'||(id==='door'&&ground==='room_floor')){
+    const left=x===0,right=x===map.width-1;
+    const edge=id==='door'?8:y===0?(left?4:right?5:0):
+      y===map.height-1?(left?6:right?7:1):left?2:3;
+    ctx.drawImage(edges,edge*TILE,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+    continue;
+   }
    const object=objectNames.indexOf(id);
    if(buildings.some(({left,top})=>x>=left&&x<left+5&&y>=top&&y<top+3)){
     tile(ground,x,y);
@@ -347,9 +356,9 @@ function animate(now){
  readGamepad(now);
  requestAnimationFrame(animate);
 }
-Promise.all([atlas,actors,foreground,houses].map(im=>im.decode())).then(()=>{stage("Wurzelheim");requestAnimationFrame(animate);});
+Promise.all([atlas,actors,foreground,houses,edges].map(im=>im.decode())).then(()=>{stage("Wurzelheim");requestAnimationFrame(animate);});
 </script></body></html>
 """
 out.parent.mkdir(parents=True,exist_ok=True)
-out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data).replace("__ACTORS__",actor_data).replace("__FOREGROUND__",foreground_data).replace("__HOUSES__",house_data),encoding="utf-8")
+out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data).replace("__ACTORS__",actor_data).replace("__FOREGROUND__",foreground_data).replace("__HOUSES__",house_data).replace("__EDGES__",edge_data),encoding="utf-8")
 print("GB_PLAYABLE_PREVIEW",out,out.stat().st_size)
