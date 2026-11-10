@@ -25,6 +25,14 @@ def house(kind=0):
  # Door remains centered on the original collision/warp tile x+1.
  b(18,25,12,14,3);b(19,26,10,12,2);b(20,27,8,5,1);b(23,27,1,5,3)
  b(20,33,8,4,2);b(27,34,1,1,0);b(17,38,14,2,0);b(18,39,12,1,2)
+ if kind==0:
+  # Offset gable and timber porch: a different outline from the shops.
+  d.polygon([(0,22),(6,15),(15,6),(29,17),(33,22)],fill=P[3])
+  d.polygon([(3,21),(15,9),(28,21)],fill=P[1])
+  d.line((6,21,15,12,25,21),fill=P[2],width=2)
+  b(13,16,6,5,3);b(14,17,4,3,0)
+  b(6,33,8,2,2);b(6,35,8,2,3)
+  d.point((8,33),fill=P[0]);d.point((11,33),fill=P[0])
  if kind==1: # healing cottage: original four-point light, no franchise emblem
   b(35,26,8,8,3);d.polygon([(39,27),(40,29),(42,30),(40,31),(39,33),(38,31),(36,30),(38,29)],fill=P[0])
  if kind==2: # smith chimney and hammer plaque
@@ -57,8 +65,10 @@ def upgrade(name,old):
  if name=='floor':
   for x,y in [(2,4),(11,12)]:d.line((x,y,x+1,y-1,x+2,y),fill=P[1])
  elif name=='path':
-  b(0,0,16,16,1)
-  for x,y in [(3,3),(11,10),(6,14)]:d.line((x,y,x+1,y),fill=P[0])
+  for y in range(16):
+   for x in range(16):
+    if (x+2*y)%5 in (0,2):d.point((x,y),fill=P[1])
+  for x,y in [(3,3),(11,10),(6,14)]:d.line((x,y,x+1,y),fill=P[1])
  elif name=='tree':
   a=tree();im.paste(a,(0,-8),a)
  elif name=='grass':

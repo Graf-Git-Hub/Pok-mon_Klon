@@ -14,7 +14,10 @@ with sync_playwright() as p:
  assert page.evaluate('actorPose().y===8'),'First step must remain horizontal'
  page.evaluate('window.dispatchEvent(new Event("resize"))')
  assert page.evaluate('actorPose().frame') in (1,2)
- page.clock.run_for(90)
+ # A virtual clock can land between browser animation callbacks.
+ for _ in range(12):
+  if page.evaluate("py===9"):break
+  page.clock.run_for(20)
  assert page.evaluate('actorPose().x===10 && py===9'),'Turn must start only at first tile boundary'
  page.clock.run_for(200);assert page.evaluate('actorPose().frame===0')
  b.close();print('GB_RAPID_TURN_PASS')
