@@ -1,3 +1,7 @@
+# 10.11.2026 – GB-Erkundungswelt V13
+
+GB-Welt V13: Alle 60 Gebiets-IDs als kompakte Erkundungswelt unter ../gb-classic/welt-60-karten.html. 118 Graph-Verbindungen und 238 Landmarken aus dem Originalmanifest übertragen. Grundrisse und Landmarkenpositionen neu angeordnet. Storybedingungen sind in der Vorschau geöffnet. Die Kampf-/Quest-Engine und die Save-Dateien sind dort nicht aktiv. Generatoren unter project/tools/gb-world. Hauptspielintegration und menschliche Einzelabnahme bleiben eigene Schritte.
+
 # 10.11.2026 – GB-Grafikprototyp V5
 
 Eigene Richtungs-/Laufanimation, transparente Figuren und Vordergründe, lesbarere gemeinsame 16px-Grafik. Kamera, Türlinks und vier Graustufen erhalten. Nur separater Prototyp; keine Änderung an Hauptspiel/APK/Saves. Siehe ../gb-classic/GRAFIK_V5_TESTBERICHT.md.
