@@ -95,8 +95,16 @@ def boundary_tile(name):
         box(0, 1, 16, 4, 2)
         box(0, 1, 16, 1, 1)
     if name in ("west", "nw", "sw"):
-        box(9, 3 if name == "nw" else 0, 7, 5 if name == "sw" else 13 if name == "nw" else 16, 2)
-        box(13, 3 if name == "nw" else 0, 2, 5 if name == "sw" else 13 if name == "nw" else 16, 1)
+        # The outside edge stays in one column all the way around the room.
+        box(0, 0, 9, 16, 3)
+        top = 3 if name == "nw" else 0
+        bottom = 5 if name == "sw" else 16
+        box(9, top, 7, bottom - top, 2)
+        box(13, top, 2, bottom - top, 1)
+        if name == "nw":
+            box(9, 3, 7, 1, 1)
+        elif name == "sw":
+            box(9, 1, 7, 1, 1)
     if name in ("east", "ne", "se"):
         return boundary_tile({"east": "west", "ne": "nw", "se": "sw"}[name]).transpose(Image.Transpose.FLIP_LEFT_RIGHT)
     if name == "threshold":
