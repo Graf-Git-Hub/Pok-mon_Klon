@@ -1,3 +1,7 @@
+# 10.11.2026 – GB-Grafikprototyp V5
+
+Eigene Richtungs-/Laufanimation, transparente Figuren und Vordergründe, lesbarere gemeinsame 16px-Grafik. Kamera, Türlinks und vier Graustufen erhalten. Nur separater Prototyp; keine Änderung an Hauptspiel/APK/Saves. Siehe ../gb-classic/GRAFIK_V5_TESTBERICHT.md.
+
 # Story-Roadmap Änderungsverlauf
 
 ## 2026-11-07 - SOULS 3.46 Kartenwerkstatt mit 60 echten Echo-Karten und sicherem Import

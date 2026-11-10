@@ -7,6 +7,7 @@ from PIL import Image,ImageDraw
 from pathlib import Path
 import json,math
 from gb_visual_upgrade import upgrade as art_upgrade
+from gb_art_v5 import upgrade as v5_upgrade, build_layers
 
 C=["#f4f4ef","#c7c8c4","#777a7b","#24262b"]
 T=16
@@ -162,8 +163,9 @@ def tile(name,frame=0):
             b(6,5,2,2,0);b(11,8,2,3,2)
         else:
             b(6,2,4,2,2);b(6,5,2,2,3);b(9,5,2,2,3)
-    return art_upgrade(name,im,frame)
+    return v5_upgrade(name,art_upgrade(name,im,frame))
 
+build_layers(OUT,{name:tile(name) for name in K})
 ATLAS_NAMES=list(K)
 atlas=Image.new("RGB",(8*T,math.ceil(len(ATLAS_NAMES)/8)*T),C[0])
 for i,name in enumerate(ATLAS_NAMES):
@@ -249,7 +251,7 @@ def field(w,h,name):
             # exactly in line with the entrance.
             for y in (doory+1,doory+2):
                 if grid[y][doorx] not in (K["door"],K["player"]):
-                    stamp("floor",doorx,y)
+                    stamp("path",doorx,y)
         stamp("player",10,15)
     elif name=="Route":
         # A classic route is a short corridor carved by terrain, not dirt
@@ -302,7 +304,7 @@ def field(w,h,name):
         elif name=="Schmiede":
             stamp("bookshelf",2,1);stamp("workbench",3,2)
             stamp("forge",w-3,2);stamp("anvil",w//2,4)
-            fill("counter",2,6,3,1);stamp("crate",w-3,6)
+            stamp("bookshelf",3,1);stamp("crate",w-3,6)
             stamp("npc",w-5,2)
         elif name=="Teamtausch":
             fill("computer",3,1,2,1)

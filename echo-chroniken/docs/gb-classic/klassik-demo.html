@@ -1,6 +1,6 @@
 <!doctype html><html lang="de"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
-<title>Echo-Chroniken · Game Boy Klassik Stiltest</title>
+<title>Echo-Chroniken · Game Boy Grafiktest V5</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -30,7 +30,7 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 :fullscreen body{max-width:none;width:100vw;height:100vh}
 :fullscreen #view{max-height:76vh}
 </style></head><body>
-<h1>🎮 Echo-Chroniken · Game Boy Klassik</h1>
+<h1>🎮 Echo-Chroniken · Game Boy · Grafik V5</h1>
 <div class="subtitle">Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.</div>
 <div class="controls">
 <label for="scene">Karte:</label><select id="scene"></select>
@@ -56,9 +56,12 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 <footer>Handy: 10 × 9 Felder · TV: 16 × 9 Felder · Pixel bleiben scharf. Das Bild scrollt mit deiner Spielfigur, Spiellogik und alte Speicherstände werden nicht verändert.</footer>
 <script>
 'use strict';
-const DATA={"version":"1.0","scenes":{"Wurzelheim":{"width":20,"height":18,"rows":["44444444400444444444","40000000000000000004","44200020000000000004","440abc0000020abc0244","400efd0000000efd9044","40300030000030003004","40550550000055055004","40000000000000000B04","40B2000BCCC9B0200004","4000000xCCCC00006604","440abc0B0000Babc6604","402efdB000000efd0904","40000000000000000204","40300030000030003044","40550550000055055044","4000000200y002000004","40000000000000000004","44444444400444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[19,1],[0,2],[1,2],[19,2],[0,3],[1,3],[3,3],[4,3],[5,3],[13,3],[14,3],[15,3],[18,3],[19,3],[0,4],[3,4],[5,4],[13,4],[15,4],[18,4],[19,4],[0,5],[2,5],[6,5],[12,5],[16,5],[19,5],[0,6],[2,6],[3,6],[5,6],[6,6],[12,6],[13,6],[15,6],[16,6],[19,6],[0,7],[19,7],[0,8],[19,8],[0,9],[16,9],[17,9],[19,9],[0,10],[1,10],[3,10],[4,10],[5,10],[13,10],[14,10],[15,10],[16,10],[17,10],[19,10],[0,11],[3,11],[5,11],[13,11],[15,11],[19,11],[0,12],[19,12],[0,13],[2,13],[6,13],[12,13],[16,13],[18,13],[19,13],[0,14],[2,14],[3,14],[5,14],[6,14],[12,14],[13,14],[15,14],[16,14],[18,14],[19,14],[0,15],[19,15],[0,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[8,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]],"doorLinks":{"4,4":"Wohnhaus","14,4":"Heilstation","4,11":"Schmiede","14,11":"Laden"},"worldExits":{"north":"Route","south":"Route"}},"Route":{"width":20,"height":18,"rows":["44444444400444444444","44000000000000000044","44444400000000444444","44444400000000444444","44444400000000444444","44000222000000000044","44000222000022220044","44000222000022220044","44000000000022220044","4400000900000x000044","44000222000055500044","44000222000000008044","44444000000022204444","44444000000022204444","44444000000022204444","4400000000y000000044","44000000000000000044","44444444400444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[1,1],[18,1],[19,1],[0,2],[1,2],[2,2],[3,2],[4,2],[5,2],[14,2],[15,2],[16,2],[17,2],[18,2],[19,2],[0,3],[1,3],[2,3],[3,3],[4,3],[5,3],[14,3],[15,3],[16,3],[17,3],[18,3],[19,3],[0,4],[1,4],[2,4],[3,4],[4,4],[5,4],[14,4],[15,4],[16,4],[17,4],[18,4],[19,4],[0,5],[1,5],[18,5],[19,5],[0,6],[1,6],[18,6],[19,6],[0,7],[1,7],[18,7],[19,7],[0,8],[1,8],[18,8],[19,8],[0,9],[1,9],[18,9],[19,9],[0,10],[1,10],[12,10],[13,10],[14,10],[18,10],[19,10],[0,11],[1,11],[16,11],[18,11],[19,11],[0,12],[1,12],[2,12],[3,12],[4,12],[16,12],[17,12],[18,12],[19,12],[0,13],[1,13],[2,13],[3,13],[4,13],[16,13],[17,13],[18,13],[19,13],[0,14],[1,14],[2,14],[3,14],[4,14],[16,14],[17,14],[18,14],[19,14],[0,15],[1,15],[18,15],[19,15],[0,16],[1,16],[18,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[8,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]]},"Laden":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiiiiiggxgh","hggggggjjjjh","hggggggggggh","hggiiggiiggh","hggggggggggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[3,1],[4,1],[5,1],[6,1],[11,1],[0,2],[7,2],[8,2],[9,2],[10,2],[11,2],[0,3],[11,3],[0,4],[3,4],[4,4],[7,4],[8,4],[11,4],[0,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Heilstation":{"width":14,"height":9,"rows":["hhhhhhhhhhhhhh","hggggggngxgggh","hgvjjjjjjjjvgh","hggggggggggggh","hggggggggggggh","hggllggggllggh","hggggggygggggh","hggggggggggggh","hhhhhhhfhhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[0,1],[7,1],[13,1],[0,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[10,2],[11,2],[13,2],[0,3],[13,3],[0,4],[13,4],[0,5],[3,5],[4,5],[9,5],[10,5],[13,5],[0,6],[13,6],[0,7],[13,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,8],[8,8],[9,8],[10,8],[11,8],[12,8],[13,8]]},"Schmiede":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiggggggggh","hggugggxgogh","hggggggggggh","hgggggpggggh","hggggggggggh","hgjjjgyggqgh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[11,1],[0,2],[3,2],[9,2],[11,2],[0,3],[11,3],[0,4],[6,4],[11,4],[0,5],[11,5],[0,6],[2,6],[3,6],[4,6],[9,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Teamtausch":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hggmmgwwwggh","hggggggggggh","hgggggxggggh","hggggggggggh","hggjggggjggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[3,1],[4,1],[6,1],[7,1],[8,1],[11,1],[0,2],[11,2],[0,3],[11,3],[0,4],[11,4],[0,5],[3,5],[8,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Wohnhaus":{"width":10,"height":8,"rows":["hhhhhhhhhh","hgsggggigh","hggggggggh","hggggggggh","hggggkgggh","hgvggylggh","hggggggggh","hhhhhfhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,1],[2,1],[7,1],[9,1],[0,2],[9,2],[0,3],[9,3],[0,4],[5,4],[9,4],[0,5],[2,5],[6,5],[9,5],[0,6],[9,6],[0,7],[1,7],[2,7],[3,7],[4,7],[6,7],[7,7],[8,7],[9,7]]}},"symbols":{"0":"floor","1":"path","2":"grass","3":"bush","4":"tree","5":"fence","6":"water_a","7":"water_b","8":"rock","9":"sign","a":"roof_l","b":"roof_m","c":"roof_r","d":"wall","e":"window","f":"door","g":"room_floor","h":"room_wall","i":"bookshelf","j":"counter","k":"table","l":"chair","m":"computer","n":"heal_pod","o":"forge","p":"anvil","q":"crate","r":"barrel","s":"bed","t":"stairs","u":"workbench","v":"plant","w":"capsule","x":"npc","y":"player","z":"water_edge","A":"hedge","B":"flower","C":"floor_stone"}},MANIFEST={"version":"1.0","name":"Echo-Chroniken GB-Klassik","license":"Original artwork, project-owned; inspired by constraints, not copied sprites","palette":["#f4f4ef","#c7c8c4","#777a7b","#24262b"],"tileSize":16,"sprites":{"floor":{"atlasIndex":0,"collision":false},"path":{"atlasIndex":1,"collision":false},"grass":{"atlasIndex":2,"collision":false},"bush":{"atlasIndex":3,"collision":true},"tree":{"atlasIndex":4,"collision":true},"fence":{"atlasIndex":5,"collision":true},"water_a":{"atlasIndex":6,"collision":true},"water_b":{"atlasIndex":7,"collision":true},"rock":{"atlasIndex":8,"collision":true},"sign":{"atlasIndex":9,"collision":false},"roof_l":{"atlasIndex":10,"collision":true},"roof_m":{"atlasIndex":11,"collision":true},"roof_r":{"atlasIndex":12,"collision":true},"wall":{"atlasIndex":13,"collision":true},"window":{"atlasIndex":14,"collision":true},"door":{"atlasIndex":15,"collision":false},"room_floor":{"atlasIndex":16,"collision":false},"room_wall":{"atlasIndex":17,"collision":true},"bookshelf":{"atlasIndex":18,"collision":true},"counter":{"atlasIndex":19,"collision":true},"table":{"atlasIndex":20,"collision":true},"chair":{"atlasIndex":21,"collision":true},"computer":{"atlasIndex":22,"collision":true},"heal_pod":{"atlasIndex":23,"collision":true},"forge":{"atlasIndex":24,"collision":true},"anvil":{"atlasIndex":25,"collision":true},"crate":{"atlasIndex":26,"collision":true},"barrel":{"atlasIndex":27,"collision":true},"bed":{"atlasIndex":28,"collision":true},"stairs":{"atlasIndex":29,"collision":false},"workbench":{"atlasIndex":30,"collision":true},"plant":{"atlasIndex":31,"collision":true},"capsule":{"atlasIndex":32,"collision":true},"npc":{"atlasIndex":33,"collision":false},"player":{"atlasIndex":34,"collision":false},"water_edge":{"atlasIndex":35,"collision":true},"hedge":{"atlasIndex":36,"collision":true},"flower":{"atlasIndex":37,"collision":false},"floor_stone":{"atlasIndex":38,"collision":false}},"sourceReferences":["https://www.peterhajas.com/blog/pokemon_rb_map_parsing/","https://opengameart.org/content/4-colour-interior-tileset","https://opengameart.org/content/4-colour-overworld-tileset"]};
+const DATA={"version":"1.0","scenes":{"Wurzelheim":{"width":20,"height":18,"rows":["44444444400444444444","40000000000000000004","44200020000000000004","440abc0000020abc0244","400efd0000000efd9044","40301030000030103004","40551550000055155004","40000000000000000B04","40B2000BCCC9B0200004","4000000xCCCC00006604","440abc0B0000Babc6604","402efdB000000efd0904","40001000000000100204","40301030000030103044","40550550000055055044","4000000200y002000004","40000000000000000004","44444444400444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[19,1],[0,2],[1,2],[19,2],[0,3],[1,3],[3,3],[4,3],[5,3],[13,3],[14,3],[15,3],[18,3],[19,3],[0,4],[3,4],[5,4],[13,4],[15,4],[18,4],[19,4],[0,5],[2,5],[6,5],[12,5],[16,5],[19,5],[0,6],[2,6],[3,6],[5,6],[6,6],[12,6],[13,6],[15,6],[16,6],[19,6],[0,7],[19,7],[0,8],[19,8],[0,9],[16,9],[17,9],[19,9],[0,10],[1,10],[3,10],[4,10],[5,10],[13,10],[14,10],[15,10],[16,10],[17,10],[19,10],[0,11],[3,11],[5,11],[13,11],[15,11],[19,11],[0,12],[19,12],[0,13],[2,13],[6,13],[12,13],[16,13],[18,13],[19,13],[0,14],[2,14],[3,14],[5,14],[6,14],[12,14],[13,14],[15,14],[16,14],[18,14],[19,14],[0,15],[19,15],[0,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[8,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]],"doorLinks":{"4,4":"Wohnhaus","14,4":"Heilstation","4,11":"Schmiede","14,11":"Laden"},"worldExits":{"north":"Route","south":"Route"}},"Route":{"width":20,"height":18,"rows":["44444444400444444444","44000000000000000044","44444400000000444444","44444400000000444444","44444400000000444444","44000222000000000044","44000222000022220044","44000222000022220044","44000000000022220044","4400000900000x000044","44000222000055500044","44000222000000008044","44444000000022204444","44444000000022204444","44444000000022204444","4400000000y000000044","44000000000000000044","44444444400444444444"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[0,1],[1,1],[18,1],[19,1],[0,2],[1,2],[2,2],[3,2],[4,2],[5,2],[14,2],[15,2],[16,2],[17,2],[18,2],[19,2],[0,3],[1,3],[2,3],[3,3],[4,3],[5,3],[14,3],[15,3],[16,3],[17,3],[18,3],[19,3],[0,4],[1,4],[2,4],[3,4],[4,4],[5,4],[14,4],[15,4],[16,4],[17,4],[18,4],[19,4],[0,5],[1,5],[18,5],[19,5],[0,6],[1,6],[18,6],[19,6],[0,7],[1,7],[18,7],[19,7],[0,8],[1,8],[18,8],[19,8],[0,9],[1,9],[18,9],[19,9],[0,10],[1,10],[12,10],[13,10],[14,10],[18,10],[19,10],[0,11],[1,11],[16,11],[18,11],[19,11],[0,12],[1,12],[2,12],[3,12],[4,12],[16,12],[17,12],[18,12],[19,12],[0,13],[1,13],[2,13],[3,13],[4,13],[16,13],[17,13],[18,13],[19,13],[0,14],[1,14],[2,14],[3,14],[4,14],[16,14],[17,14],[18,14],[19,14],[0,15],[1,15],[18,15],[19,15],[0,16],[1,16],[18,16],[19,16],[0,17],[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[8,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[17,17],[18,17],[19,17]]},"Laden":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiiiiiggxgh","hggggggjjjjh","hggggggggggh","hggiiggiiggh","hggggggggggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[3,1],[4,1],[5,1],[6,1],[11,1],[0,2],[7,2],[8,2],[9,2],[10,2],[11,2],[0,3],[11,3],[0,4],[3,4],[4,4],[7,4],[8,4],[11,4],[0,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Heilstation":{"width":14,"height":9,"rows":["hhhhhhhhhhhhhh","hggggggngxgggh","hgvjjjjjjjjvgh","hggggggggggggh","hggggggggggggh","hggllggggllggh","hggggggygggggh","hggggggggggggh","hhhhhhhfhhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[0,1],[7,1],[13,1],[0,2],[2,2],[3,2],[4,2],[5,2],[6,2],[7,2],[8,2],[9,2],[10,2],[11,2],[13,2],[0,3],[13,3],[0,4],[13,4],[0,5],[3,5],[4,5],[9,5],[10,5],[13,5],[0,6],[13,6],[0,7],[13,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[6,8],[8,8],[9,8],[10,8],[11,8],[12,8],[13,8]]},"Schmiede":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hgiigggggggh","hggugggxgogh","hggggggggggh","hgggggpggggh","hggggggggggh","hgggggyggqgh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[2,1],[3,1],[11,1],[0,2],[3,2],[9,2],[11,2],[0,3],[11,3],[0,4],[6,4],[11,4],[0,5],[11,5],[0,6],[9,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Teamtausch":{"width":12,"height":9,"rows":["hhhhhhhhhhhh","hggmmgwwwggh","hggggggggggh","hgggggxggggh","hggggggggggh","hggjggggjggh","hgggggyggggh","hggggggggggh","hhhhhhfhhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[0,1],[3,1],[4,1],[6,1],[7,1],[8,1],[11,1],[0,2],[11,2],[0,3],[11,3],[0,4],[11,4],[0,5],[3,5],[8,5],[11,5],[0,6],[11,6],[0,7],[11,7],[0,8],[1,8],[2,8],[3,8],[4,8],[5,8],[7,8],[8,8],[9,8],[10,8],[11,8]]},"Wohnhaus":{"width":10,"height":8,"rows":["hhhhhhhhhh","hgsggggigh","hggggggggh","hggggggggh","hggggkgggh","hgvggylggh","hggggggggh","hhhhhfhhhh"],"blocked":[[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[0,1],[2,1],[7,1],[9,1],[0,2],[9,2],[0,3],[9,3],[0,4],[5,4],[9,4],[0,5],[2,5],[6,5],[9,5],[0,6],[9,6],[0,7],[1,7],[2,7],[3,7],[4,7],[6,7],[7,7],[8,7],[9,7]]}},"symbols":{"0":"floor","1":"path","2":"grass","3":"bush","4":"tree","5":"fence","6":"water_a","7":"water_b","8":"rock","9":"sign","a":"roof_l","b":"roof_m","c":"roof_r","d":"wall","e":"window","f":"door","g":"room_floor","h":"room_wall","i":"bookshelf","j":"counter","k":"table","l":"chair","m":"computer","n":"heal_pod","o":"forge","p":"anvil","q":"crate","r":"barrel","s":"bed","t":"stairs","u":"workbench","v":"plant","w":"capsule","x":"npc","y":"player","z":"water_edge","A":"hedge","B":"flower","C":"floor_stone"}},MANIFEST={"version":"1.0","name":"Echo-Chroniken GB-Klassik","license":"Original artwork, project-owned; inspired by constraints, not copied sprites","palette":["#f4f4ef","#c7c8c4","#777a7b","#24262b"],"tileSize":16,"sprites":{"floor":{"atlasIndex":0,"collision":false},"path":{"atlasIndex":1,"collision":false},"grass":{"atlasIndex":2,"collision":false},"bush":{"atlasIndex":3,"collision":true},"tree":{"atlasIndex":4,"collision":true},"fence":{"atlasIndex":5,"collision":true},"water_a":{"atlasIndex":6,"collision":true},"water_b":{"atlasIndex":7,"collision":true},"rock":{"atlasIndex":8,"collision":true},"sign":{"atlasIndex":9,"collision":false},"roof_l":{"atlasIndex":10,"collision":true},"roof_m":{"atlasIndex":11,"collision":true},"roof_r":{"atlasIndex":12,"collision":true},"wall":{"atlasIndex":13,"collision":true},"window":{"atlasIndex":14,"collision":true},"door":{"atlasIndex":15,"collision":false},"room_floor":{"atlasIndex":16,"collision":false},"room_wall":{"atlasIndex":17,"collision":true},"bookshelf":{"atlasIndex":18,"collision":true},"counter":{"atlasIndex":19,"collision":true},"table":{"atlasIndex":20,"collision":true},"chair":{"atlasIndex":21,"collision":true},"computer":{"atlasIndex":22,"collision":true},"heal_pod":{"atlasIndex":23,"collision":true},"forge":{"atlasIndex":24,"collision":true},"anvil":{"atlasIndex":25,"collision":true},"crate":{"atlasIndex":26,"collision":true},"barrel":{"atlasIndex":27,"collision":true},"bed":{"atlasIndex":28,"collision":true},"stairs":{"atlasIndex":29,"collision":false},"workbench":{"atlasIndex":30,"collision":true},"plant":{"atlasIndex":31,"collision":true},"capsule":{"atlasIndex":32,"collision":true},"npc":{"atlasIndex":33,"collision":false},"player":{"atlasIndex":34,"collision":false},"water_edge":{"atlasIndex":35,"collision":true},"hedge":{"atlasIndex":36,"collision":true},"flower":{"atlasIndex":37,"collision":false},"floor_stone":{"atlasIndex":38,"collision":false}},"sourceReferences":["https://www.peterhajas.com/blog/pokemon_rb_map_parsing/","https://opengameart.org/content/4-colour-interior-tileset","https://opengameart.org/content/4-colour-overworld-tileset"]};
 const atlas=new Image();
-atlas.src="data:image/png;base64,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";
+atlas.src="data:image/png;base64,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";
+const actors=new Image(),foreground=new Image();
+actors.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAABQCAYAAABf9vbdAAAEU0lEQVR4nO1bvWojMRAeH1e6yTsYN5tASJ0XcGMW7NZu/QIHgYSrwgUO8gJu7TYBkyYvYLirjCFxE/IOadzvFedxtNKMNCOvtTHJB8FreT/9azTfSAE4cDS4H1rtrMDn15cV+17d/O8csdfPt2n3d1BIK5Ga/40j590O5N2O85u08FT8b3YCkhF5t1PqjRDq5kOrnRV//s4L6vMj8p0RQEwn49KnFrXysdX4J+29OvisFTo5zpx0iSWplY8tX6/fnD9JT9bBJ9fA6dn59vnpeVX67sNyMYeT4yyaHyp/uZjDev1WakSpAa8vq8ZgOCplNnt4BACAwXAUtaNq+KHyKZAZttpZUd4JZ6rKX1xeOUP9++ZXMj602tl2vpnPGq7J0Vgi6l0qT4SzBriCtKbQBDf8u74L4PFGY7GrF5oqzw+DLz1QN//g9UCpVbb9NyHZC+rgOzvx/d3MV4YXdfBJX8jORJtpSj7rSthpGkuSku8kInm5mG/T0BvU+PO18A9RDzj7ALYYrUHe7cBgOBJpU+y1WH6o/E3+RbN5tB0JdgrZ7jRAeAhRbJgV0PBD5WMHmQ1wrBBXiKTwZvOo0WweNWxb3uvn4kX8+rJi+Zh/MJMvPWDhSw98Sj0AcBiagNwHTDJaBI1Pn5JPNsD2yxHSSqTksyNg7pwYXNIgFZ90p80I2WA4KvWCBCn5rDtt+y6YoXQKpOIHR8BODxWems+uAYD3GL02ulwl//rm1qvI2CMmE9PJGHr9XO1OXN/cVsLv9XOW721ATGwfgfYbKxEDyeIXjQCATpibhxDIi41WmHxTZiK8DZg9PEKvn2/tsHQRmj57r5/DYDhSaQLkYfn3dzPo9XOgtMBefCH7QC4mH8wjxGVHgBIV0oKpSmsqzlV6F00igk85afLQpB88Dv58gFwDGCVGWx5zVSAVnzzgcP3wmeqqQEo+a4XQ9ufdTtSNkVR8tgEY0gOIO6VPxWdDi5Q/rpGDqfii0KKmB+vmA8D7hoSh7RgrUgX/4vIqyBdZIW3hJl/rTtsHfSG+1xs9PTuHp+eVqgImTEESi1BHig75tKA0gH1RicNyMVdpCHYR21pACozvowZAiOL6m/dMDYD14FC5L+RzhbXXDTAPH5f1hXzfQ7D9f0ojcPB1QK0utUYrfCpNID6pB6hmLVQN0heiwhcA//cFyY0T3+9VN8a5boOVtzcwM0zIVYI64zWhvb4pARkbpXbfp+eVc5+Zw64boQasK2H64lJg79pX5/FzH2uBXAOcApK4tRw/9upyCKQrQfW6tAIUf1+VB/DcWjR9IM2cRn7s/w9o4dxaNK61bLFczGE6GXtdAnOXpfjLxbySyJ23AQj7TEB6RjCdjL0RhNDvMShNoc38JXtHO49tJfXz8kdUBUMg9wFKUobWwaZxoqlR5Vpgwyq+gkMLklNfUlGjgTMC5qGC/SzJsNXOCvOW4b5dYNaMUunSfcD3vWr8A/7CWTC8nrXTAAAAAElFTkSuQmCC";
+foreground.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAAAgCAYAAADaInAlAAAC5UlEQVR4nO2ZvWrjQBCAx8GPYtwoB8fV9wJpgkBq7dYvcNXBVeEMB3mBtElrg0iTFxAklTAkbozfRVeYFePxzGqlXUVyPB8YrP3TaOdvNRqBwGQalbRtv9uOpPF9wcnZhNDPNJlGZZLGbN96lQ1uD8dco++m9oG06RLrVdaJHOfGiQEY5dMNPYcN+/P7FwAA3C3vK3mTNGbbz4nJNCq7ihxsBAA4bOb7xxYAALLnl0oQ048Fahsx9rvt6ByjTR2hjGwyjcqnxwcAAJjNF+ze+yIagFG+IUlj64MZQV2ZzRet53Jr+OBjwE3nS05Ex3zWWaEyABr6jddjTN96lbFCfruOnG5KjavJXNsa7x/bap2nx4fKQKR2jGSEdCzySKf5EpwMnMeHMnKJsbmxacChH+BgCFw6GCLYiPDGSe22+Zi2ESo0XaSDkxQgeRYHjQLSOBd85gIcohKXoqR2Fxlm84Wz8kN5Kl1nU+QAAPD9x88g61PG2PuTNHby8LrzwKXC7cumyI+U57N31DhCnBOuzB/be3T2/FL9XMb3QZLGsCly2BT5kWxSex1NvL8O48V17HfbEf4BHF5d75b3QeTgOEoBNNfHtzdVX5e5v+uDTlsZ2splvJ4qflPkjZSJDZZ6O47cNBXja1OZ/Lf8O+IO7kcG4JOHQygRPzAXJuv6hwSn/CbQV0uqPPofK1paj0sZV9xgAxf6DV0pwFTt2vRjA8bhW2o34JCLr7mQzI0fEjZD4TiKALYwb0sHXEGEu7FLEaQuRNr6fV8DQ5CkcbCc3cTJDvsZiwUpab/ZSuBn5X5K3QPb+kO8BvrQ5MAY3950ZoicoqW0AABwUovH1T58jdvqbtiEvr8FcN80bCVart+3lNwnYi2b+xpI32GH8ACKH62/6KnyvwbWUEdRpV8Qk2lUvr7l5etbXvadp5XusNYBlK+P1QCGUKJVusX5DKD5/0KQ8r2eAxRFURRFURRFURRFUc6b/2UL80GrTaL5AAAAAElFTkSuQmCC";
 const TILE=16,view=document.getElementById("view"),ctx=view.getContext("2d");
 const sel=document.getElementById("scene"),mode=document.getElementById("mode");
 const msg=document.getElementById("message"),hud=document.getElementById("hud");
@@ -66,6 +69,14 @@ const padStatus=document.getElementById("controller-state");
 const names=Object.keys(DATA.scenes),glyph=DATA.symbols;
 for(const name of names){const op=document.createElement("option");op.value=name;op.textContent=name;sel.appendChild(op);}
 let scene="Wurzelheim",px=10,py=15,dir=[0,-1],wave=0,paused=false;
+const WALK_MS=150;
+let motion=null,walkFoot=0,pendingDirection=null;
+function actorPose(now=performance.now()){
+ const direction=dir[0]<0?'left':dir[0]>0?'right':dir[1]<0?'up':'down';
+ const t=motion?Math.max(0,Math.min(1,(now-motion.start)/WALK_MS)):1;
+ return {direction,frame:t<1?motion.frame:0,
+         x:t<1?motion.x+(px-motion.x)*t:px,y:t<1?motion.y+(py-motion.y)*t:py};
+}
 let outsideDoor={x:10,y:15};
 let gamepadLastMove=0,gamepadLastButtons={},lastFrame=0,gamepadConnected=false;
 let lastCamera={x:0,y:0,w:10,h:9},lastLayout="";
@@ -77,16 +88,16 @@ function screenTiles(){
  const cols=mode.value==="phone"?10:tv?16:landscape?14:10;
  return {w:cols,h:9};
 }
-function cameraFor(map){
+function cameraFor(map,pos=actorPose()){
  const tiles=screenTiles(),w=Math.min(map.width,tiles.w),h=Math.min(map.height,tiles.h);
- const x=Math.max(0,Math.min(map.width-w,px-Math.floor(w/2)));
- const y=Math.max(0,Math.min(map.height-h,py-Math.floor(h/2)));
+ const x=Math.max(0,Math.min(map.width-w,pos.x-Math.floor(w/2)));
+ const y=Math.max(0,Math.min(map.height-h,pos.y-Math.floor(h/2)));
  return {x,y,w,h};
 }
 function setStatus(message){msg.textContent=message;}
 function stage(name,returning=false,entry=null){
  if(!DATA.scenes[name])return;
- scene=name;sel.value=name;paused=false;
+ scene=name;sel.value=name;paused=false;motion=null;pendingDirection=null;stopHeld();
  const m=DATA.scenes[name],found=[];
  for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++)
   if(glyph[m.rows[y][x]]==="player")found.push([x,y]);
@@ -108,39 +119,68 @@ function stage(name,returning=false,entry=null){
 function tileAt(map,x,y){
  return glyph[map.rows[y]?.[x]]||null;
 }
-function draw(){
+const objectNames=['tree','table','counter','bookshelf','workbench','forge','plant'];
+function draw(now=performance.now()){
+ if(typeof now!=='number')now=performance.now();
  const map=DATA.scenes[scene];
- if(!map||!atlas.complete||!atlas.naturalWidth)return;
- const cam=cameraFor(map);
- const layout=cam.w+"x"+cam.h;
- if(lastLayout!==layout){
-  view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;
- }
+ if(!map||![atlas,actors,foreground].every(im=>im.complete&&im.naturalWidth))return;
+ const pose=actorPose(now),cam=cameraFor(map,pose),layout=cam.w+"x"+cam.h;
+ if(lastLayout!==layout){view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;}
  ctx.imageSmoothingEnabled=false;
- ctx.fillStyle=MANIFEST.palette[0];
- ctx.fillRect(0,0,view.width,view.height);
- for(let y=cam.y;y<cam.y+cam.h;y++)for(let x=cam.x;x<cam.x+cam.w;x++){
-  let id=tileAt(map,x,y);
-  if(id==="player"||id==="npc")
-   id=scene==="Wurzelheim"||scene==="Route"?"floor":"room_floor";
-  if(id==="water_a"&&wave%2)id="water_b";
-  const idx=MANIFEST.sprites[id]?.atlasIndex;
-  if(idx===undefined)continue;
-  ctx.drawImage(atlas,(idx%8)*16,Math.floor(idx/8)*16,16,16,
-                 (x-cam.x)*16,(y-cam.y)*16,16,16);
+ ctx.fillStyle=MANIFEST.palette[0];ctx.fillRect(0,0,view.width,view.height);
+ const sx=x=>Math.round(x*16)-Math.round(cam.x*16),sy=y=>Math.round(y*16)-Math.round(cam.y*16);
+ const ground=scene==='Wurzelheim'||scene==='Route'?'floor':'room_floor';
+ const depth=[],grass=[];
+ function tile(id,x,y){
+  const i=MANIFEST.sprites[id]?.atlasIndex;
+  if(i!==undefined)ctx.drawImage(atlas,i%8*16,Math.floor(i/8)*16,16,16,sx(x),sy(y),16,16);
  }
- // NPCs use the same four-shade atlas and remain behind the player.
- const npcIdx=MANIFEST.sprites.npc.atlasIndex;
- for(let y=cam.y;y<cam.y+cam.h;y++)for(let x=cam.x;x<cam.x+cam.w;x++){
-  if(tileAt(map,x,y)!=="npc")continue;
-  ctx.drawImage(atlas,(npcIdx%8)*16,Math.floor(npcIdx/8)*16,16,16,
-                (x-cam.x)*16,(y-cam.y)*16,16,16);
+ for(let y=Math.max(0,Math.floor(cam.y));y<Math.min(map.height,Math.ceil(cam.y+cam.h)+1);y++){
+  for(let x=Math.max(0,Math.floor(cam.x));x<Math.min(map.width,Math.ceil(cam.x+cam.w));x++){
+   let id=tileAt(map,x,y);
+   const object=objectNames.indexOf(id);
+   if(id==='player'||id==='npc'||object>=0)tile(ground,x,y);
+   else {
+    if(id==='water_a'&&wave%2)id='water_b';
+    tile(id,x,y);
+    if(id==='fence'){
+     // One modular post with neighbour-aware rails: no rails dangling into gates.
+     tile(ground,x,y);
+     const X=sx(x),Y=sy(y),rect=(a,b,w,h,c)=>{ctx.fillStyle=MANIFEST.palette[c];ctx.fillRect(X+a,Y+b,w,h);};
+     for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]]){
+      if(tileAt(map,x+dx,y+dy)!=='fence')continue;
+      if(dx){rect(dx<0?0:8,6,8,3,3);rect(dx<0?0:8,7,8,1,1);rect(dx<0?0:8,11,8,2,2);}
+      else {rect(6,dy<0?0:8,3,8,3);rect(7,dy<0?0:8,1,8,1);}
+     }
+     rect(5,3,6,13,3);rect(6,2,4,1,3);rect(6,4,4,10,1);rect(6,4,1,9,0);
+    }
+    // Connected shoreline without new logical tiles; corners meet exactly.
+    if(id==='water_a'||id==='water_b'){
+     ctx.fillStyle=MANIFEST.palette[2];
+     for(const [dx,dy] of [[0,-1],[0,1],[-1,0],[1,0]]){
+      if(!['water_a','water_b','water_edge'].includes(tileAt(map,x+dx,y+dy)))
+       ctx.fillRect(sx(x)+(dx===1?15:0),sy(y)+(dy===1?15:0),dx?1:16,dy?1:16);
+     }
+    }
+   }
+   if(object>=0)depth.push({y:y*16+16,draw:()=>{
+    const h=id==='tree'?24:16,offset=id==='tree'?8:4;
+    ctx.drawImage(foreground,object*16,0,16,h,sx(x),sy(y)-offset,16,h);
+   }});
+   if(id==='npc')depth.push({y:y*16+16,draw:()=>{
+    const kind=['Schmiede','Laden'].includes(scene)?1:0;
+    ctx.drawImage(actors,kind*16,64,16,16,sx(x),sy(y),16,16);
+   }});
+   if(id==='grass')grass.push([x,y]);
+  }
  }
- const actor=MANIFEST.sprites.player.atlasIndex;
- ctx.drawImage(atlas,(actor%8)*16,Math.floor(actor/8)*16,16,16,
-               (px-cam.x)*16,(py-cam.y)*16,16,16);
- hud.textContent=scene+" · "+(px+1)+"/"+map.width+" × "+(py+1)+"/"+map.height+
-                 (paused?" · PAUSE":"");
+ depth.push({y:pose.y*16+16,draw:()=>{
+  const row=['down','up','left','right'].indexOf(pose.direction);
+  ctx.drawImage(actors,pose.frame*16,row*16,16,16,sx(pose.x),sy(pose.y),16,16);
+ }});
+ depth.sort((a,b)=>a.y-b.y).forEach(item=>item.draw());
+ for(const [x,y] of grass)ctx.drawImage(foreground,112,0,16,16,sx(x),sy(y),16,16);
+ hud.textContent=scene+" · "+(px+1)+"/"+map.width+" × "+(py+1)+"/"+map.height+(paused?" · PAUSE":"");
  lastCamera=cam;
 }
 function canWalk(m,x,y){
@@ -149,6 +189,7 @@ function canWalk(m,x,y){
 }
 function step(dx,dy){
  if(paused)return;
+ if(motion && performance.now()-motion.start<WALK_MS){pendingDirection=[dx,dy];return;}
  dir=[dx,dy];
  const m=DATA.scenes[scene],x=px+dx,y=py+dy;
  if(x<0||y<0||x>=m.width||y>=m.height){
@@ -161,7 +202,7 @@ function step(dx,dy){
   }
   return;
  }
- if(!canWalk(m,x,y))return;
+ if(!canWalk(m,x,y)){draw();return;}
  const id=tileAt(m,x,y);
  if(id==="door"){
   if(scene==="Wurzelheim"){
@@ -173,6 +214,8 @@ function step(dx,dy){
   }
   stage("Wurzelheim",true);return;
  }
+ const from=actorPose();
+ walkFoot=1-walkFoot;motion={x:from.x,y:from.y,start:performance.now(),frame:walkFoot+1};
  px=x;py=y;draw();
 }
 function action(){
@@ -186,7 +229,7 @@ function action(){
   bed:"Ein gemütliches Bett.",water_a:"Hier ist Wasser."};
  setStatus(descriptions[target]||"Hier gibt es gerade nichts zu untersuchen.");
 }
-function pauseToggle(){paused=!paused;setStatus(paused?"Pause. Start/Enter zum Fortsetzen.":"Weiter geht's.");draw();}
+function pauseToggle(){stopHeld();motion=null;pendingDirection=null;paused=!paused;setStatus(paused?"Pause. Start/Enter zum Fortsetzen.":"Weiter geht's.");draw();}
 function fullscreenToggle(){
  if(document.fullscreenElement){
   if(document.exitFullscreen)document.exitFullscreen();
@@ -201,15 +244,16 @@ window.addEventListener("keydown",e=>{
  if(d){
   e.preventDefault();
   if(e.repeat)return;
-  step(...d);
+  stopHeld();step(...d);heldKey=e.key;heldTimer=setInterval(()=>step(...d),165);
  }else if(["Enter"," ","z"].includes(e.key)){
   e.preventDefault();if(!e.repeat)action();
  }else if(["Escape","p"].includes(e.key)){
   e.preventDefault();if(!e.repeat)pauseToggle();
  }else if(e.key==="f"&&!e.repeat)fullscreenToggle();
 });
-let heldTimer=null;
-function stopHeld(){if(heldTimer!==null){clearInterval(heldTimer);heldTimer=null;}}
+let heldTimer=null,heldKey=null;
+window.addEventListener("keyup",e=>{if(e.key===heldKey)stopHeld();});
+function stopHeld(){heldKey=null;if(heldTimer!==null){clearInterval(heldTimer);heldTimer=null;}}
 for(const el of document.querySelectorAll("button[data-move]")){
  const d=el.dataset.move.split(",").map(Number);
  el.addEventListener("pointerdown",e=>{
@@ -221,7 +265,7 @@ for(const el of document.querySelectorAll("button[data-move]")){
   el.addEventListener(name,stopHeld));
  // Keyboard activation already moves via the global keyboard listener.
 }
-window.addEventListener("blur",stopHeld);
+window.addEventListener("blur",()=>{stopHeld();pendingDirection=null;});
 document.getElementById("action").addEventListener("click",action);
 document.getElementById("fullscreen").addEventListener("click",fullscreenToggle);
 document.getElementById("reset").addEventListener("click",()=>stage(scene));
@@ -265,9 +309,13 @@ function readGamepad(now){
  }
 }
 function animate(now){
- if(now-lastFrame>=380){wave++;lastFrame=now;draw();}
+ if(!paused && pendingDirection && (!motion||now-motion.start>=WALK_MS)){
+  const next=pendingDirection;pendingDirection=null;step(...next);
+ }
+ if(!paused && now-lastFrame>=380){wave++;lastFrame=now;}
+ draw(now);
  readGamepad(now);
  requestAnimationFrame(animate);
 }
-atlas.onload=()=>{stage("Wurzelheim");requestAnimationFrame(animate);};
+Promise.all([atlas,actors,foreground].map(im=>im.decode())).then(()=>{stage("Wurzelheim");requestAnimationFrame(animate);});
 </script></body></html>

@@ -42,3 +42,5 @@ M99-RUNES-2M-07;M99;Rune shop currency rare quest rune and 2 million simulated c
 M99-RUNES-TRAINERS-08;M99;Later trainers sometimes equip balanced passive runes;M99-RUNES-2M-07;src/game.js and balance QA;Human-like trainer loadouts measured across actual natural campaign before adding;M;TODO
 M99-WORLD-ALL60-09;M99;Expand all remaining 58 maps while preserving portals saves and quest markers;M99-UI-MENU-06;src/maps/registry.js src/village.js src/game.js tests/all-60-world-layout.cjs;60 region walkability 118 exits 125 spawns 238 markers reachable all 60 original graphics exported;L;DONE
 M99-WORLD-ART-10;M99;Optional handcrafted visual polish of the enlarged retro world and final texture import;M99-WORLD-ALL60-09;Individual edited map art with a collision-preserving import tool;Playable map walkability unaffected;L;TODO
+
+GB-V5;GB-PROTOTYP;Eigene Pixelgrafik und echte Laufanimation;GB-V4;tools/gb-kit und qa;39 Terrain-IDs und 12 Posen, Browser-QA und separate Vorschau;M;DONE_PROTOTYPE_ONLY

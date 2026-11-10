@@ -1,0 +1,20 @@
+{
+  "result": "PASS",
+  "browser": "157.0.8103.39",
+  "url": "file:///C:/Users/graf8/Echo_GB_Art_QA_20261110/docs/gb-classic/klassik-demo.html",
+  "checks": [
+    "4 directions x 2 distinct walk phases",
+    "idle reset",
+    "blocked movement",
+    "held touch/release",
+    "pause and focus loss",
+    "tree crown pixel occlusion",
+    "grass blade pixel occlusion",
+    "water animation",
+    "exact four canvas colors",
+    "TV 16x9 + 4 gamepad axes",
+    "phone 10x9",
+    "zero page errors"
+  ],
+  "hardware": "Chrome emulation, synthetic Gamepad API; no physical Android/TV/controller claim"
+}

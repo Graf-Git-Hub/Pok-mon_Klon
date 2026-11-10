@@ -24,6 +24,7 @@ with sync_playwright() as p:
     # Walk over north border and back over the same x coordinate.
     page.evaluate("stage('Wurzelheim')")
     page.evaluate("()=>{px=9;py=1;draw();step(0,-1);step(0,-1)}")
+    page.wait_for_timeout(200)
     assert page.evaluate("scene")=="Route"
     assert page.evaluate("px===9&&py===16")
     page.evaluate("()=>{py=17;step(0,1)}")
@@ -31,6 +32,7 @@ with sync_playwright() as p:
     assert page.evaluate("px===9&&py===1")
     # Second entrance to the route at town south border.
     page.evaluate("()=>{px=10;py=16;step(0,1);step(0,1)}")
+    page.wait_for_timeout(200)
     assert page.evaluate("scene")=="Route"
     assert page.evaluate("px===10&&py===1")
     page.evaluate("stage('Wurzelheim')")
