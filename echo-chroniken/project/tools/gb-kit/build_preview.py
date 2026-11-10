@@ -12,11 +12,12 @@ tile=json.loads((root/"assets"/"gb-classic"/"tile_manifest.json").read_text(enco
 atlas_data=base64.b64encode((root/"assets"/"gb-classic"/"gb_classic_atlas.png").read_bytes()).decode()
 actor_data=base64.b64encode((root/'assets/gb-classic/actors.png').read_bytes()).decode()
 foreground_data=base64.b64encode((root/'assets/gb-classic/foreground.png').read_bytes()).decode()
+house_data=base64.b64encode((root/'assets/gb-classic/houses.png').read_bytes()).decode()
 payload=json.dumps(js,ensure_ascii=False,separators=(",",":"))
 manifest=json.dumps(tile,ensure_ascii=False,separators=(",",":"))
 html="""<!doctype html><html lang="de"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
-<title>Echo-Chroniken · Game Boy Grafiktest V5</title>
+<title>Echo-Chroniken · Game Boy Grafiktest V6</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -46,7 +47,7 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 :fullscreen body{max-width:none;width:100vw;height:100vh}
 :fullscreen #view{max-height:76vh}
 </style></head><body>
-<h1>🎮 Echo-Chroniken · Game Boy · Grafik V5</h1>
+<h1>🎮 Echo-Chroniken · Game Boy · Grafik V6</h1>
 <div class="subtitle">Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.</div>
 <div class="controls">
 <label for="scene">Karte:</label><select id="scene"></select>
@@ -75,7 +76,8 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 const DATA=__PAYLOAD__,MANIFEST=__MANIFEST__;
 const atlas=new Image();
 atlas.src="data:image/png;base64,__ATLAS__";
-const actors=new Image(),foreground=new Image();
+const actors=new Image(),foreground=new Image(),houses=new Image();
+houses.src="data:image/png;base64,__HOUSES__";
 actors.src="data:image/png;base64,__ACTORS__";
 foreground.src="data:image/png;base64,__FOREGROUND__";
 const TILE=16,view=document.getElementById("view"),ctx=view.getContext("2d");
@@ -139,7 +141,7 @@ const objectNames=['tree','table','counter','bookshelf','workbench','forge','pla
 function draw(now=performance.now()){
  if(typeof now!=='number')now=performance.now();
  const map=DATA.scenes[scene];
- if(!map||![atlas,actors,foreground].every(im=>im.complete&&im.naturalWidth))return;
+ if(!map||![atlas,actors,foreground,houses].every(im=>im.complete&&im.naturalWidth))return;
  const pose=actorPose(now),cam=cameraFor(map,pose),layout=cam.w+"x"+cam.h;
  if(lastLayout!==layout){view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;}
  ctx.imageSmoothingEnabled=false;
@@ -151,11 +153,22 @@ function draw(now=performance.now()){
   const i=MANIFEST.sprites[id]?.atlasIndex;
   if(i!==undefined)ctx.drawImage(atlas,i%8*16,Math.floor(i/8)*16,16,16,sx(x),sy(y),16,16);
  }
+ const buildings=Object.entries(map.doorLinks||{}).map(([key,room])=>{
+  const [x,y]=key.split(',').map(Number);
+  return {left:x-1,top:y-1,kind:['Wohnhaus','Heilstation','Schmiede','Laden'].indexOf(room)};
+ });
+ for(const {left,top,kind} of buildings){
+  depth.push({y:(top+2)*16,draw:()=>ctx.drawImage(houses,kind*48,0,48,40,sx(left),sy(top)-8,48,40)});
+ }
  for(let y=Math.max(0,Math.floor(cam.y));y<Math.min(map.height,Math.ceil(cam.y+cam.h)+1);y++){
   for(let x=Math.max(0,Math.floor(cam.x));x<Math.min(map.width,Math.ceil(cam.x+cam.w));x++){
    let id=tileAt(map,x,y);
    const object=objectNames.indexOf(id);
-   if(id==='player'||id==='npc'||object>=0)tile(ground,x,y);
+   if(buildings.some(({left,top})=>x>=left&&x<left+3&&y>=top&&y<top+2)){
+    tile(ground,x,y);
+    continue;
+   }
+   if(id==='player'||id==='npc'||object>=0)tile(id==='player'&&scene==='Wurzelheim'?'floor_stone':ground,x,y);
    else {
     if(id==='water_a'&&wave%2)id='water_b';
     tile(id,x,y);
@@ -168,7 +181,7 @@ function draw(now=performance.now()){
       if(dx){rect(dx<0?0:8,6,8,3,3);rect(dx<0?0:8,7,8,1,1);rect(dx<0?0:8,11,8,2,2);}
       else {rect(6,dy<0?0:8,3,8,3);rect(7,dy<0?0:8,1,8,1);}
      }
-     rect(5,3,6,13,3);rect(6,2,4,1,3);rect(6,4,4,10,1);rect(6,4,1,9,0);
+     rect(6,5,4,10,3);rect(7,4,2,1,3);rect(7,6,2,8,1);rect(7,6,1,7,0);
     }
     // Connected shoreline without new logical tiles; corners meet exactly.
     if(id==='water_a'||id==='water_b'){
@@ -333,9 +346,9 @@ function animate(now){
  readGamepad(now);
  requestAnimationFrame(animate);
 }
-Promise.all([atlas,actors,foreground].map(im=>im.decode())).then(()=>{stage("Wurzelheim");requestAnimationFrame(animate);});
+Promise.all([atlas,actors,foreground,houses].map(im=>im.decode())).then(()=>{stage("Wurzelheim");requestAnimationFrame(animate);});
 </script></body></html>
 """
 out.parent.mkdir(parents=True,exist_ok=True)
-out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data).replace("__ACTORS__",actor_data).replace("__FOREGROUND__",foreground_data),encoding="utf-8")
+out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data).replace("__ACTORS__",actor_data).replace("__FOREGROUND__",foreground_data).replace("__HOUSES__",house_data),encoding="utf-8")
 print("GB_PLAYABLE_PREVIEW",out,out.stat().st_size)

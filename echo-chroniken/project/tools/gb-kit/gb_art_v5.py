@@ -3,6 +3,7 @@ No imported reference pixels. Large tree uses 16x24 art and one solid foot cell.
 """
 from PIL import Image, ImageDraw, ImageColor
 from gb_actors import actor,npc,build as build_actors,P
+from gb_art_v6 import tree as tree_v6
 
 def transparent_edge(im):
  im=im.convert('RGBA'); bg=ImageColor.getrgb(P[0])+(255,)
@@ -92,7 +93,7 @@ OBJECTS=['tree','table','counter','bookshelf','workbench','forge','plant']
 def build_layers(out,tiles):
  sheet=Image.new('RGBA',(128,32))
  for i,name in enumerate(OBJECTS):
-  obj=tree() if name=='tree' else transparent_edge(tiles[name])
+  obj=tree_v6() if name=='tree' else transparent_edge(tiles[name])
   sheet.paste(obj,(i*16,0))
  # Blade overlay occupies only bottom six pixels, preserving the actor's head.
  grass=tiles['grass'].convert('RGBA')

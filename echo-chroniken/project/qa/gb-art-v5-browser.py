@@ -5,7 +5,7 @@ from playwright.sync_api import sync_playwright
 from PIL import Image
 import io,json,os
 root=Path(__file__).resolve().parents[2]/'docs'/'gb-classic'
-out=root/'v5-proof';out.mkdir(exist_ok=True)
+out=root/os.environ.get('ECHO_QA_PROOF','v5-proof');out.mkdir(exist_ok=True)
 url=os.environ.get('ECHO_QA_URL',(root/'klassik-demo.html').as_uri())
 with sync_playwright() as p:
  b=p.chromium.launch(channel='chrome',headless=True)

@@ -8,6 +8,7 @@ from pathlib import Path
 import json,math
 from gb_visual_upgrade import upgrade as art_upgrade
 from gb_art_v5 import upgrade as v5_upgrade, build_layers
+from gb_art_v6 import upgrade as v6_upgrade, build as build_houses
 
 C=["#f4f4ef","#c7c8c4","#777a7b","#24262b"]
 T=16
@@ -163,8 +164,9 @@ def tile(name,frame=0):
             b(6,5,2,2,0);b(11,8,2,3,2)
         else:
             b(6,2,4,2,2);b(6,5,2,2,3);b(9,5,2,2,3)
-    return v5_upgrade(name,art_upgrade(name,im,frame))
+    return v6_upgrade(name,v5_upgrade(name,art_upgrade(name,im,frame)))
 
+build_houses(OUT)
 build_layers(OUT,{name:tile(name) for name in K})
 ATLAS_NAMES=list(K)
 atlas=Image.new("RGB",(8*T,math.ceil(len(ATLAS_NAMES)/8)*T),C[0])
@@ -245,14 +247,21 @@ def field(w,h,name):
         # square to the southern gate, and corridors to each actual door.
         for y in range(1,h-1):
             for x in (9,10):
-                if grid[y][x]!=K["floor_stone"]:stamp("floor",x,y)
+                if grid[y][x]!=K["floor_stone"]:stamp("path",x,y)
+        # Village lanes connect front gates to the square and forest spine.
+        for yy in (7,12):
+            for xx in range(4,15):
+                if grid[yy][xx] in (K["floor"],K["grass"],K["flower"]):stamp("path",xx,yy)
+        for xx,top,bottom in ((4,5,7),(14,5,7),(4,12,14),(14,12,14)):
+            for yy in range(top,bottom+1):
+                if grid[yy][xx] in (K["floor"],K["grass"]):stamp("path",xx,yy)
         for doorx,doory in ((4,4),(14,4),(4,11),(14,11)):
             # A small front step, then the next public row. Fences have a gap
             # exactly in line with the entrance.
             for y in (doory+1,doory+2):
                 if grid[y][doorx] not in (K["door"],K["player"]):
                     stamp("path",doorx,y)
-        stamp("player",10,15)
+        stamp("player",9,9)
     elif name=="Route":
         # A classic route is a short corridor carved by terrain, not dirt
         # zigzags or a large empty map with random obstacles.
