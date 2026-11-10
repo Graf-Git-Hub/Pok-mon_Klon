@@ -23,7 +23,7 @@ with sync_playwright() as p:
     assert phone.evaluate("lastCamera.x")>0,"Camera should scroll after player movement"
     phone.locator("#scene").select_option("Schmiede")
     phone.wait_for_function("document.querySelector('#view').width===160")
-    assert phone.evaluate("lastCamera.w")==10,"Smaller interior still cropped to handheld zoom"
+    assert phone.evaluate("lastCamera.w===10 && lastCamera.h===9 && lastCamera.x===-1"),"Compact room centered at handheld scale"
     phone.screenshot(path=str(root/"GB_INTERIOR_REAL_BROWSER.png"),full_page=True)
     phone.keyboard.press("ArrowDown")
     assert phone.evaluate("scene")=="Schmiede"

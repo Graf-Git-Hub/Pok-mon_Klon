@@ -17,7 +17,7 @@ payload=json.dumps(js,ensure_ascii=False,separators=(",",":"))
 manifest=json.dumps(tile,ensure_ascii=False,separators=(",",":"))
 html="""<!doctype html><html lang="de"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
-<title>Echo-Chroniken · Game Boy Grafiktest V8</title>
+<title>Echo-Chroniken · Game Boy Grafiktest V9</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -47,7 +47,7 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 :fullscreen body{max-width:none;width:100vw;height:100vh}
 :fullscreen #view{max-height:76vh}
 </style></head><body>
-<h1>🎮 Echo-Chroniken · Game Boy · Grafik V8</h1>
+<h1>🎮 Echo-Chroniken · Game Boy · Grafik V9</h1>
 <div class="subtitle">Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.</div>
 <div class="controls">
 <label for="scene">Karte:</label><select id="scene"></select>
@@ -107,9 +107,10 @@ function screenTiles(){
  return {w:cols,h:9};
 }
 function cameraFor(map,pos=actorPose()){
- const tiles=screenTiles(),w=Math.min(map.width,tiles.w),h=Math.min(map.height,tiles.h);
- const x=Math.max(0,Math.min(map.width-w,pos.x-Math.floor(w/2)));
- const y=Math.max(0,Math.min(map.height-h,pos.y-Math.floor(h/2)));
+ const {w,h}=screenTiles();
+ const origin=(size,span,focus)=>size<span?Math.floor((size-span)/2):Math.max(0,Math.min(size-span,focus-Math.floor(span/2)));
+ const x=origin(map.width,w,pos.x);
+ const y=origin(map.height,h,pos.y);
  return {x,y,w,h};
 }
 function setStatus(message){msg.textContent=message;}
@@ -145,7 +146,7 @@ function draw(now=performance.now()){
  const pose=actorPose(now),cam=cameraFor(map,pose),layout=cam.w+"x"+cam.h;
  if(lastLayout!==layout){view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;}
  ctx.imageSmoothingEnabled=false;
- ctx.fillStyle=MANIFEST.palette[0];ctx.fillRect(0,0,view.width,view.height);
+ ctx.fillStyle=MANIFEST.palette[3];ctx.fillRect(0,0,view.width,view.height);
  const sx=x=>Math.round(x*16)-Math.round(cam.x*16),sy=y=>Math.round(y*16)-Math.round(cam.y*16);
  const ground=scene==='Wurzelheim'||scene==='Route'?'floor':'room_floor';
  const depth=[],grass=[];

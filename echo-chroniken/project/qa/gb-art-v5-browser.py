@@ -72,8 +72,8 @@ with sync_playwright() as p:
    if(s.join()!==t.join())return false;n++;
   }return n>5;
  }'''),'Grass blades must cover feet'
- reset(6,5,'Schmiede');shot('schmiede-handy')
- reset(6,3,'Schmiede');shot('amboss-nah')
+ reset(4,3,'Schmiede');shot('schmiede-handy')
+ reset(4,4,'Schmiede');shot('amboss-nah')
  # Water changes while idle, with exactly the fixed four canvas colors.
  reset(15,12)
  def pond():return page.evaluate('''()=>Array.from(ctx.getImageData(16*16-Math.round(lastCamera.x*16),12*16-Math.round(lastCamera.y*16),16,16).data).join()''')

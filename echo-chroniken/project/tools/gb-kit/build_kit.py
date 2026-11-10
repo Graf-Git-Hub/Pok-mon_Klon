@@ -265,40 +265,41 @@ def field(w,h,name):
         fill("room_wall",w-1,1,1,h-2)
         stamp("door",w//2,h-1)
         if name=="Laden":
-            for x in (2,3,4,5,6):stamp("bookshelf",x,1)
-            fill("counter",w-5,2,4,1)
-            stamp("npc",w-3,1)
-            fill("bookshelf",3,4,2,1)
-            fill("bookshelf",7,4,2,1)
+            fill("bookshelf",1,1,3,1)
+            fill("counter",5,2,3,1)
+            stamp("npc",6,1)
+            stamp("bookshelf",1,4)
         elif name=="Heilstation":
-            fill("counter",3,2,w-6,1)
-            stamp("heal_pod",w//2,1)
-            stamp("npc",w//2+2,1)
-            fill("chair",3,5,2,1)
-            fill("chair",w-5,5,2,1)
-            stamp("plant",2,2);stamp("plant",w-3,2)
+            fill("counter",4,2,4,1)
+            stamp("heal_pod",5,1)
+            stamp("npc",7,1)
+            fill("chair",1,3,2,1)
+            stamp("plant",8,1)
         elif name=="Schmiede":
-            fill("bookshelf",2,1,3,1)
-            stamp("workbench",3,2);stamp("workbench",4,2)
-            stamp("forge",w-3,1);stamp("anvil",w//2+1,4)
-            stamp("crate",w-2,2);stamp("npc",w-5,3)
+            fill("bookshelf",1,1,2,1)
+            stamp("workbench",2,2)
+            stamp("forge",6,1)
+            stamp("crate",6,2)
+            stamp("npc",5,2)
+            stamp("anvil",5,3)
         elif name=="Teamtausch":
-            fill("computer",3,1,2,1)
-            fill("capsule",w-6,1,3,1)
-            stamp("npc",w//2,3)
-            stamp("counter",3,5);stamp("counter",w-4,5)
+            fill("computer",1,1,2,1)
+            fill("capsule",5,1,2,1)
+            stamp("npc",5,2)
+            stamp("counter",5,3)
         elif name=="Wohnhaus":
-            stamp("bed",2,1)
-            stamp("bookshelf",w-3,1)
-            stamp("table",w//2,4);stamp("chair",w//2+1,5)
-            stamp("plant",2,5)
+            stamp("bed",1,1)
+            stamp("bookshelf",5,1)
+            stamp("table",3,2)
+            stamp("chair",4,2)
+            stamp("plant",5,4)
         stamp("player",w//2,h-3)
     return grid
 
 SPECS=[
  ("Wurzelheim",20,18),("Route",20,18),
- ("Laden",12,9),("Heilstation",14,9),
- ("Schmiede",12,9),("Teamtausch",12,9),("Wohnhaus",10,8)
+ ("Laden",9,7),("Heilstation",10,7),
+ ("Schmiede",8,6),("Teamtausch",8,6),("Wohnhaus",7,6)
 ]
 scenes={}
 for name,w,h in SPECS:
