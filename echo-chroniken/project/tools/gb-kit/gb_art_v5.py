@@ -89,9 +89,9 @@ def upgrade(name,old):
  else:return old
  return im
 
-OBJECTS=['tree','table','counter','bookshelf','workbench','forge','plant',None,'anvil','crate']
+OBJECTS=['tree','table','counter','bookshelf','workbench','forge','plant',None,'anvil','crate','bed','chair','computer','heal_pod','capsule']
 def build_layers(out,tiles):
- sheet=Image.new('RGBA',(160,32))
+ sheet=Image.new('RGBA',(16*len(OBJECTS),32))
  for i,name in enumerate(OBJECTS):
   if name is None:continue
   obj=tree_v6() if name=='tree' else transparent_edge(tiles[name])

@@ -1,4 +1,4 @@
-"""Original 16-pixel workshop tiles, drawn on the Echo four-shade palette."""
+"""Original 16-pixel interior tiles, drawn on the Echo four-shade palette."""
 
 from PIL import Image, ImageDraw
 from gb_actors import P
@@ -7,7 +7,7 @@ from gb_actors import P
 BOUNDARY = ("north", "south", "west", "east", "nw", "ne", "sw", "se", "threshold")
 
 
-def workshop_tile(name, fallback):
+def interior_tile(name, fallback):
     image = Image.new("RGB", (16, 16), P[0])
     draw = ImageDraw.Draw(image)
 
@@ -70,6 +70,58 @@ def workshop_tile(name, fallback):
         box(4, 5, 1, 8, 2)
         box(11, 5, 1, 8, 2)
         box(6, 6, 4, 1, 3)
+    elif name == "bed":
+        box(1, 0, 14, 16, 3)
+        box(2, 1, 12, 2, 2)
+        box(3, 3, 10, 4, 0)
+        box(2, 7, 12, 7, 2)
+        box(3, 7, 10, 2, 1)
+        box(7, 10, 2, 3, 1)
+        box(2, 14, 12, 1, 1)
+    elif name == "chair":
+        box(3, 2, 10, 13, 3)
+        box(4, 3, 8, 4, 2)
+        box(4, 8, 8, 4, 1)
+        box(5, 8, 6, 1, 0)
+        box(5, 13, 6, 2, 0)
+    elif name == "table":
+        box(1, 3, 14, 9, 3)
+        box(2, 4, 12, 4, 1)
+        box(2, 4, 12, 1, 0)
+        box(2, 9, 12, 2, 2)
+        box(3, 12, 2, 3, 3)
+        box(11, 12, 2, 3, 3)
+        box(7, 5, 3, 2, 2)
+    elif name == "counter":
+        # The tabletop reaches both tile edges to make a continuous service desk.
+        box(0, 3, 16, 11, 3)
+        box(0, 4, 16, 4, 1)
+        box(0, 4, 16, 1, 0)
+        box(1, 9, 14, 3, 2)
+        box(6, 9, 4, 1, 1)
+    elif name == "heal_pod":
+        box(2, 2, 12, 13, 3)
+        box(3, 3, 10, 10, 2)
+        box(4, 4, 8, 6, 1)
+        box(7, 4, 2, 6, 3)
+        box(5, 6, 6, 2, 3)
+        box(4, 11, 5, 1, 0)
+        box(11, 11, 1, 1, 0)
+    elif name == "computer":
+        box(2, 1, 12, 10, 3)
+        box(4, 3, 8, 6, 2)
+        box(5, 4, 6, 1, 0)
+        box(5, 6, 4, 1, 1)
+        box(6, 10, 4, 2, 3)
+        box(3, 12, 10, 3, 3)
+        box(4, 12, 8, 1, 1)
+    elif name == "capsule":
+        box(4, 1, 8, 14, 3)
+        box(3, 3, 10, 9, 3)
+        box(5, 3, 6, 9, 1)
+        box(6, 4, 1, 5, 0)
+        box(8, 7, 2, 3, 2)
+        box(3, 13, 10, 2, 2)
     elif name == "room_wall":
         return boundary_tile("north")
     else:
@@ -116,8 +168,36 @@ def boundary_tile(name):
     return image
 
 
+ROOM_FLOORS = ("Wohnhaus", "Laden", "Heilstation", "Teamtausch")
+
+
+def room_floor(name):
+    image = Image.new("RGB", (16, 16), P[1] if name != "Heilstation" else P[0])
+    draw = ImageDraw.Draw(image)
+    if name == "Wohnhaus":
+        for y in (7, 15):
+            draw.line((0, y, 15, y), fill=P[2])
+        for x, y in ((3, 0), (11, 8)):
+            draw.line((x, y, x, y + 6), fill=P[2])
+            draw.line((x + 2, y + 3, x + 4, y + 3), fill=P[0])
+    elif name == "Laden":
+        for x, y in ((0, 0), (8, 8)):
+            draw.rectangle((x, y, x + 7, y + 7), fill=P[0])
+    elif name == "Heilstation":
+        draw.line((0, 15, 15, 15), fill=P[1])
+        draw.line((15, 0, 15, 15), fill=P[1])
+        draw.rectangle((6, 6, 8, 8), fill=P[1])
+    elif name == "Teamtausch":
+        draw.line((0, 15, 15, 15), fill=P[2])
+        draw.line((15, 0, 15, 15), fill=P[2])
+        for x, y in ((2, 2), (12, 2), (2, 12), (12, 12)):
+            draw.point((x, y), fill=P[2])
+    return image
+
+
 def build_boundaries(out):
-    sheet = Image.new("RGB", (16 * len(BOUNDARY), 16))
-    for column, name in enumerate(BOUNDARY):
-        sheet.paste(boundary_tile(name), (column * 16, 0))
+    tiles = [boundary_tile(name) for name in BOUNDARY] + [room_floor(name) for name in ROOM_FLOORS]
+    sheet = Image.new("RGB", (16 * len(tiles), 16))
+    for column, tile in enumerate(tiles):
+        sheet.paste(tile, (column * 16, 0))
     sheet.save(out / "interior_edges.png")

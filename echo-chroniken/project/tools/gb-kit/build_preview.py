@@ -5,6 +5,8 @@ No API, no CDN, no trademark assets or third-party dependencies.
 """
 from pathlib import Path
 import base64,json
+from gb_art_v5 import OBJECTS
+from gb_interiors import ROOM_FLOORS
 root=Path(__file__).resolve().parents[2]
 out=root.parent/"docs"/"gb-classic"/"klassik-demo.html"
 js=json.loads((root/"assets"/"gb-classic"/"scene_maps.json").read_text(encoding="utf-8"))
@@ -18,7 +20,7 @@ payload=json.dumps(js,ensure_ascii=False,separators=(",",":"))
 manifest=json.dumps(tile,ensure_ascii=False,separators=(",",":"))
 html="""<!doctype html><html lang="de"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
-<title>Echo-Chroniken · Game Boy Grafiktest V10</title>
+<title>Echo-Chroniken · Game Boy Grafiktest V11</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -48,7 +50,7 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 :fullscreen body{max-width:none;width:100vw;height:100vh}
 :fullscreen #view{max-height:76vh}
 </style></head><body>
-<h1>🎮 Echo-Chroniken · Game Boy · Grafik V10</h1>
+<h1>🎮 Echo-Chroniken · Game Boy · Grafik V11</h1>
 <div class="subtitle">Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.</div>
 <div class="controls">
 <label for="scene">Karte:</label><select id="scene"></select>
@@ -140,7 +142,7 @@ function stage(name,returning=false,entry=null){
 function tileAt(map,x,y){
  return glyph[map.rows[y]?.[x]]||null;
 }
-const objectNames=['tree','table','counter','bookshelf','workbench','forge','plant',null,'anvil','crate'];
+const objectNames=__OBJECTS__, roomFloors=__ROOM_FLOORS__;
 function draw(now=performance.now()){
  if(typeof now!=='number')now=performance.now();
  const map=DATA.scenes[scene];
@@ -151,8 +153,12 @@ function draw(now=performance.now()){
  ctx.fillStyle=MANIFEST.palette[3];ctx.fillRect(0,0,view.width,view.height);
  const sx=x=>Math.round(x*16)-Math.round(cam.x*16),sy=y=>Math.round(y*16)-Math.round(cam.y*16);
  const ground=scene==='Wurzelheim'||scene==='Route'?'floor':'room_floor';
- const depth=[],grass=[];
+ const depth=[],grass=[],floorIndex=roomFloors.indexOf(scene);
  function tile(id,x,y){
+  if(id==='room_floor'&&floorIndex>=0){
+   ctx.drawImage(edges,(9+floorIndex)*TILE,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+   return;
+  }
   const i=MANIFEST.sprites[id]?.atlasIndex;
   if(i!==undefined)ctx.drawImage(atlas,i%8*16,Math.floor(i/8)*16,16,16,sx(x),sy(y),16,16);
  }
@@ -360,5 +366,5 @@ Promise.all([atlas,actors,foreground,houses,edges].map(im=>im.decode())).then(()
 </script></body></html>
 """
 out.parent.mkdir(parents=True,exist_ok=True)
-out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data).replace("__ACTORS__",actor_data).replace("__FOREGROUND__",foreground_data).replace("__HOUSES__",house_data).replace("__EDGES__",edge_data),encoding="utf-8")
+out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data).replace("__ACTORS__",actor_data).replace("__FOREGROUND__",foreground_data).replace("__HOUSES__",house_data).replace("__EDGES__",edge_data).replace("__OBJECTS__",json.dumps(OBJECTS)).replace("__ROOM_FLOORS__",json.dumps(ROOM_FLOORS)),encoding="utf-8")
 print("GB_PLAYABLE_PREVIEW",out,out.stat().st_size)
