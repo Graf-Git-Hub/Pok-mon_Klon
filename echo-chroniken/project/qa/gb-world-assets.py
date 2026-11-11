@@ -45,5 +45,22 @@ for key,m in world.items():
     for marker in m['markers']:
         x,y=marker['x'],marker['y']
         assert any((x+dx,y+dy) in seen for dx,dy in ((0,1),(0,-1),(1,0),(-1,0))), (key,marker)
+for key in ('legacy_wurzeldorf','lake_north_path'):
+    m=world[key]
+    shore_widths={row.count('6') for row in m['rows']} - {0}
+    assert len(shore_widths)>=4,(key,shore_widths)
+    center=(m['width']//2,m['height']//2)
+    seen={center}
+    queue=deque([center])
+    while queue:
+        x,y=queue.popleft()
+        for dx,dy in ((0,1),(0,-1),(1,0),(-1,0)):
+            nx,ny=x+dx,y+dy
+            if (0<=nx<m['width'] and 0<=ny<m['height'] and (nx,ny) not in seen
+                    and m['rows'][ny][nx] in '1C'):
+                seen.add((nx,ny))
+                queue.append((nx,ny))
+    assert all(tuple(map(int,pos.split(','))) in seen for pos,p in m['portals'].items()
+               if p.get('direction')),key
 assert seams >= 20 and seams % 2 == 0, seams
 print('GB_WORLD_ASSETS_PASS: 60 maps, 238 source landmarks,',portals,'reachable exits,',seams,'walk-through directions')

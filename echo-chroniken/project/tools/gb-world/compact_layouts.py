@@ -57,7 +57,68 @@ def compose(source, scenes, glyph):
                 left,top=position(x,y)
                 right,bottom=position(x+w-1,y+h-1)
                 fill(name,left,top,right-left+1,bottom-top+1)
-        if indoor:
+        authored = key in ("legacy_wurzeldorf", "lake_north_path")
+        if authored:
+            # Vary the edges of woodland and water while keeping the tile grid.
+            def patch(name, cx, cy, rx, ry, trim=0):
+                for y in range(max(1,cy-ry),min(height-1,cy+ry+1)):
+                    for x in range(max(1,cx-rx),min(width-1,cx+rx+1)):
+                        distance = ((x-cx)/rx)**2 + ((y-cy)/ry)**2
+                        if distance <= 1 - ((x*3+y*5)%7)*trim:
+                            stamp(name,x,y)
+
+            def trail(points):
+                for (x,y),(end_x,end_y) in zip(points,points[1:]):
+                    left,right=sorted((x,end_x))
+                    top,bottom=sorted((y,end_y))
+                    if x==end_x:
+                        fill("path",x,top,2,bottom-top+1)
+                    else:
+                        assert y==end_y
+                        fill("path",left,y,right-left+1,2)
+
+            if key=="legacy_wurzeldorf":
+                for x,y,rx,ry in ((3,5,5,5),(16,2,6,3),(31,5,6,5),(4,22,5,6),
+                                  (24,25,6,4),(34,22,4,6),(7,12,3,2)):
+                    patch("tree",x,y,rx,ry,.025)
+                patch("water_a",8,16,6,5,.015)
+                patch("grass",26,20,5,3,.025)
+                patch("grass",18,25,4,2,.02)
+                patch("flower",10,8,3,2,.045)
+                patch("flower",26,10,3,2,.05)
+                trail(((16,14),(22,14),(22,12),(30,12),(30,14),(35,14)))
+                trail(((16,14),(12,14),(12,9),(9,9)))
+                trail(((21,14),(21,20),(16,20),(16,23)))
+                trail(((20,14),(20,8),(24,8)))
+                patch("floor_stone",18,14,4,3)
+                house_sites=((9,6,0),(22,5,1),(12,20,2),(27,17,3))
+                trail(((29,20),(29,16),(30,16),(30,14)))
+            else:
+                for x,y,rx,ry in ((4,6,8,6),(13,3,6,4),(22,24,7,5),
+                                  (6,24,8,5),(45,5,5,6),(46,25,7,6)):
+                    patch("tree",x,y,rx,ry,.025)
+                patch("water_a",28,5,13,8,.015)
+                patch("grass",11,18,7,4,.03)
+                patch("grass",31,21,8,4,.025)
+                patch("grass",38,13,5,3,.04)
+                patch("flower",13,7,4,2,.05)
+                patch("bush",24,17,4,2,.06)
+                trail(((0,14),(6,14),(6,11),(14,11),(14,14),(27,14),
+                       (27,16),(37,16),(37,14),(47,14)))
+                trail(((14,14),(14,18),(16,18)))
+                trail(((32,16),(32,21),(35,21)))
+                house_sites=()
+            # The route openings are one tile wide at each map boundary.
+            stamp(solid,0,15)
+            stamp(solid,width-1,15)
+            for x,y,kind in house_sites:
+                fill("roof_m",x,y,5,2)
+                fill("wall",x,y+2,5,1)
+                stamp("window",x+1,y+2)
+                stamp("window",x+3,y+2)
+                stamp("door",x+2,y+2)
+                buildings.append({"left":x,"top":y,"kind":kind})
+        elif indoor:
             if meta["theme"] in ("cave","ice"):
                 fill("rock",3,2,2,3)
                 fill("rock",8,5,2,3)
@@ -194,7 +255,8 @@ def compose(source, scenes, glyph):
             rows[start[1]][start[0]]=ground if indoor else "path"
 
         for exit in exits:
-            path_to(exit["x"],exit["y"])
+            if not authored or not exit["direction"]:
+                path_to(exit["x"],exit["y"])
             stamp("path" if exit["direction"] else "stairs",exit["x"],exit["y"])
 
         # Place every story landmark on an accessible cell, with a route retained to its neighbours.
@@ -202,14 +264,16 @@ def compose(source, scenes, glyph):
         avoid=set(used)
         positions=[(x,y) for y in range(2,height-2) for x in range(2,width-2)
                    if rows[y][x] not in blocked and (x,y) not in avoid
-                   and (x,y)!=(width//2,height//2)]
+                   and (x,y)!=(width//2,height//2)
+                   and (not authored or rows[y][x] not in ("path","floor_stone"))]
         positions.sort(key=lambda p:(((p[0]*7+p[1]*11+index*3)%17),p[1],p[0]))
         for original_marker in original["markers"]:
             assert positions,key
             x,y=positions.pop(0)
             markers.append({**original_marker,"sourceX":original_marker["x"],
                             "sourceY":original_marker["y"],"x":x,"y":y})
-            path_to(x,y)
+            if not authored:
+                path_to(x,y)
             previous_name=scenes[key]["rows"][original_marker["y"]][original_marker["x"]]
             symbol_name=next((name for name,symbol in glyph.items() if symbol==previous_name),"sign")
             if symbol_name not in ("npc","heal_pod","computer","crate","sign"):

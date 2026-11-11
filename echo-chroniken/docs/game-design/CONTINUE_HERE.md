@@ -1,5 +1,7 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+> GB-Welt V15: Wurzelheim und Nordufer individuell gestaltet. Dorfplatz und Häuser liegen an durchgehenden Wegen, am Nordufer führt die Route am See und an Graslichtungen vorbei. Weitere Gebiete basieren auf V14.
+
 > GB-Welt V14: Größere Außenkarten mit 17 beidseitig verbundenen Außenwegen und sichtbarer Nachbarkarte. Siehe ../gb-classic/WORLD_60_README.md. Nächster Integrationsschritt bleibt die Übertragung in die Hauptspiel-Engine mit Storybedingungen, Kämpfen und Saves.
 
 > GB-Welt V13: Alle 60 Gebiets-IDs als kompakte Erkundungswelt unter ../gb-classic/welt-60-karten.html. 118 Graph-Verbindungen und 238 Landmarken aus dem Originalmanifest übertragen. Grundrisse und Landmarkenpositionen neu angeordnet. Storybedingungen sind in der Vorschau geöffnet. Die Kampf-/Quest-Engine und die Save-Dateien sind dort nicht aktiv. Generatoren unter project/tools/gb-world. Hauptspielintegration und menschliche Einzelabnahme bleiben eigene Schritte.

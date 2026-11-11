@@ -1,3 +1,7 @@
+# 11.11.2026 – GB-Erkundungswelt V15
+
+Wurzelheim und Nordufer individuell gestaltet. Dorfplatz, verzweigte Wege, versetzte Häuser, Seeufer und Waldlichtungen.
+
 # 11.11.2026 – GB-Erkundungswelt V14
 
 Außenkarten auf ursprüngliche Abmessungen erweitert. 17 Paare von Außenwegen zeigen die Nachbarkarte und führen ohne Unterbrechung der Laufanimation über den Kartenrand.

@@ -230,7 +230,7 @@ html = html.replace('if(scene!=="Wurzelheim"&&scene!=="Route")stage("Wurzelheim"
                     'if(false)stage("legacy_wurzeldorf");')
 html = html.replace('B: Zurück funktioniert innerhalb eines Hauses.',
                     'Folge den Wegen und Treppen oder wähle oben ein Gebiet.')
-html = html.replace('Grafiktest V12', '60 Karten · GB-Welt V14').replace('Grafik V12', '60 Karten · V14')
+html = html.replace('Grafiktest V12', '60 Karten · GB-Welt V15').replace('Grafik V12', '60 Karten · V15')
 html = html.replace('Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.',
                     'Erkundungsfassung · 60 bestehende Storykarten im GB-Stil · Außenwege gehen über den Kartenrand weiter · Storybedingungen für die Besichtigung geöffnet.')
 html = html.replace('Handy: 10 × 9 Felder · TV: 16 × 9 Felder · Pixel bleiben scharf. Das Bild scrollt mit deiner Spielfigur, Spiellogik und alte Speicherstände werden nicht verändert.',
