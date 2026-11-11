@@ -46,3 +46,4 @@ M99-WORLD-ART-10;M99;Optional handcrafted visual polish of the enlarged retro wo
 GB-V5;GB-PROTOTYP;Eigene Pixelgrafik und echte Laufanimation;GB-V4;tools/gb-kit und qa;39 Terrain-IDs und 12 Posen, Browser-QA und separate Vorschau;M;DONE_PROTOTYPE_ONLY
 
 GB-WORLD-60;GB-PROTOTYP;Kompakte Erkundungswelt aller 60 Gebiete;GB-V12;tools/gb-world und qa/gb-world;60 Gebiete und 118 Übergänge im Browser geprüft;L;DONE_EXPLORATION_PREVIEW
+GB-WORLD-V14;GB-PROTOTYP;Große Außenkarten und direkte Außenwege;GB-WORLD-60;tools/gb-world und qa/gb-world;60 Karten mit 118 erreichbaren Übergängen und 34 beidseitig zugeordneten Randrichtungen;M;DONE_EXPLORATION_PREVIEW

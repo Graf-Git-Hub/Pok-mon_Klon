@@ -1,5 +1,7 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+> GB-Welt V14: Größere Außenkarten mit 17 beidseitig verbundenen Außenwegen und sichtbarer Nachbarkarte. Siehe ../gb-classic/WORLD_60_README.md. Nächster Integrationsschritt bleibt die Übertragung in die Hauptspiel-Engine mit Storybedingungen, Kämpfen und Saves.
+
 > GB-Welt V13: Alle 60 Gebiets-IDs als kompakte Erkundungswelt unter ../gb-classic/welt-60-karten.html. 118 Graph-Verbindungen und 238 Landmarken aus dem Originalmanifest übertragen. Grundrisse und Landmarkenpositionen neu angeordnet. Storybedingungen sind in der Vorschau geöffnet. Die Kampf-/Quest-Engine und die Save-Dateien sind dort nicht aktiv. Generatoren unter project/tools/gb-world. Hauptspielintegration und menschliche Einzelabnahme bleiben eigene Schritte.
 
 > **Grafik V5, 10.11.2026:** Isolierter Branch `feature/echo-gb-art-animation-v5-20261110` verbessert nur die GB-Stilvorschau: eigene 12 Richtungs-/Laufposen, zwei NPCs, überarbeitete gemeinsame Tiles, Gras-/Objektvordergrund und behutsame Dorf-/Schmiedeänderungen. Siehe `../gb-classic/GRAFIK_V5_TESTBERICHT.md` und `GRAFIK_V5_RECHERCHE.md`. Kein Merge, keine APK-/Save-/60-Karten-Umstellung. Physische Android-/TV-Geräte weiterhin offen.

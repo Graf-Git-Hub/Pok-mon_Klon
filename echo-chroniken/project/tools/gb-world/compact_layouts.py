@@ -1,13 +1,33 @@
-"""Compose compact, connected maps from named regions and their existing world graph."""
+"""Compose connected maps from named regions and their existing world graph."""
 
 
 
 def compose(source, scenes, glyph):
     layouts = {}
+    directions = ((1, 0), (-1, 0), (0, -1), (0, 1))
+    seams = {key: {} for key in source}
+    for key, region in source.items():
+        if scenes[key]["indoor"] or scenes[key]["theme"] == "roof":
+            continue
+        for link in region["exits"]:
+            target = link["toMapId"]
+            if scenes[target]["indoor"] or scenes[target]["theme"] == "roof" or target in seams[key]:
+                continue
+            reverse = next((exit for exit in source[target]["exits"] if exit["toMapId"] == key), None)
+            if reverse is None:
+                continue
+            horizontal = 2 * link["x"] / (region["w"] - 1) - 1
+            vertical = 2 * link["y"] / (region["h"] - 1) - 1
+            for dx, dy in sorted(directions, key=lambda d: -(horizontal * d[0] + vertical * d[1])):
+                opposite = (-dx, -dy)
+                if (dx, dy) not in seams[key].values() and opposite not in seams[target].values():
+                    seams[key][target] = (dx, dy)
+                    seams[target][key] = opposite
+                    break
     for index, (key, original) in enumerate(source.items()):
         meta = scenes[key]
         indoor = meta["indoor"]
-        width, height = (12, 9) if indoor else (20, 18)
+        width, height = (12, 9) if indoor else (original["w"], original["h"])
         ground = "room_floor" if indoor else "floor"
         solid = "room_wall" if indoor else "rock" if meta["theme"] in ("cave", "ice") else "tree"
         rows = [[ground for _ in range(width)] for _ in range(height)]
@@ -25,6 +45,18 @@ def compose(source, scenes, glyph):
                 for xx in range(x,x+w):stamp(name,xx,yy)
 
         buildings = []
+        if not indoor:
+            # Space out the original composition while keeping buildings at sprite size.
+            def position(x,y):
+                return round(x*(width-1)/19), round(y*(height-1)/17)
+
+            def place(name,x,y):
+                stamp(name,*position(x,y))
+
+            def area(name,x,y,w,h):
+                left,top=position(x,y)
+                right,bottom=position(x+w-1,y+h-1)
+                fill(name,left,top,right-left+1,bottom-top+1)
         if indoor:
             if meta["theme"] in ("cave","ice"):
                 fill("rock",3,2,2,3)
@@ -54,53 +86,63 @@ def compose(source, scenes, glyph):
             for x in range(1,width-1):rows[0][x]="wall";rows[height-1][x]="wall"
             for y in range(1,height-1):rows[y][0]="wall";rows[y][width-1]="wall"
             fill("floor_stone",1,1,width-2,height-2)
-            fill("computer",6,3,2,1)
-            fill("floor_stone",7,7,6,3)
-            fill("fence",3,12,5,1)
-            stamp("computer",14,7)
+            area("computer",6,3,2,1)
+            area("floor_stone",7,7,6,3)
+            area("fence",3,12,5,1)
+            place("computer",14,7)
         elif meta["theme"] == "town":
             for x,y,kind in ((2,2,0),(12,2,1),(2,10,2),(12,10,3)):
+                x,y=position(x,y)
                 fill("roof_m",x,y,5,2)
                 fill("wall",x,y+2,5,1)
                 stamp("window",x+1,y+2);stamp("window",x+3,y+2)
                 stamp("door",x+2,y+2)
                 buildings.append({"left":x,"top":y,"kind":kind})
-            fill("path",8,1,4,16)
-            fill("path",2,5,15,2)
-            fill("path",2,13,15,2)
-            fill("floor_stone",7,7,6,3)
-            fill("water_a",16,7,2,2)
-            fill("flower",2,7,3,1)
-            fill("grass",3,15,4,2)
-            fill("tree",18,2,1,13)
+            area("path",8,1,4,16)
+            area("path",2,5,15,2)
+            area("path",2,13,15,2)
+            area("floor_stone",7,7,6,3)
+            area("water_a",16,7,2,2)
+            area("flower",2,7,3,1)
+            area("grass",3,15,4,2)
+            area("tree",18,2,1,13)
         else:
             for x,y,w,h in ((1,1,5,3),(14,1,5,3),(1,12,4,5),(15,13,4,4)):
-                fill(solid,x,y,w,h)
-            fill("path",9,1,2,16)
-            fill("path",6,8,9,2)
+                area(solid,x,y,w,h)
+            area("path",9,1,2,16)
+            area("path",6,8,9,2)
             if meta["theme"] in ("forest","marsh"):
-                fill("grass",3+index%2,5,4,3)
-                fill("grass",12,4+index%2,4,3)
-                fill("grass",5,11,3,2+index%2)
-                fill("grass",12,12,3,3)
-                fill("flower",3,9,3,1)
+                area("grass",3+index%2,5,4,3)
+                area("grass",12,4+index%2,4,3)
+                area("grass",5,11,3,2+index%2)
+                area("grass",12,12,3,3)
+                area("flower",3,9,3,1)
             else:
-                fill("rock",4,5,2,3)
-                fill("rock",13,11,2,3)
-                fill("floor_stone",6,6,3,3)
-            fill("water_a",15,9,3,3)
+                area("rock",4,5,2,3)
+                area("rock",13,11,2,3)
+                area("floor_stone",6,6,3,3)
+            area("water_a",15,9,3,3)
             if meta["theme"]=="marsh":
-                fill("water_a",2,7,3,3)
-                fill("grass",5,13,3,3)
+                area("water_a",2,7,3,3)
+                area("grass",5,13,3,3)
             if "garden" in key or "grove" in key or "meadow" in key:
                 for fx,fy in ((3,4),(6,4),(13,11),(14,12)):
-                    stamp("flower",fx,fy)
-            stamp("sign",7,9)
+                    place("flower",fx,fy)
+            place("sign",7,9)
         # Every map's exits have a distinct position. Region IDs and graph targets are exact.
         exits = []
         used = set()
+        edge_paths = {}
+        for target, (dx,dy) in seams[key].items():
+            x = (width-1 if dx>0 else 0) if dx else width//2
+            y = (height-1 if dy>0 else 0) if dy else height//2
+            edge_paths[target] = (x,y)
+        reserved = set(edge_paths.values())
         for number, link in enumerate(original["exits"]):
-            if indoor:
+            direction = seams[key].get(link["toMapId"])
+            if direction:
+                x,y=edge_paths[link["toMapId"]]
+            elif indoor:
                 candidates = [(width//2,height-1),(width-1,3),(width//2,0),(0,5)]
                 x,y=candidates[number % len(candidates)]
             elif buildings and scenes[link["toMapId"]]["indoor"]:
@@ -112,12 +154,12 @@ def compose(source, scenes, glyph):
                 edge=min(((ox,"west"),(1-ox,"east"),(oy,"north"),(1-oy,"south")))[1]
                 x,y={"west":(0,8+number),"east":(width-1,8+number),
                      "north":(9+number,0),"south":(9+number,height-1)}[edge]
-            while (x,y) in used:
+            while (x,y) in used or (not direction and (x,y) in reserved):
                 if x in (0,width-1):y+=1
                 else:x+=1
             assert 0<=x<width and 0<=y<height,(key,x,y)
             used.add((x,y))
-            exits.append({**link,"x":x,"y":y,"sourceX":link["x"],"sourceY":link["y"]})
+            exits.append({**link,"x":x,"y":y,"sourceX":link["x"],"sourceY":link["y"],"direction":direction})
         # Carve routes to all gateways without overwriting building silhouettes.
         blocked = {"tree","rock","water_a","roof_m","wall","window","room_wall",
                    "bookshelf","workbench","forge","crate","bed","table","chair",
@@ -144,13 +186,16 @@ def compose(source, scenes, glyph):
             point=(x,y)
             while point!=start:
                 xx,yy=point
-                if rows[yy][xx] in blocked:rows[yy][xx]=ground if indoor else "path"
+                if rows[yy][xx] in blocked or (
+                    rows[yy][xx] == ground and (x,y) in reserved
+                ):
+                    rows[yy][xx]=ground if indoor else "path"
                 point=previous[point]
             rows[start[1]][start[0]]=ground if indoor else "path"
 
         for exit in exits:
             path_to(exit["x"],exit["y"])
-            stamp("stairs",exit["x"],exit["y"])
+            stamp("path" if exit["direction"] else "stairs",exit["x"],exit["y"])
 
         # Place every story landmark on an accessible cell, with a route retained to its neighbours.
         markers=[]
@@ -194,15 +239,25 @@ def compose(source, scenes, glyph):
                 m["spawns"][name]={"x":x,"y":y}
             else:m["spawns"][name]=dict(m["entry"])
         m["entry"]=next(iter(m["spawns"].values()))
+    for key,m in layouts.items():
+        for e in m["exits"]:
+            if e["direction"]:
+                target=layouts[e["toMapId"]]
+                reverse=next(link for link in target["exits"] if link["toMapId"]==key)
+                target["spawns"][e["toSpawnId"]]={"x":reverse["x"],"y":reverse["y"]}
+
     solid={"tree","rock","water_a","roof_m","wall","window","room_wall",
            "bookshelf","workbench","forge","bed","table","chair","plant","counter","anvil"}
     for key,m in layouts.items():
         data=scenes[key]
         portals={}
         for e in m["exits"]:
-            spawn=layouts[e["toMapId"]]["spawns"][e["toSpawnId"]]
+            target=layouts[e["toMapId"]]
+            spawn=target["spawns"][e["toSpawnId"]]
             portals[str(e["x"])+","+str(e["y"])]={
                 "scene":e["toMapId"],"x":spawn["x"],"y":spawn["y"],"exitId":e["exitId"]}
+            if e["direction"]:
+                portals[f'{e["x"]},{e["y"]}']["direction"]=e["direction"]
         data.update({k:m[k] for k in ("width","height","markers","entry","spawns","buildings")})
         data["portals"]=portals
         data["solids"]=["".join("1" if cell in solid else "0" for cell in row) for row in m["rows"]]
