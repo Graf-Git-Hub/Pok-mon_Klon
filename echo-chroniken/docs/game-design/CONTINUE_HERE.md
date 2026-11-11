@@ -1,5 +1,7 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+> Nordufer-Teststrecke: 10×9-Kachel-Kamera und acht Pixelphasen pro Schritt. Der östliche Waldsaum Wurzelheims schließt direkt an das Nordufer an. Zwei Wege führen um beziehungsweise durch das erste Grasfeld zum alten Steg. Der Test ist separat spielbar unter https://graf-git-hub.github.io/Souls/echo-chroniken-nordufer-test.html.
+
 > V14-Hauptspiel: Die reguläre Kampagne nutzt V14-Grafik für alle 60 Gebiete. 17 Außenverbindungen wechseln in beide Richtungen ohne Namensdialog. Storysperren und Autosave bleiben aktiv. Die Grundrisse und Questkoordinaten stammen aus der Kampagne. Siehe ../gb-classic/V14_HAUPTSPIEL.md.
 
 > GB-Welt V14: Größere Außenkarten mit 17 beidseitig verbundenen Außenwegen und sichtbarer Nachbarkarte. Siehe ../gb-classic/WORLD_60_README.md. Nächster Integrationsschritt bleibt die Übertragung in die Hauptspiel-Engine mit Storybedingungen, Kämpfen und Saves.

@@ -1,3 +1,7 @@
+# 11.11.2026 – Nordufer-Teststrecke
+
+V14-Grafik, enger Kameraausschnitt, acht Pixelphasen je Schritt und durchgehender Kartenrand. Direkter Grasweg und trockener Umweg am Nordufer.
+
 # 11.11.2026 – V14-Grafik im Hauptspiel
 
 60 Kampagnengebiete nutzen V14-Grafik, inklusive Spieleranimation und raschelndem Gras. Direkte Außenwechsel an 17 Verbindungspaaren.

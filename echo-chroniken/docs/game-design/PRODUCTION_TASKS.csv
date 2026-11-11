@@ -48,3 +48,4 @@ GB-V5;GB-PROTOTYP;Eigene Pixelgrafik und echte Laufanimation;GB-V4;tools/gb-kit 
 GB-WORLD-60;GB-PROTOTYP;Kompakte Erkundungswelt aller 60 Gebiete;GB-V12;tools/gb-world und qa/gb-world;60 Gebiete und 118 Übergänge im Browser geprüft;L;DONE_EXPLORATION_PREVIEW
 GB-WORLD-V14;GB-PROTOTYP;Große Außenkarten und direkte Außenwege;GB-WORLD-60;tools/gb-world und qa/gb-world;60 Karten mit 118 erreichbaren Übergängen und 34 beidseitig zugeordneten Randrichtungen;M;DONE_EXPLORATION_PREVIEW
 GB-V14-CAMPAIGN;GB-PROTOTYP;V14-Grafik in der vollständigen Kampagne;GB-WORLD-V14;project/src/maps/gb-campaign.js und project/src/game.js;60 Renderaufrufe und 34 Außenrichtungen mit Kampagnenregeln;L;DONE_CAMPAIGN_ART
+GB-NORTH-SHORE-PILOT;GB-PROTOTYP;Kamera und Laufgefühl auf Wurzelheim–Nordufer prüfen;GB-WORLD-V14;project/tools/gb-world/build_route_pilot.py;Zwei begehbare Routen und koordinatengleicher Kameraverlauf am Kartenrand;M;DONE_PILOT

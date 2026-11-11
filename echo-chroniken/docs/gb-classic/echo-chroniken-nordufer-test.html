@@ -1,0 +1,383 @@
+<!doctype html><html lang="de"><head><meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
+<title>Echo-Chroniken · Wurzelheim → Nordufer</title>
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{background:#17191b;color:#e6e6de;font-family:system-ui,sans-serif;max-width:540px;margin:0 auto;padding:12px}
+h1{font-size:20px;margin:5px 0}
+.subtitle{font-size:12px;line-height:1.5;color:#acada9;margin-bottom:9px}
+.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:12px}
+select,button{border:2px solid #999;background:#303439;color:#f0f0eb;padding:10px 12px;border-radius:7px;font:600 15px system-ui}
+button:focus-visible,select:focus-visible{outline:3px solid #f4f4ef;outline-offset:2px}
+#game-frame{margin:0 auto;max-width:1100px;display:grid;justify-items:center}
+#view{display:block;image-rendering:pixelated;image-rendering:crisp-edges;background:#f4f4ef;border:4px solid #42474b;
+  max-width:100%;width:min(100%,480px);height:auto;touch-action:none}
+#hud{font-size:13px;font-weight:600;align-self:start;margin:7px 0;color:#d1d1cc}
+#message{font-size:13px;min-height:34px;line-height:1.4;color:#d5d6c9;margin-top:7px;text-align:center}
+#controller-state{font-size:12px;color:#babdb7;text-align:center}
+.pad{display:grid;grid-template-columns:repeat(3,66px) 82px;grid-template-rows:repeat(2,55px);
+ justify-content:center;gap:7px;margin:12px auto}
+.pad button{padding:6px;font-size:22px;touch-action:none;user-select:none;-webkit-user-select:none}
+.pad .up{grid-column:2;grid-row:1}.pad .left{grid-column:1;grid-row:2}
+.pad .down{grid-column:2;grid-row:2}.pad .right{grid-column:3;grid-row:2}
+.pad .action{grid-column:4;grid-row:2;border-radius:30px}
+footer{font-size:12px;line-height:1.5;color:#b8bbb6;text-align:center;margin:10px auto;max-width:650px}
+body.gamepad .pad{display:none}
+@media (orientation:landscape) and (min-width:850px) and (pointer:fine){body{padding:10px 24px}#game-frame{width:100%}.pad{display:none}}
+@media (max-width:480px){body{padding:9px}.pad{grid-template-columns:repeat(3,58px) 75px;grid-template-rows:repeat(2,53px);gap:5px}
+h1{font-size:18px}select,button{padding:9px 10px}}
+:fullscreen body{max-width:none;width:100vw;height:100vh}
+:fullscreen #view{max-height:76vh}
+</style></head><body>
+<h1>Echo-Chroniken · Wurzelheim → Nordufer</h1>
+<div class="controls">
+<label for="scene">Karte:</label><select id="scene"></select>
+<button id="fullscreen" type="button">⛶ Vollbild</button>
+<button id="reset" type="button">↺ Neustart</button>
+</div>
+<div id="game-frame">
+<canvas id="view" width="160" height="144" aria-label="Ausschnitt der Spielwelt, folgt deiner Figur"></canvas>
+<div id="hud" aria-live="polite"></div>
+</div>
+<div id="message" role="status">Mit Steuerkreuz, Pfeiltasten oder Gamepad bewegen. Mit A oder Enter interagieren.</div>
+<div id="controller-state">Handy: Touch · TV: Controller (Steuerkreuz / Stick, A, B, Start) · PC: Pfeiltasten/WASD</div>
+<div class="pad" aria-label="Steuerung">
+<button class="up" data-move="0,-1" aria-label="Hoch">▲</button>
+<button class="left" data-move="-1,0" aria-label="Links">◀</button>
+<button class="down" data-move="0,1" aria-label="Runter">▼</button>
+<button class="right" data-move="1,0" aria-label="Rechts">▶</button>
+<button class="action" id="action" aria-label="Interagieren">A</button>
+</div>
+<footer>Teststrecke für Kamera und Laufgefühl.</footer>
+<script>
+'use strict';
+const DATA={"scenes":{"legacy_wurzeldorf":{"title":"Wurzelheim","width":36,"height":28,"indoor":false,"theme":"town","rows":["444444444444444444444444444444444444","400000000000000000000000000000000004","400000000000000111111000000000000004","4000bbbbb0000001111110bbbbb000000404","4000bbbbb0000001111110bbbbb000000404","4000defed0000001111110defed000000404","400000000000000111111000000000000404","400000000000000111111000000000000404","400011111111111111111111111111000404","400011111111111111111111111111000404","400011111111111111111111111111000404","4000BBBB00000CCCCCCCCCC0000006444444","4000000000000CCCCCCCCCC0000006444444","4000000000000CCCCCCCCCC0009006664444","4000000000000CCCCC1CCCC1111111111111","400000000000000111111000000000044444","4000bbbbb0000001111110bbbbb044444444","4000bbbbb0000001111110bbbbb044444444","4000defed0000001111110defed044444444","400000000000000111111000000044444444","400000000000000111111000000044444444","400011111111111111111111111144444444","400011111111111111111111111144444444","400000000000000111111111111144444444","400000222222000111111000000000000004","400000222222000111111000000000000004","400000000000000000000000000000000004","444444444444444444444444444444444444"],"entry":{"x":23,"y":14},"spawns":{"village_safe":{"x":18,"y":14},"north_shore":{"x":35,"y":14}},"markers":[{"x":26,"y":13,"label":"Nordufer →"}],"portals":{"35,14":{"scene":"lake_north_path","x":0,"y":14,"exitId":"to_lake","direction":[1,0]}},"solids":["111111111111111111111111111111111111","100000000000000000000000000000000001","100000000000000000000000000000000001","100011111000000000000011111000000101","100011111000000000000011111000000101","100011111000000000000011111000000101","100000000000000000000000000000000101","100000000000000000000000000000000101","100000000000000000000000000000000101","100000000000000000000000000000000101","100000000000000000000000000000000101","100000000000000000000000000001111111","100000000000000000000000000001111111","100000000000000000000000000001111111","100000000000000000000000000000000000","100000000000000000000000000000011111","100011111000000000000011111011111111","100011111000000000000011111011111111","100011111000000000000011111011111111","100000000000000000000000000011111111","100000000000000000000000000011111111","100000000000000000000000000011111111","100000000000000000000000000011111111","100000000000000000000000000011111111","100000000000000000000000000000000001","100000000000000000000000000000000001","100000000000000000000000000000000001","111111111111111111111111111111111111"],"buildings":[{"left":4,"top":3,"kind":0},{"left":22,"top":3,"kind":1},{"left":4,"top":16,"kind":2},{"left":22,"top":16,"kind":3}]},"lake_north_path":{"title":"Nordufer","width":34,"height":24,"indoor":false,"theme":"forest","entry":{"x":2,"y":14},"portals":{"0,14":{"scene":"legacy_wurzeldorf","x":35,"y":14,"direction":[-1,0]}},"markers":[{"x":4,"y":13,"label":"Geradeaus durchs Gras · unten am Gras vorbei"},{"x":25,"y":11,"label":"Alter Steg · Ende der Teststrecke"}],"rows":["4444444444444444444444444444444444","4444444444444444444444444444444444","4444444444444444444444444444444444","4444444444444444444444444444444444","4444444444444444444444444444444444","4444444444444444444444444444444444","4444444444444444444444444444444444","4444444444444444444006666660444444","4444444444444444400666666666604444","4444444444444440006666666666600444","4444444444444000000066666666000444","4444444444000000000000001900000044","4444002222200000022222201000040044","44009222222220000022111111B0004044","11111222222221111111100000000B0044","40B0102222220010000000000004400444","4400100044400B10000022222200000444","4440100000000010400002220000004444","4440111111111110000000000000044444","4444400000000000000000000044444444","4444444440000000000000444444444444","4444444444444444444444444444444444","4444444444444444444444444444444444","4444444444444444444444444444444444"],"solids":["1111111111111111111111111111111111","1111111111111111111111111111111111","1111111111111111111111111111111111","1111111111111111111111111111111111","1111111111111111111111111111111111","1111111111111111111111111111111111","1111111111111111111111111111111111","1111111111111111111001111110111111","1111111111111111100111111111101111","1111111111111110001111111111100111","1111111111111000000011111111000111","1111111111000000000000000000000011","1111000000000000000000000000010011","1100000000000000000000000000001011","0000000000000000000000000000000011","1000000000000000000000000001100111","1100000011100000000000000000000111","1110000000000000100000000000001111","1110000000000000000000000000011111","1111100000000000000000000011111111","1111111110000000000000111111111111","1111111111111111111111111111111111","1111111111111111111111111111111111","1111111111111111111111111111111111"]}},"symbols":{"0":"floor","1":"path","2":"grass","3":"bush","4":"tree","5":"fence","6":"water_a","7":"water_b","8":"rock","9":"sign","a":"roof_l","b":"roof_m","c":"roof_r","d":"wall","e":"window","f":"door","g":"room_floor","h":"room_wall","i":"bookshelf","j":"counter","k":"table","l":"chair","m":"computer","n":"heal_pod","o":"forge","p":"anvil","q":"crate","r":"barrel","s":"bed","t":"stairs","u":"workbench","v":"plant","w":"capsule","x":"npc","y":"player","z":"water_edge","A":"hedge","B":"flower","C":"floor_stone"}},MANIFEST={"version":"1.0","name":"Echo-Chroniken GB-Klassik","license":"Original artwork, project-owned; inspired by constraints, not copied sprites","palette":["#f4f4ef","#c7c8c4","#777a7b","#24262b"],"tileSize":16,"sprites":{"floor":{"atlasIndex":0,"collision":false},"path":{"atlasIndex":1,"collision":false},"grass":{"atlasIndex":2,"collision":false},"bush":{"atlasIndex":3,"collision":true},"tree":{"atlasIndex":4,"collision":true},"fence":{"atlasIndex":5,"collision":true},"water_a":{"atlasIndex":6,"collision":true},"water_b":{"atlasIndex":7,"collision":true},"rock":{"atlasIndex":8,"collision":true},"sign":{"atlasIndex":9,"collision":false},"roof_l":{"atlasIndex":10,"collision":true},"roof_m":{"atlasIndex":11,"collision":true},"roof_r":{"atlasIndex":12,"collision":true},"wall":{"atlasIndex":13,"collision":true},"window":{"atlasIndex":14,"collision":true},"door":{"atlasIndex":15,"collision":false},"room_floor":{"atlasIndex":16,"collision":false},"room_wall":{"atlasIndex":17,"collision":true},"bookshelf":{"atlasIndex":18,"collision":true},"counter":{"atlasIndex":19,"collision":true},"table":{"atlasIndex":20,"collision":true},"chair":{"atlasIndex":21,"collision":true},"computer":{"atlasIndex":22,"collision":true},"heal_pod":{"atlasIndex":23,"collision":true},"forge":{"atlasIndex":24,"collision":true},"anvil":{"atlasIndex":25,"collision":true},"crate":{"atlasIndex":26,"collision":true},"barrel":{"atlasIndex":27,"collision":true},"bed":{"atlasIndex":28,"collision":true},"stairs":{"atlasIndex":29,"collision":false},"workbench":{"atlasIndex":30,"collision":true},"plant":{"atlasIndex":31,"collision":true},"capsule":{"atlasIndex":32,"collision":true},"npc":{"atlasIndex":33,"collision":false},"player":{"atlasIndex":34,"collision":false},"water_edge":{"atlasIndex":35,"collision":true},"hedge":{"atlasIndex":36,"collision":true},"flower":{"atlasIndex":37,"collision":false},"floor_stone":{"atlasIndex":38,"collision":false}},"sourceReferences":["https://www.peterhajas.com/blog/pokemon_rb_map_parsing/","https://opengameart.org/content/4-colour-interior-tileset","https://opengameart.org/content/4-colour-overworld-tileset"]};
+const biome=new Image();
+biome.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAAAQCAIAAABROuDfAAAByklEQVR4nM1YvU7DMBB2JT8KYmkrIWZegAVVoiusvAATElOlTn0BVlgTycqSF2BGSEneh8HIPdk+53zxpfmWJtfkcvns+/myurpeqxz8/nxnXX9zeyfnv+sH07RZ/nNRV0bUv1ZKfX1+eFbTtHVloN1aeM8IOe364en5BdqtJctt1w/bzdouwO7h3sU5epp1fUhOWWgYlodSm6vrhyw70ed2c85dL9T0KeN6OWj7U1fmcb8L/8bsljtIQRqmad22otjT/iH70iUiGh4F6YR2ifW/AFGWE3Y69RbYa2D2hH9v72MRlgV8Ij1xXY09HE/vb6/ODvuiLhHeGbmZwfMfhVAbGH3uRBReADnqVbD3PQi1AXYJIkIr+TKaO95EgbG/2B6glDocT9FjiFQGLGdhMPa7fpinB/Dg6r7XAyCxvg4IFQC08+II531MGURvT7BvdYCcCBh9NV5zhojrgLKDcBgZPdY0+/b4giJgenNGdQCmAHgI531MAUBQ2F9yD4DjJhYnqgOI7BPnzvA1iOyH/i+iAxggfsOYOoYKzZ2OZc8/lhOztYHpRd/DSuhrqNu5jK+hlMrj/GPjXSnMoQMkwM4MCvvQv3QPkMYfOvN/QU6YEQkAAAAASUVORK5CYII=";
+const atlas=new Image();
+atlas.src="data:image/png;base64,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";
+const actors=new Image(),foreground=new Image(),houses=new Image(),edges=new Image(),rustleSheet=new Image();
+houses.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAAwCAYAAABgxaPfAAAENUlEQVR4nO3dQU7bQBTG8ZeKoyA2tBJizQW6qZBgm2xzAaRKVKwQkZB6AbawBcnKJhdgjZBaNoi70EU1wdhjZ+yZid+M/79V6hTn5Us8mWfHzkQy9fP817vL/7teXE1i1wJ/rq9nFa8v2nwZugAAGMrO0AXEcr24muzu7b/f3d7U7pvO5iIi8vb6EnR2sLu332uWMjahcwf6ynYARF7MB5qIiO1DrSzWBxzywwAYQHnmd3J6LMc/vg9ZjlrFciUP98U6LwaosOhA3JTfd58GwLEF2Pf5suECeWAGGEGxXK1ngdPZXE5Oj0VEWIYo6EDc2DqQHZF8AzT7gpps2pdURQsXV+gOJNeOhvddOHwNBshMsVytb09ncymWK5aV/l1mbYFzauHaZoG0cDq4diCbZvRVXWf42tGBhMcMEMBoZX0QpDybaJrZQZ+mDqQrDR0IB5F0YwYIYLSyngEiT8zcEQozQACjxQAIYLRogZEM87WWLgcPgDbMAAGMFgMggNFiAAQwWhOR+qlIaPZwX6xvm1ORyM8d+fkhPz/V/NYHQXI7bzKWph3s5OeG/PyQn59qfrTAAEarNoWGO1sLAnfk54f8/Ly9vkwmhAdgrGiBAYwWAyCA0apdUbb626vfvu5vuSRd/vx9ERH335olv8/Iz8/Y8js4PAq2ruenx435OZ0LbFYiUg809/tC0PR8yC+t+0LQ9Hxc73t+elzfNoOi67IunAbAaqF9HqhcqG2dMe4LUWcI5OeH/Pykmt82cDUYYMuenx6Dtno5suXjuqwLrwGw+qlwcHhkXTY0rXVqrauNb8sRUsr5mUHw7vZmsMt2acxvU5trljfV2XUG7TUAlnv2tmVtfAN2ecIh6owhlfy0SjG/8sZrdtIPNQimkl/M7bfzANj3gWPt6DXrbduh2md9tnWGoK0u1/xsb1SzrLwRkF/98arKg+CQB0T6/t3Q+bmsz7ZOm84DYN8nv+nvul7FwlzVoWm9ser0RX5+csjv7vamtuGblpj83B6vSde/U3UQxFypYZNiuYpcSZrIz0/s/MpXbCm3vOWWOGUpvv84EwRODg6Pavt7bMtg1zT4iXzsQiDL7fOaAdp23Gr8IRqtdWqtKxWp5Nc2+BlDDH6p5BezTu8zQfqKcRQ29g7kvnLKb4gNNfX8prP5oF93ST2/mDqfCXK5+N3rstuXi99ycX5mXafhu28gRp0hpJpfH+T38XhlroMf+X083ja2384tcOgXJxatdWqtq+ri/ExlrRprsiE/P9uqM6mDIKm8eFqRnx/y86Mxv6QGwL5tGf4jPz/k50djfo0tsOnnNX1nx0ZjqCLk54v8/JCfm6RmgAAQkpozQR7uC+dvwvOF0Try80N+flLNr3EALP+CumZa69RaV5XWOrXWVaW1Tq11VQ1dp5oZoIiuT4YUkZ8f8vOTYn7/AIW23crt2geXAAAAAElFTkSuQmCC";
+actors.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAABQCAYAAABf9vbdAAAEWklEQVR4nO1bsU7jQBAdTlem4R+iNAEJUfMDaSJLSQstP4B0EicqJCp+IK3TJlJEww9EgiqKBGkQ/0CT3lfAmPF4xju7cdbklCedsJ196x3venbejA9gx3Gg/dDudDN6/v62Uts2yf+tEQfDpHB9OoHMMpDY/F8SGZH0e5D0e0A75G2a5hcM2EWIBozTEdxcX+Xn+BSsaIzf7nSzp+d5tl5/ZNLxn+u/mWsJNMnPO1mvP7Kn53neAR47yQ3wRY+ADcfpCAAAzi8uAcDuCmPyVTcKAHB81C39ZnWDsfiiG0XLT07P4PbuHug1ixuMyS95oeViXjifTmbqbxLwRqH8qvvzvgGEd4BaOBgmhQ4AbDsp30XpQLbNzztBl0X/OYlfXN7e6oG0tlVjUHfi6WRWsNY3GKNAL1J3WwCHF+LXQ43w4W3yoHYSez3QNL9wQsk0Apw9PJKOZuogmuCXvBC3nJItiM0vLaHQGzfFL80A33mtvzXFd4YSnOgTTcbgV75MHL7xfAy+OgM0Kjw5PTMPIjZf1QMnp2cbxfOx+KWXGBsOhgmM01HBH/vogW3w93rASYS9HtjrgZ2DWQ8A+D2dWHyzHgD4jMlD4/lt8Ut6gBPRD2N06IrnY/NLM8AJvmFxbL6oyMbpCI6PuoUYBOB7Y3Mpqqb4eX6eprgxP083Nu1pNMFXKzQvryvxJhZPEpOvxkI8N2+9ed382cNjZRxUuRYxesS16CtIBsMEbq6vNuIjtLVvcmdJv+dVZambj5CMUIO5pN/Lp87XFfK4PyRDQe8P8Dl4SU+oBkhRoXUJcPc3ncxgMEy8QonZw2NhCQ2GCbRah36BHrotU3lT4NFjX77UlwRTpd6Sz+HAp83/ukANt/BUA3yemIsXogc4J3Q8Px7mxNZP1AIAih7QYnHLQGLzVT3Aw9rvjmzxfCy+Ob2OHVo9Uiy+aABvtFzM4eV1ZU55NMbnGxePyV0Jqib4hX1AW5svrysxL8nRBN/pRkO++amLT4t9Gl99iQHC9QDl397d+yVmv4DeyFvQUEVkLY/WzbdqAYCKWIjmYXy/OqR8hKU2gO24Dqi6f8kAyUqfjPH72+pAqitwjaCh1To84DrAWxBZ0yBVfEkThPRBz6V2lfWBUIRqAa0frhEoTIImZBakQftUeaS+/svaQbRC97aenijbJJdn3czoLupb4QxBaSfGwfPcJNmVnUUKdIPSR0t1G5Eb0O50MwxbJeD15WKuGqEtvU08mgtiLIQb1zgdFY4twNw+wLfRSb8n5vvrgOhGl4t5vmTosQ9wsMdHXTi/uFRndlPky4BXRyRQVVS1hKTZ8v0E34rSDGhPyyLpcHDnF5eFtr7Vdx+oXy1y0Jhcq9rzlziGK81noN3pZuN0pK735WIO43RkCgewn6Tfy3nbQmkJaZ7C6kHoO0T/bssI8xICcH+8V8dO7otKTRwK/EwsBipfRB6P47WqT28s/HqG/omd/6+I/wCHt+01fBFa+AAAAABJRU5ErkJggg==";
+foreground.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPAAAAAgCAYAAAAsa/W9AAAEp0lEQVR4nO2cvWrjQBDHx4cfxbhRAsdVd5AXcGMESWu3foFAwCHVkUDgXiBt0tog0uQFDEl1HCRujnsXXRFGGY1nVyvtrrUO82siS2tpv/7zsStnAAZG46ykn//93Q5MZfuG19WVWG0y1SflPuyT1MbvkBi6FhyNszLlDnu4v2tVfjZfRKrJO6dneXW8XhVRn/UZoP3lQug+bWtE9m38Tc81Chg7NJ9OoHh8gvWqSFrEsQXZJyn3e0q4ijBGX/ZlAEQBj8ZZmU8ncHyUwevbtvEmPiFQ1+/Se+CxZMXz6QQAAIrHp+oct96phnCjcVZiZDGbL6o6pihm3wm8XhXw5/fG6btfv50YrzV58ibP7fN91yjCdA/sQ1M0OZsvdoy5KGC8AYoXRWDzwq6dj+AghJ6MV8vz6vjnza+da/wc0rX+APLklQbJdV2hL4/rK8IQAkwBOocoprlDQa0AfESFVJDUkdhwdZ41AUsDOJsvdiwLlqMDKD2MVpY2jPL8svHywD++nwSZ6Fh/Gorzjpe8uVTWBSnklzxu7NSAjrmvAF/ftrV+4tiupYSLUFOhEjB133TSUPHi8XpVJBnGrVfFjuejn30WPnAtoM8JGCOcpmlMW89oixS44Wlr4PqEj7Gr10R42yVPHAoxhOYLWPgXoJ0I9j3ZfXMQgHon846n/cHvYfOU3Cja4OXQK8YMO/lahK0fabttxqPtZD09y51CRixrGsMQq9NtBRsTrItJS0OAD+97epbD8VEmFqR5MH6HDmDXUC9miMhzGVtoZKsHvyZNEhqdUPhENpVzgdcjZBRERexStxQjMID3/jbN4de37V52K0ikVPscgyFAffC4FeTKN1k/n3082+oxIllFqR48T0XRmhYmbHWw0TTJudd18cJcFKNxVu4zH3PdFYgl3lCez9WTS6SyZ+/ahloIbRINPe+yIh2CUIPZJNyYoOV1XVHkUKMiiRuPL5aX5e3N9UA6xjK4bkHPAQBgWek59Bl9eFzbomGq0Lri+PnUvykNrYXQ/GGY8+GLHDz8o4OaiuXqSsj605CJhnMP93fOg8k9ITeWXFAoTGwHFyo9Jwk8BNg2WxtTFaPNQErXTUgOg0aBoSOqmgfGLSP6EgeK2LZwgI2TtpcopuuhxMNXoV3v61t/E1S8Xb1wF7jnBYBqXIvHpx2xSzQZkFTxyXHpNp5Ata1n6webQJvEiymMrQ07r1KaVh/pZKMizqeTJF9b7PtdaCqGUPduY9gkod7eXA8ulpclXnPxfqNxVprWA9YrsBqw0FFYV2/dZIBt+Iydb/vdIqK8pGnPzjaSlAfn0wlcLc8rUaM3DmGVQ1n1vo1Kny/jNwmV142K/fZmNyroIx1qu+V46ClbKIZ8+0BaHXa1hE1ijB2ChdgH7kroe3bpK6n9fJEK4N3Sp1BfSggD7Dv/fNoQYm5LY9VELfdD+E/hTKHzIeREivKZsa682VDxKkr/fKEfXEWp4lWUxBmNs/L5ZVM+v2xK39/sKooShy/NRRRFSRWrgPvemlEUxY4xlz2k/0qpKApBynk1D1YURVEURVEURVEURVEURVEURVEURVEURYnLf5TaOvMLdtxcAAAAAElFTkSuQmCC";
+edges.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANAAAAAQCAIAAADoLmaXAAABd0lEQVR4nO2asY7CMAyGcyiPcmIBHoTlVKldYeUFmJBuQrrpXuBWWEGquvRBCu/DECmy0mtqV26aFH9iiBo3DanzO0768blcqYnIi8yWs6+tUqqsaqdsuN/KwH3DwNj/vMjMXV2UVW0auV7+7BX/LYbN+v/32zyeJHtSI12UVa1JNyjwh5Hs9gfqI1Kh/b7hFVj2OJwZT+idfsvUITscZmjeBDgUfoVDNoKxxKhaePxyC2s1jAszAy8J6cqwjYDU6MaLfxrAWk2dMQkpHIsCBWNYf6b1swFoZ23bK3hxrt8nAQ5FVxnZSF5k36ejx+z882ss4wypeMhrOGEkotUq2zFSAtuFOFxiwIiEicIsXsKIdvRfImbk9IZUJ2Fk2W9jpD9LdRZ24pEjEVsSY+F1TQmpUYBJBeYx1cXhooB9IzCS/bk2i6k7IIxC83iaX5jH+dcDsLZ/49cxmIewC7zgTxpE4YSg6HSPEd8TTDLbPtPDM+CLI5L9C3AAuBnynIHfAAAAAElFTkSuQmCC";
+rustleSheet.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAACm53kpAAABmUlEQVR4nM1VMW6DQBCcQ5Ru8ocoTZoodT7gxkKCpyBFIqJCPgmJD6RNWpCQm3zAteXGjeU/pHHvVHs6jgUODLpMA+ZuZ2eYNSeu198bHGK1ehAu+3tdC5ksFmm4FO9UeLqgOcUtxTs3WhOQyQKZLFCVtfpti7699/AuCa9PkPnMRrSN0f9iHgB8oCmIhIdRgGCzRr37mUy+FO+cUH+BYLMGABwPe4RRgKqslUhKFQBeXt9YIkqdjH5/fQIA0iRWe8IoAIAGr2uoF2AmQmI5cMLTJG7UjOFzCZ8TpqdGZs0R7sJYPtfw0iRWAulqJjyUrr5vCp9L+F0LelJkZEh0JotG2jZ8uTwBAN6Tj1sut4Luqa4qa1zOJ6E/AwDaq8PksOET5uLxsG8lVpW1Mq+nyo32FJ4hs3odZ9D2pXE8rQkYOrq4JDnY8pgwjZh1tD70DbHl8ciETth3JBLCKFBH4pQjkHpSElz/y/kk+vo/Pj3fyCzXX5+Qrv4eCR1zhFEzfZzvqc/lVriq9/s2kjkO3AguUd/1sZur/g/woZTGtvdBSQAAAABJRU5ErkJggg==";
+const TILE=16,view=document.getElementById("view"),ctx=view.getContext("2d");
+const sel=document.getElementById("scene");
+const msg=document.getElementById("message"),hud=document.getElementById("hud");
+const padStatus=document.getElementById("controller-state");
+const names=Object.keys(DATA.scenes),glyph=DATA.symbols;
+for(const name of names){const op=document.createElement("option");op.value=name;op.textContent=DATA.scenes[name].title;sel.appendChild(op);}
+let scene="legacy_wurzeldorf",px=10,py=15,dir=[0,-1],wave=0,paused=false;
+const WALK_MS=134, RUSTLE_MS=320;
+const rustles=new Map();
+function grassPose(x,y,now){
+ const key=x+','+y, entry=rustles.get(key);
+ if(!entry)return -1;
+ const elapsed=now-entry.start;
+ if(elapsed<0)return -1;
+ if(elapsed>=RUSTLE_MS){rustles.delete(key);return -1;}
+ return elapsed<120?entry.first:1-entry.first;
+}
+let motion=null,walkFoot=0,pendingDirection=null;
+function actorPose(now=performance.now()){
+ const direction=dir[0]<0?'left':dir[0]>0?'right':dir[1]<0?'up':'down';
+ const elapsed=motion?Math.max(0,now-motion.start):WALK_MS;
+ const t=Math.min(8,Math.floor(elapsed*8/WALK_MS))/8;
+ return {direction,frame:t>0&&t<1?motion.frame:0,
+         x:t<1?motion.x+(px-motion.x)*t:px,y:t<1?motion.y+(py-motion.y)*t:py};
+}
+let outsideDoor={x:10,y:15};
+let gamepadLastMove=0,gamepadLastButtons={},lastFrame=0,gamepadConnected=false;
+let lastCamera={x:0,y:0,w:10,h:9},lastLayout="";
+// This is one fixed tiled world. Only the camera dimensions change.
+function screenTiles(){return {w:10,h:9};}
+function neighbors(map){
+ return Object.entries(map.portals).filter(([,exit])=>exit.direction).map(([key,exit])=>{
+  const [x,y]=key.split(',').map(Number),[dx,dy]=exit.direction;
+  return {map:DATA.scenes[exit.scene],ox:x+dx-exit.x,oy:y+dy-exit.y,x,y,dx,dy};
+ });
+}
+function cameraFor(map,pos=actorPose()){
+ const {w,h}=screenTiles();
+ let left=0,right=map.width,top=0,bottom=map.height;
+ for(const n of neighbors(map)){
+  if(n.dx && Math.abs(n.y-pos.y)<h/2+1){
+   left=Math.min(left,n.ox);right=Math.max(right,n.ox+n.map.width);
+  }
+  if(n.dy && Math.abs(n.x-pos.x)<w/2+1){
+   top=Math.min(top,n.oy);bottom=Math.max(bottom,n.oy+n.map.height);
+  }
+ }
+ const origin=(min,max,span,focus)=>max-min<span?Math.floor((min+max-span)/2):
+  Math.max(min,Math.min(max-span,focus-Math.floor(span/2)));
+ return {x:origin(left,right,w,pos.x+0.5),y:origin(top,bottom,h,pos.y),w,h};
+}
+function setStatus(message){msg.textContent=message;}
+function stage(name,returning=false,entry=null,crossing=null){
+ if(!DATA.scenes[name])return;
+ scene=name;sel.value=name;paused=false;motion=null;pendingDirection=null;rustles.clear();if(!crossing)stopHeld();
+ const m=DATA.scenes[name],found=[];
+ for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++)
+  if(glyph[m.rows[y][x]]==="player")found.push([x,y]);
+ [px,py]=m.entry?[m.entry.x,m.entry.y]:found[0]||[Math.floor(m.width/2),m.height-3];
+ if(returning){
+  px=outsideDoor.x;py=outsideDoor.y;
+ }
+ if(entry){
+  px=Math.max(0,Math.min(m.width-1,entry.x));
+  py=Math.max(0,Math.min(m.height-1,entry.y));
+ }
+ dir=crossing||[0,-1];
+ if(crossing){
+  walkFoot=1-walkFoot;
+  motion={x:px-dir[0],y:py-dir[1],start:performance.now(),frame:walkFoot+1};
+ }
+ setStatus(m.title==="Wurzelheim"?"Zum Nordufer führt der Weg rechts aus dem Dorf.":"Am Nordufer führen beide Wege zum alten Steg.");
+ draw();
+}
+function tileAt(map,x,y){
+ return glyph[map.rows[y]?.[x]]||null;
+}
+const objectNames=["tree", "table", "counter", "bookshelf", "workbench", "forge", "plant", null, "anvil", "crate", "bed", "chair", "computer", "heal_pod", "capsule"], roomFloors=["Wohnhaus", "Laden", "Heilstation", "Teamtausch"];
+function draw(now=performance.now()){
+ if(typeof now!=='number')now=performance.now();
+ const map=DATA.scenes[scene];
+ if(!map||![atlas,actors,foreground,houses,edges,rustleSheet,biome].every(im=>im.complete&&im.naturalWidth))return;
+ const pose=actorPose(now),cam=cameraFor(map,pose),layout=cam.w+"x"+cam.h;
+ if(lastLayout!==layout){view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;}
+ ctx.imageSmoothingEnabled=false;
+ ctx.fillStyle=MANIFEST.palette[3];ctx.fillRect(0,0,view.width,view.height);
+ const screenX=x=>Math.round(x*16)-Math.round(cam.x*16),screenY=y=>Math.round(y*16)-Math.round(cam.y*16);
+ const depth=[],grass=[];
+ function drawMap(map,ox,oy,current){
+ const sx=x=>screenX(x+ox),sy=y=>screenY(y+oy);
+ const localX=cam.x-ox,localY=cam.y-oy;
+ const ground=map.indoor?'room_floor':'floor';
+ const floorIndex=map.indoor?(scene.includes('house')?0:scene.includes('archive')||scene.includes('library')?1:scene.includes('research')?2:3):-1;
+ function tile(id,x,y){
+  let themed=-1;
+  if(map.theme==='cave')themed=id==='rock'||id==='room_wall'?0:['floor','room_floor','path'].includes(id)?1:-1;
+  if(map.theme==='ice')themed=id==='rock'||id==='room_wall'?2:['floor','room_floor','path'].includes(id)?3:-1;
+  if(id==='roof_m'||id==='roof_l'||id==='roof_r')themed=4;
+  if(id==='wall')themed=6;
+  if(id==='window')themed=7;
+  if(themed>=0){
+   ctx.drawImage(biome,themed*16,0,16,16,sx(x),sy(y),16,16);
+   return;
+  }
+
+  if(id==='room_floor'&&floorIndex>=0){
+   ctx.drawImage(edges,(9+floorIndex)*TILE,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+   return;
+  }
+  const i=MANIFEST.sprites[id]?.atlasIndex;
+  if(i!==undefined)ctx.drawImage(atlas,i%8*16,Math.floor(i/8)*16,16,16,sx(x),sy(y),16,16);
+ }
+ const buildings=Object.entries(map.doorLinks||{}).map(([key,room])=>{
+  const [x,y]=key.split(',').map(Number);
+  return {left:x-2,top:y-2,kind:['Wohnhaus','Heilstation','Schmiede','Laden'].indexOf(room)};
+ });
+ buildings.push(...(map.buildings||[]));
+ for(const {left,top,kind} of buildings){
+  depth.push({y:(top+oy+3)*16,draw:()=>ctx.drawImage(houses,kind*80,0,80,48,sx(left),sy(top),80,48)});
+ }
+ for(let y=Math.max(0,Math.floor(localY));y<Math.min(map.height,Math.ceil(localY+cam.h)+1);y++){
+  for(let x=Math.max(0,Math.floor(localX));x<Math.min(map.width,Math.ceil(localX+cam.w));x++){
+   let id=tileAt(map,x,y);
+   if((id==='room_wall'&&(x===0||y===0||x===map.width-1||y===map.height-1)&&!['cave','ice'].includes(map.theme))||(id==='door'&&ground==='room_floor')){
+    const left=x===0,right=x===map.width-1;
+    const edge=id==='door'?8:y===0?(left?4:right?5:0):
+      y===map.height-1?(left?6:right?7:1):left?2:3;
+    ctx.drawImage(edges,edge*TILE,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+    continue;
+   }
+   const object=objectNames.indexOf(id);
+   if(buildings.some(({left,top})=>x>=left&&x<left+5&&y>=top&&y<top+3)){
+    tile(ground,x,y);
+    continue;
+   }
+   if(id==='grass'){
+    const frame=current?grassPose(x,y,now):-1;
+    if(frame<0)tile(id,x,y);
+    else ctx.drawImage(rustleSheet,frame*TILE,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+    grass.push([x+ox,y+oy,frame]);
+    continue;
+   }
+   if(id==='player'||id==='npc'||object>=0)tile(id==='player'&&false?'path':ground,x,y);
+   else {
+    if(id==='water_a'&&wave%2)id='water_b';
+    tile(id,x,y);
+    if(id==='fence'){
+     // One modular post with neighbour-aware rails: no rails dangling into gates.
+     tile(ground,x,y);
+     const X=sx(x),Y=sy(y),rect=(a,b,w,h,c)=>{ctx.fillStyle=MANIFEST.palette[c];ctx.fillRect(X+a,Y+b,w,h);};
+     for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]]){
+      if(tileAt(map,x+dx,y+dy)!=='fence')continue;
+      if(dx){rect(dx<0?0:8,6,8,3,3);rect(dx<0?0:8,7,8,1,1);rect(dx<0?0:8,11,8,2,2);}
+      else {rect(6,dy<0?0:8,3,8,3);rect(7,dy<0?0:8,1,8,1);}
+     }
+     rect(6,5,4,10,3);rect(7,4,2,1,3);rect(7,6,2,8,1);rect(7,6,1,7,0);
+    }
+    // Connected shoreline without new logical tiles; corners meet exactly.
+    if(id==='water_a'||id==='water_b'){
+     ctx.fillStyle=MANIFEST.palette[2];
+     for(const [dx,dy] of [[0,-1],[0,1],[-1,0],[1,0]]){
+      if(!['water_a','water_b','water_edge'].includes(tileAt(map,x+dx,y+dy)))
+       ctx.fillRect(sx(x)+(dx===1?15:0),sy(y)+(dy===1?15:0),dx?1:16,dy?1:16);
+     }
+    }
+   }
+   if(object>=0)depth.push({y:(y+oy)*16+16,draw:()=>{
+    const h=id==='tree'?24:16,offset=id==='tree'?8:4;
+    ctx.drawImage(foreground,object*16,0,16,h,sx(x),sy(y)-offset,16,h);
+   }});
+   if(id==='npc')depth.push({y:(y+oy)*16+16,draw:()=>{
+    const kind=map.indoor?1:0;
+    ctx.drawImage(actors,kind*16,64,16,16,sx(x),sy(y),16,16);
+   }});
+  }
+ }
+ }
+ drawMap(map,0,0,true);
+ for(const n of neighbors(map)){
+  if(n.ox<cam.x+cam.w && n.oy<cam.y+cam.h && n.ox+n.map.width>cam.x && n.oy+n.map.height>cam.y)
+   drawMap(n.map,n.ox,n.oy,false);
+ }
+ const sx=screenX,sy=screenY;
+ depth.push({y:pose.y*16+16,draw:()=>{
+  const row=['down','up','left','right'].indexOf(pose.direction);
+  ctx.drawImage(actors,pose.frame*16,row*16,16,16,sx(pose.x),sy(pose.y),16,16);
+ }});
+ depth.sort((a,b)=>a.y-b.y).forEach(item=>item.draw());
+ for(const [x,y,frame] of grass){
+  const sheet=frame<0?foreground:rustleSheet;
+  const sourceX=frame<0?112:32+frame*TILE;
+  ctx.drawImage(sheet,sourceX,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+ }
+ if(hud.textContent!==map.title)hud.textContent=map.title;
+ lastCamera=cam;
+}
+function canWalk(m,x,y){
+ return x>=0&&y>=0&&x<m.width&&y<m.height&&m.solids[y][x]==='0';
+}
+function step(dx,dy){
+ if(paused)return;
+ if(motion && performance.now()-motion.start<WALK_MS){pendingDirection=[dx,dy];return;}
+ dir=[dx,dy];
+ const m=DATA.scenes[scene],x=px+dx,y=py+dy;
+ if(x<0||y<0||x>=m.width||y>=m.height){
+  const exit=m.portals[px+','+py];
+  if(exit?.direction?.[0]===dx && exit.direction[1]===dy){
+   stage(exit.scene,false,{x:exit.x,y:exit.y},[dx,dy]);
+  }
+  return;
+ }
+ if(!canWalk(m,x,y)){draw();return;}
+ const id=tileAt(m,x,y),portal=m.portals[x+','+y];
+ if(portal&&!portal.direction){stage(portal.scene,false,{x:portal.x,y:portal.y});return;}
+ const from=actorPose();
+ const start=performance.now();
+ walkFoot=1-walkFoot;motion={x:from.x,y:from.y,start,frame:walkFoot+1};
+ if(id==='grass')rustles.set(x+','+y,{start:start+WALK_MS*0.45,first:dx<0?0:dx>0?1:walkFoot});
+ px=x;py=y;draw();
+}
+function action(){
+ if(paused){pauseToggle();return;}
+ const m=DATA.scenes[scene];
+ const x=px+dir[0],y=py+dir[1],portal=m.portals[x+','+y];
+ if(portal){step(...dir);return;}
+ const marker=m.markers.find(p=>Math.abs(p.x-px)+Math.abs(p.y-py)<=1);
+ setStatus(marker?m.title+" · "+(marker.label||'Hier liegt eine Spur der Geschichte.'):
+  m.title+" · Mit A oder Enter kannst du Schilder lesen.");
+}
+function pauseToggle(){stopHeld();motion=null;pendingDirection=null;paused=!paused;setStatus(paused?"Pause. Start/Enter zum Fortsetzen.":"Weiter geht's.");draw();}
+function fullscreenToggle(){
+ if(document.fullscreenElement){
+  if(document.exitFullscreen)document.exitFullscreen();
+ }else if(document.documentElement.requestFullscreen){
+  document.documentElement.requestFullscreen().catch(()=>setStatus("Dieser Browser bietet hier keinen Vollbildmodus."));
+ }else setStatus("Vollbild ist in diesem Browser nicht verfügbar.");
+}
+const keys={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],
+ w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
+window.addEventListener("keydown",e=>{
+ const d=keys[e.key];
+ if(d){
+  e.preventDefault();
+  if(e.repeat)return;
+  stopHeld();step(...d);heldKey=e.key;heldTimer=setInterval(()=>step(...d),140);
+ }else if(["Enter"," ","z"].includes(e.key)){
+  e.preventDefault();if(!e.repeat)action();
+ }else if(["Escape","p"].includes(e.key)){
+  e.preventDefault();if(!e.repeat)pauseToggle();
+ }else if(e.key==="f"&&!e.repeat)fullscreenToggle();
+});
+let heldTimer=null,heldKey=null;
+window.addEventListener("keyup",e=>{if(e.key===heldKey)stopHeld();});
+function stopHeld(){heldKey=null;if(heldTimer!==null){clearInterval(heldTimer);heldTimer=null;}}
+for(const el of document.querySelectorAll("button[data-move]")){
+ const d=el.dataset.move.split(",").map(Number);
+ el.addEventListener("pointerdown",e=>{
+  if(el.setPointerCapture)el.setPointerCapture(e.pointerId);
+  e.preventDefault();stopHeld();step(...d);
+  heldTimer=setInterval(()=>step(...d),140);
+ });
+ ["pointerup","pointercancel","lostpointercapture","pointerleave"].forEach(name=>
+  el.addEventListener(name,stopHeld));
+ // Keyboard activation already moves via the global keyboard listener.
+}
+window.addEventListener("blur",()=>{stopHeld();pendingDirection=null;});
+document.getElementById("action").addEventListener("click",action);
+document.getElementById("fullscreen").addEventListener("click",fullscreenToggle);
+document.getElementById("reset").addEventListener("click",()=>stage(scene));
+sel.addEventListener("change",()=>stage(sel.value));
+window.addEventListener("resize",draw);
+window.addEventListener("orientationchange",draw);
+function readGamepad(now){
+ const pads=typeof navigator.getGamepads==="function"?Array.from(navigator.getGamepads()||[]):[];
+ const pad=pads.find(p=>p&&p.connected!==false);
+ const connected=!!pad;
+ if(connected!==gamepadConnected){
+  gamepadConnected=connected;
+  document.body.classList.toggle("gamepad",connected);
+  padStatus.textContent=connected?"🎮 Controller verbunden · Steuerkreuz/Stick, A: Aktion, B: Zurück, Start: Pause":
+   "Handy: Touch · TV: Controller (Steuerkreuz / Stick, A, B, Start) · PC: Pfeiltasten/WASD";
+  draw();
+ }
+ if(!pad)return;
+ const pressed=i=>!!pad.buttons?.[i]?.pressed;
+ let dx=0,dy=0;
+ if(pressed(14))dx=-1;else if(pressed(15))dx=1;
+ if(pressed(12))dy=-1;else if(pressed(13))dy=1;
+ const axes=pad.axes||[];
+ if(!dx&&Math.abs(axes[0]||0)>.5)dx=Math.sign(axes[0]);
+ if(!dy&&Math.abs(axes[1]||0)>.5)dy=Math.sign(axes[1]);
+ if(dx&&dy){
+  if(Math.abs(axes[0]||0)>=Math.abs(axes[1]||0))dy=0;
+  else dx=0;
+ }
+ if((dx||dy)&&now-gamepadLastMove>=140){
+  step(dx,dy);gamepadLastMove=now;
+ }
+ for(const [i,callback] of [[0,action],[1,()=>{
+    if(false)stage("legacy_wurzeldorf");
+    else setStatus("Mit dem Steuerkreuz kannst du weiterlaufen.");
+   }],[9,pauseToggle]]){
+  const current=pressed(i),was=!!gamepadLastButtons[i];
+  if(current&&!was)callback();
+  gamepadLastButtons[i]=current;
+ }
+}
+function animate(now){
+ if(!paused && pendingDirection && (!motion||now-motion.start>=WALK_MS)){
+  const next=pendingDirection;pendingDirection=null;step(...next);
+ }
+ if(!paused && now-lastFrame>=380){wave++;lastFrame=now;}
+ draw(now);
+ readGamepad(now);
+ requestAnimationFrame(animate);
+}
+Promise.all([atlas,actors,foreground,houses,edges,rustleSheet,biome].map(im=>im.decode())).then(()=>{stage("legacy_wurzeldorf");requestAnimationFrame(animate);});
+</script></body></html>
