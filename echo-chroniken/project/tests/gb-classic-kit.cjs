@@ -13,8 +13,8 @@ assert.equal(Object.keys(meta.sprites).length,39,'Stable tileset, no exploding s
 assert.equal(atlas.toString('hex',0,8),'89504e470d0a1a0a');
 assert.equal(atlas.readUInt32BE(16),128);assert.equal(atlas.readUInt32BE(20),80);
 assert.equal(Object.keys(data.scenes).length,7);
-const dims={Wurzelheim:[20,18],Route:[20,18],Laden:[12,9],Heilstation:[14,9],
- Schmiede:[12,9],Teamtausch:[12,9],Wohnhaus:[10,8]};
+const dims={Wurzelheim:[20,18],Route:[20,18],Laden:[9,7],Heilstation:[10,7],
+ Schmiede:[8,6],Teamtausch:[8,6],Wohnhaus:[7,6]};
 const required={
  Wurzelheim:['tree','roof_l','roof_r','door','fence'],
  Route:['tree','grass','fence','sign'],

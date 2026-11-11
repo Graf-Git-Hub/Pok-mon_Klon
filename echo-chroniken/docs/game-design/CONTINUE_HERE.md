@@ -1,5 +1,15 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+> GB-Welt V16: Wegweiser zeigt den nächsten begehbaren Schritt. In Wurzelheim und am Nordufer führt er standardmäßig Richtung Nebelhafen. Ziele sind die direkten Nachbargebiete der aktuellen Karte.
+
+> GB-Welt V15: Wurzelheim und Nordufer individuell gestaltet. Dorfplatz und Häuser liegen an durchgehenden Wegen, am Nordufer führt die Route am See und an Graslichtungen vorbei. Weitere Gebiete basieren auf V14.
+
+> GB-Welt V14: Größere Außenkarten mit 17 beidseitig verbundenen Außenwegen und sichtbarer Nachbarkarte. Siehe ../gb-classic/WORLD_60_README.md. Nächster Integrationsschritt bleibt die Übertragung in die Hauptspiel-Engine mit Storybedingungen, Kämpfen und Saves.
+
+> GB-Welt V13: Alle 60 Gebiets-IDs als kompakte Erkundungswelt unter ../gb-classic/welt-60-karten.html. 118 Graph-Verbindungen und 238 Landmarken aus dem Originalmanifest übertragen. Grundrisse und Landmarkenpositionen neu angeordnet. Storybedingungen sind in der Vorschau geöffnet. Die Kampf-/Quest-Engine und die Save-Dateien sind dort nicht aktiv. Generatoren unter project/tools/gb-world. Hauptspielintegration und menschliche Einzelabnahme bleiben eigene Schritte.
+
+> **Grafik V5, 10.11.2026:** Isolierter Branch `feature/echo-gb-art-animation-v5-20261110` verbessert nur die GB-Stilvorschau: eigene 12 Richtungs-/Laufposen, zwei NPCs, überarbeitete gemeinsame Tiles, Gras-/Objektvordergrund und behutsame Dorf-/Schmiedeänderungen. Siehe `../gb-classic/GRAFIK_V5_TESTBERICHT.md` und `GRAFIK_V5_RECHERCHE.md`. Kein Merge, keine APK-/Save-/60-Karten-Umstellung. Physische Android-/TV-Geräte weiterhin offen.
+
 > **SOULS-/Echo-Kartenwerkstatt (07.11.2026):** Eigenständiger Editor auf GitHub Pages /Souls/echo-chroniken-editor.html mit allen 60 echten Echo-Maps. Projekt-JSON unter docs/souls-editor/, Basis-/Schutzmanifest unter project/tools/souls-bridge/original-maps.json, sicherer Rückimport per convert.cjs, Spielintegration per src/maps/souls-bridge.js und data/echo-souls-edits.js. Wurzelheim-Pilot importiert. Naturstory-Grasfelder (13,23)/(14,23) zurückgesetzt und explizit geschützt. Browser QA Desktop/Handy. Details in SOULS_BRIDGE_20261107.md. Der Editor kann alle 60 Maps bearbeiten, aber aktuell ist nur der Pilot im Spiel grafisch neu gestaltet. Alle weiteren Änderungen müssen noch importiert und getestet werden.
 
 > **Stand 07.11.2026, alle Weltkarten:** Das Upgrade nach Nordufer/Nebelhafen (#45) liegt in feature/echo-map-all58-20261107. 57 weitere Karten wurden im echten MapRegistry-Renderer mit erweiterten Straßen/Plätzen/Nischen und verschobenen Fortschrittsausgängen versehen; Wurzelheim erhielt zusätzlich einen Rundweg. Insgesamt 60 Karten. tests/all-60-world-layout.cjs prüft 118 Ausgänge, 125 Spawns und 238 Storymarker, Mindestlänge der West-Ost-Pfade 39 Felder. Vollbild-/Einzelkarten in docs/exportierte-spielkarten/, Dokumentation MAP_ALL_60_20261107.md, Workflow .github/workflows/echo-all60-world-layout.yml. GitHub-Checks abwarten vor Merge; Save-v2 bleibt unverändert. Weitere img2img-Pixelart-Aufwertung erst später, nicht die Kollisionsdaten ersetzen.

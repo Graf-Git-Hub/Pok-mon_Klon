@@ -1,3 +1,23 @@
+# 11.11.2026 – GB-Erkundungswelt V16
+
+Wegweiser mit auswählbaren Nachbarzielen und einem Pfeil für die nächste Laufrichtung. Standardroute von Wurzelheim über das Nordufer nach Nebelhafen.
+
+# 11.11.2026 – GB-Erkundungswelt V15
+
+Wurzelheim und Nordufer individuell gestaltet. Dorfplatz, verzweigte Wege, versetzte Häuser, Seeufer und Waldlichtungen.
+
+# 11.11.2026 – GB-Erkundungswelt V14
+
+Außenkarten auf ursprüngliche Abmessungen erweitert. 17 Paare von Außenwegen zeigen die Nachbarkarte und führen ohne Unterbrechung der Laufanimation über den Kartenrand.
+
+# 10.11.2026 – GB-Erkundungswelt V13
+
+GB-Welt V13: Alle 60 Gebiets-IDs als kompakte Erkundungswelt unter ../gb-classic/welt-60-karten.html. 118 Graph-Verbindungen und 238 Landmarken aus dem Originalmanifest übertragen. Grundrisse und Landmarkenpositionen neu angeordnet. Storybedingungen sind in der Vorschau geöffnet. Die Kampf-/Quest-Engine und die Save-Dateien sind dort nicht aktiv. Generatoren unter project/tools/gb-world. Hauptspielintegration und menschliche Einzelabnahme bleiben eigene Schritte.
+
+# 10.11.2026 – GB-Grafikprototyp V5
+
+Eigene Richtungs-/Laufanimation, transparente Figuren und Vordergründe, lesbarere gemeinsame 16px-Grafik. Kamera, Türlinks und vier Graustufen erhalten. Nur separater Prototyp; keine Änderung an Hauptspiel/APK/Saves. Siehe ../gb-classic/GRAFIK_V5_TESTBERICHT.md.
+
 # Story-Roadmap Änderungsverlauf
 
 ## 2026-11-07 - SOULS 3.46 Kartenwerkstatt mit 60 echten Echo-Karten und sicherem Import

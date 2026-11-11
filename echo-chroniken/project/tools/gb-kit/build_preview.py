@@ -5,16 +5,23 @@ No API, no CDN, no trademark assets or third-party dependencies.
 """
 from pathlib import Path
 import base64,json
+from gb_art_v5 import OBJECTS
+from gb_interiors import ROOM_FLOORS
 root=Path(__file__).resolve().parents[2]
 out=root.parent/"docs"/"gb-classic"/"klassik-demo.html"
 js=json.loads((root/"assets"/"gb-classic"/"scene_maps.json").read_text(encoding="utf-8"))
 tile=json.loads((root/"assets"/"gb-classic"/"tile_manifest.json").read_text(encoding="utf-8"))
 atlas_data=base64.b64encode((root/"assets"/"gb-classic"/"gb_classic_atlas.png").read_bytes()).decode()
+actor_data=base64.b64encode((root/'assets/gb-classic/actors.png').read_bytes()).decode()
+foreground_data=base64.b64encode((root/'assets/gb-classic/foreground.png').read_bytes()).decode()
+grass_data=base64.b64encode((root/'assets/gb-classic/grass_rustle.png').read_bytes()).decode()
+edge_data=base64.b64encode((root/'assets/gb-classic/interior_edges.png').read_bytes()).decode()
+house_data=base64.b64encode((root/'assets/gb-classic/houses.png').read_bytes()).decode()
 payload=json.dumps(js,ensure_ascii=False,separators=(",",":"))
 manifest=json.dumps(tile,ensure_ascii=False,separators=(",",":"))
 html="""<!doctype html><html lang="de"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
-<title>Echo-Chroniken · Game Boy Klassik Stiltest</title>
+<title>Echo-Chroniken · Game Boy Grafiktest V12</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -44,7 +51,7 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 :fullscreen body{max-width:none;width:100vw;height:100vh}
 :fullscreen #view{max-height:76vh}
 </style></head><body>
-<h1>🎮 Echo-Chroniken · Game Boy Klassik</h1>
+<h1>🎮 Echo-Chroniken · Game Boy · Grafik V12</h1>
 <div class="subtitle">Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.</div>
 <div class="controls">
 <label for="scene">Karte:</label><select id="scene"></select>
@@ -73,6 +80,12 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 const DATA=__PAYLOAD__,MANIFEST=__MANIFEST__;
 const atlas=new Image();
 atlas.src="data:image/png;base64,__ATLAS__";
+const actors=new Image(),foreground=new Image(),houses=new Image(),edges=new Image(),rustleSheet=new Image();
+houses.src="data:image/png;base64,__HOUSES__";
+actors.src="data:image/png;base64,__ACTORS__";
+foreground.src="data:image/png;base64,__FOREGROUND__";
+edges.src="data:image/png;base64,__EDGES__";
+rustleSheet.src="data:image/png;base64,__GRASS__";
 const TILE=16,view=document.getElementById("view"),ctx=view.getContext("2d");
 const sel=document.getElementById("scene"),mode=document.getElementById("mode");
 const msg=document.getElementById("message"),hud=document.getElementById("hud");
@@ -80,6 +93,23 @@ const padStatus=document.getElementById("controller-state");
 const names=Object.keys(DATA.scenes),glyph=DATA.symbols;
 for(const name of names){const op=document.createElement("option");op.value=name;op.textContent=name;sel.appendChild(op);}
 let scene="Wurzelheim",px=10,py=15,dir=[0,-1],wave=0,paused=false;
+const WALK_MS=150, RUSTLE_MS=320;
+const rustles=new Map();
+function grassPose(x,y,now){
+ const key=x+','+y, entry=rustles.get(key);
+ if(!entry)return -1;
+ const elapsed=now-entry.start;
+ if(elapsed<0)return -1;
+ if(elapsed>=RUSTLE_MS){rustles.delete(key);return -1;}
+ return elapsed<120?entry.first:1-entry.first;
+}
+let motion=null,walkFoot=0,pendingDirection=null;
+function actorPose(now=performance.now()){
+ const direction=dir[0]<0?'left':dir[0]>0?'right':dir[1]<0?'up':'down';
+ const t=motion?Math.max(0,Math.min(1,(now-motion.start)/WALK_MS)):1;
+ return {direction,frame:t<1?motion.frame:0,
+         x:t<1?motion.x+(px-motion.x)*t:px,y:t<1?motion.y+(py-motion.y)*t:py};
+}
 let outsideDoor={x:10,y:15};
 let gamepadLastMove=0,gamepadLastButtons={},lastFrame=0,gamepadConnected=false;
 let lastCamera={x:0,y:0,w:10,h:9},lastLayout="";
@@ -91,16 +121,17 @@ function screenTiles(){
  const cols=mode.value==="phone"?10:tv?16:landscape?14:10;
  return {w:cols,h:9};
 }
-function cameraFor(map){
- const tiles=screenTiles(),w=Math.min(map.width,tiles.w),h=Math.min(map.height,tiles.h);
- const x=Math.max(0,Math.min(map.width-w,px-Math.floor(w/2)));
- const y=Math.max(0,Math.min(map.height-h,py-Math.floor(h/2)));
+function cameraFor(map,pos=actorPose()){
+ const {w,h}=screenTiles();
+ const origin=(size,span,focus)=>size<span?Math.floor((size-span)/2):Math.max(0,Math.min(size-span,focus-Math.floor(span/2)));
+ const x=origin(map.width,w,pos.x);
+ const y=origin(map.height,h,pos.y);
  return {x,y,w,h};
 }
 function setStatus(message){msg.textContent=message;}
 function stage(name,returning=false,entry=null){
  if(!DATA.scenes[name])return;
- scene=name;sel.value=name;paused=false;
+ scene=name;sel.value=name;paused=false;motion=null;pendingDirection=null;rustles.clear();stopHeld();
  const m=DATA.scenes[name],found=[];
  for(let y=0;y<m.height;y++)for(let x=0;x<m.width;x++)
   if(glyph[m.rows[y][x]]==="player")found.push([x,y]);
@@ -115,46 +146,107 @@ function stage(name,returning=false,entry=null){
  dir=[0,-1];
  setStatus("Karte: "+name+". "+(name==="Wurzelheim"?
   "Dorfplatz: vier verschiedene Häuser, zwei Verbindungen zur Route.":
-  name==="Route"?"Folge der freien Waldgasse. Im hohen Gras gibt es später Begegnungen.":
+  name==="Route"?"Folge der freien Waldgasse. Seitlich findest du Waldlichtungen, einen Teich und raschelndes Gras.":
   "A oder Enter: Objekte ansehen. Tür unten: zurück vor das Gebäude."));
  draw();
 }
 function tileAt(map,x,y){
  return glyph[map.rows[y]?.[x]]||null;
 }
-function draw(){
+const objectNames=__OBJECTS__, roomFloors=__ROOM_FLOORS__;
+function draw(now=performance.now()){
+ if(typeof now!=='number')now=performance.now();
  const map=DATA.scenes[scene];
- if(!map||!atlas.complete||!atlas.naturalWidth)return;
- const cam=cameraFor(map);
- const layout=cam.w+"x"+cam.h;
- if(lastLayout!==layout){
-  view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;
- }
+ if(!map||![atlas,actors,foreground,houses,edges,rustleSheet].every(im=>im.complete&&im.naturalWidth))return;
+ const pose=actorPose(now),cam=cameraFor(map,pose),layout=cam.w+"x"+cam.h;
+ if(lastLayout!==layout){view.width=cam.w*TILE;view.height=cam.h*TILE;lastLayout=layout;}
  ctx.imageSmoothingEnabled=false;
- ctx.fillStyle=MANIFEST.palette[0];
- ctx.fillRect(0,0,view.width,view.height);
- for(let y=cam.y;y<cam.y+cam.h;y++)for(let x=cam.x;x<cam.x+cam.w;x++){
-  let id=tileAt(map,x,y);
-  if(id==="player"||id==="npc")
-   id=scene==="Wurzelheim"||scene==="Route"?"floor":"room_floor";
-  if(id==="water_a"&&wave%2)id="water_b";
-  const idx=MANIFEST.sprites[id]?.atlasIndex;
-  if(idx===undefined)continue;
-  ctx.drawImage(atlas,(idx%8)*16,Math.floor(idx/8)*16,16,16,
-                 (x-cam.x)*16,(y-cam.y)*16,16,16);
+ ctx.fillStyle=MANIFEST.palette[3];ctx.fillRect(0,0,view.width,view.height);
+ const sx=x=>Math.round(x*16)-Math.round(cam.x*16),sy=y=>Math.round(y*16)-Math.round(cam.y*16);
+ const ground=scene==='Wurzelheim'||scene==='Route'?'floor':'room_floor';
+ const depth=[],grass=[],floorIndex=roomFloors.indexOf(scene);
+ function tile(id,x,y){
+  if(id==='room_floor'&&floorIndex>=0){
+   ctx.drawImage(edges,(9+floorIndex)*TILE,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+   return;
+  }
+  const i=MANIFEST.sprites[id]?.atlasIndex;
+  if(i!==undefined)ctx.drawImage(atlas,i%8*16,Math.floor(i/8)*16,16,16,sx(x),sy(y),16,16);
  }
- // NPCs use the same four-shade atlas and remain behind the player.
- const npcIdx=MANIFEST.sprites.npc.atlasIndex;
- for(let y=cam.y;y<cam.y+cam.h;y++)for(let x=cam.x;x<cam.x+cam.w;x++){
-  if(tileAt(map,x,y)!=="npc")continue;
-  ctx.drawImage(atlas,(npcIdx%8)*16,Math.floor(npcIdx/8)*16,16,16,
-                (x-cam.x)*16,(y-cam.y)*16,16,16);
+ const buildings=Object.entries(map.doorLinks||{}).map(([key,room])=>{
+  const [x,y]=key.split(',').map(Number);
+  return {left:x-2,top:y-2,kind:['Wohnhaus','Heilstation','Schmiede','Laden'].indexOf(room)};
+ });
+ for(const {left,top,kind} of buildings){
+  depth.push({y:(top+3)*16,draw:()=>ctx.drawImage(houses,kind*80,0,80,48,sx(left),sy(top),80,48)});
  }
- const actor=MANIFEST.sprites.player.atlasIndex;
- ctx.drawImage(atlas,(actor%8)*16,Math.floor(actor/8)*16,16,16,
-               (px-cam.x)*16,(py-cam.y)*16,16,16);
- hud.textContent=scene+" · "+(px+1)+"/"+map.width+" × "+(py+1)+"/"+map.height+
-                 (paused?" · PAUSE":"");
+ for(let y=Math.max(0,Math.floor(cam.y));y<Math.min(map.height,Math.ceil(cam.y+cam.h)+1);y++){
+  for(let x=Math.max(0,Math.floor(cam.x));x<Math.min(map.width,Math.ceil(cam.x+cam.w));x++){
+   let id=tileAt(map,x,y);
+   if(id==='room_wall'||(id==='door'&&ground==='room_floor')){
+    const left=x===0,right=x===map.width-1;
+    const edge=id==='door'?8:y===0?(left?4:right?5:0):
+      y===map.height-1?(left?6:right?7:1):left?2:3;
+    ctx.drawImage(edges,edge*TILE,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+    continue;
+   }
+   const object=objectNames.indexOf(id);
+   if(buildings.some(({left,top})=>x>=left&&x<left+5&&y>=top&&y<top+3)){
+    tile(ground,x,y);
+    continue;
+   }
+   if(id==='grass'){
+    const frame=grassPose(x,y,now);
+    if(frame<0)tile(id,x,y);
+    else ctx.drawImage(rustleSheet,frame*TILE,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+    grass.push([x,y,frame]);
+    continue;
+   }
+   if(id==='player'||id==='npc'||object>=0)tile(id==='player'&&['Wurzelheim','Route'].includes(scene)?'path':ground,x,y);
+   else {
+    if(id==='water_a'&&wave%2)id='water_b';
+    tile(id,x,y);
+    if(id==='fence'){
+     // One modular post with neighbour-aware rails: no rails dangling into gates.
+     tile(ground,x,y);
+     const X=sx(x),Y=sy(y),rect=(a,b,w,h,c)=>{ctx.fillStyle=MANIFEST.palette[c];ctx.fillRect(X+a,Y+b,w,h);};
+     for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]]){
+      if(tileAt(map,x+dx,y+dy)!=='fence')continue;
+      if(dx){rect(dx<0?0:8,6,8,3,3);rect(dx<0?0:8,7,8,1,1);rect(dx<0?0:8,11,8,2,2);}
+      else {rect(6,dy<0?0:8,3,8,3);rect(7,dy<0?0:8,1,8,1);}
+     }
+     rect(6,5,4,10,3);rect(7,4,2,1,3);rect(7,6,2,8,1);rect(7,6,1,7,0);
+    }
+    // Connected shoreline without new logical tiles; corners meet exactly.
+    if(id==='water_a'||id==='water_b'){
+     ctx.fillStyle=MANIFEST.palette[2];
+     for(const [dx,dy] of [[0,-1],[0,1],[-1,0],[1,0]]){
+      if(!['water_a','water_b','water_edge'].includes(tileAt(map,x+dx,y+dy)))
+       ctx.fillRect(sx(x)+(dx===1?15:0),sy(y)+(dy===1?15:0),dx?1:16,dy?1:16);
+     }
+    }
+   }
+   if(object>=0)depth.push({y:y*16+16,draw:()=>{
+    const h=id==='tree'?24:16,offset=id==='tree'?8:4;
+    ctx.drawImage(foreground,object*16,0,16,h,sx(x),sy(y)-offset,16,h);
+   }});
+   if(id==='npc')depth.push({y:y*16+16,draw:()=>{
+    const kind=['Schmiede','Laden'].includes(scene)?1:0;
+    ctx.drawImage(actors,kind*16,64,16,16,sx(x),sy(y),16,16);
+   }});
+  }
+ }
+ depth.push({y:pose.y*16+16,draw:()=>{
+  const row=['down','up','left','right'].indexOf(pose.direction);
+  ctx.drawImage(actors,pose.frame*16,row*16,16,16,sx(pose.x),sy(pose.y),16,16);
+ }});
+ depth.sort((a,b)=>a.y-b.y).forEach(item=>item.draw());
+ for(const [x,y,frame] of grass){
+  const sheet=frame<0?foreground:rustleSheet;
+  const sourceX=frame<0?112:32+frame*TILE;
+  ctx.drawImage(sheet,sourceX,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
+ }
+ hud.textContent=scene+" · "+(px+1)+"/"+map.width+" × "+(py+1)+"/"+map.height+(paused?" · PAUSE":"");
  lastCamera=cam;
 }
 function canWalk(m,x,y){
@@ -163,6 +255,7 @@ function canWalk(m,x,y){
 }
 function step(dx,dy){
  if(paused)return;
+ if(motion && performance.now()-motion.start<WALK_MS){pendingDirection=[dx,dy];return;}
  dir=[dx,dy];
  const m=DATA.scenes[scene],x=px+dx,y=py+dy;
  if(x<0||y<0||x>=m.width||y>=m.height){
@@ -175,7 +268,7 @@ function step(dx,dy){
   }
   return;
  }
- if(!canWalk(m,x,y))return;
+ if(!canWalk(m,x,y)){draw();return;}
  const id=tileAt(m,x,y);
  if(id==="door"){
   if(scene==="Wurzelheim"){
@@ -187,6 +280,10 @@ function step(dx,dy){
   }
   stage("Wurzelheim",true);return;
  }
+ const from=actorPose();
+ const start=performance.now();
+ walkFoot=1-walkFoot;motion={x:from.x,y:from.y,start,frame:walkFoot+1};
+ if(id==='grass')rustles.set(x+','+y,{start:start+WALK_MS*0.45,first:dx<0?0:dx>0?1:walkFoot});
  px=x;py=y;draw();
 }
 function action(){
@@ -200,7 +297,7 @@ function action(){
   bed:"Ein gemütliches Bett.",water_a:"Hier ist Wasser."};
  setStatus(descriptions[target]||"Hier gibt es gerade nichts zu untersuchen.");
 }
-function pauseToggle(){paused=!paused;setStatus(paused?"Pause. Start/Enter zum Fortsetzen.":"Weiter geht's.");draw();}
+function pauseToggle(){stopHeld();motion=null;pendingDirection=null;paused=!paused;setStatus(paused?"Pause. Start/Enter zum Fortsetzen.":"Weiter geht's.");draw();}
 function fullscreenToggle(){
  if(document.fullscreenElement){
   if(document.exitFullscreen)document.exitFullscreen();
@@ -215,15 +312,16 @@ window.addEventListener("keydown",e=>{
  if(d){
   e.preventDefault();
   if(e.repeat)return;
-  step(...d);
+  stopHeld();step(...d);heldKey=e.key;heldTimer=setInterval(()=>step(...d),165);
  }else if(["Enter"," ","z"].includes(e.key)){
   e.preventDefault();if(!e.repeat)action();
  }else if(["Escape","p"].includes(e.key)){
   e.preventDefault();if(!e.repeat)pauseToggle();
  }else if(e.key==="f"&&!e.repeat)fullscreenToggle();
 });
-let heldTimer=null;
-function stopHeld(){if(heldTimer!==null){clearInterval(heldTimer);heldTimer=null;}}
+let heldTimer=null,heldKey=null;
+window.addEventListener("keyup",e=>{if(e.key===heldKey)stopHeld();});
+function stopHeld(){heldKey=null;if(heldTimer!==null){clearInterval(heldTimer);heldTimer=null;}}
 for(const el of document.querySelectorAll("button[data-move]")){
  const d=el.dataset.move.split(",").map(Number);
  el.addEventListener("pointerdown",e=>{
@@ -235,7 +333,7 @@ for(const el of document.querySelectorAll("button[data-move]")){
   el.addEventListener(name,stopHeld));
  // Keyboard activation already moves via the global keyboard listener.
 }
-window.addEventListener("blur",stopHeld);
+window.addEventListener("blur",()=>{stopHeld();pendingDirection=null;});
 document.getElementById("action").addEventListener("click",action);
 document.getElementById("fullscreen").addEventListener("click",fullscreenToggle);
 document.getElementById("reset").addEventListener("click",()=>stage(scene));
@@ -279,13 +377,17 @@ function readGamepad(now){
  }
 }
 function animate(now){
- if(now-lastFrame>=380){wave++;lastFrame=now;draw();}
+ if(!paused && pendingDirection && (!motion||now-motion.start>=WALK_MS)){
+  const next=pendingDirection;pendingDirection=null;step(...next);
+ }
+ if(!paused && now-lastFrame>=380){wave++;lastFrame=now;}
+ draw(now);
  readGamepad(now);
  requestAnimationFrame(animate);
 }
-atlas.onload=()=>{stage("Wurzelheim");requestAnimationFrame(animate);};
+Promise.all([atlas,actors,foreground,houses,edges,rustleSheet].map(im=>im.decode())).then(()=>{stage("Wurzelheim");requestAnimationFrame(animate);});
 </script></body></html>
 """
 out.parent.mkdir(parents=True,exist_ok=True)
-out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data),encoding="utf-8")
+out.write_text(html.replace("__PAYLOAD__",payload).replace("__MANIFEST__",manifest).replace("__ATLAS__",atlas_data).replace("__ACTORS__",actor_data).replace("__FOREGROUND__",foreground_data).replace("__HOUSES__",house_data).replace("__EDGES__",edge_data).replace("__GRASS__",grass_data).replace("__OBJECTS__",json.dumps(OBJECTS)).replace("__ROOM_FLOORS__",json.dumps(ROOM_FLOORS)),encoding="utf-8")
 print("GB_PLAYABLE_PREVIEW",out,out.stat().st_size)
