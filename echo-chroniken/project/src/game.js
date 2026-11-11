@@ -3,14 +3,17 @@
   const canvas = document.getElementById('screen');
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
+  const gbCampaign = window.EchoGBCampaign;
 
   // --- FARB-PALETTEN (GBA 16-Bit, Geister-Nacht, Klassik DMG) ---
   const PALETTES = [
     { name: 'GBA-Stil', filter: 'none' },
     { name: 'Geister-Nacht', filter: 'hue-rotate(195deg) saturate(1.35) brightness(0.95) contrast(1.1)' },
-    { name: 'DMG-Retro', filter: 'sepia(1) hue-rotate(42deg) saturate(1.7) contrast(1.15)' }
+    { name: 'DMG-Retro', filter: 'sepia(1) hue-rotate(42deg) saturate(1.7) contrast(1.15)' },
+    { name: 'Game Boy V14', filter: 'grayscale(1)' }
   ];
-  let paletteIdx = 0;
+  let paletteIdx = gbCampaign ? 3 : 0;
+  canvas.style.filter = PALETTES[paletteIdx].filter;
   const PREFS_KEY='echo_chroniken_tv_preferences';
   function storePrefs(){
     try{localStorage.setItem(PREFS_KEY,JSON.stringify({soundEnabled,paletteIdx}));}catch(_){}
@@ -1398,19 +1401,28 @@ function executeBattleAction(choice){
   function movePlayer(dx, dy, dirName) {
     if (gameState.mode !== 'OVERWORLD') return;
     gameState.player.dir = dirName;
+    const startX=gameState.player.x,startY=gameState.player.y;
+    const registerStep=(grass=false)=>{
+      if(gameState.player.x!==startX || gameState.player.y!==startY){
+        gbCampaign?.onStep(gameState.currentMapId,gameState.player.x,gameState.player.y,grass,performance.now());
+      }
+    };
     if(gameState.scene==='RUINS'){
       const result=window.EchoRuins.walk(gameState,dx,dy,dirName,sfx);
+      registerStep();
       if(result.exited)saveGame(true);
       return;
     }
     if(gameState.scene==='BUILDING'){
       const result=window.EchoInteriors.walk(gameState,dx,dy,dirName,showDialog,sfx);
+      registerStep();
       if(result.exited)saveGame(true);
       return;
     }
     if(gameState.scene==='HOUSE'){
       const previousScene=gameState.scene;
       window.EchoHouse.walk(gameState,dx,dy,dirName,showDialog,sfx.step);
+      registerStep();
       if(previousScene!==gameState.scene)saveGame(true);
       return;
     }
@@ -1421,10 +1433,15 @@ function executeBattleAction(choice){
          window.EchoStoryRegions?.names[gameState.currentMapId] ? window.EchoStoryRegions :
          window.EchoChapter5?.names[gameState.currentMapId] ? window.EchoChapter5 :
          window.EchoChapter4?.names[gameState.currentMapId] ? window.EchoChapter4 : window.EchoChapter3;
+       const origin=gameState.currentMapId;
        const r=region.regionMove(gameState,dx,dy);
-       if(r.travel){sfx.confirm();saveGame(true);showDialog(r.lines);}
+       if(r.travel){
+         sfx.confirm();saveGame(true);
+         if(!gbCampaign?.isOutdoorLink(origin,gameState.currentMapId))showDialog(r.lines);
+       }
        else if(r.lines)showDialog(r.lines);
        else if(r.moved){
+         registerStep(r.grass);
          sfx.step();
          gameState.stepsSinceSave=(gameState.stepsSinceSave||0)+1;
          if(gameState.stepsSinceSave>=24){gameState.stepsSinceSave=0;saveGame(true);}
@@ -1446,7 +1463,10 @@ function executeBattleAction(choice){
       if(deny){showDialog(deny);return;}
       if(window.EchoMaps.travel(gameState,portal.exitId)){
         sfx.confirm();saveGame(true);
-        showDialog(['NORDUFER - Der Weg nach Nebelhafen beginnt.']);return;
+        if(!gbCampaign?.isOutdoorLink('legacy_wurzeldorf',gameState.currentMapId)){
+          showDialog(['NORDUFER - Der Weg nach Nebelhafen beginnt.']);
+        }
+        return;
       }
     }
     const tile = worldMap[ny][nx];
@@ -1462,6 +1482,7 @@ function executeBattleAction(choice){
     gameState.player.x = nx;
     gameState.player.y = ny;
     gameState.player.stepPhase = gameState.player.stepPhase===1 ? 2 : 1;
+    registerStep(tile===2);
     sfx.step();
     // Quiet checkpoint on walks, without disrupting controls or dialogue.
     gameState.stepsSinceSave=(gameState.stepsSinceSave||0)+1;
@@ -2685,6 +2706,7 @@ function executeBattleAction(choice){
     // 16x22 adventurer with shading, unique NPC costumes, proper two-leg cycle
   // All human characters use the same hand-pixelled 12-frame renderer.
   function drawChar16(sx,sy,color,step=0,role='player',dir='down'){
+    if(role==='player' && gbCampaign?.drawPlayer(ctx,sx,sy,dir,step,performance.now()))return;
     if(!window.EchoCharacters)throw Error('Character sprite module missing');
     window.EchoCharacters.draw(ctx,sx,sy,role,dir,step,color);
   }
@@ -2761,6 +2783,8 @@ function executeBattleAction(choice){
        const sx=x*16-camX,sy=y*16-camY;
        if(sx<-17||sy<-17||sx>PW||sy>PH)continue;
        const tile=map.tiles[y][x];
+       if(gbCampaign?.drawGrass(ctx,map.mapId,x,y,sx,sy,tick) ||
+          gbCampaign?.drawTile(ctx,map,x,y,sx,sy,tick))continue;
        if(window.EchoPostgame?.names[gameState.currentMapId]){
           window.EchoPostgame.drawTile(pix,tile,sx,sy,x,y,tick,gameState.currentMapId);
           continue;
@@ -2856,15 +2880,20 @@ function executeBattleAction(choice){
        ctx.drawImage(companion,px*16-camX+13,py*16-camY-11+Math.sin(tick*.005)*2,18,18);
      }
      drawChar16(px*16-camX,py*16-camY,'#e06e59',gameState.player.stepPhase,'player',gameState.player.dir);
-      window.EchoSOULS?.foreground(gameState.currentMapId,map.tiles,px,py,camX,camY,pix);
+      if(!gbCampaign?.drawGrassFront(ctx,map.mapId,px,py,px*16-camX,py*16-camY,tick)){
+        window.EchoSOULS?.foreground(gameState.currentMapId,map.tiles,px,py,camX,camY,pix);
+      }
    }
    function renderOverworld(tick){
     pix(0,0,PW,PH,'#80b985');
     const px=gameState.player.x,py=gameState.player.y;
     const camX=px*16-CX, camY=py*16-CY;
+    const map=window.EchoMaps?.get('legacy_wurzeldorf');
     for(let y=0;y<MAP_H;y++)for(let x=0;x<MAP_W;x++){
       let sx=x*16-camX,sy=y*16-camY;
       if(sx<-17||sy<-17||sx>PW||sy>PH)continue;
+      if(map && (gbCampaign?.drawGrass(ctx,map.mapId,x,y,sx,sy,tick) ||
+         gbCampaign?.drawTile(ctx,map,x,y,sx,sy,tick)))continue;
       drawTile16(worldMap[y][x],sx,sy,tick,x,y);
     }
     // high-resolution handcrafted cottage + paths + village details
@@ -2915,7 +2944,9 @@ function executeBattleAction(choice){
       pix(CX+offset[0]+5,CY+offset[1]+16,8,1,'#529c83');
     }
     drawChar16(CX,CY,'#e06e59',gameState.player.stepPhase,'player',gameState.player.dir);
-    window.EchoSOULS?.foreground('legacy_wurzeldorf',worldMap,px,py,camX,camY,pix);
+    if(!gbCampaign?.drawGrassFront(ctx,'legacy_wurzeldorf',px,py,CX,CY,tick)){
+      window.EchoSOULS?.foreground('legacy_wurzeldorf',worldMap,px,py,camX,camY,pix);
+    }
     if(Math.sin(tick/25000)>0.65){
       pix(0,0,PW,PH,'#243c5240');
       fireflies.forEach((f,i)=>{

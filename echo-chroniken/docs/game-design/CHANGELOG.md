@@ -1,3 +1,7 @@
+# 11.11.2026 – V14-Grafik im Hauptspiel
+
+60 Kampagnengebiete nutzen V14-Grafik, inklusive Spieleranimation und raschelndem Gras. Direkte Außenwechsel an 17 Verbindungspaaren.
+
 # 11.11.2026 – GB-Erkundungswelt V14
 
 Außenkarten auf ursprüngliche Abmessungen erweitert. 17 Paare von Außenwegen zeigen die Nachbarkarte und führen ohne Unterbrechung der Laufanimation über den Kartenrand.
