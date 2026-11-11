@@ -1,6 +1,6 @@
 <!doctype html><html lang="de"><head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1" />
-<title>Echo-Chroniken · Game Boy 60 Karten · GB-Welt V15</title>
+<title>Echo-Chroniken · Game Boy 60 Karten · GB-Welt V16</title>
 <style>
 :root{color-scheme:dark}
 *{box-sizing:border-box}
@@ -30,7 +30,7 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 :fullscreen body{max-width:none;width:100vw;height:100vh}
 :fullscreen #view{max-height:76vh}
 </style></head><body>
-<h1>🎮 Echo-Chroniken · Game Boy · 60 Karten · V15</h1>
+<h1>🎮 Echo-Chroniken · Game Boy · 60 Karten · V16</h1>
 <div class="subtitle">Erkundungsfassung · 60 bestehende Storykarten im GB-Stil · Außenwege gehen über den Kartenrand weiter · Storybedingungen für die Besichtigung geöffnet.</div>
 <div class="controls">
 <label for="scene">Karte:</label><select id="scene"></select>
@@ -39,6 +39,10 @@ h1{font-size:18px}select,button{padding:9px 10px}}
 </select>
 <button id="fullscreen" type="button">⛶ Vollbild</button>
 <button id="reset" type="button">↺ Neustart</button>
+</div>
+<div class="controls">
+<label for="guide">Wegweiser:</label><select id="guide"></select>
+<strong id="guide-hint" style="min-width:16ch"></strong>
 </div>
 <div id="game-frame">
 <canvas id="view" width="160" height="144" aria-label="Ausschnitt der Spielwelt, folgt deiner Figur"></canvas>
@@ -70,6 +74,12 @@ rustleSheet.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAYAAACm5
 const TILE=16,view=document.getElementById("view"),ctx=view.getContext("2d");
 const sel=document.getElementById("scene"),mode=document.getElementById("mode");
 const msg=document.getElementById("message"),hud=document.getElementById("hud");
+const guide=document.getElementById("guide"),guideHint=document.getElementById("guide-hint");
+const guideDefaults={legacy_wurzeldorf:"lake_north_path",lake_north_path:"nebelhafen_town"};
+const guideDirections=[[1,0],[-1,0],[0,-1],[0,1]];
+const guideArrows=["→","←","↑","↓"];
+const guideLabels=["rechts","links","hoch","runter"];
+let guideDistances=null,guideDisabled=false;
 const padStatus=document.getElementById("controller-state");
 const names=Object.keys(DATA.scenes),glyph=DATA.symbols;
 for(const name of names){const op=document.createElement("option");op.value=name;op.textContent=DATA.scenes[name].title;sel.appendChild(op);}
@@ -143,6 +153,7 @@ function stage(name,returning=false,entry=null,crossing=null){
   walkFoot=1-walkFoot;
   motion={x:px-dir[0],y:py-dir[1],start:performance.now(),frame:walkFoot+1};
  }
+ configureGuide(m);
  setStatus(m.title+" · "+m.width+" × "+m.height+" Felder · Wege führen über den Kartenrand · A: Hinweis ansehen.");
  draw();
 }
@@ -266,6 +277,7 @@ function draw(now=performance.now()){
   ctx.drawImage(sheet,sourceX,0,TILE,TILE,sx(x),sy(y),TILE,TILE);
  }
  hud.textContent=map.title+" · "+(px+1)+"/"+map.width+" × "+(py+1)+"/"+map.height+(paused?" · PAUSE":"");
+ drawGuide(map,sx,sy);
  lastCamera=cam;
 }
 function canWalk(m,x,y){
@@ -292,6 +304,67 @@ function step(dx,dy){
  if(id==='grass')rustles.set(x+','+y,{start:start+WALK_MS*0.45,first:dx<0?0:dx>0?1:walkFoot});
  px=x;py=y;draw();
 }
+function configureGuide(map){
+ const options=[new Option("Aus","")];
+ let defaultExit="";
+ for(const [position,exit] of Object.entries(map.portals)){
+  options.push(new Option(DATA.scenes[exit.scene].title,position));
+  if(exit.scene===guideDefaults[scene])defaultExit=position;
+ }
+ guide.replaceChildren(...options);
+ guide.value=guideDisabled?"":defaultExit;
+ selectGuide(map);
+}
+function selectGuide(map){
+ guideDistances=null;
+ if(!guide.value)return;
+ const [x,y]=guide.value.split(',').map(Number);
+ const distance=new Int16Array(map.width*map.height).fill(-1);
+ const index=(x,y)=>y*map.width+x;
+ const queue=[[x,y]];
+ distance[index(x,y)]=0;
+ for(let i=0;i<queue.length;i++){
+  const [cx,cy]=queue[i];
+  for(const [dx,dy] of guideDirections){
+   const nx=cx+dx,ny=cy+dy,key=nx+','+ny;
+   if(!canWalk(map,nx,ny)||distance[index(nx,ny)]>=0)continue;
+   if(map.portals[key]&&!map.portals[key].direction)continue;
+   distance[index(nx,ny)]=distance[index(cx,cy)]+1;
+   queue.push([nx,ny]);
+  }
+ }
+ guideDistances=distance;
+}
+function guideStep(map){
+ if(!guideDistances)return;
+ const distance=guideDistances[py*map.width+px];
+ if(distance<0)return;
+ if(distance===0){
+  const crossing=map.portals[guide.value].direction;
+  return crossing && guideDirections.find(([dx,dy])=>dx===crossing[0]&&dy===crossing[1]);
+ }
+ return guideDirections.find(([dx,dy])=>canWalk(map,px+dx,py+dy)
+  && guideDistances[(py+dy)*map.width+px+dx]===distance-1);
+}
+guide.addEventListener('change',()=>{
+ guideDisabled=!guide.value;
+ selectGuide(DATA.scenes[scene]);draw();
+});
+function drawGuide(map,sx,sy){
+ const next=guideStep(map);
+ const first=guideDirections.indexOf(next);
+ const hint=first<0?(guide.value?"Kein Weg von hier":""):
+  guideArrows[first]+" "+guideLabels[first]+" Richtung "+DATA.scenes[map.portals[guide.value].scene].title;
+ if(guideHint.textContent!==hint)guideHint.textContent=hint;
+ if(paused||first<0)return;
+ const [dx,dy]=next;
+ const left=sx(px+dx)+1,top=sy(py+dy)+1;
+ ctx.fillStyle=MANIFEST.palette[3];
+ ctx.fillRect(left,top,13,12);
+ ctx.fillStyle=MANIFEST.palette[0];
+ ctx.font="bold 12px sans-serif";
+ ctx.fillText(guideArrows[first],left+1,top+10);
+}
 function action(){
  if(paused){pauseToggle();return;}
  const m=DATA.scenes[scene];
@@ -312,6 +385,7 @@ function fullscreenToggle(){
 const keys={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],
  w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
 window.addEventListener("keydown",e=>{
+ if(e.target===guide)return;
  const d=keys[e.key];
  if(d){
   e.preventDefault();

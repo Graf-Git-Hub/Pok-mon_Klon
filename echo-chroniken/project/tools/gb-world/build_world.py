@@ -222,6 +222,83 @@ html = html[:a] + '''function action(){
  setStatus(marker?m.title+" · "+(marker.label||'Hier liegt eine Spur der Geschichte.'):
   m.title+" · Folge dem Weg über den Kartenrand oder nutze eine Treppe.");
 }''' + html[b:]
+html = html.replace('<div id="game-frame">', """<div class="controls">
+<label for="guide">Wegweiser:</label><select id="guide"></select>
+<strong id="guide-hint" style="min-width:16ch"></strong>
+</div>
+<div id="game-frame">""")
+html = html.replace('const padStatus=', """const guide=document.getElementById("guide"),guideHint=document.getElementById("guide-hint");
+const guideDefaults={legacy_wurzeldorf:"lake_north_path",lake_north_path:"nebelhafen_town"};
+const guideDirections=[[1,0],[-1,0],[0,-1],[0,1]];
+const guideArrows=["→","←","↑","↓"];
+const guideLabels=["rechts","links","hoch","runter"];
+let guideDistances=null,guideDisabled=false;
+const padStatus=""")
+html = html.replace(' setStatus(m.title+', ' configureGuide(m);\n setStatus(m.title+',1)
+html = html.replace('function action(){', """function configureGuide(map){
+ const options=[new Option("Aus","")];
+ let defaultExit="";
+ for(const [position,exit] of Object.entries(map.portals)){
+  options.push(new Option(DATA.scenes[exit.scene].title,position));
+  if(exit.scene===guideDefaults[scene])defaultExit=position;
+ }
+ guide.replaceChildren(...options);
+ guide.value=guideDisabled?"":defaultExit;
+ selectGuide(map);
+}
+function selectGuide(map){
+ guideDistances=null;
+ if(!guide.value)return;
+ const [x,y]=guide.value.split(',').map(Number);
+ const distance=new Int16Array(map.width*map.height).fill(-1);
+ const index=(x,y)=>y*map.width+x;
+ const queue=[[x,y]];
+ distance[index(x,y)]=0;
+ for(let i=0;i<queue.length;i++){
+  const [cx,cy]=queue[i];
+  for(const [dx,dy] of guideDirections){
+   const nx=cx+dx,ny=cy+dy,key=nx+','+ny;
+   if(!canWalk(map,nx,ny)||distance[index(nx,ny)]>=0)continue;
+   if(map.portals[key]&&!map.portals[key].direction)continue;
+   distance[index(nx,ny)]=distance[index(cx,cy)]+1;
+   queue.push([nx,ny]);
+  }
+ }
+ guideDistances=distance;
+}
+function guideStep(map){
+ if(!guideDistances)return;
+ const distance=guideDistances[py*map.width+px];
+ if(distance<0)return;
+ if(distance===0){
+  const crossing=map.portals[guide.value].direction;
+  return crossing && guideDirections.find(([dx,dy])=>dx===crossing[0]&&dy===crossing[1]);
+ }
+ return guideDirections.find(([dx,dy])=>canWalk(map,px+dx,py+dy)
+  && guideDistances[(py+dy)*map.width+px+dx]===distance-1);
+}
+guide.addEventListener('change',()=>{
+ guideDisabled=!guide.value;
+ selectGuide(DATA.scenes[scene]);draw();
+});
+function drawGuide(map,sx,sy){
+ const next=guideStep(map);
+ const first=guideDirections.indexOf(next);
+ const hint=first<0?(guide.value?"Kein Weg von hier":""):
+  guideArrows[first]+" "+guideLabels[first]+" Richtung "+DATA.scenes[map.portals[guide.value].scene].title;
+ if(guideHint.textContent!==hint)guideHint.textContent=hint;
+ if(paused||first<0)return;
+ const [dx,dy]=next;
+ const left=sx(px+dx)+1,top=sy(py+dy)+1;
+ ctx.fillStyle=MANIFEST.palette[3];
+ ctx.fillRect(left,top,13,12);
+ ctx.fillStyle=MANIFEST.palette[0];
+ ctx.font="bold 12px sans-serif";
+ ctx.fillText(guideArrows[first],left+1,top+10);
+}
+function action(){""",1)
+html = html.replace(' lastCamera=cam;', ' drawGuide(map,sx,sy);\n lastCamera=cam;')
+html = html.replace('window.addEventListener("keydown",e=>{', 'window.addEventListener("keydown",e=>{\n if(e.target===guide)return;')
 html = html.replace('hud.textContent=scene+" · "', 'hud.textContent=map.title+" · "')
 html = html.replace('["Schmiede","Laden"].includes(scene)', "map.indoor")
 html = html.replace("['Schmiede','Laden'].includes(scene)", "map.indoor")
@@ -230,7 +307,7 @@ html = html.replace('if(scene!=="Wurzelheim"&&scene!=="Route")stage("Wurzelheim"
                     'if(false)stage("legacy_wurzeldorf");')
 html = html.replace('B: Zurück funktioniert innerhalb eines Hauses.',
                     'Folge den Wegen und Treppen oder wähle oben ein Gebiet.')
-html = html.replace('Grafiktest V12', '60 Karten · GB-Welt V15').replace('Grafik V12', '60 Karten · V15')
+html = html.replace('Grafiktest V12', '60 Karten · GB-Welt V16').replace('Grafik V12', '60 Karten · V16')
 html = html.replace('Stiltest, noch nicht das Hauptspiel · 4 Graustufen · feste 16px-Grafikbibliothek · Kamera folgt deiner Figur.',
                     'Erkundungsfassung · 60 bestehende Storykarten im GB-Stil · Außenwege gehen über den Kartenrand weiter · Storybedingungen für die Besichtigung geöffnet.')
 html = html.replace('Handy: 10 × 9 Felder · TV: 16 × 9 Felder · Pixel bleiben scharf. Das Bild scrollt mit deiner Spielfigur, Spiellogik und alte Speicherstände werden nicht verändert.',

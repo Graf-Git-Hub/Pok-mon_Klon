@@ -1,4 +1,4 @@
-# GB-Erkundungswelt V15
+# GB-Erkundungswelt V16
 
 Wurzelheim und Nordufer haben individuelle Grundrisse mit Dorfplatz, Seeufern und verzweigten Wegen.
 
@@ -6,7 +6,9 @@ Die Vorschau umfasst 60 Gebiete mit 118 Übergangsrichtungen und 238 Landmarken.
 Außenkarten nutzen die ursprünglichen Kartengrößen von 36 × 28 bis 52 × 33 Feldern.
 Die kompakten Innenräume messen 12 × 9 Felder.
 
-[Erkundungswelt V15 öffnen](https://graf-git-hub.github.io/Souls/echo-chroniken-welt-v15.html)
+[Erkundungswelt V16 öffnen](https://graf-git-hub.github.io/Souls/echo-chroniken-welt-v16.html)
+
+Der Wegweiser zeigt den nächsten begehbaren Schritt zum ausgewählten Nachbargebiet. Standardmäßig leitet er von Wurzelheim über das Nordufer nach Nebelhafen.
 
 An 17 beidseitigen Außenwegen zeigt die Kamera beide Karten. Am Rand läuft die
 Figur mit derselben Richtung und laufender Animation in das Nachbargebiet.

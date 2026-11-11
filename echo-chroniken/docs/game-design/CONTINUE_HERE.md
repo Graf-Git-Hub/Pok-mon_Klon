@@ -1,5 +1,7 @@
 # CONTINUE HERE - Echo-Chroniken Spielentwicklung
 
+> GB-Welt V16: Wegweiser zeigt den nächsten begehbaren Schritt. In Wurzelheim und am Nordufer führt er standardmäßig Richtung Nebelhafen. Ziele sind die direkten Nachbargebiete der aktuellen Karte.
+
 > GB-Welt V15: Wurzelheim und Nordufer individuell gestaltet. Dorfplatz und Häuser liegen an durchgehenden Wegen, am Nordufer führt die Route am See und an Graslichtungen vorbei. Weitere Gebiete basieren auf V14.
 
 > GB-Welt V14: Größere Außenkarten mit 17 beidseitig verbundenen Außenwegen und sichtbarer Nachbarkarte. Siehe ../gb-classic/WORLD_60_README.md. Nächster Integrationsschritt bleibt die Übertragung in die Hauptspiel-Engine mit Storybedingungen, Kämpfen und Saves.

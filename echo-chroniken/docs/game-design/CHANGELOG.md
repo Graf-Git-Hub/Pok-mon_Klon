@@ -1,3 +1,7 @@
+# 11.11.2026 – GB-Erkundungswelt V16
+
+Wegweiser mit auswählbaren Nachbarzielen und einem Pfeil für die nächste Laufrichtung. Standardroute von Wurzelheim über das Nordufer nach Nebelhafen.
+
 # 11.11.2026 – GB-Erkundungswelt V15
 
 Wurzelheim und Nordufer individuell gestaltet. Dorfplatz, verzweigte Wege, versetzte Häuser, Seeufer und Waldlichtungen.
