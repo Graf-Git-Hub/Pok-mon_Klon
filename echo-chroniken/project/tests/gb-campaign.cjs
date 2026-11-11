@@ -9,8 +9,12 @@ const expected = JSON.parse(read('assets/gb-classic/world_maps.json')).scenes;
 const elements = new Map();
 const storage = new Map();
 let imageDraws = 0;
+const paintedRects = [];
 
 const ctx = new Proxy({
+  fillRect(...rectangle) {
+    if (paintedRects.length < 100) paintedRects.push(rectangle);
+  },
   drawImage(image, ...coordinates) {
     assert(image);
     assert(coordinates.every(Number.isFinite));
@@ -51,14 +55,15 @@ for (const [,file] of html.matchAll(/<script src="([^"]+)"><\/script>/g)) {
   let source = read(file);
   if (file === 'src/game.js') {
     source = source.replace('  // --- HAUPTSCHLEIFE (GAME LOOP) ---',
-      '  window.campaignTest={gameState,movePlayer,renderScene,startWildBattle,createMonsterInstance};');
+      '  window.campaignTest={gameState,movePlayer,renderScene,renderTitle,renderBattle,startWildBattle,createMonsterInstance};');
   }
   vm.runInContext(source, env, {filename:file});
 }
-const {gameState: state, movePlayer, renderScene, startWildBattle, createMonsterInstance} = window.campaignTest;
+const {gameState: state, movePlayer, renderScene, renderTitle, renderBattle, startWildBattle, createMonsterInstance} = window.campaignTest;
 const art = window.EchoGBCampaign;
 const registry = window.EchoMaps;
 assert.equal(window.echoQASnapshot().scene, 'HOUSE');
+renderTitle(200);
 renderScene(200);
 
 let links = 0;
@@ -78,6 +83,13 @@ for (const [id, region] of Object.entries(expected)) {
 }
 assert.equal(Object.keys(expected).length,60);
 assert.equal(links,34);
+
+// A shoreline should only draw a pale rim against the dry neighboring tile.
+const shoreline = {mapId:'lake_north_path',width:3,height:3,tiles:[[4,4,4],[0,4,4],[4,4,4]]};
+paintedRects.length = 0;
+art.drawTile(ctx,shoreline,1,1,16,16,120);
+assert(paintedRects.some(([x,y,w,h]) => x===16 && y===16 && w===2 && h===16));
+assert(!paintedRects.some(([x,y,w,h]) => x===30 && y===16 && w===2 && h===16));
 
 const village = registry.get('legacy_wurzeldorf');
 const gate = village.exits.find(exit => exit.exitId === 'to_lake');
@@ -107,5 +119,8 @@ state.hasStarter = true;
 startWildBattle();
 assert.equal(state.mode,'BATTLE');
 assert(state.battle.enemy.id > 0);
+renderBattle(200);
+state.battle.ruinBoss = true;
+renderBattle(350);
 
 console.log('PASS: full campaign loaded, 60 V14 map renders, 34 outdoor links, story gate, autosave, grass and live battle creation');

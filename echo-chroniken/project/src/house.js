@@ -88,12 +88,26 @@ function talk(s,showDialog,createMonster,sfx){
 function render(ctx,tick,s,drawChar){
   const p=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h));};
   const label=(v,x,y,size=9,c='#fff0c8',align='left')=>{ctx.save();ctx.fillStyle=c;ctx.font='bold '+size+'px monospace';ctx.textAlign=align;ctx.fillText(v,x,y);ctx.restore();};
-  p(0,0,320,180,'#283e3a');p(17,2,286,176,'#44382f');p(22,5,276,170,'#e8bd84');
-  p(25,8,270,26,'#d7a775');p(25,31,270,4,'#684738');
-  for(let i=0;i<27;i++){p(25+i*10,9,1,24,'#c49367');p(25,13+(i%3)*7,270,1,'#e9bf90');}
-  p(25,35,270,137,'#cda875');
-  for(let r=0;r<10;r++){let y=35+r*14;p(25,y,270,1,'#ac7d56');for(let i=0;i<14;i++){let x=25+i*20+(r%2)*9;p(x,y+1,1,13,'#b58b5f');if((r+i)%4===0)p(x+3,y+4,11,1,'#dbb989');}}
-  p(91,34,38,29,'#ecdcad44');p(84,58,57,51,'#f2db9b18');
+  // Wide floorboards and a timber dado keep the silhouettes readable.
+  p(0,0,320,180,'#24262b');p(20,3,280,174,'#777a7b');
+  p(24,7,272,166,'#c7c8c4');p(25,8,270,25,'#f4f4ef');
+  p(25,26,270,7,'#777a7b');p(25,31,270,3,'#24262b');
+  for(let x=28;x<294;x+=11){
+    p(x,27,1,4,'#c7c8c4');
+    p(x+3,10,4,1,'#c7c8c4');
+  }
+  p(25,34,270,138,'#c7c8c4');
+  for(let row=0;row<11;row++){
+    const y=35+row*12;
+    p(25,y,270,1,'#a1a4a0');
+    p(25,y+1,270,1,'#dedfda');
+    for(let x=29+(row%3)*11;x<290;x+=34)p(x,y+2,1,9,'#a1a4a0');
+  }
+  // Window light is kept under furniture and actors.
+  for(const x of [81,233]){
+    p(x+4,34,18,18,'#f4f4ef55');
+    p(x+7,52,20,8,'#f4f4ef33');
+  }
   for(const x of [82,235]){
     p(x-3,9,32,25,'#674839');p(x,11,26,19,'#9bd0c7');p(x+2,13,22,15,'#bee7d4');
     p(x+12,11,2,19,'#765541');p(x,20,26,2,'#765541');p(x-4,30,34,4,'#8b6047');
@@ -104,13 +118,21 @@ function render(ctx,tick,s,drawChar){
   p(68,50,34,15,'#f2e4ce');p(72,51,25,9,'#fff6e1');p(68,65,34,28,'#6e8b80');
   for(let j=0;j<4;j++)p(68,69+j*6,34,2,j%2?'#b0c3ab':'#9baf9e');
   p(66,90,40,5,'#46544b');
-  // Teppich.
-  p(121,89,65,55,'#84524c');p(124,92,59,49,'#c57d5f');p(128,95,51,43,'#e0a879');
-  for(let i=0;i<5;i++){p(130+i*10,99,3,34,'#c88d74');p(128,97+i*9,51,2,'#edc399');}
-  p(151,113,7,9,'#af6158');p(148,115,13,4,'#f0c78b');p(152,111,5,13,'#ad5d51');
+  // Woven rug with a quiet center behind the player sprite.
+  p(122,90,63,52,'#24262b');p(124,92,59,48,'#777a7b');
+  p(127,95,53,42,'#c7c8c4');p(130,98,47,36,'#777a7b');
+  p(132,100,43,32,'#b8b9b4');
+  for(let x=129;x<177;x+=6){
+    p(x,93,3,2,'#f4f4ef');p(x,137,3,2,'#f4f4ef');
+  }
+  for(const [x,y] of [[137,104],[166,104],[137,123],[166,123]]){
+    p(x+2,y,2,6,'#777a7b');p(x,y+2,6,2,'#777a7b');p(x+2,y+2,2,2,'#f4f4ef');
+  }
   // Ofen mit Feuer.
   p(64,107,36,40,'#4c4943');p(68,111,28,31,'#786c5d');p(71,114,22,24,'#303537');
-  p(75,123,14,13,'#e4864e');p(79,119,7,15,'#f4b95d');p(81,125,3,8,'#ffe49b');
+  const flame=Math.floor(tick/150)%3;
+  p(75,123,14,13,'#777a7b');p(78,120+flame,8,13-flame,'#c7c8c4');
+  p(81,125-flame,3,8+flame,'#f4f4ef');p(76+flame,116,1,1,'#f4f4ef');
   p(66,107,32,5,'#a9987a');p(68,103,28,5,'#4c5e5b');
   // Regal.
   p(257,36,28,67,'#4b3a35');p(260,38,22,63,'#95694f');
@@ -134,10 +156,12 @@ function render(ctx,tick,s,drawChar){
   // Ausgang samt Türschwelle.
   p(138,156,35,22,'#6f4738');p(142,158,27,19,'#9f7651');p(146,160,19,17,'#b9b68b');
   p(150,163,11,10,'#66887b');p(157,165,2,2,'#f8df97');p(135,174,42,3,'#4a3833');
-  // Schmale Questanzeige, nicht über dem Paket.
-  p(26,146,111,23,'#2d5049');p(28,148,107,19,'#e8d1a1');
-  label('OMAS HAUS',34,156,9,'#305650');label('★ '+Math.min(4,s.introStage||0)+'/4',34,165,8,'#4a7065');
-  p(178,149,115,18,'#2b4b45');label(s.introStage===1&&nearParcel(s.player)?'A: PAKET ÖFFNEN':objective(s),235,161,9,'#fff2c8','center');
+  // The location and current objective share one compact header.
+  p(25,8,56,14,'#24262b');p(26,9,54,12,'#777a7b');
+  label('OMAS HAUS',30,17,7,'#f4f4ef');
+  const goal=s.introStage===1&&nearParcel(s.player)?'A: Paket öffnen':objective(s);
+  p(119,10,111,12,'#24262b');label(goal,174,18,7,'#f4f4ef','center');
+
 }
 window.EchoHouse={walk,talk,render,objective,nearParcel};
 })();

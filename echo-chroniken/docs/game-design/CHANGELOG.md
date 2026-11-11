@@ -1,3 +1,7 @@
+# 11.11.2026 – V14-Grafikupdate
+
+Neues Titelbild am Mondsee, überarbeitetes Intro-Interieur, animierte Ufer und lesbarere Wege sowie neue Wald- und Ruinenkampfkulissen.
+
 # 11.11.2026 – V14-Grafik im Hauptspiel
 
 60 Kampagnengebiete nutzen V14-Grafik, inklusive Spieleranimation und raschelndem Gras. Direkte Außenwechsel an 17 Verbindungspaaren.

@@ -3097,32 +3097,36 @@ function executeBattleAction(choice){
     const b=gameState.battle;if(!b)return;
     const ally=getActiveAlly();if(!ally)return;
     const enemy=b.enemy;const allySp=SPECIES[ally.id-1],enemySp=SPECIES[enemy.id-1];
-    // GBA-inspiriertes Layout in 320 × 180: obere Kampfbuehne, darunter 2 Panels.
-    const bg=ctx.createLinearGradient(0,0,0,118);
-    bg.addColorStop(0,'#b1dfd2');bg.addColorStop(.65,'#dbedcf');bg.addColorStop(1,'#95c19d');
-    ctx.fillStyle=bg;ctx.fillRect(0,0,PW,118);
-    for(let i=0;i<24;i++){
-      const x=i*16-12,h=10+Math.floor(hash(i,12)*17);
-      pix(x,86-h,7,h,'#96b79f');pix(x+3,79-h,3,9,'#729d8c');
-    }
     if(b.ruinBoss){
-      // Unique ancient sanctuary, distinct from normal bright-grass encounters.
-      pix(0,0,320,118,'#29464f');
-      for(let i=0;i<14;i++){
-        const x=i*25-12;
-        pix(x,18+(i%3)*9,15,68,'#3b6063');
-        pix(x+3,15+(i%3)*9,10,3,'#8e9a88');
+      pix(0,0,PW,118,'#24262b');
+      pix(0,79,PW,39,'#777a7b');
+      for(let x=8;x<PW;x+=48){
+        pix(x,19,14,59,'#56595c');pix(x+2,21,3,53,'#777a7b');
+        pix(x-2,17,18,4,'#777a7b');pix(x-2,76,18,4,'#c7c8c4');
       }
-      pix(0,80,320,38,'#637e72');
-      for(let i=0;i<24;i++){let x=i*17+3;pix(x,83+(i%4)*8,8,2,i%2?'#8eaa8a':'#455f63');}
-      pix(0,100,320,18,'#526f66');
-    }else pix(0,91,320,27,'#90bd9c');
-    for(let i=0;i<28;i++){
-      const x=i*13+hash(i,92)*8,y=93+hash(i,12)*23;
-      pix(x,y,2,2,i%3?'#b9d9a0':'#e3d4a1');
+      for(let y=86;y<118;y+=9){
+        pix(0,y,PW,1,'#56595c');
+        for(let x=(y%2)*12;x<PW;x+=27)pix(x,y,1,8,'#56595c');
+      }
+    }else{
+      pix(0,0,PW,118,'#f4f4ef');
+      pix(0,66,PW,52,'#c7c8c4');
+      for(let i=0;i<26;i++){
+        const x=i*13-6,h=14+Math.floor(hash(i,12)*26);
+        const shade=i%3===0?'#777a7b':'#a0a3a0';
+        pix(x+4,67-h,5,h,shade);
+        pix(x+2,72-h,9,h-4,shade);
+        pix(x,77-h,13,h-9,shade);
+        pix(x+5,66,3,8,'#777a7b');
+      }
+      pix(0,85,PW,33,'#dedfda');
+      for(let i=0;i<32;i++){
+        const x=i*11+Math.floor(hash(i,92)*7),y=87+Math.floor(hash(i,12)*27);
+        pix(x,y,1,3,'#777a7b');pix(x+1,y+2,2,1,'#a0a3a0');
+      }
     }
-    ellipseBattle(245,100,58,12,'#75a987','#507b73');
-    ellipseBattle(79,108,70,14,'#78ab89','#4f806e');
+    ellipseBattle(245,100,58,12,'#c7c8c4','#777a7b');
+    ellipseBattle(79,108,70,14,'#c7c8c4','#777a7b');
     const bounce=Math.sin(tick*.005)*2;
     const hurt=b.animTimer>0;
     if(hurt)b.animTimer--;
@@ -3359,27 +3363,44 @@ function executeBattleAction(choice){
     fText('↑↓: Nr.   ←→: ±10    B: Zurück',19,167,9,'#647c68');
   }
   function renderTitle(tick){
-    const grad=ctx.createLinearGradient(0,0,0,PH);grad.addColorStop(0,'#213c57');grad.addColorStop(.66,'#63877b');grad.addColorStop(1,'#c6b88c');
-    ctx.fillStyle=grad;ctx.fillRect(0,0,PW,PH);
-    // layered night-sky silhouettes, stars and a bright moon
-    pix(250,17,28,28,'#f4da99');pix(245,22,36,17,'#f4da99');pix(255,13,19,36,'#f4da99');
-    for(let i=0;i<45;i++){let x=Math.floor(hash(i,4)*PW),y=Math.floor(hash(i,13)*100);pix(x,y,i%5===0?2:1,1,'#f4e5b6');}
-    for(let i=0;i<24;i++){let x=i*17-15,h=15+hash(i,41)*40;pix(x,120-h,13,h,'#315761');pix(x+3,111-h,7,10,'#385f67');}
-    pix(0,121,PW,59,'#456a61');
-    for(let i=0;i<36;i++){let x=i*12-7,h=5+hash(i,7)*14;pix(x,142-h,7,h,'#365d56');}
-    for(let i=0;i<40;i++){let x=hash(i,26)*PW,y=140+hash(i,48)*40;pix(x,y,2,2,i%3?'#78957a':'#d6b979');}
-    ctx.save();ctx.globalAlpha=.95;
-    ctx.drawImage(getMonsterSprite(1,32),31,60+Math.sin(tick*.003)*4,56,56);
-    ctx.drawImage(getMonsterSprite(2,32),236,74-Math.sin(tick*.004)*4,54,54);
-    ctx.restore();
-    // engraved title plate
-    pix(53,31,215,59,'#213e4b');pix(56,34,209,53,'#e4cb91');pix(59,37,203,47,'#334e57');
-    fText('ECHO',160,57,26,'#f4d8a0','center');
-    fText('CHRONIKEN',160,77,19,'#e9c58c','center');
-    fText('DAS ERBE DER 150 SEELEN',160,102,9,'#fff1bd','center');
-    boxArt(96,126,128,24,'#e9d19d','#385b55');
-    fText('▶  A  STARTEN',160,142,12,Math.floor(tick/600)%2===0?'#36574e':'#6c7755','center');
-    fText('GAMEPAD  ·  WIDESCREEN EDITION',160,169,9,'#fff1c3','center');
+    // Moonlit lake with a shoreline that stays readable behind the title.
+    pix(0,0,PW,PH,'#24262b');
+    pix(0,68,PW,112,'#777a7b');
+    pix(0,81,PW,99,'#56595c');
+    for(let i=0;i<24;i++){
+      const x=Math.floor(hash(i,4)*PW),y=Math.floor(hash(i,13)*61);
+      pix(x,y,i%5===0?2:1,1,i%3===0?'#f4f4ef':'#c7c8c4');
+    }
+    pix(243,22,31,21,'#c7c8c4');pix(247,17,23,31,'#f4f4ef');
+    pix(251,14,15,36,'#f4f4ef');
+    pix(253,24,4,3,'#c7c8c4');pix(263,35,5,4,'#c7c8c4');
+    for(let i=0;i<38;i++){
+      const x=i*9-7,h=8+Math.floor(hash(i,41)*20);
+      for(let layer=0;layer<4;layer++){
+        const span=3+layer*2;
+        pix(x-Math.floor(span/2),79-h+Math.floor(layer*h/4),span,Math.ceil(h/4)+1,'#24262b');
+      }
+      pix(x-1,76,3,8,'#24262b');
+    }
+    for(let i=0;i<23;i++){
+      const x=Math.floor(hash(i,26)*PW), y=84+Math.floor(hash(i,48)*64);
+      const motion=Math.floor(tick/260)%4;
+      pix(x+motion,y,5+(i%5)*3,1,i%3?'#777a7b':'#c7c8c4');
+    }
+    for(let x=0;x<PW;x+=8){
+      const y=151+Math.floor(hash(x,3)*11);
+      pix(x,y,8,PH-y,'#24262b');
+      pix(x+1,y-1,5,1,'#c7c8c4');
+      if(x%24===0)pix(x+4,y-6,1,5,'#c7c8c4');
+    }
+    ctx.drawImage(getMonsterSprite(1,32),22,88+Math.round(Math.sin(tick*.003)*2),48,48);
+    ctx.drawImage(getMonsterSprite(2,32),251,96-Math.round(Math.sin(tick*.004)*2),47,47);
+    pix(60,34,200,60,'#24262b');
+    pix(62,36,196,56,'#c7c8c4');pix(64,38,192,52,'#24262b');
+    fText('ECHO',160,59,24,'#f4f4ef','center');
+    fText('CHRONIKEN',160,78,18,'#f4f4ef','center');
+    boxArt(99,122,122,24,'#f4f4ef','#24262b');
+    fText('▶  A  STARTEN',160,138,11,'#24262b','center');
   }
 
   // --- HANDY: TOUCH-GAMEPAD, WIEDERHOLUNG BEI GEHALTENER RICHTUNG ---

@@ -17,6 +17,61 @@
   let lastStep = null;
   let recentGrass = [];
 
+  const shades = {
+    paper:'#f4f4ef', pale:'#c7c8c4', shade:'#777a7b', ink:'#24262b',
+  };
+  function fill(ctx,x,y,w,h,color) {
+    ctx.fillStyle=color;
+    ctx.fillRect(x,y,w,h);
+  }
+  const borders = [
+    [-1,0,0,0,2,16], [1,0,14,0,2,16], [0,-1,0,0,16,2], [0,1,0,14,16,2],
+  ];
+
+  function drawShore(ctx,map,x,y,sx,sy,tick) {
+    fill(ctx,sx,sy,16,16,shades.shade);
+    const wave=(Math.floor(tick/260)+x+y)%4;
+    fill(ctx,sx+2+wave,sy+4,5,1,shades.pale);
+    fill(ctx,sx+8-wave,sy+11,5,1,shades.pale);
+    for(const [dx,dy,ox,oy,w,h] of borders){
+      if(map.tiles[y+dy]?.[x+dx]===4)continue;
+      fill(ctx,sx+ox,sy+oy,w,h,shades.pale);
+      const lx=ox===0&&dx<0?0:ox===14?15:ox;
+      const ly=oy===0&&dy<0?0:oy===14?15:oy;
+      fill(ctx,sx+lx,sy+ly,dx?1:w,dy?1:h,shades.paper);
+    }
+  }
+
+  function drawGrove(ctx,map,x,y,sx,sy) {
+    const variant=(x*7+y*11)%5;
+    const north=map.tiles[y-1]?.[x]===1;
+    const south=map.tiles[y+1]?.[x]===1;
+    fill(ctx,sx,sy,16,16,shades.pale);
+    if(north)fill(ctx,sx+1,sy,14,4,shades.shade);
+    if(!south){
+      fill(ctx,sx+2,sy+14,12,1,shades.shade);
+      fill(ctx,sx+7,sy+10,3,5,shades.ink);
+    }
+    fill(ctx,sx+5,sy+1,7,12,shades.ink);
+    fill(ctx,sx+2,sy+4,13,7,shades.ink);
+    fill(ctx,sx+3,sy+4,10,4,shades.shade);
+    fill(ctx,sx+6,sy+2,5,3,shades.shade);
+    fill(ctx,sx+4+variant,sy+5,3,1,shades.pale);
+    fill(ctx,sx+4,sy+10,9,2,shades.ink);
+  }
+
+  function drawPath(ctx,map,x,y,sx,sy) {
+    fill(ctx,sx,sy,16,16,shades.paper);
+    for(const [dx,dy,ox,oy,w,h] of borders){
+      const other=map.tiles[y+dy]?.[x+dx];
+      if(other===3||other===8||other===4)continue;
+      fill(ctx,sx+ox,sy+oy,w,h,shades.pale);
+    }
+    const seed=(x*11+y*7)%9;
+    fill(ctx,sx+3+seed,sy+5,2,1,shades.pale);
+    fill(ctx,sx+11-seed,sy+11,2,1,shades.pale);
+  }
+
   function drawTile(ctx, map, x, y, sx, sy, tick) {
     const art = maps[map.mapId];
     if (!art || !ready(atlas)) return false;
@@ -37,12 +92,22 @@
           stamp(ctx, biomes, ice ? 2 : 0, 0, sx, sy);
           return true;
         }
+        if(!art.indoor){
+          drawGrove(ctx,map,x,y,sx,sy);
+          return true;
+        }
         break;
       case 2: tile = 'grass'; break;
       case 3:
-        tile = art.indoor ? 'room_floor' : suggested === 'floor_stone' ? 'floor_stone' : 'path';
+        if(!art.indoor && suggested!=='floor_stone'){
+          drawPath(ctx,map,x,y,sx,sy);
+          return true;
+        }
+        tile = art.indoor ? 'room_floor' : 'floor_stone';
         break;
-      case 4: tile = Math.floor(tick / 380) % 2 ? 'water_b' : 'water_a'; break;
+      case 4:
+        drawShore(ctx,map,x,y,sx,sy,tick);
+        return true;
       case 5:
         if (art.indoor) {
           tile = 'bookshelf';
@@ -67,13 +132,6 @@
       const index = sprites[tile];
       stamp(ctx, atlas, index%8, Math.floor(index/8), sx, sy);
     }
-    if (terrain === 4) {
-      ctx.fillStyle = '#777a7b';
-      if (map.tiles[y-1]?.[x] !== 4) ctx.fillRect(sx,sy,16,1);
-      if (map.tiles[y+1]?.[x] !== 4) ctx.fillRect(sx,sy+15,16,1);
-      if (map.tiles[y]?.[x-1] !== 4) ctx.fillRect(sx,sy,1,16);
-      if (map.tiles[y]?.[x+1] !== 4) ctx.fillRect(sx+15,sy,1,16);
-    }
     return true;
   }
 
@@ -86,6 +144,7 @@
   function drawPlayer(ctx, sx, sy, dir, phase, tick) {
     if (!ready(actors)) return false;
     const walking = lastStep && tick-lastStep.tick < 150;
+    fill(ctx,sx+4,sy+14,8,2,'#24262b44');
     stamp(ctx, actors, walking ? phase%3 : 0, directionRow[dir] ?? 0, sx, sy);
     return true;
   }
